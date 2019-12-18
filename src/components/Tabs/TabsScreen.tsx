@@ -165,7 +165,7 @@ class TabsScreen extends React.Component<Props, State>  {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar barStyle={'dark-content'} />
+        <StatusBar barStyle={'light-content'} />
 
         {/* Content */}
         { (this.state.booted && this.props.user) &&

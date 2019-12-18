@@ -45,15 +45,15 @@ const HeaderBar: React.SFC<Props> = (props) => {
           <View>
             { props.back ? (
               <TouchableOpacity style={styles.leftBtn} onPress={backAction || Actions.pop}>
-                <AntDesign name="left" size={16} color='#333' />
+                <AntDesign name="left" size={16} color='#fff' />
               </TouchableOpacity>
             ) : props.close ? (
               <TouchableOpacity style={styles.leftBtn} onPress={backAction || Actions.pop}>
-                <EvilIcon name="close" size={24} color='#333' />
+                <EvilIcon name="close" size={24} color='#fff' />
               </TouchableOpacity>
             ) : props.main ? (
               <TouchableOpacity style={styles.leftBtn} onPress={Actions.profile}>
-                <FontAwesome name="user" size={23} color='#333' />
+                <FontAwesome name="user" size={23} color='#fff' />
               </TouchableOpacity>
             ) : (null)}
           </View>
@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
       paddingTop: Constants.statusBarHeight,
     }),
 
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    backgroundColor: mainStyle.themeColor
   },
 
   content: {
@@ -96,10 +95,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    ...mainStyle.montText,
+    ...mainStyle.montBold,
     fontSize: 14,
     textAlign: 'center',
-    color: '#333',
+    color: '#fff',
   },
   leftBtn: {
     padding: 12,

@@ -155,6 +155,7 @@ class ProductsScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
+          title='All Is Good'
           titleView={
             <AssetImage style={{flex: 1, width: 80, height: 28,}} src={require('../../images/logo.png')} />
           }

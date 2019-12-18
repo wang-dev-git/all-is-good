@@ -214,7 +214,7 @@ class ProfileScreen extends React.Component<Props, State>  {
 
             <MenuLink
               icon='headphones'
-              title="Contacter All Is Good"
+              title="Assistance"
               right
               
               onPress={() => this.help()}
@@ -229,7 +229,7 @@ class ProfileScreen extends React.Component<Props, State>  {
               />
            </View>
 
-           <View style={[styles.group, { marginTop: 60 }]}>
+           <View style={[styles.group, { marginTop: 40 }]}>
             <MenuLink
               icon='sign-out'
               title='Déconnexion'

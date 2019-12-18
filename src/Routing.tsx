@@ -10,34 +10,19 @@ import LandingScreen from './components/Landing/LandingScreen'
 import LoginScreen from './components/Login/LoginScreen'
 
 import TabsScreen from './components/Tabs/TabsScreen'
-import PickTypeScreen from './components/PickType/PickTypeScreen'
 
 import PaymentScreen from './components/Payment/PaymentScreen'
 import RecapScreen from './components/Payment/RecapScreen'
 import ProfileScreen from './components/Profile/ProfileScreen'
-import ShopScreen from './components/Shop/ShopScreen'
-import BoostScreen from './components/Boost/BoostScreen'
-import ProLoginScreen from './components/Login/ProLoginScreen'
 import UserInfoScreen from './components/UserInfo/UserInfoScreen'
-import UserBankScreen from './components/UserBank/UserBankScreen'
-import UserBankMoreScreen from './components/UserBank/UserBankMoreScreen'
 import OrdersScreen from './components/Orders/OrdersScreen'
-import SalesScreen from './components/Sales/SalesScreen'
-import MyProductsScreen from './components/MyProducts/MyProductsScreen'
 import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
-import RelaysScreen from './components/Relays/RelaysScreen'
 import AddCardScreen from './components/AddCard/AddCardScreen'
 
-import WalletScreen from './components/Wallet/WalletScreen'
-import CertifScreen from './components/Certif/CertifScreen'
-import TrackingScreen from './components/Tracking/TrackingScreen'
 import ProductScreen from './components/Product/ProductScreen'
 import UpdatePriceScreen from './components/Product/UpdatePriceScreen'
 import MoreProductsScreen from './components/Products/MoreProductsScreen'
-import CommentsScreen from './components/Comments/CommentsScreen'
 
-import CategoryScreen from './components/Category/CategoryScreen'
-import NotifsScreen from './components/Notifs/NotifsScreen'
 
 import { Asset } from 'expo-asset'
 import { AppLoading } from 'expo';
@@ -123,8 +108,6 @@ export default class Routing extends React.Component<Props, State> {
           <Modal>
             <Stack key="root" hideNavBar>
               <Scene key="tabs" component={TabsScreen} />
-              <Scene key="notifs" component={NotifsScreen} />
-              <Scene key="category" component={CategoryScreen} />
 
               <Scene key="more" component={MoreProductsScreen} />
               <Scene key="payment" component={PaymentScreen} />
@@ -133,34 +116,18 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="profile" component={ProfileScreen} />
               <Scene key="product" component={ProductScreen} />
               <Scene key="updatePrice" component={UpdatePriceScreen} />
-              <Scene key="shop" component={ShopScreen} />
 
-              <Scene key="comments" component={CommentsScreen} />
-
-              <Scene key="wallet" component={WalletScreen} />
               <Scene key="userInfo" component={UserInfoScreen} />
               <Scene key="userBank" component={UserBankScreen} />
               <Scene key="userBankMore" component={UserBankMoreScreen} />
               <Scene key="orders" component={OrdersScreen} />
-              <Scene key="tracking" component={TrackingScreen} />
-              <Scene key="sales" component={SalesScreen} />
-              <Scene key="myProducts" component={MyProductsScreen} />
               <Scene key="creditCards" component={CreditCardsScreen} />
-              <Scene key="relays" component={RelaysScreen} />
               <Scene key="addCard" component={AddCardScreen} />
-              <Scene key="certif" component={CertifScreen} />
             </Stack>
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
               <Scene key="login" component={LoginScreen} hideNavBar />
               <Scene key="proLogin" component={ProLoginScreen} hideNavBar />
-            </Stack>
-            <Stack key="sell" hideNavBar>
-              <Scene key="category" component={CategoryScreen} />
-              <Scene key="pickType" component={PickTypeScreen} />
-              <Scene key="userBank" component={UserBankScreen} />
-              <Scene key="userBankMore" component={UserBankMoreScreen} />
-              <Scene key="addCard" component={AddCardScreen} />
             </Stack>
             <Stack key="boost" hideNavBar>
               <Scene key="boost" component={BoostScreen} modal />

@@ -4,67 +4,20 @@ import { handleActions } from 'redux-actions';
 import Fire from '../services/Fire.service'
 import Cache from '../services/Cache.service'
 
-// Recently added products
+// Recently added pros
 const getRecentProducts = async () => {
-  const ref = Fire.store().collection('products')
-    .where('available', '==', true)
+  const ref = Fire.store().collection('pros')
     .orderBy('createdAt', 'desc')
     .limit(8)
   return await Fire.list(ref)
 }
 
-// Luxurious products
-const getExpensiveProducts = async () => {
-  const ref = Fire.store().collection('products')
-    .where('available', '==', true)
-    .orderBy('price', 'desc')
-    .limit(8)
-  return await Fire.list(ref)
-}
-
-// Boosted products
-const getBoostedProducts = async () => {
-  const now = new Date()
-  const ref = Fire.store().collection('products')
-    .where('available', '==', true)
-    .where('boostedUntil', '>=', now)
-    .orderBy('boostedUntil', 'desc')
-    .limit(8)
-  return await Fire.list(ref)
-}
-
-// Popular products
+// Popular pros
 const getPopularProducts = async () => {
-  const ref = Fire.store().collection('products')
-    .where('available', '==', true)
+  const ref = Fire.store().collection('pros')
     .orderBy('popularity', 'desc')
     .limit(8)
   return await Fire.list(ref)
-}
-
-// Shops
-const getShops = async () => {
-  const ref = Fire.store().collection('users')
-    .where('hasShop', '==', true)
-    .where('validated', '==', true)
-    .orderBy('sells', 'desc')
-    .limit(8)
-  return await Fire.list(ref)
-}
-
-const shopsWithCachedImages = async (entities: any) => {
-  for (let i = 0; i < entities.length; ++i) {
-    const entity = entities[i]
-    if (entity.logo) {
-      const logos = await Cache.save([entity.logo])
-      entities[i].logo = logos[0]
-    }
-    if (entity.background) {
-      const backgrounds = await Cache.save([entity.background])
-      entities[i].background = backgrounds[0]
-    }
-  }
-  return entities
 }
 
 const withCachedImages = async (entities: any) => {
@@ -85,16 +38,12 @@ export const fetchProducts = createActionThunk('FETCH_PRODUCTS', async ({ getSta
 })
 
 export const fetchHomeProducts = createActionThunk('FETCH_HOME_PRODUCTS', async ({ getState }) => {
-  const expensive = await getExpensiveProducts()
-  const shops = await getShops()
   const popular = await getPopularProducts()
   const recent = await getRecentProducts()
 
   return {
-    shops: await (shops),
-    byDate: await (recent),
-    byPopularity: await (popular),
-    byPrice: await (expensive),
+    byDate: (recent),
+    byPopularity: (popular),
   }
 })
 

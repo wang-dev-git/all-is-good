@@ -57,7 +57,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={[styles.shadow, index % 2 == 0 ? {marginLeft: 14, marginRight: 6} : {marginLeft: 6, marginRight: 14}]}>
+        <View style={[styles.shadow]}>
           <View style={styles.content}>
             <View style={styles.picture}>
               <AssetImage src={product.pictures ? {uri: product.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
@@ -94,11 +94,13 @@ const ProductItem: React.FC<Props> = (props: Props) => {
   );
 }
 
+const margin = 20
 const styles = StyleSheet.create({
   container: {
-    width: Dimensions.get('window').width / 2,
+    alignItems: 'center',
   },
   shadow: {
+    width: Dimensions.get('window').width - margin * 2,
     marginTop: 18,
 
     shadowOffset: { width: 0, height: 2},

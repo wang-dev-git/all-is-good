@@ -111,19 +111,6 @@ class ProductsScreen extends React.Component<Props, State>  {
     )
   }
 
-  renderItem(products: any, idx: number, section: any) {
-    return (
-      <FlatList
-        keyExtractor={(_, i) => i.toString()}
-        data={products}
-        horizontal
-        scrollEnabled={false}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({item, index}) => this.renderProduct(item, index, section)}
-        />
-    )
-  }
-
   renderShop(shop: any) {
     return (
       <ShopItem
@@ -133,24 +120,9 @@ class ProductsScreen extends React.Component<Props, State>  {
     )
   }
 
-  splitToRow(products: any[]) {
-    const rows: any[] = []
-    let currentRow: any = []
-    for (let i = 0; i < products.length; ++i) {
-      currentRow.push(products[i])
-      if (i % 2 != 0 || (i === products.length - 1)) {
-        rows.push(currentRow)
-        currentRow = []
-      }
-    }
-    return rows
-  }
-
   render() {
     const { products, loading, fetchHomeProducts } = this.props
     const homeProducts = products || {}
-
-    this.splitToRow(homeProducts.byDate || [])
 
     return (
       <View style={styles.container}>
@@ -165,27 +137,22 @@ class ProductsScreen extends React.Component<Props, State>  {
           <SectionList
             ListHeaderComponent={() => (
               <View style={styles.mainHeader}>
-                <AssetImage style={styles.headerBackground} src={require('../../images/intro.png')} resizeMode='cover' />
-                <VeilView abs start={mainStyle.themeColorAlpha(0.4)} end={mainStyle.themeColor} startPos={{x: 0, y: 0.5}} endPos={{x: 1, y: 0.5}} />
-                <Text style={styles.mainHeaderTxt}>Achetez. Revendez.{'\n'}Renouvelez votre garde-robe</Text>
+                <AssetImage style={styles.headerBackground} src={require('../../images/cooker.png')} resizeMode='cover' />
+                <VeilView abs start={mainStyle.themeColorAlpha(0.4)} end={mainStyle.themeColor} startPos={{x: 0, y: 0}} endPos={{x: 1, y: 0.8}} />
+                <Text style={styles.mainHeaderTxt}>Faites vous plaisir{'\n'}en économisant !</Text>
               </View>
             )}
             contentContainerStyle={{paddingBottom: 20}}
             stickySectionHeadersEnabled={false}
-            renderItem={({item, index, section}) => this.renderItem(item, index, section)}
+            renderItem={({item, index, section}) => this.renderProduct(item, index, section)}
             renderSectionHeader={({section}) => (
               <TouchableOpacity onPress={() => this.showMore(section.key, section.subtitle)}>
-                <View style={styles.header}>
-                  <AssetImage style={styles.headerBackground} src={require('../../images/wall.png')} resizeMode='cover' />
-                  <Text style={styles.headerTxt}>{section.title}</Text>
-                </View>
+                <Text style={styles.headerTxt}>{section.title}</Text>
               </TouchableOpacity>
             )}
             sections={[
-              {key: 'shops', subtitle: 'Boutiques', title: 'Nos Boutiques'.toUpperCase(), data: homeProducts.shops || [], renderItem: ({item}) => this.renderShop(item)},
-              {key: 'byDate', subtitle: 'Nouveautés', title: 'Découvrez\nnos nouveautés'.toUpperCase(), data: this.splitToRow(homeProducts.byDate || [])},
-              {key: 'byPopularity', subtitle: 'Populaires', title: 'Découvrez\nnotre sélection'.toUpperCase(), data: this.splitToRow(homeProducts.byPopularity || [])},
-              {key: 'byPrice', subtitle: 'Luxe', title: 'Découvrez\nles articles de luxe'.toUpperCase(), data: this.splitToRow(homeProducts.byPrice || [])},
+              {key: 'byDate', subtitle: 'Nouveautés', title: 'Nouveautés'.toUpperCase(), data: homeProducts.byDate || []},
+              {key: 'byPopularity', subtitle: 'Populaires', title: 'Populaires'.toUpperCase(), data: homeProducts.byPopularity || []},
             ]}
             keyExtractor={(item, index) => item + index}
             refreshControl={
@@ -249,8 +216,8 @@ const styles = StyleSheet.create({
     color: mainStyle.darkColor,
     fontWeight: 'bold',
     fontSize: 22,
-    paddingHorizontal: 40,
-    textAlign: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     lineHeight: 36,
   },
   headerBackground: {

@@ -14,7 +14,7 @@ import { switchTab } from '../../actions/tab.action'
 import { saveFilters } from '../../actions/filters.action'
 import { Actions } from 'react-native-router-flux'
 
-import CategoryLink from '../Category/CategoryLink'
+import CategoryLink from './CategoryLink'
 
 import { sortings, brands, sizes, shoes, states, colors } from '../../filters'
 

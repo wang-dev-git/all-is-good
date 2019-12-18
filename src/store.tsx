@@ -7,7 +7,6 @@ import { filtersReducer } from './actions/filters.action'
 import { authReducer } from './actions/auth.action'
 import { wishesReducer } from './actions/wishes.action'
 import { productsReducer } from './actions/products.action'
-import { notifsReducer } from './actions/notifs.action'
 import { cardsReducer } from './actions/cards.action'
 
 // Create store by combining reducers
@@ -16,7 +15,6 @@ export const store = createStore(combineReducers({
   authReducer,
   filtersReducer,
   productsReducer,
-  notifsReducer,
   wishesReducer,
   cardsReducer,
 }), applyMiddleware(thunk));

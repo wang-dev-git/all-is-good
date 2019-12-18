@@ -5,9 +5,8 @@ import { Notifications } from 'expo'
 
 import ProductsScreen from '../Products/ProductsScreen'
 import SearchScreen from '../Search/SearchScreen'
-import SellScreen from '../Sell/SellScreen'
 import WishesScreen from '../Wishes/WishesScreen'
-import CartScreen from '../Cart/CartScreen'
+import ProfileScreen from '../Profile/ProfileScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -18,7 +17,6 @@ import AntIcon from '@expo/vector-icons/AntDesign'
 
 import { switchTab } from '../../actions/tab.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
-import { loadCart, refreshCart } from '../../actions/cart.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCards } from '../../actions/cards.action'
 import Cache from '../../services/Cache.service'
@@ -30,17 +28,14 @@ import { mainStyle } from '../../styles'
 interface Props {
   user: any;
   tab: number;
-  cart: any;
   wishes: any;
 
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
   finishLogin: () => void;
-  loadCart: () => void;
   loadCards: () => void;
   loadWishes: () => void;
   refreshWishes: () => void;
-  refreshCart: () => void;
 }
 interface State {
   booted: boolean;
@@ -64,8 +59,8 @@ const routes = [
     )
   },
   {
-    title: 'Vendre',
-    component: SellScreen,
+    title: 'Search',
+    component: ProductsScreen,
     renderIcon: (active: boolean) => active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <AntIcon name="plus" size={32} color={mainStyle.themeColor} />
@@ -86,10 +81,10 @@ const routes = [
     )
   },
   {
-    title: 'Panier',
-    component: CartScreen,
+    title: 'Menu',
+    component: ProfileScreen,
     renderIcon: (active: boolean) => (
-      <Icon name="shopping-cart" size={22} color={active ? tabActiveColor : tabColor} />
+      <Icon name="user-o" size={22} color={active ? tabActiveColor : tabColor} />
     )
   },
 ]
@@ -110,9 +105,7 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.props.finishLogin()
         await this.props.loadWishes()
-        await this.props.loadCart()
         await this.props.loadCards()
-        await this.props.refreshCart()
         await this.props.refreshWishes()
        
         //setTimeout(() => Actions.sell(), 200)
@@ -141,7 +134,6 @@ class TabsScreen extends React.Component<Props, State>  {
           Actions.comments({ product: product })
         }
       }
-      await this.props.refreshCart()
       await this.props.refreshWishes()
     } else {
 
@@ -152,16 +144,7 @@ class TabsScreen extends React.Component<Props, State>  {
   };
 
   selectTab(index: number) {
-    if (index == 2) {
-      if (this.props.user.blocked) {
-        alert("Votre compte a été bloqué, veuillez contacter IsClothing pour plus d'informations")
-        return
-      }
-
-      Actions.sell()
-    } else {
-      this.props.switchTab(index)
-    }
+    this.props.switchTab(index)
   }
 
   isSelected(index: number) {
@@ -200,13 +183,11 @@ class TabsScreen extends React.Component<Props, State>  {
   }
   
   renderTabBarItem(item: any, index: number) {
-    const { wishes, cart } = this.props
+    const { wishes } = this.props
 
     const isSelected = this.isSelected(index)
     let count = 0
-    if (index == 4)
-      count = cart && cart.products ? cart.products.length : 0
-    else if (index == 3)
+    if (index == 3)
       count = wishes ? wishes.length : 0
     return (
       <TouchableOpacity key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
@@ -271,9 +252,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
   tab: state.tabReducer.tab,
-  cart: state.cartReducer.cart,
   wishes: state.wishesReducer.list,
-  toggleCart: state.cartReducer.toggle,
   toggleWishes: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
@@ -281,9 +260,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   autologin: (user: any) => dispatch(autologin(user)),
   finishLogin: () => dispatch(finishLogin()),
   loadWishes: () => dispatch(loadWishes()),
-  loadCart: () => dispatch(loadCart()),
   loadCards: () => dispatch(loadCards()),
-  refreshCart: () => dispatch(refreshCart()),
   refreshWishes: () => dispatch(refreshWishes()),
 })
 

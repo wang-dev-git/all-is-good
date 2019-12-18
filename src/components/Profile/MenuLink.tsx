@@ -2,6 +2,9 @@ import React from 'react';
 
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
+import AntDesign from '@expo/vector-icons/AntDesign'
+
+import { mainStyle } from '../../styles'
 
 interface Props {
   title: string;
@@ -18,13 +21,13 @@ const MenuLink: React.SFC<Props> = (props) => {
       <View style={styles.content}>
         <View style={styles.row}>
           <View style={styles.icon}>
-            <Icon name={props.icon} size={props.iconSize || 22} color='#333' />
+            <Icon name={props.icon} size={props.iconSize || 18} color={mainStyle.themeColor} />
           </View>
           <Text style={styles.title}>{props.title}</Text>
         </View>
 
         { props.right &&
-          <Icon name="chevron-right" size={18} color='#333' />
+          <AntDesign name="right" size={14} color='#E3E4EE' />
         }
       </View>
     </TouchableOpacity>
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: '#E3E4EE',
   },
   content: {
     flexDirection: 'row',
@@ -50,10 +53,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 40,
-    height: 40,
+    ...mainStyle.circle(50),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: '#E3E4EE',
+    borderWidth: 1.4,
+    marginLeft: 14,
   },
   title: {
     marginLeft: 14,

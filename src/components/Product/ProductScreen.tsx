@@ -12,7 +12,6 @@ import Feather from '@expo/vector-icons/Feather'
 
 import { switchTab } from '../../actions/tab.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
-import { addToCart, removeFromCart, isInCart } from '../../actions/cart.action'
 
 import ImageViewer from 'react-native-image-zoom-viewer';
 
@@ -23,14 +22,10 @@ interface Props {
   user: any;
   product: any;
   wishes: any;
-  cart: any;
 
   switchTab: (tab: number) => void;
   addWish: (product: any) => void;
   removeWish: (product: any) => void;
-  addToCart: (product: any) => void;
-  removeFromCart: (product: any) => void;
-  isInCart: (product: any) => boolean;
   isInWishes: (product: any) => boolean;
 }
 interface State {
@@ -64,22 +59,6 @@ class ProductScreen extends React.Component<Props, State>  {
     } else {
       addWish(product)
       Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
-    }
-  }
-
-  toggleCart() {
-    const { addToCart, removeFromCart, product, isInCart } = this.props
-    const onPress = () => {
-      this.props.switchTab(4)
-      Actions.reset('root')
-    }
-
-    if (isInCart(product)) {
-      removeFromCart(product)
-      Flash.show('Enlevé du panier !')
-    } else {
-      addToCart(product)
-      Flash.show('Ajouté au panier !', 'Cliquez pour voir votre panier', onPress)
     }
   }
 
@@ -150,9 +129,8 @@ class ProductScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { user, product, isInCart, isInWishes } = this.props
+    const { user, product, isInWishes } = this.props
 
-    const inCart = isInCart(product)
     const inWishes = isInWishes(product)
     const hasDesc = product.description != undefined && product.description != ''
     const seller = product.seller
@@ -240,27 +218,6 @@ class ProductScreen extends React.Component<Props, State>  {
             }}
             onPress={() => this.showComments()}
           />
-
-          { product.seller.id == user.id ? (
-            <View style={{ justifyContent: 'center', }}>
-              <BottomButton
-                style={{marginTop: 10}}
-                backgroundColor={mainStyle.themeColor}
-                title={product.available ? 'Booster mon produit !' : 'Vendu !'}
-                disabled={!product.available}
-                onPress={() => Actions.boost({ product: product })}
-              />
-              {product.available && <Text style={styles.boostTitle}>Mettez en avant votre produit !</Text>}
-            </View>
-          ) : (
-            <BottomButton
-              style={{marginTop: 10}}
-              backgroundColor={mainStyle.themeColor}
-              title={product.available ? (inCart ? 'Ajouté au panier' : 'Ajouter au panier') : 'Vendu !'}
-              disabled={!product.available || inCart}
-              onPress={() => this.toggleCart()}
-            />
-          )}
 
           { hasDesc &&
             <Text style={styles.description}>{'Présentation de l\'article\n\n'}{product.description}</Text>
@@ -453,18 +410,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
-  cart: state.cartReducer.cart,
   wishes: state.wishesReducer.list,
-  toggleCart: state.cartReducer.toggle,
   toggleWishes: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   addWish: (product: any) => dispatch(addWish(product)),
   removeWish: (product: any) => dispatch(removeWish(product)),
-  addToCart: (product: any) => dispatch(addToCart(product)),
-  removeFromCart: (product: any) => dispatch(removeFromCart(product)),
   switchTab: (tab: number) => dispatch(switchTab(tab)),
-  isInCart: (product: any) => dispatch(isInCart(product)),
   isInWishes: (product: any) => dispatch(isInWishes(product)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen)

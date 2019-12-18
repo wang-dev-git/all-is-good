@@ -10,8 +10,6 @@ import LandingScreen from './components/Landing/LandingScreen'
 import LoginScreen from './components/Login/LoginScreen'
 
 import TabsScreen from './components/Tabs/TabsScreen'
-import SellScreen from './components/Sell/SellScreen'
-import ImagePickerScreen from './components/Sell/ImagePickerScreen'
 import PickTypeScreen from './components/PickType/PickTypeScreen'
 
 import PaymentScreen from './components/Payment/PaymentScreen'
@@ -158,13 +156,11 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="proLogin" component={ProLoginScreen} hideNavBar />
             </Stack>
             <Stack key="sell" hideNavBar>
-              <Scene key="selling" component={SellScreen} modal />
               <Scene key="category" component={CategoryScreen} />
               <Scene key="pickType" component={PickTypeScreen} />
               <Scene key="userBank" component={UserBankScreen} />
               <Scene key="userBankMore" component={UserBankMoreScreen} />
               <Scene key="addCard" component={AddCardScreen} />
-              <Scene key="imagePicker" component={ImagePickerScreen} />
             </Stack>
             <Stack key="boost" hideNavBar>
               <Scene key="boost" component={BoostScreen} modal />

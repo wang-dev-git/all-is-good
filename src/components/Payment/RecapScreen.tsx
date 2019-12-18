@@ -10,25 +10,18 @@ import { Fire, Flash } from '../../services'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
-import { clearCart } from '../../actions/cart.action'
-
 import { mainStyle } from '../../styles'
 
 interface Props {
   user: any;
   items: any[];
-
-  clearCart: () => void;
 }
 interface State {}
 
 class RecapScreen extends React.Component<Props, State>  {
   
   componentDidMount() {
-    const { items, clearCart } = this.props
-    const allFailed = items.filter((item) => item.paid).length == 0
-    if (!allFailed)
-      clearCart()
+
   }
 
   getError(code: string) {
@@ -191,6 +184,6 @@ const mapStateToProps = (state: any) => ({
 
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  clearCart: () => dispatch(clearCart()),
+  
 })
 export default connect(mapStateToProps, mapDispatchToProps)(RecapScreen)

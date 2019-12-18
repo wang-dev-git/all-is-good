@@ -11,7 +11,6 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
 import { fetchHomeProducts } from '../../actions/products.action'
-import { refreshCart } from '../../actions/cart.action'
 
 import ProductsList from '../Products/ProductsList'
 
@@ -24,7 +23,6 @@ interface Props {
   cards: any;
   relay: any;
 
-  refreshCart: () => void;
   fetchHomeProducts: () => void;
 }
 interface State {
@@ -57,7 +55,7 @@ class PaymentScreen extends React.Component<Props, State>  {
   }
 
   async confirm() {
-    const { cart, relay, user, fetchHomeProducts, refreshCart } = this.props
+    const { cart, relay, user, fetchHomeProducts } = this.props
     const { card } = this.state
 
     if (card === '') {
@@ -77,7 +75,6 @@ class PaymentScreen extends React.Component<Props, State>  {
         const res = await Fire.get(ref)
         if (res.price !== product.price) {
           Flash.error("Le prix d'un produit a changé, vérifiez qu'il vous convient")
-          await refreshCart()
           this.setState({ pricesChanged: true, loading: false })
           return
         }
@@ -249,11 +246,8 @@ const mapStateToProps = (state: any) => ({
   cards: state.cardsReducer.list,
   cardsToggle: state.cardsReducer.toggle,
   user: state.authReducer.user,
-  cart: state.cartReducer.cart,
-  cartToggle: state.cartReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  refreshCart: () => dispatch(refreshCart()),
   fetchHomeProducts: () => dispatch(fetchHomeProducts()),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentScreen)

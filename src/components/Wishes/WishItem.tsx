@@ -7,16 +7,12 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import { AssetImage } from '../Reusable'
 import { Fire } from '../../services'
 
-import { addToCart } from '../../actions/cart.action'
-
 import { mainStyle } from '../../styles'
 import { getBrandName } from '../../filters'
 
 type Props = {
   product: any;
-  cart: any;
 
-  addToCart: (product: any) => void;
   onPress: () => void;
   onRemove: () => void;
 }
@@ -27,7 +23,7 @@ type State = {
 class WishItem extends React.Component<Props, State>  {
   
   render() {
-    const { product, onPress, onRemove, addToCart } = this.props
+    const { product, onPress, onRemove } = this.props
 
     return (
       <TouchableOpacity onPress={onPress}>
@@ -40,12 +36,6 @@ class WishItem extends React.Component<Props, State>  {
               <Text style={styles.name}>{getBrandName(product.brand).toUpperCase()}</Text>
               <Text style={[styles.name, styles.subtitle]}>{product.name}</Text>   
             </View>
-
-            {/* false &&
-              <TouchableOpacity onPress={() => addToCart(product)}>
-                <Text>Ajouter au panier</Text>
-              </TouchableOpacity>
-            */}
 
             <View style={styles.price}>
               <Text style={styles.priceTxt}>{Number(product.price).toFixed(2)}€</Text>
@@ -129,11 +119,10 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state: any) => ({
-  cart: state.cartReducer.cart,
-  toggle: state.cartReducer.toggle,
+  
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  addToCart: (product: any) => dispatch(addToCart(product)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WishItem)

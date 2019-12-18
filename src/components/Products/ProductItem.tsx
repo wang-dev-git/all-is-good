@@ -5,7 +5,6 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'rea
 import { AssetImage } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
-import { addToCart, removeFromCart, isInCart } from '../../actions/cart.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 import { switchTab } from '../../actions/tab.action'
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -18,36 +17,16 @@ import { mainStyle } from '../../styles'
 interface Props {
   index: number;
   product: any;
-  cart: any;
   wishes: any;
 
   switchTab: (tab: number) => void;
-  addToCart: (product: any) => void;
-  removeFromCart: (product: any) => void;
   addWish: (product: any) => void;
   removeWish: (product: any) => void;
   onPress: () => void;
-  isInCart: (product: any) => boolean;
   isInWishes: (product: any) => boolean;
 }
 const ProductItem: React.FC<Props> = (props: Props) => {
   
-  const toggleCart = () => {
-    const { addToCart, removeFromCart, product, isInCart } = props
-    const onPress = () => {
-      props.switchTab(4)
-      Actions.reset('root')
-    }
-
-    if (isInCart(product)) {
-      removeFromCart(product)
-      Flash.show('Enlevé du panier !')
-    } else {
-      addToCart(product)
-      Flash.show('Ajouté au panier !', 'Cliquez pour voir votre panier', onPress)
-    }
-  }
-
   const toggleWish = () => {
     const { addWish, removeWish, product, isInWishes } = props
     const onPress = () => {
@@ -72,8 +51,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
     return parseInt(product.price)
   }
 
-  const { product, index, onPress, isInCart, isInWishes } = props
-  const inCart = isInCart(product)
+  const { product, index, onPress, isInWishes } = props
   const inWishes = isInWishes(product)
   const name = product.name && product.name.length > 22 ? (product.name.substr(0, 18) + '...') : product.name
   return (
@@ -96,17 +74,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
               <Text numberOfLines={1} style={styles.name}>{product.size ? product.size + ' - ' : product.shoe ? product.shoe + ' - ' : '38 - '}{name}</Text>
               <View style={styles.row}>
                 <Text style={[styles.name, styles.price]}>{getPrice()}€</Text>
-                <TouchableOpacity
-                  style={[styles.addBtn, inCart ? {backgroundColor: mainStyle.themeColor} : {backgroundColor: '#fff'}]}
-                  onPress={() => toggleCart()}>
-                  <Text
-                    style={[
-                      styles.addBtnTxt,
-                      inCart ? {color: '#fff'} : {color: mainStyle.themeColor}]}
-                      >
-                    {(inCart ? 'Ajouté' : 'Acheter').toUpperCase()}
-                  </Text>
-                </TouchableOpacity>
+               
               </View>
             </View>
 
@@ -208,18 +176,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: any) => ({
-  cart: state.cartReducer.cart,
-  cartToggle: state.cartReducer.toggle,
   wishes: state.wishesReducer.list,
   wishesToggle: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  addToCart: (product: any) => dispatch(addToCart(product)),
   addWish: (product: any) => dispatch(addWish(product)),
-  removeFromCart: (product: any) => dispatch(removeFromCart(product)),
   removeWish: (product: any) => dispatch(removeWish(product)),
   switchTab: (tab: number) => dispatch(switchTab(tab)),
-  isInCart: (product: any) => dispatch(isInCart(product)),
   isInWishes: (product: any) => dispatch(isInWishes(product)),
 })
 

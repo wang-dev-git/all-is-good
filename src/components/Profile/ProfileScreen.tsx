@@ -160,22 +160,16 @@ class ProfileScreen extends React.Component<Props, State>  {
     if (!user) { return (null) }
 
     const userPicture = user.pictures && user.pictures.length ? {uri: user.pictures[0]} : require('../../images/user.png')
-    const background = user.hasShop ? (user.background ? {uri: user.background} : require('../../images/shop-bg.png')) : userPicture
 
     return (
       <View style={styles.container}>
         <HeaderBar
-          title={'Mon profil'}
-          back
+          title='Mon profil'
           />
+        
         <ScrollView style={styles.content} contentContainerStyle={{paddingBottom: 40}}>
+          
           <View style={styles.userInfo}>
-            <AssetImage
-              src={background}
-              resizeMode='cover'
-              style={[mainStyle.abs, { transform: [{ scale: 1.7 }] }]}
-              />
-            <VeilView abs start='rgba(12, 12, 12, 0.52)' end='rgba(12, 12, 12, 0.52)' />
             <View style={styles.pictureWrapper}>
               <TouchableOpacity onPress={() => this.editPicture()} style={styles.picture}>
                 <AssetImage
@@ -185,23 +179,19 @@ class ProfileScreen extends React.Component<Props, State>  {
                   />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.editPicture()} style={styles.editPicture}>
-                <Icon name="edit" size={20} color='#fff' />
+                <Icon name="edit" size={16} color='#fff' />
               </TouchableOpacity>
             </View>
-            <Text style={styles.userName}>{user.first_name}</Text>
-            { user.hasShop &&
-              <TouchableOpacity style={styles.addBackBtn} onPress={() => this.editBackground()}>
-                <Text style={styles.addBackTxt}>{'Modifier la bannière'.toUpperCase()}</Text>
-              </TouchableOpacity>
-            }
+            <Text style={styles.userName}>{user.first_name + ' ' + user.last_name}</Text>
+            <TouchableOpacity onPress={Actions.profile}>
+              <Text style={styles.userEdit}>Modifier</Text>            
+            </TouchableOpacity>
           </View>
-
-          <Text style={styles.groupTitle}>Acheteur</Text>
 
           <View style={styles.group}>
             <MenuLink
               icon='ticket'
-              title='Mes Achats'
+              title='Réservations'
               right
               
               onPress={Actions.orders}
@@ -215,64 +205,23 @@ class ProfileScreen extends React.Component<Props, State>  {
               />
             <MenuLink
               icon='credit-card-alt'
-              iconSize={19}
+              iconSize={16}
               title='Mes moyens de paiement'
               right
 
               onPress={Actions.creditCards}
               />
-           </View>
 
-          <Text style={styles.groupTitle}>Vendeur</Text>
-
-          <View style={styles.group}>
-            <MenuLink
-              icon='briefcase'
-              title='Mon Wallet'
-              right
-              
-              onPress={Actions.wallet}
-              />
-            <MenuLink
-              icon='bank'
-              iconSize={19}
-              title='Mon compte vendeur'
-              right
-
-              onPress={Actions.userBank}
-              />
-
-            <MenuLink
-              icon='line-chart'
-              iconSize={19}
-              title='Mes Ventes'
-              right
-
-              onPress={Actions.sales}
-              />
-            <MenuLink
-              icon='shopping-bag'
-              iconSize={19}
-              title='Mes articles en ligne'
-              right
-
-              onPress={Actions.myProducts}
-              />
-           </View>
-
-          <Text style={styles.groupTitle}>Mon application</Text>
-
-          <View style={styles.group}>
             <MenuLink
               icon='headphones'
-              title="Contacter IsClothing"
+              title="Contacter All Is Good"
               right
               
               onPress={() => this.help()}
               />
             <MenuLink
               icon='star'
-              iconSize={19}
+              iconSize={16}
               title={'Notez l\'application'}
               right
 
@@ -307,6 +256,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfo: {
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
@@ -318,53 +268,42 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   picture: {
-    ...mainStyle.circle(120),
+    ...mainStyle.circle(100),
+    borderWidth: 1,
+    borderColor: '#E3E4EE'
   },
   editPicture: {
-    ...mainStyle.circle(46),
+    ...mainStyle.circle(30),
     backgroundColor: mainStyle.themeColor,
 
     justifyContent: 'center',
     alignItems: 'center',
 
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 10,
+    right: 10,
   },
   userName: {
-    marginTop: 20,
+    ...mainStyle.montLight,
+    marginTop: 10,
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
+    color: '#333',
     textAlign: 'center',
   },
-  groupTitle: {
-    marginLeft: 24,
-    color: '#333',
-    fontSize: 20,
-    marginTop: 40,
+  userEdit: {
+    ...mainStyle.montBold,
+    marginTop: 5,
+    color: mainStyle.themeColor,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontSize: 11,
+    letterSpacing: 1.2
   },
   group: {
     borderTopWidth: 1,
-    borderTopColor: '#ddd',
+    borderTopColor: '#E3E4EE',
     marginTop: 20,
   },
-
-  addBackBtn: {
-    height: 38,
-    backgroundColor: '#fff',
-    paddingHorizontal: 12,
-    marginTop: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 6,
-    borderColor: '#ddd',
-  },
-  addBackTxt: {
-    ...mainStyle.montLight,
-    fontSize: 13,
-  }
 });
 
 const mapStateToProps = (state: any) => ({

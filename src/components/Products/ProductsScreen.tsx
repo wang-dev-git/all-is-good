@@ -158,7 +158,6 @@ class ProductsScreen extends React.Component<Props, State>  {
           titleView={
             <AssetImage style={{flex: 1, width: 80, height: 28,}} src={require('../../images/logo.png')} />
           }
-          main
           />
 
         <FadeInView style={styles.container}>

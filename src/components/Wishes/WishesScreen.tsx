@@ -27,10 +27,6 @@ class WishesScreen extends React.Component<Props, State>  {
     Actions.product({ product })
   }
 
-  clear() {
-    this.props.clearWishes()
-  }
-
   render() {
     const { wishes, removeWish } = this.props
 
@@ -38,7 +34,6 @@ class WishesScreen extends React.Component<Props, State>  {
       <View style={styles.container}>
         <HeaderBar
           title='Vos Favoris'
-          main
           />
 
         <FadeInView style={styles.container}>
@@ -51,11 +46,7 @@ class WishesScreen extends React.Component<Props, State>  {
                 onRemove={() => removeWish(item)}
                 />
             }
-            /*ListHeaderComponent={() => (
-              <TouchableOpacity onPress={() => this.clear()}>
-                <Text>Clear</Text>
-              </TouchableOpacity>
-            )}*/
+
             ListEmptyComponent={() => (
               <View style={styles.empty}>
                 <Text>Vous n'avez aucun favoris !</Text>

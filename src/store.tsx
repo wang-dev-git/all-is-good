@@ -5,7 +5,6 @@ import thunk from 'redux-thunk';
 import { tabReducer } from './actions/tab.action'
 import { filtersReducer } from './actions/filters.action'
 import { authReducer } from './actions/auth.action'
-import { cartReducer } from './actions/cart.action'
 import { wishesReducer } from './actions/wishes.action'
 import { productsReducer } from './actions/products.action'
 import { notifsReducer } from './actions/notifs.action'
@@ -18,7 +17,6 @@ export const store = createStore(combineReducers({
   filtersReducer,
   productsReducer,
   notifsReducer,
-  cartReducer,
   wishesReducer,
   cardsReducer,
 }), applyMiddleware(thunk));

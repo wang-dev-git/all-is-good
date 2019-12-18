@@ -51,23 +51,16 @@ const HeaderBar: React.SFC<Props> = (props) => {
               <TouchableOpacity style={styles.leftBtn} onPress={backAction || Actions.pop}>
                 <EvilIcon name="close" size={24} color='#333' />
               </TouchableOpacity>
-            ) : (
+            ) : props.main ? (
               <TouchableOpacity style={styles.leftBtn} onPress={Actions.profile}>
                 <FontAwesome name="user" size={23} color='#333' />
               </TouchableOpacity>
-            )}
+            ) : (null)}
           </View>
 
           {/* Right */}
           <View style={styles.right}>
-            { props.rightView ? props.rightView : props.main ? (
-              <React.Fragment>
-                <TouchableOpacity onPress={Actions.notifs}>
-                  <FontAwesome name="bell" size={23} color={mainStyle.themeColor} />
-                </TouchableOpacity>
-                { props.user.unread && <NotifBubble count={-1} /> }
-              </React.Fragment>
-            ) : (null)}
+            { props.rightView ? props.rightView : (null)}
           </View>
         </View>
       )}

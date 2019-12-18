@@ -7,6 +7,8 @@ import { Notifications } from 'expo';
 
 import MapView, { Marker } from 'react-native-maps';
 
+import { HeaderBar } from '../Reusable'
+
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
 
@@ -81,6 +83,9 @@ const MapScreen: React.FC<Props> = (props) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
+        <HeaderBar
+          title="Autour de vous"
+          />
         <MapView
           showsUserLocation
           style={styles.map}

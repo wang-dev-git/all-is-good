@@ -48,13 +48,13 @@ class ProductsScreen extends React.Component<Props, State>  {
       Flash.error('Veuillez vérifier votre connexion')
     }
    
-    /*
+    
     setTimeout(() => {
       const products = this.props.products.byDate
       if (products && products.length > 0)
         Actions.product({ product: products[0]} )
     }, 500)
-    */
+    
 
   }
 

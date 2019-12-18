@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar, Modal } from 'react-native';
+import MapView, { Marker } from 'react-native-maps'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -62,52 +63,6 @@ class ProductScreen extends React.Component<Props, State>  {
     }
   }
 
-  showComments() {
-    const { product } = this.props
-    Actions.comments({ product })
-  }
-
-  async remove(product: any) {
-    this.confirm('Êtes-vous sûr de vouloir supprimer cet article définitivement ?', 'Supprimer', async () => {
-      const id = product.id
-      try {
-        const productRef = Fire.store().collection('products').doc(id)
-        const product = await Fire.get(productRef)
-        if (!product.available) {
-          Flash.error("Désolé, le produit est en cours de vente et ne peut pas être supprimé")
-          return
-        }
-        await productRef.delete()
-        Actions.pop()
-      } catch (err) {
-        console.log(err)
-        Flash.error('Une erreur est survenue')
-      }
-    })
-  }
-
-  async report(product: any) {
-    this.confirm('Êtes-vous sûr de vouloir signaler cet article ?', 'Signaler', async () => {
-      try {
-        await Fire.cloud('reportProduct', { productId: product.id })
-        alert('Merci pour votre signalement')
-      } catch (err) {
-        alert('Erreur, veuillez réessayer plus tard')
-      }
-    })
-  }
-
-  async block(product: any) {
-    this.confirm('Êtes-vous sûr de vouloir bloquer ce vendeur ?', 'Bloquer', async () => {
-      try {
-        await Fire.cloud('blockSeller', { sellerId: product.seller.id })
-        alert('Vendeur bloqué. Tous ses articles ont été désactivés')
-      } catch (err) {
-        alert('Erreur, veuillez réessayer plus tard')
-      }
-    })
-  }
-
   confirm(title: string, btn: string, callback: () => void) {
     Alert.alert(
       'Confirmez',
@@ -149,7 +104,7 @@ class ProductScreen extends React.Component<Props, State>  {
           <View>
             <ImageSlider
               width={Dimensions.get('window').width}
-              height={ifIphoneX({height: 300}, {height: 280}).height}
+              height={ifIphoneX({height: 260}, {height: 200}).height}
               pictures={product.pictures || []}
               onSelect={(index: number) => this.setState({ showZoom: true, zoomIndex: index })}
               />
@@ -168,80 +123,37 @@ class ProductScreen extends React.Component<Props, State>  {
               <AntDesign name="close" size={23} color='#fff' />
             </TouchableOpacity>
           </View>
-          
-          { this.props.user.admin &&
-            <Text style={styles.userName}>{product.seller.email}</Text>
-          }
-          <View style={styles.userInfo}>
-            <View style={mainStyle.row}>
-              <View style={styles.userPicture}>
-                <AssetImage src={seller.picture ? {uri: seller.picture} : require('../../images/user.png')} resizeMode='cover' />
-              </View>
-              <Text style={styles.userName}>{product.seller.name}</Text>
-            </View>
-          </View>
-
-          <View style={styles.productInfo}>
-            { product.certified &&
-              <Text style={styles.certif}><AntDesign name="check" style={{marginTop: 10}} size={22} /> {'Produit certifié'.toUpperCase()}</Text>
-            }
-            <Text style={styles.productName}>{product.name.toUpperCase()}</Text>
-            <Text style={styles.productState}>{state.toUpperCase()}</Text>
-            { product.size &&
-              <Text style={styles.productState}>Taille: {product.size}</Text>
-            }
-            { product.shoe &&
-              <Text style={styles.productState}>Pointure: {product.shoe}</Text>
-            }
-            <View style={[mainStyle.row, { justifyContent: 'space-between', alignItems: 'center' }]}>
-              <Text style={styles.productPrice}>{Number(product.price).toFixed(2)}€</Text>
-              
-            </View>
-          </View>
-
-          <BottomButton
-            titleColor={mainStyle.themeColor}
-            backgroundColor={'#fff'}
-            title={'Posez vos questions'}
-            style={{
-              borderColor: mainStyle.themeColor,
-              borderWidth: 1,
-            }}
-            onPress={() => this.showComments()}
-          />
 
           { hasDesc &&
-            <Text style={styles.description}>{'Présentation de l\'article\n\n'}{product.description}</Text>
+            <React.Fragment>
+              <Text style={styles.description}>Ce que tu peux avoir</Text>
+              <Text style={styles.description}>{product.description}</Text>
+            </React.Fragment>
           }
-
-          <View style={styles.links}>
-            { (product.seller.id != user.id) &&
-              <View style={styles.link}>
-                <LinkButton
-                  title="Signaler l'article"
-                  color={mainStyle.themeColor}
-                  onPress={() => this.report(product)}
-                  />
-              </View>
+          
+          <View style={styles.location}>
+            { product.place &&
+              <Text style={styles.place}>{product.place.toUpperCase()}</Text>
             }
-
-            { product.available && (product.seller.id == user.id || user.admin) &&
-              <View style={styles.link}>
-                <LinkButton
-                  title="Supprimer l'article"
-                  color={mainStyle.redColor}
-                  onPress={() => this.remove(product)}
+            <Text style={styles.address}>{product.address + ', ' + product.postal_code + ' ' + product.city}</Text>
+            { (product.lat && product.lng) &&
+              <View style={styles.map}>
+                <MapView
+                  style={{flex: 1}}
+                  zoomEnabled={false}
+                  scrollEnabled={false}
+                  initialRegion={{
+                    latitude: product.lat,
+                    longitude: product.lng,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
+                  }}
+                  >
+                  <Marker
+                    onPress={() => this.showOptions()}
+                    coordinate={{latitude: product.lat, longitude: product.lng}}
                   />
-              </View>
-            }
-
-            { user.admin &&
-              <View style={styles.link}>
-                <LinkButton
-                  title="Bloquer le vendeur"
-                  color={mainStyle.themeColor}
-                  onPress={() => this.block(product)}
-                  />
+                </MapView>
               </View>
             }
           </View>
@@ -387,14 +299,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  links: {
-    alignItems: 'center',
-    marginTop: 20,
-    marginBottom: 20
+
+  location: {
+    flex: 1,
+    marginTop: 30,
+    marginLeft: 20,
+    marginRight: 20,
   },
-  link: {
-    marginTop: 14,
-  }
+  place: {
+    ...mainStyle.montBold,
+    fontSize: 13,
+    color: mainStyle.darkColor
+  },
+  address: {
+    marginTop: 12,
+    marginBottom: 16,
+    ...mainStyle.montLight,
+    fontSize: 14,
+    color: mainStyle.darkColor,
+  },
+  map: {
+    flex: 1,
+    height: 220,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
 
 });
 

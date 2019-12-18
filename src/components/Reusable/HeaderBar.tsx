@@ -31,7 +31,7 @@ const HeaderBar: React.SFC<Props> = (props) => {
   const { title, back, close, backAction } = props
   return (
     <View style={styles.container}>
-      <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle={'light-content'} />
       { props.barView ? (props.barView) : (
         <View style={styles.content}>
           {/* Center */}

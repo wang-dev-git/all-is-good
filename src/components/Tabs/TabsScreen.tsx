@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
 import ProductsScreen from '../Products/ProductsScreen'
 import SearchScreen from '../Search/SearchScreen'
 import WishesScreen from '../Wishes/WishesScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
+import MapScreen from '../Map/MapScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -14,6 +15,7 @@ import { Fire, Stripe } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
+import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { switchTab } from '../../actions/tab.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
@@ -52,10 +54,10 @@ const routes = [
     )
   },
   {
-    title: 'Search',
-    component: SearchScreen,
+    title: 'Map',
+    component: MapScreen,
     renderIcon: (active: boolean) => (
-      <Icon name="search" size={22} color={active ? tabActiveColor : tabColor} />
+      <Material name="map-search" size={22} color={active ? tabActiveColor : tabColor} />
     )
   },
   {
@@ -165,8 +167,6 @@ class TabsScreen extends React.Component<Props, State>  {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar barStyle={'light-content'} />
-
         {/* Content */}
         { (this.state.booted && this.props.user) &&
           <View style={styles.content}>

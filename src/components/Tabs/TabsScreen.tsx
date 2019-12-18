@@ -54,22 +54,22 @@ const routes = [
     )
   },
   {
-    title: 'Map',
-    component: MapScreen,
+    title: 'Search',
+    component: SearchScreen,
     renderIcon: (active: boolean) => (
-      <Material name="map-search" size={22} color={active ? tabActiveColor : tabColor} />
+      <Icon name="search" size={22} color={active ? tabActiveColor : tabColor}  />  
     )
   },
   {
-    title: 'Search',
-    component: ProductsScreen,
+    title: 'Map',
+    component: MapScreen,
     renderIcon: (active: boolean) => active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <AntIcon name="plus" size={32} color={mainStyle.themeColor} />
+        <Material name="map-search" size={22} color={mainStyle.themeColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <AntIcon name="plus" size={32} color={'#fff'} />
+        <Material name="map-search" size={22} color={'#fff'} />
       </View>
     )
   },
@@ -86,7 +86,7 @@ const routes = [
     title: 'Menu',
     component: ProfileScreen,
     renderIcon: (active: boolean) => (
-      <Icon name="user-o" size={22} color={active ? tabActiveColor : tabColor} />
+      <Icon name={active ? "user" : "user-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
     )
   },
 ]
@@ -191,7 +191,7 @@ class TabsScreen extends React.Component<Props, State>  {
       count = wishes ? wishes.length : 0
     return (
       <TouchableOpacity key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
-        <View style={[styles.tab, isSelected ? {backgroundColor: '#eee'} : {}]}>
+        <View style={[styles.tab, isSelected ? {} : {}]}>
           {item.renderIcon(isSelected)}
           <NotifBubble count={count} backgroundColor={index == 4 ? undefined : mainStyle.themeColor} />
         </View>

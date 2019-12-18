@@ -45,45 +45,33 @@ class LandingScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
-        <AssetImage style={styles.background} src={require('../../images/bg-landing.jpg')} resizeMode='cover' />
-        <VeilView abs start={'rgba(0, 165, 235, 0.34)'} end={'rgba(220, 2, 250, 0.34)'} />
+        {/*<AssetImage style={styles.background} src={require('../../images/bg-landing.jpg')} resizeMode='cover' />*/}
+        {/*<VeilView abs start={'rgba(0, 165, 235, 0.34)'} end={'rgba(220, 2, 250, 0.34)'} />*/}
 
         <View style={styles.logoWrapper}>
-          <Text style={styles.logo}>IsClothing</Text>
+          <Text style={styles.logo}>All Is Good</Text>
         </View>
 
         <View style={styles.floatingBottom}>
 
-          <View style={styles.intro}>
-            <Text style={styles.introTxt}>
-              Achetez.{'\n'}
-              Revendez{'\n'}
-              Renouvelez
-            </Text>
-            <Text style={styles.introEndTxt}>Votre garde-robe</Text>
+          <View style={styles.cooker}>
+            <AssetImage src={require('../../images/cooker.png')} resizeMode='contain' />
           </View>
 
           <View style={styles.btns}>
-            <TouchableOpacity onPress={() => this.facebookLogin()}>
+
+            <TouchableOpacity onPress={() => this.login()}>
+              <View style={[styles.btn, {backgroundColor: mainStyle.themeColor}]}>
+                <Text style={styles.txt}>Se connecter</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={{marginTop: 12}} onPress={() => this.facebookLogin()}>
               <View style={[styles.btn, {backgroundColor: '#3C5A99'}]}>
                 <View style={styles.floating}>
-                  <View style={styles.fbIcon}>
-                    <Icon name='facebook' color={'#3C5A99'} size={22} />
-                  </View>
+                  <Icon name='facebook' color={'#fff'} size={22} />  
                 </View>
                 <Text style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>Connexion Facebook</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{marginTop: 20}} onPress={() => this.login()}>
-              <View style={[styles.btn, {backgroundColor: '#fff'}]}>
-                <Text style={styles.txt}>Connexion par email</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{marginTop: 20}} onPress={Actions.proLogin}>
-              <View style={[styles.proBtn]}>
-                <Text style={[styles.txt, {color: '#fff'}]}>Vous êtes un professionnel ?</Text>
               </View>
             </TouchableOpacity>
 
@@ -97,11 +85,11 @@ class LandingScreen extends React.Component<Props, State>  {
   }
 }
 
-const margin = 30
+const margin = 42
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d47',
+    backgroundColor: '#fff',
   },
   background: {
     position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
@@ -116,29 +104,14 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 50,
-    color: '#fff',
+    color: '#333',
     fontWeight: 'bold',
   },
 
-  intro: {
-    marginBottom: 30,
-    marginLeft: margin,
-  },
-  introTxt: {
-    ...ifIphoneX({
-      fontSize: 42,
-    }, {
-      fontSize: 31,
-    }),
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  introEndTxt: {
-    marginTop: 23,
-    fontSize: 32,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    color: '#fff',
+  cooker: {
+    width: 210,
+    height: 210,
+    marginBottom: 20,
   },
 
   floatingBottom: {
@@ -147,7 +120,9 @@ const styles = StyleSheet.create({
       bottom: 64
     }, {
       bottom: 14
-    })
+    }),
+
+    alignItems: 'center',
   },
 
   btns: {
@@ -156,33 +131,22 @@ const styles = StyleSheet.create({
 
   btn: {
     width: Dimensions.get('window').width - (margin * 2),
-    height: 56,
-    borderRadius: 26,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  proBtn: {
+    height: 44,
+    borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   txt: {
+    color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
   },
 
   floating: {
-    position: 'absolute', top: 0, bottom: 0, left: 6,
+    position: 'absolute', top: 0, bottom: 0, left: 30,
     justifyContent: 'center',
-  },
-  fbIcon: {
-    backgroundColor: '#fff',
-    ...mainStyle.circle(38),
-
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   cgu: {
     marginTop: 12,
@@ -190,7 +154,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     fontSize: 12,
     textAlign: 'center',
-    color: '#fff',
+    color: '#333',
   }
 });
 

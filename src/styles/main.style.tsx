@@ -1,9 +1,9 @@
 export const mainStyle: any = {
   // Colors
   themeGradient: { start: '#02EBE2', end: '#00A5EB' },
-  themeColor: 'rgb(1, 200, 230)', // lighter: #02EBE2
+  themeColor: 'rgb(64, 192, 164)', // lighter: #02EBE2
   themeColorAlpha: (alpha: string) => {
-    return 'rgba(1, 200, 230, ' + alpha + ')'
+    return 'rgba(64, 192, 164, ' + alpha + ')'
   }, 
   lightColor: '#A7A4A5',
   darkColor: '#263238',

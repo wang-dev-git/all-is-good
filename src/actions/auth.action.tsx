@@ -10,11 +10,6 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
   const userId = reducer.fireUser.uid
   const saved = reducer.savedName
   const email = reducer.fireUser.email
-  if (saved) {
-    if (saved.shop) {
-      await Fire.cloud('registerPro', { info: saved })
-    }
-  }
   const res = await Fire.store().collection('users').doc(userId).get()
   if (!res.exists) {
     const u: any = {

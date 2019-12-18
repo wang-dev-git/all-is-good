@@ -20,7 +20,6 @@ import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
 import AddCardScreen from './components/AddCard/AddCardScreen'
 
 import ProductScreen from './components/Product/ProductScreen'
-import UpdatePriceScreen from './components/Product/UpdatePriceScreen'
 import MoreProductsScreen from './components/Products/MoreProductsScreen'
 
 
@@ -115,11 +114,8 @@ export default class Routing extends React.Component<Props, State> {
 
               <Scene key="profile" component={ProfileScreen} />
               <Scene key="product" component={ProductScreen} />
-              <Scene key="updatePrice" component={UpdatePriceScreen} />
 
               <Scene key="userInfo" component={UserInfoScreen} />
-              <Scene key="userBank" component={UserBankScreen} />
-              <Scene key="userBankMore" component={UserBankMoreScreen} />
               <Scene key="orders" component={OrdersScreen} />
               <Scene key="creditCards" component={CreditCardsScreen} />
               <Scene key="addCard" component={AddCardScreen} />
@@ -127,11 +123,6 @@ export default class Routing extends React.Component<Props, State> {
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
               <Scene key="login" component={LoginScreen} hideNavBar />
-              <Scene key="proLogin" component={ProLoginScreen} hideNavBar />
-            </Stack>
-            <Stack key="boost" hideNavBar>
-              <Scene key="boost" component={BoostScreen} modal />
-              <Scene key="addCard" component={AddCardScreen} />
             </Stack>
           </Modal>
         </Router>

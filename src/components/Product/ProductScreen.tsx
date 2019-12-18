@@ -195,16 +195,7 @@ class ProductScreen extends React.Component<Props, State>  {
             }
             <View style={[mainStyle.row, { justifyContent: 'space-between', alignItems: 'center' }]}>
               <Text style={styles.productPrice}>{Number(product.price).toFixed(2)}€</Text>
-              { (product.available && product.seller.id === user.id) &&
-                <TouchableOpacity onPress={() => {
-                  Actions.updatePrice({
-                    product: product,
-                    onUpdate: (price: number) => this.updatedPrice(price),
-                  })
-                }}>
-                  <Text style={styles.updatePrice}>Modifier</Text>
-                </TouchableOpacity>
-              }
+              
             </View>
           </View>
 

@@ -66,7 +66,6 @@ class MoreProductsScreen extends React.Component<Props, State>  {
         <FadeInView style={styles.container}>
           <FlatList
             renderItem={({item, index}) => this.renderItem(item, index)}
-            contentContainerStyle={{flexWrap: 'wrap', flexDirection: 'row'}}
             data={products}
             keyExtractor={(item, index) => index.toString()}
             onEndReached={() => this.loadMore()}

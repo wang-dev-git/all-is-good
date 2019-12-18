@@ -183,7 +183,7 @@ class ProfileScreen extends React.Component<Props, State>  {
               </TouchableOpacity>
             </View>
             <Text style={styles.userName}>{user.first_name + ' ' + user.last_name}</Text>
-            <TouchableOpacity onPress={Actions.profile}>
+            <TouchableOpacity onPress={Actions.userInfo}>
               <Text style={styles.userEdit}>Modifier</Text>            
             </TouchableOpacity>
           </View>

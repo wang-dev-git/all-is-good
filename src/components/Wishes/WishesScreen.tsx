@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import { HeaderBar, FadeInView } from '../Reusable'
 
 import WishItem from './WishItem'
+import ProductItem from '../Products/ProductItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
@@ -40,7 +41,7 @@ class WishesScreen extends React.Component<Props, State>  {
           <FlatList
             data={wishes || []}
             renderItem={({ item }) =>
-              <WishItem
+              <ProductItem
                 product={item}
                 onPress={() => this.viewProduct(item)}
                 onRemove={() => removeWish(item)}

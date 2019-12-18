@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "IsClothing",
-    "slug": "IsClothing",
+    "name": "AllIsGood",
+    "slug": "AllIsGood",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -24,17 +24,15 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.isclothing.app",
+      "bundleIdentifier": "com.allisgood.app",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Nous avons besoin d'accéder à vos photos pour que vous puissiez compléter vos fiches produits.",
-        "NSCameraUsageDescription": "Prendre vos articles en photos",
         "CFBundleURLTypes": {
           "CFBundleURLSchemes": [
-            "fb379489816318205"
+            "fb2609459805809503"
           ]
         },
-        "FacebookAppId": "379489816318205",
-        "FacebookDisplayName": "IsClothing",
+        "FacebookAppId": "2609459805809503",
+        "FacebookDisplayName": "AllIsGood",
         "LSApplicationQueriesSchemes": [
           "fbapi",
           "fb-messenger-share-api",
@@ -44,12 +42,12 @@
       }
     },
     "android": {
-      "package": "com.isclothing.app",
-      "versionCode": 1023
+      "package": "com.allisgood.app",
+      "versionCode": 100
     },
-    "version": "1.0.23",
-    "facebookAppId": "379489816318205",
-    "facebookScheme": "fb379489816318205",
-    "facebookDisplayName": "IsClothing"
+    "version": "1.0.0",
+    "facebookAppId": "2609459805809503",
+    "facebookScheme": "fb2609459805809503",
+    "facebookDisplayName": "AllIsGood"
   }
 }

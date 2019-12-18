@@ -3,7 +3,6 @@ import Constants from 'expo-constants'
 type Environment = {
   stripeAPIKey: string;
   firebaseOptions: any;
-  expertAPI: string;
 }
 
 type Environments = {
@@ -21,7 +20,7 @@ export default class AppConfig {
   static defaultTab: number = 0;
 
   // Facebook ID
-  static facebookId: string = '379489816318205'
+  static facebookId: string = '2609459805809503'
 
   // IsClothing Application fee (Percentage)
   static applicationFee: number = 0.10
@@ -33,33 +32,30 @@ export default class AppConfig {
   static envs: Environments = {
     // Development configuration
     dev: {
-      stripeAPIKey: 'pk_test_r3QcefZfJ7ntGG2VTxbIwyFC00lOt0oVA7',
-      expertAPI: 'https://isclothing-authentifier.herokuapp.com',
-
+      stripeAPIKey: 'pk_test_ZqfQqyALkPrkNMasg3kwvFE5',
       firebaseOptions: {
-        apiKey: "AIzaSyBvx5Dao_zC19TkxT8kIA5lk8eP9OZxl40",
-        authDomain: "isclothing.firebaseapp.com",
-        databaseURL: "https://isclothing.firebaseio.com",
-        projectId: "isclothing",
-        storageBucket: "gs://isclothing.appspot.com",
-        messagingSenderId: "184806855267",
-        appId: "1:184806855267:web:8466e7a62c46e51d"
+        apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",
+        authDomain: "all-is-good-dev.firebaseapp.com",
+        databaseURL: "https://all-is-good-dev.firebaseio.com",
+        projectId: "all-is-good-dev",
+        storageBucket: "all-is-good-dev.appspot.com",
+        messagingSenderId: "467075255307",
+        appId: "1:467075255307:web:c31e6277e1d9dcfb460b0e",
+        measurementId: "G-P5QKKZXYZY"
       },
     },
     // Production configuration
     prod: {
-      stripeAPIKey: 'pk_live_3Sn8TxxwCAHekanrJATCN8Ws00F2IPhKpm',
-      expertAPI: 'https://isclothing-authentifier-prod.herokuapp.com',
-
+      stripeAPIKey: '',
       firebaseOptions: {
-        apiKey: "AIzaSyAcKpqHBuYjGZTWH8a8hR2wOr4rIU7nfUY",
-        authDomain: "isclothing-prod.firebaseapp.com",
-        databaseURL: "https://isclothing-prod.firebaseio.com",
-        projectId: "isclothing-prod",
-        storageBucket: "isclothing-prod.appspot.com",
-        messagingSenderId: "14784278073",
-        appId: "1:14784278073:web:75f4dfd2e0f75d85fd67e8",
-        measurementId: "G-FE09H2HSLE"
+        apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",
+        authDomain: "all-is-good-dev.firebaseapp.com",
+        databaseURL: "https://all-is-good-dev.firebaseio.com",
+        projectId: "all-is-good-dev",
+        storageBucket: "all-is-good-dev.appspot.com",
+        messagingSenderId: "467075255307",
+        appId: "1:467075255307:web:c31e6277e1d9dcfb460b0e",
+        measurementId: "G-P5QKKZXYZY"
       }
     }
   }

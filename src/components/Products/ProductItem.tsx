@@ -76,7 +76,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
 
             <View style={styles.logoWrapper}>
               <View style={styles.logo}>
-                <AssetImage src={product.logo ? {uri: product.logo[0]} : require('../../images/user.png')} resizeMode='cover' />
+                <AssetImage src={product.logo ? {uri: product.logo} : require('../../images/user.png')} resizeMode='cover' />
               </View>
             </View>
 

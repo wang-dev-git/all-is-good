@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "IsClothing",
+    "slug": "IsClothing",
+    "privacy": "public",
+    "sdkVersion": "34.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.isclothing.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Nous avons besoin d'accéder à vos photos pour que vous puissiez compléter vos fiches produits.",
+        "NSCameraUsageDescription": "Prendre vos articles en photos",
+        "CFBundleURLTypes": {
+          "CFBundleURLSchemes": [
+            "fb379489816318205"
+          ]
+        },
+        "FacebookAppId": "379489816318205",
+        "FacebookDisplayName": "IsClothing",
+        "LSApplicationQueriesSchemes": [
+          "fbapi",
+          "fb-messenger-share-api",
+          "fbauth2",
+          "fbshareextension"
+        ]
+      }
+    },
+    "android": {
+      "package": "com.isclothing.app",
+      "versionCode": 1023
+    },
+    "version": "1.0.23",
+    "facebookAppId": "379489816318205",
+    "facebookScheme": "fb379489816318205",
+    "facebookDisplayName": "IsClothing"
+  }
+}

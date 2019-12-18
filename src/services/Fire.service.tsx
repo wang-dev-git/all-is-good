@@ -1,0 +1,104 @@
+
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import '@firebase/functions'
+import '@firebase/storage'
+
+import AppConfig from './AppConfig.service'
+
+export default class Fire {
+
+  // Initialize Firebase
+  static init() {
+    firebase.initializeApp(AppConfig.get().firebaseOptions);
+  }
+
+  // Retrieve base firestore
+  static store() {
+    return firebase.firestore()
+  }
+
+  // Retrieve base auth
+  static auth() {
+    return firebase.auth()
+  }
+  
+  // Sign in using facebook token
+  static signInFacebook(token: any) {
+    const credential = firebase.auth.FacebookAuthProvider.credential(token);
+    return firebase.auth().signInWithCredential(credential)
+  }
+
+  // Retrieve base storage
+  static storage() {
+    return firebase.storage()
+  }
+
+  // Retrieve base functions
+  static async cloud(name: string, data: any = {}) {
+    const callable = firebase.functions().httpsCallable(name)
+    const res = await callable(data)
+    return res.data
+  }
+
+  // Upload a file to Storage
+  static async uploadFile(location: string, uri: string) {
+    // Retrieve Blob
+    const res = await fetch(uri)
+    const blob = await res.blob()
+    // Send it to Firebase Storage
+    const store = Fire.storage().ref()
+    const ref = store.child(location)
+    const uploaded = await ref.put(blob)
+    // Retrieve persistent URL
+    return await uploaded.ref.getDownloadURL()
+  }
+
+  // Shortcuts
+  
+  static async get(ref: any) {
+    const doc = await ref.get()
+    if (doc.exists) {
+      return {
+        id: doc.id,
+        ...doc.data()
+      }
+    }
+    return null
+  }
+
+  static async list(ref: any) {
+    const snap = await ref.get()
+    const items: any[] = []
+    snap.forEach((doc: any) => {
+      if (doc.exists) {
+        items.push({
+          id: doc.id,
+          ...doc.data(),
+        })
+      }
+    })
+    return items
+  }
+
+  static set(collection: string, id: string, data: any) {
+    return Fire.store().collection(collection).doc(id).set(data)
+  }
+  static update(collection: string, id: string, data: any) {
+    return Fire.store().collection(collection).doc(id).update(data)
+  }
+
+  // Dates
+
+  // Retrieve timestamp for given date (for test purpopses only)
+  static getTimeFor(date: Date) {
+    return firebase.firestore.Timestamp.fromDate(date)
+  }
+
+  // Retrieve date from timestamp
+  static getDateFor(timestamp: firebase.firestore.Timestamp){
+    if (timestamp.toDate)
+      return timestamp.toDate()
+    return new Date()
+  }
+}

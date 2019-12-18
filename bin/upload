@@ -1,0 +1,1 @@
+xcrun altool --upload-app -f $1 -u julien.brunet.92@gmail.com -p rrdv-zaif-iqfs-ophz

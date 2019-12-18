@@ -7,7 +7,8 @@ import { Fire, Flash } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 import { switchTab } from '../../actions/tab.action'
-import AntDesign from '@expo/vector-icons/AntDesign'
+import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
+import AntIcon from '@expo/vector-icons/AntDesign'
 
 import { Actions } from 'react-native-router-flux'
 
@@ -43,14 +44,6 @@ const ProductItem: React.FC<Props> = (props: Props) => {
     }
   }
 
-  const getPrice = () => {
-    const { product } = props
-    const digits = (parseFloat(product.price) - parseInt(product.price)) != 0
-    if (digits)
-      return Number(product.price).toFixed(2)
-    return parseInt(product.price)
-  }
-
   const { product, index, onPress, isInWishes } = props
   const inWishes = isInWishes(product)
   const name = product.name && product.name.length > 22 ? (product.name.substr(0, 18) + '...') : product.name
@@ -59,34 +52,43 @@ const ProductItem: React.FC<Props> = (props: Props) => {
       <View style={styles.container}>
         <View style={[styles.shadow]}>
           <View style={styles.content}>
+
             <View style={styles.picture}>
               <AssetImage src={product.pictures ? {uri: product.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
+
             <View style={styles.info}>
-              <View style={[mainStyle.row, { height: 32, justifyContent: 'space-between'}]}>
-                <Text numberOfLines={1} style={styles.brand}>{getBrandName(product.brand).toUpperCase()}</Text>
-                {product.certified &&
-                  <View style={styles.cert}>
-                    <AntDesign name="check" size={18} color={mainStyle.greenColor} />
-                  </View>
-                }
-              </View>
-              <Text numberOfLines={1} style={styles.name}>{product.size ? product.size + ' - ' : product.shoe ? product.shoe + ' - ' : '38 - '}{name}</Text>
+              <Text numberOfLines={1} style={styles.name}>{name}</Text>
               <View style={styles.row}>
-                <Text style={[styles.name, styles.price]}>{getPrice()}€</Text>
-               
+                <View style={styles.icon}>
+                  <AntIcon size={14} name="clockcircle" />
+                </View>
+                <Text style={[styles.txt]}> Aujourd'hui 21:40 - 22:05</Text>
+              </View>
+              <View style={styles.row}>
+                <View style={styles.icon}>
+                  <MaterialIcon size={18} name="map-marker" />  
+                </View>
+                <Text style={[styles.txt]}>4 km</Text>               
               </View>
             </View>
 
-              <TouchableOpacity
-                style={styles.wishBtn}
-                onPress={() => toggleWish()}>
-                { inWishes ? (
-                  <AssetImage src={require('../../images/like.png')} />
-                ) : (
-                  <AssetImage src={require('../../images/like_empty.png')} />
-                )}
-              </TouchableOpacity>
+
+            <View style={styles.logoWrapper}>
+              <View style={styles.logo}>
+                <AssetImage src={product.logo ? {uri: product.logo[0]} : require('../../images/user.png')} resizeMode='cover' />
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.wishBtn}
+              onPress={() => toggleWish()}>
+              { inWishes ? (
+                <AssetImage src={require('../../images/like.png')} />
+              ) : (
+                <AssetImage src={require('../../images/like_empty.png')} />
+              )}
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -115,51 +117,47 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   picture: {
-    height: 166,
+    height: 110,
   },
+  logoWrapper: {
+    position: 'absolute',
+    top: 95,
+    left: 12,
 
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  logo: {
+    ...mainStyle.circle(42),
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
   info: {
     padding: 10,
     backgroundColor: '#fff',
   },
-  brand: {
+  name: {
+    ...mainStyle.montBold,
     fontSize: 16,
-    fontWeight: 'bold',
+    marginLeft: 60,
     color: mainStyle.darkColor
   },
-  name: {
-    marginTop: 5,
+  txt: {
     fontSize: 13,
     color: mainStyle.darkColor,
   },
   row: {
-    marginTop: 15,
+    marginTop: 10,
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  price: {
-    color: mainStyle.darkColor,
-    fontSize: 16,
-    paddingBottom: 2,
-    flex: 0.8,
-  },
-  addBtn: {
-    width: 82,
-    flex: 1.2,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: mainStyle.themeColor,
-
+  icon: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 7,
-    paddingBottom: 7,
+    width: 30,
   },
-  addBtnTxt: {
-    color: '#fff',
-    fontSize: 14,
-  },
+
   wishBtn: {
     ...mainStyle.abs,
     bottom: undefined, left: undefined,
@@ -168,13 +166,6 @@ const styles = StyleSheet.create({
     height: 28,
     padding: 3,
   },
-  cert: {
-    ...mainStyle.circle(28),
-    borderColor: mainStyle.greenColor,
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
 });
 
 const mapStateToProps = (state: any) => ({

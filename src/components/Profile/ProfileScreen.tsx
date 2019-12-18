@@ -67,43 +67,7 @@ class ProfileScreen extends React.Component<Props, State>  {
         const uploadedURL = await Fire.uploadFile(location, uri)
 
         try {
-          await updateUser({picture: uploadedURL})
-          Flash.show('Photo enregistrée !')
-        } catch (err) {
-          Flash.error('Une erreur est survenue')
-        }
-        this.setState({ uploading: false })
-      }
-
-    } catch (err) {
-      Flash.error('Une erreur est survenue')
-      console.log(err)
-    }
-  }
-
-  async editBackground() {
-    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
-    if (status !== 'granted')
-      await Permissions.askAsync(Permissions.CAMERA_ROLL)
-
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [5, 3],
-      });
-
-      if (!result.cancelled) {
-        const { user, updateUser } = this.props
-
-        const uri = result.uri
-        const location = 'images/users/' + user.id + '/background_picture.png'
-        
-        this.setState({ uploading: true })
-        const uploadedURL = await Fire.uploadFile(location, uri)
-
-        try {
-          await updateUser({background: uploadedURL})
+          await updateUser({pictures: [uploadedURL]})
           Flash.show('Photo enregistrée !')
         } catch (err) {
           Flash.error('Une erreur est survenue')

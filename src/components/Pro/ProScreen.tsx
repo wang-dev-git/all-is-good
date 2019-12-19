@@ -14,6 +14,7 @@ import Feather from '@expo/vector-icons/Feather'
 import { switchTab } from '../../actions/tab.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
+import ModalContainer from '../Modal/ModalContainer'
 import PaymentModal from './PaymentModal'
 
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -35,6 +36,9 @@ class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
     //Actions.updatePrice({ pro: this.props.pro, onUpdate: (price: number) => this.updatedPrice(price) })
+    setTimeout(() => {
+      this.checkout()
+    }, 500)
   }
 
   toggleWish() {
@@ -53,9 +57,20 @@ class ProScreen extends React.Component<Props>  {
     }
   }
 
-  onPay(counter: number) {
+  onPay(counter: number, card: string) {
     console.log(counter)
-    
+    console.log(card)
+    Modal.hide('payment')
+  }
+
+  checkout() {
+    const { pro } = this.props
+    Modal.show('payment', { component:
+      <PaymentModal
+        price={pro.price}
+        onPay={(counter: number, card: string) => this.onPay(counter, card)}
+        />
+    })
   }
 
   render() {
@@ -80,7 +95,6 @@ class ProScreen extends React.Component<Props>  {
               width={Dimensions.get('window').width}
               height={ifIphoneX({height: 260}, {height: 200}).height}
               pictures={pro.pictures || []}
-              onSelect={(index: number) => this.setState({ showZoom: true, zoomIndex: index })}
               />
             <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .06)' />
             
@@ -162,8 +176,10 @@ class ProScreen extends React.Component<Props>  {
           abs
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show('payment', { component: <PaymentModal price={pro.price} onPay={(counter: number) => this.onPay(counter)} /> })}
+          onPress={() => this.checkout()}
           />
+
+        <ModalContainer />
       </View>
     );
   }

@@ -14,14 +14,14 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   price: number;
-  onPay: (counter: number) => void;
+  onPay: (counter: number, card: string) => void;
 }
 
 const PaymentModal: React.FC<Props> = (props) => {
   
   const price = props.price || 0
   const [counter, updateCounter] = React.useState(1)
-  const [showCards, setShowCards] = React.useState(false)
+  const [showCards, setShowCards] = React.useState(true)
   const [card, setCard] = React.useState('')
 
   const total = Number(counter * price).toFixed(2)
@@ -66,9 +66,8 @@ const PaymentModal: React.FC<Props> = (props) => {
           </TouchableOpacity>      
         </View>
         <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
-          <SelectCreditCard
-            cardSelected={setCard}
-            />
+          <Text style={styles.quantityTitle}>Votre moyen de paiement</Text>
+          <SelectCreditCard cardSelected={setCard} />
         </Animated.View>
 
         <Text style={styles.quantityTitle}>Total {total}€</Text>
@@ -79,7 +78,7 @@ const PaymentModal: React.FC<Props> = (props) => {
       <BottomButton
         title={!showCards ? 'Continuer' : 'Payer ' + total + '€'}
         backgroundColor={mainStyle.themeColor}
-        onPress={() => setShowCards(true)}
+        onPress={() => !showCards ? setShowCards(true) : props.onPay(counter, card)}
         disabled={!showCards ? counter === 0 : card === ''}
         />
     </View>

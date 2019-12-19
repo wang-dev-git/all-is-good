@@ -14,10 +14,11 @@ import Feather from '@expo/vector-icons/Feather'
 import { switchTab } from '../../actions/tab.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
+import PaymentModal from './PaymentModal'
+
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 import { mainStyle } from '../../styles'
-import { getStateName } from '../../filters'
 
 interface Props {
   user: any;
@@ -29,19 +30,8 @@ interface Props {
   removeWish: (product: any) => void;
   isInWishes: (product: any) => boolean;
 }
-interface State {
-  refresh: boolean;
-  showZoom: boolean;
-  zoomIndex: number;
-}
 
-class ProductScreen extends React.Component<Props, State>  {
-  
-  state = {
-    refresh: false,
-    showZoom: false,
-    zoomIndex: 0
-  }
+class ProductScreen extends React.Component<Props>  {
 
   componentDidMount() {
     //Actions.updatePrice({ product: this.props.product, onUpdate: (price: number) => this.updatedPrice(price) })
@@ -63,33 +53,12 @@ class ProductScreen extends React.Component<Props, State>  {
     }
   }
 
-  confirm(title: string, btn: string, callback: () => void) {
-    Alert.alert(
-      'Confirmez',
-      title,
-      [
-        {
-          text: 'Annuler',
-          style: 'cancel',
-        },
-        {text: btn, style: 'destructive', onPress: callback},
-      ],
-      {cancelable: false},
-    );
-  }
-
-  updatedPrice(price: number) {
-    this.props.product.price = price
-    this.setState({ refresh: !this.state.refresh })
-  }
-
   render() {
     const { user, product, isInWishes } = this.props
 
     const inWishes = isInWishes(product)
     const hasDesc = product.description != undefined && product.description != ''
     const seller = product.seller
-    const state = getStateName(product.state)
 
     const pics: any = []
     if (product.pictures) {
@@ -109,26 +78,45 @@ class ProductScreen extends React.Component<Props, State>  {
               onSelect={(index: number) => this.setState({ showZoom: true, zoomIndex: index })}
               />
             <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .06)' />
+            
             <TouchableOpacity
-              style={[styles.favoriteBtn, {backgroundColor: '#eee'}]}
-              onPress={() => this.toggleWish()}
-              >
-              <View style={styles.favoriteImg}>
-                <AssetImage
-                  src={inWishes ? require('../../images/like.png') : require('../../images/like_empty.png')}
-                  />
-              </View>
+              style={styles.wishBtn}
+              onPress={() => this.toggleWish()}>
+              { inWishes ? (
+                <AssetImage src={require('../../images/like.png')} />
+              ) : (
+                <AssetImage src={require('../../images/like_empty.png')} />
+              )}
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.backBtn} onPress={Actions.pop}>
               <AntDesign name="close" size={23} color='#fff' />
             </TouchableOpacity>
           </View>
 
+          <View style={styles.logoWrapper}>
+            <View style={styles.shadow}>
+              <View style={styles.logo}>
+                <AssetImage src={product.pictures ? { uri: product.pictures[0]} : undefined} resizeMode="cover" />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.info}>
+            <View>
+              <Text style={styles.title}>Restaurant</Text>
+              <Text>Aujourd'hui 21:40 - 22:20</Text>
+            </View>
+            <View>
+              <Text>5,90€</Text>
+            </View>
+          </View>
+
           { hasDesc &&
-            <React.Fragment>
-              <Text style={styles.description}>Ce que tu peux avoir</Text>
+            <View style={styles.descriptionWrapper}>
+              <Text style={styles.descriptionTitle}>Ce que tu peux avoir</Text>
               <Text style={styles.description}>{product.description}</Text>
-            </React.Fragment>
+            </View>
           }
           
           <View style={styles.location}>
@@ -163,21 +151,10 @@ class ProductScreen extends React.Component<Props, State>  {
         <BottomButton
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show({ component: this.renderModal() })}
+          onPress={() => Modal.show({ component: <PaymentModal /> })}
           />
       </View>
     );
-  }
-
-  renderModal() {
-    return (
-      <View>
-        <View style={styles.header}>
-          <Text style={styles.title}>Restaurant</Text>
-          <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
-        </View>
-      </View>
-    )
   }
 }
 
@@ -191,22 +168,48 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  header: {
-    margin: 20,
-    paddingBottom: 20,
-    justifyContent: 'center',
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
-    marginBottom: 20,
-  },
   title: {
     ...mainStyle.montBold,
-    textAlign: 'center',
+    fontSize: 15,
+    marginBottom: 3,
   },
-  open: {
-    ...mainStyle.montLight,
-    textAlign: 'center',
-    marginTop: 6,
+
+  logoWrapper: {
+    marginTop: -60,
+    marginLeft: 15,
+  },
+  shadow: {
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  logo: {
+    ...mainStyle.circle(80),
+  },
+
+  info: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    marginTop: 12,
+    marginHorizontal: 20,
+  },
+
+  descriptionWrapper: {
+    ...mainStyle.montBold,
+    marginHorizontal: 20,
+    marginVertical: 30,
+  },
+  descriptionTitle: {
+    ...mainStyle.montBold,
+    color: '#131414',
+    textTransform: 'uppercase',
+    marginBottom: 12,
+  },
+  description: {
+    ...mainStyle.montText,
+    color: '#696969',
+    fontSize: 17,
   },
 
   backBtn: {
@@ -220,27 +223,20 @@ const styles = StyleSheet.create({
       top: 26
     })
   },
-  favoriteBtn: {
-    padding: 14,
-    borderRadius: 100 / 2,
-    position: 'absolute',
-    bottom: -20,
-    right: 20,
-    overflow: 'hidden',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  favoriteImg: {
-    width: 24,
-    height: 24,
-  },
-  description: {
-    color: '#686868',
-    fontSize: 17,
-    marginTop: 16,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 30,
+
+  wishBtn: {
+    ...mainStyle.abs,
+    bottom: undefined, left: undefined,
+    width: 28,
+    height: 28,
+    padding: 3,
+    
+    right: 16,
+    ...ifIphoneX({
+      top: 46,
+    }, {
+      top: 26
+    })
   },
 
   location: {

@@ -110,11 +110,6 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.loadCards()
         await this.props.refreshWishes()
        
-        setTimeout(() => Modal.show({
-          component: (
-            <View><Text>OK</Text></View>
-          ),
-        }), 200)
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
       else {

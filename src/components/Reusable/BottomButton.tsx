@@ -43,15 +43,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     overflow: 'hidden',
-    borderRadius: 8,
     height: 60,
 
     paddingLeft: 20,
     paddingRight: 20,
 
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 10,
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
   title: {
     color: '#fff',

@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar, Modal } from 'react-native';
+import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Modal } from '../../services'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
@@ -159,17 +159,25 @@ class ProductScreen extends React.Component<Props, State>  {
           </View>
 
         </ScrollView>
-        <Modal
-          visible={this.state.showZoom}
-          transparent={false}
-          onRequestClose={() => this.setState({ showZoom: false })}>
-          <ImageViewer imageUrls={pics} index={this.state.zoomIndex} />
-          <TouchableOpacity onPress={() => this.setState({ showZoom: false })} style={styles.quitZoom}>
-            <AntDesign name="close" size={22} color='#fff' />
-          </TouchableOpacity>
-        </Modal>
+
+        <BottomButton
+          title="Réserver"
+          backgroundColor={mainStyle.themeColor}
+          onPress={() => Modal.show({ component: this.renderModal() })}
+          />
       </View>
     );
+  }
+
+  renderModal() {
+    return (
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.title}>Restaurant</Text>
+          <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
+        </View>
+      </View>
+    )
   }
 }
 
@@ -183,77 +191,29 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  userInfo: {
-    padding: 20,
-    borderBottomColor: '#eee',
+  header: {
+    margin: 20,
+    paddingBottom: 20,
+    justifyContent: 'center',
+    borderBottomColor: '#ddd',
     borderBottomWidth: 1,
-    flexDirection: 'row'
+    marginBottom: 20,
   },
-  userName: {
-    color: '#686868',
-    fontWeight: 'bold',
-    fontSize: 17,
-    marginLeft: 20,
-    marginRight: 20,
+  title: {
+    ...mainStyle.montBold,
+    textAlign: 'center',
   },
-  userPicture: {
-    ...mainStyle.circle(60),
+  open: {
+    ...mainStyle.montLight,
+    textAlign: 'center',
+    marginTop: 6,
   },
 
-  productInfo: {
-    padding: 20,
-  },
-  productName: {
-    ...mainStyle.montBold,
-    fontSize: 20,
-    color: '#686868',
-  },
-  certif: {
-    ...mainStyle.montBold,
-    fontSize: 13,
-    color: '#fff',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 4,
-    overflow: 'hidden',
-    textAlign: 'center',
-    backgroundColor: mainStyle.greenColor,
-    marginBottom: 12,
-  },
-  productState: {
-    marginTop: 8,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: mainStyle.lightColor
-  },
-  productPrice: {
-    marginTop: 8,
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: mainStyle.darkColor,
-  },
-  updatePrice: {
-    color: mainStyle.themeColor,
-    fontSize: 15,
-    paddingRight: 12,
-  },
   backBtn: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     left: 16,
-    ...ifIphoneX({
-      top: 46,
-    }, {
-      top: 26
-    })
-  },
-  shareBtn: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-    position: 'absolute',
-    right: 16,
     ...ifIphoneX({
       top: 46,
     }, {
@@ -281,23 +241,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 30,
-  },
-  boostTitle: {
-    color: mainStyle.lightColor,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  quitZoom: {
-    position: 'absolute',
-    ...ifIphoneX({
-      top: 34,
-    }, {
-      top: 26,
-    }),
-    left: 20,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   location: {

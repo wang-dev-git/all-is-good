@@ -135,7 +135,6 @@ export default class Routing extends React.Component<Props, State> {
           hideStatusBar
           />
 
-
         { /** Bottom Modal **/ }
         <ModalContainer />
       </View>

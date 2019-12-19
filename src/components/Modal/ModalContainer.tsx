@@ -28,7 +28,7 @@ const ModalContainer: React.SFC<Props> = (props) => {
     console.log(props.shown)
     Animated.timing(animate, {
       toValue: props.shown ? 1 : 0,
-      duration: 1200
+      duration: 600
     }).start();
   }, [props.shown]);
 
@@ -38,15 +38,14 @@ const ModalContainer: React.SFC<Props> = (props) => {
   })
 
   return (
-    <React.Fragment>
+    <View style={styles.container} pointerEvents={props.shown ? 'auto' : 'none'}>
       <TouchableWithoutFeedback onPress={() => close()}>
-        <Animated.View style={[styles.container, {opacity: animate}]}>
-        </Animated.View>
+        <Animated.View style={[styles.veil, {opacity: animate}]}></Animated.View>
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.content, {transform: [{translateY: slide}]}]}>
         {props.component}
       </Animated.View>
-    </React.Fragment>
+    </View>
   )
 }
 
@@ -58,12 +57,17 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  veil: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   content: {
-    height: 220,
-    backgroundColor: 'blue',
+    borderRadius: 22,
+    overflow: 'hidden',
+    marginBottom: -22,
+    paddingBottom: 22,
+    backgroundColor: '#fff',
 
     position: 'absolute',
     left: 0,

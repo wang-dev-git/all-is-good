@@ -63,13 +63,13 @@ const ProductItem: React.FC<Props> = (props: Props) => {
                 <View style={styles.icon}>
                   <AntIcon size={14} name="clockcircle" />
                 </View>
-                <Text style={[styles.txt]}> Aujourd'hui 21:40 - 22:05</Text>
+                <Text style={[styles.open]}> Aujourd'hui 21:40 - 22:05</Text>
               </View>
               <View style={styles.row}>
                 <View style={styles.icon}>
                   <MaterialIcon size={18} name="map-marker" />  
                 </View>
-                <Text style={[styles.txt]}>4 km</Text>               
+                <Text style={[styles.open]}>4 km</Text>               
               </View>
             </View>
 
@@ -143,7 +143,8 @@ const styles = StyleSheet.create({
     marginLeft: 60,
     color: mainStyle.darkColor
   },
-  txt: {
+  open: {
+    ...mainStyle.montText,
     fontSize: 13,
     color: mainStyle.darkColor,
   },

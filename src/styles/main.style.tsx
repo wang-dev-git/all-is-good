@@ -5,9 +5,9 @@ export const mainStyle: any = {
   themeColorAlpha: (alpha: string) => {
     return 'rgba(64, 192, 164, ' + alpha + ')'
   }, 
-  lightColor: '#A7A4A5',
+  lightColor: '#6E6E6E',
   darkColor: '#263238',
-  redColor: '#FF536B',
+  redColor: '#E25464',
   greenColor: '#4BB543',
   orangeColor: '#AA8312',
 

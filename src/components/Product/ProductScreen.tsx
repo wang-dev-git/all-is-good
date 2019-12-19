@@ -69,7 +69,7 @@ class ProductScreen extends React.Component<Props>  {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
-        <ScrollView contentContainerStyle={ifIphoneX({ paddingBottom: 30 }, {})}>
+        <ScrollView contentContainerStyle={ifIphoneX({ paddingBottom: 80 }, { paddingBottom: 60 })}>
           <View>
             <ImageSlider
               width={Dimensions.get('window').width}
@@ -97,7 +97,7 @@ class ProductScreen extends React.Component<Props>  {
           <View style={styles.logoWrapper}>
             <View style={styles.shadow}>
               <View style={styles.logo}>
-                <AssetImage src={product.pictures ? { uri: product.pictures[0]} : undefined} resizeMode="cover" />
+                <AssetImage src={product.logo ? { uri: product.logo} : undefined} resizeMode="cover" />
               </View>
             </View>
           </View>
@@ -105,10 +105,11 @@ class ProductScreen extends React.Component<Props>  {
           <View style={styles.info}>
             <View>
               <Text style={styles.title}>Restaurant</Text>
-              <Text>Aujourd'hui 21:40 - 22:20</Text>
+              <Text style={styles.open}><AntDesign size={14} name="clockcircle" />  Aujourd'hui 21:40 - 22:20</Text>
             </View>
             <View>
-              <Text>5,90€</Text>
+              <Text style={styles.price}></Text>
+              <Text style={styles.price}>5,90€</Text>
             </View>
           </View>
 
@@ -120,10 +121,6 @@ class ProductScreen extends React.Component<Props>  {
           }
           
           <View style={styles.location}>
-            { product.place &&
-              <Text style={styles.place}>{product.place.toUpperCase()}</Text>
-            }
-            <Text style={styles.address}>{product.address + ', ' + product.postal_code + ' ' + product.city}</Text>
             { (product.lat && product.lng) &&
               <View style={styles.map}>
                 <MapView
@@ -144,6 +141,14 @@ class ProductScreen extends React.Component<Props>  {
                 </MapView>
               </View>
             }
+            <View style={styles.addr}>
+              <Text style={styles.address}>{product.address + ', ' + product.postal_code + ' ' + product.city}</Text>
+              <View style={styles.trip}>
+                <TouchableOpacity>
+                  <Text style={styles.tripTxt}>Itinéraire</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
 
         </ScrollView>
@@ -168,14 +173,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  title: {
-    ...mainStyle.montBold,
-    fontSize: 15,
-    marginBottom: 3,
-  },
-
   logoWrapper: {
-    marginTop: -60,
+    marginTop: -40,
     marginLeft: 15,
   },
   shadow: {
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(80),
+    ...mainStyle.circle(60),
   },
 
   info: {
@@ -192,7 +191,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 
     marginTop: 12,
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+  },
+
+  title: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    height: 26,
+  },
+  price: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    height: 26,
+  },
+  open: {
+    ...mainStyle.montText,
+    fontSize: 13,
+    height: 26,
   },
 
   descriptionWrapper: {
@@ -210,6 +229,54 @@ const styles = StyleSheet.create({
     ...mainStyle.montText,
     color: '#696969',
     fontSize: 17,
+  },
+
+
+  location: {
+    flex: 1,
+    marginTop: 10,
+  },
+  map: {
+    flex: 1,
+    height: 200,
+  },
+  addr: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    marginLeft: 20,
+    marginVertical: 20,
+  },
+  place: {
+    ...mainStyle.montBold,
+    fontSize: 13,
+    color: mainStyle.darkColor
+  },
+  address: {
+    flex: 1,
+    marginTop: 12,
+    marginBottom: 16,
+    ...mainStyle.montLight,
+    fontSize: 15,
+    lineHeight: 20,
+    color: mainStyle.lightColor,
+  },
+  trip: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tripTxt: {
+    ...mainStyle.montText,
+    backgroundColor: mainStyle.redColor,
+    color: '#fff',
+    textTransform: 'uppercase',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    fontSize: 14,
+    borderRadius: 16,
+    overflow: 'hidden'
   },
 
   backBtn: {
@@ -237,31 +304,6 @@ const styles = StyleSheet.create({
     }, {
       top: 26
     })
-  },
-
-  location: {
-    flex: 1,
-    marginTop: 30,
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  place: {
-    ...mainStyle.montBold,
-    fontSize: 13,
-    color: mainStyle.darkColor
-  },
-  address: {
-    marginTop: 12,
-    marginBottom: 16,
-    ...mainStyle.montLight,
-    fontSize: 14,
-    color: mainStyle.darkColor,
-  },
-  map: {
-    flex: 1,
-    height: 220,
-    borderRadius: 12,
-    overflow: 'hidden',
   },
 
 });

@@ -11,7 +11,7 @@ import MapScreen from '../Map/MapScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
-import { Fire, Stripe } from '../../services'
+import { Fire, Stripe, Modal } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
@@ -110,7 +110,11 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.loadCards()
         await this.props.refreshWishes()
        
-        //setTimeout(() => Actions.sell(), 200)
+        setTimeout(() => Modal.show({
+          component: (
+            <View><Text>OK</Text></View>
+          ),
+        }), 200)
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
       else {

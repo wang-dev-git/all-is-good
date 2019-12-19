@@ -1,7 +1,7 @@
 import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
 
-import { AppConfig } from '../services' 
+import AppConfig from '../services/AppConfig.service' 
 
 export const switchTab = createActionThunk('SWITCH_TAB', (tab) => tab)
 

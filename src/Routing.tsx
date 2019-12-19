@@ -5,6 +5,7 @@ import { Router, Stack, Scene, Modal } from 'react-native-router-flux'
 import { View, Dimensions, Image } from 'react-native';
 
 import FlashMessage from 'react-native-flash-message'
+import ModalContainer from './components/Modal/ModalContainer'
 
 import LandingScreen from './components/Landing/LandingScreen'
 import LoginScreen from './components/Login/LoginScreen'
@@ -133,6 +134,10 @@ export default class Routing extends React.Component<Props, State> {
           floating={true}
           hideStatusBar
           />
+
+
+        { /** Bottom Modal **/ }
+        <ModalContainer />
       </View>
     )  
   }

@@ -1,7 +1,7 @@
 import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
 
-import { Fire } from '../services'
+import Fire from '../services/Fire.service'
 
 export const autologin = createActionThunk('AUTOLOGIN', (user: any) => user)
 export const saveName = createActionThunk('SAVE_REGISTER_NAME', (name: any) => name)

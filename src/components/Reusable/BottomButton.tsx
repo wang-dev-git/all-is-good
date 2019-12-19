@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import VeilView from './VeilView'
 
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Icon from '@expo/vector-icons/FontAwesome';
 
 interface Props {
@@ -43,7 +44,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     overflow: 'hidden',
-    height: 60,
+    ...ifIphoneX({
+      height: 80,
+      paddingBottom: 20,
+    }, {
+      height: 60,
+    }),
 
     paddingLeft: 20,
     paddingRight: 20,

@@ -25,10 +25,9 @@ const ModalContainer: React.SFC<Props> = (props) => {
   const animate = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
-    console.log(props.shown)
     Animated.timing(animate, {
       toValue: props.shown ? 1 : 0,
-      duration: 600
+      duration: 120
     }).start();
   }, [props.shown]);
 

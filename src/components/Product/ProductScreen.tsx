@@ -114,7 +114,7 @@ class ProductScreen extends React.Component<Props>  {
             </View>
             <View>
               <Text style={styles.price}></Text>
-              <Text style={styles.price}>5,90€</Text>
+              <Text style={styles.price}>{Number(product.price).toFixed(2)}€</Text>
             </View>
           </View>
 
@@ -162,7 +162,7 @@ class ProductScreen extends React.Component<Props>  {
           abs
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show({ component: <PaymentModal onPay={(counter: number) => this.onPay(counter)} /> })}
+          onPress={() => Modal.show({ component: <PaymentModal price={product.price} onPay={(counter: number) => this.onPay(counter)} /> })}
           />
       </View>
     );

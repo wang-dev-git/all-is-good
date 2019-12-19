@@ -13,13 +13,16 @@ import Feather from '@expo/vector-icons/Feather'
 import { mainStyle } from '../../styles'
 
 interface Props {
+  price: number;
   onPay: (counter: number) => void;
 }
 
 const PaymentModal: React.FC<Props> = (props) => {
   
-  const [counter, updateCounter] = React.useState(0)
+  const price = props.price || 0
+  const [counter, updateCounter] = React.useState(1)
 
+  const total = Number(counter * price).toFixed(2)
   return (
     <View>
       <View style={styles.header}>
@@ -41,15 +44,16 @@ const PaymentModal: React.FC<Props> = (props) => {
             </View>
           </TouchableOpacity>      
         </View>
-        <Text style={styles.quantityTitle}>Total 16€</Text>
+        <Text style={styles.quantityTitle}>Total {total}€</Text>
       </View>
       <View>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>
       <BottomButton
-        title="Payer 16,00€"
+        title={'Payer ' + total + '€'}
         backgroundColor={mainStyle.themeColor}
         onPress={() => props.onPay(counter)}
+        disabled={counter === 0}
         />
     </View>
   );

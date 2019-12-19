@@ -9,7 +9,7 @@ import ProItem from './ProItem'
 import { Actions } from 'react-native-router-flux'
 import { Fire, Flash } from '../../services'
 
-import { fetchHomeProducts } from '../../actions/products.action'
+import { fetchHomePros } from '../../actions/pros.action'
 import { Notifications } from 'expo';
 
 import * as Permissions from 'expo-permissions'
@@ -18,16 +18,16 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   user: any;
-  products: any;
+  pros: any;
   loading: boolean;
 
-  fetchHomeProducts: () => void;
+  fetchHomePros: () => void;
 }
 interface State {
 
 }
 
-class ProductsScreen extends React.Component<Props, State>  {
+class ProsScreen extends React.Component<Props, State>  {
 
   async componentDidMount() {
     
@@ -38,8 +38,8 @@ class ProductsScreen extends React.Component<Props, State>  {
     }
     //setTimeout(() => Actions.orders(), 500)
 
-    const { products, fetchHomeProducts } = this.props
-    if (products)
+    const { pros, fetchHomePros } = this.props
+    if (pros)
       return
     try {
       this.reload()
@@ -48,9 +48,9 @@ class ProductsScreen extends React.Component<Props, State>  {
     }
    
     setTimeout(() => {
-      const products = this.props.products.byDate
-      if (products && products.length > 0)
-        Actions.product({ product: products[0]} )
+      const pros = this.props.pros.byDate
+      if (pros && pros.length > 0)
+        Actions.pro({ pro: pros[0]} )
     }, 500)
 
   }
@@ -90,36 +90,27 @@ class ProductsScreen extends React.Component<Props, State>  {
 
   showMore(key: string, title: string) {
     const isShop = key == 'shops'
-    Actions.more({ shops: isShop, title, products: this.props.products[key] })
+    Actions.more({ shops: isShop, title, pros: this.props.pros[key] })
   }
 
   async reload() {
-    await this.props.fetchHomeProducts()   
+    await this.props.fetchHomePros()   
   }
 
-  renderProduct(product: any, index: number, section: any) {
+  renderPro(pro: any, index: number, section: any) {
     return (
       <ProItem
-        product={product}
+        pro={pro}
         index={index}
         sectioned
-        onPress={() => Actions.product({ product })}
-        />
-    )
-  }
-
-  renderShop(shop: any) {
-    return (
-      <ShopItem
-        shop={shop}
-        onPress={() => Actions.shop({ shop })}
+        onPress={() => Actions.pro({ pro })}
         />
     )
   }
 
   render() {
-    const { products, loading, fetchHomeProducts } = this.props
-    const homeProducts = products || {}
+    const { pros, loading, fetchHomePros } = this.props
+    const homePros = pros || {}
 
     return (
       <View style={styles.container}>
@@ -141,15 +132,15 @@ class ProductsScreen extends React.Component<Props, State>  {
             )}
             contentContainerStyle={{paddingBottom: 20}}
             stickySectionHeadersEnabled={false}
-            renderItem={({item, index, section}) => this.renderProduct(item, index, section)}
+            renderItem={({item, index, section}) => this.renderPro(item, index, section)}
             renderSectionHeader={({section}) => (
               <TouchableOpacity onPress={() => this.showMore(section.key, section.subtitle)}>
                 <Text style={styles.headerTxt}>{section.title}</Text>
               </TouchableOpacity>
             )}
             sections={[
-              {key: 'byDate', subtitle: 'Nouveautés', title: 'Nouveautés'.toUpperCase(), data: homeProducts.byDate || []},
-              {key: 'byPopularity', subtitle: 'Populaires', title: 'Populaires'.toUpperCase(), data: homeProducts.byPopularity || []},
+              {key: 'byDate', subtitle: 'Nouveautés', title: 'Nouveautés'.toUpperCase(), data: homePros.byDate || []},
+              {key: 'byPopularity', subtitle: 'Populaires', title: 'Populaires'.toUpperCase(), data: homePros.byPopularity || []},
             ]}
             keyExtractor={(item, index) => item + index}
             refreshControl={
@@ -226,10 +217,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
-  products: state.productsReducer.homeProducts,
-  loading: state.productsReducer.loading,
+  pros: state.prosReducer.homePros,
+  loading: state.prosReducer.loading,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchHomeProducts: () => dispatch(fetchHomeProducts())
+  fetchHomePros: () => dispatch(fetchHomePros())
 })
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProsScreen)

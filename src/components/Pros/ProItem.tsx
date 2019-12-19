@@ -17,36 +17,36 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   index: number;
-  product: any;
+  pro: any;
   wishes: any;
 
   switchTab: (tab: number) => void;
-  addWish: (product: any) => void;
-  removeWish: (product: any) => void;
+  addWish: (pro: any) => void;
+  removeWish: (pro: any) => void;
   onPress: () => void;
-  isInWishes: (product: any) => boolean;
+  isInWishes: (pro: any) => boolean;
 }
-const ProductItem: React.FC<Props> = (props: Props) => {
+const ProItem: React.FC<Props> = (props: Props) => {
   
   const toggleWish = () => {
-    const { addWish, removeWish, product, isInWishes } = props
+    const { addWish, removeWish, pro, isInWishes } = props
     const onPress = () => {
       props.switchTab(3)
       Actions.reset('root')
     }
 
-    if (isInWishes(product)) {
-      removeWish(product)
+    if (isInWishes(pro)) {
+      removeWish(pro)
       Flash.show('Supprimé des favoris !')
     } else {
-      addWish(product)
+      addWish(pro)
       Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
     }
   }
 
-  const { product, index, onPress, isInWishes } = props
-  const inWishes = isInWishes(product)
-  const name = product.name && product.name.length > 22 ? (product.name.substr(0, 18) + '...') : product.name
+  const { pro, index, onPress, isInWishes } = props
+  const inWishes = isInWishes(pro)
+  const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -54,7 +54,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={product.pictures ? {uri: product.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
             <View style={styles.info}>
@@ -76,7 +76,7 @@ const ProductItem: React.FC<Props> = (props: Props) => {
 
             <View style={styles.logoWrapper}>
               <View style={styles.logo}>
-                <AssetImage src={product.logo ? {uri: product.logo} : require('../../images/user.png')} resizeMode='cover' />
+                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
               </View>
             </View>
 
@@ -174,10 +174,10 @@ const mapStateToProps = (state: any) => ({
   wishesToggle: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  addWish: (product: any) => dispatch(addWish(product)),
-  removeWish: (product: any) => dispatch(removeWish(product)),
+  addWish: (pro: any) => dispatch(addWish(pro)),
+  removeWish: (pro: any) => dispatch(removeWish(pro)),
   switchTab: (tab: number) => dispatch(switchTab(tab)),
-  isInWishes: (product: any) => dispatch(isInWishes(product)),
+  isInWishes: (pro: any) => dispatch(isInWishes(pro)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductItem)
+export default connect(mapStateToProps, mapDispatchToProps)(ProItem)

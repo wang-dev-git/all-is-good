@@ -22,33 +22,33 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   user: any;
-  product: any;
+  pro: any;
   wishes: any;
 
   switchTab: (tab: number) => void;
-  addWish: (product: any) => void;
-  removeWish: (product: any) => void;
-  isInWishes: (product: any) => boolean;
+  addWish: (pro: any) => void;
+  removeWish: (pro: any) => void;
+  isInWishes: (pro: any) => boolean;
 }
 
 class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
-    //Actions.updatePrice({ product: this.props.product, onUpdate: (price: number) => this.updatedPrice(price) })
+    //Actions.updatePrice({ pro: this.props.pro, onUpdate: (price: number) => this.updatedPrice(price) })
   }
 
   toggleWish() {
-    const { addWish, removeWish, product, isInWishes } = this.props
+    const { addWish, removeWish, pro, isInWishes } = this.props
     const onPress = () => {
       this.props.switchTab(3)
       Actions.reset('root')
     }
 
-    if (isInWishes(product)) {
-      removeWish(product)
+    if (isInWishes(pro)) {
+      removeWish(pro)
       Flash.show('Supprimé des favoris !')
     } else {
-      addWish(product)
+      addWish(pro)
       Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
     }
   }
@@ -59,16 +59,16 @@ class ProScreen extends React.Component<Props>  {
   }
 
   render() {
-    const { user, product, isInWishes } = this.props
+    const { user, pro, isInWishes } = this.props
 
-    const inWishes = isInWishes(product)
-    const hasDesc = product.description != undefined && product.description != ''
-    const seller = product.seller
+    const inWishes = isInWishes(pro)
+    const hasDesc = pro.description != undefined && pro.description != ''
+    const seller = pro.seller
 
     const pics: any = []
-    if (product.pictures) {
-      for (let i = 0; i < product.pictures.length; ++i)
-        pics.push({url: product.pictures[i]})
+    if (pro.pictures) {
+      for (let i = 0; i < pro.pictures.length; ++i)
+        pics.push({url: pro.pictures[i]})
     }
 
     return (
@@ -79,7 +79,7 @@ class ProScreen extends React.Component<Props>  {
             <ImageSlider
               width={Dimensions.get('window').width}
               height={ifIphoneX({height: 260}, {height: 200}).height}
-              pictures={product.pictures || []}
+              pictures={pro.pictures || []}
               onSelect={(index: number) => this.setState({ showZoom: true, zoomIndex: index })}
               />
             <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .06)' />
@@ -102,7 +102,7 @@ class ProScreen extends React.Component<Props>  {
           <View style={styles.logoWrapper}>
             <View style={styles.shadow}>
               <View style={styles.logo}>
-                <AssetImage src={product.logo ? { uri: product.logo} : undefined} resizeMode="cover" />
+                <AssetImage src={pro.logo ? { uri: pro.logo} : undefined} resizeMode="cover" />
               </View>
             </View>
           </View>
@@ -114,40 +114,40 @@ class ProScreen extends React.Component<Props>  {
             </View>
             <View>
               <Text style={styles.price}></Text>
-              <Text style={styles.price}>{Number(product.price).toFixed(2)}€</Text>
+              <Text style={styles.price}>{Number(pro.price).toFixed(2)}€</Text>
             </View>
           </View>
 
           { hasDesc &&
             <View style={styles.descriptionWrapper}>
               <Text style={styles.descriptionTitle}>Ce que tu peux avoir</Text>
-              <Text style={styles.description}>{product.description}</Text>
+              <Text style={styles.description}>{pro.description}</Text>
             </View>
           }
           
           <View style={styles.location}>
-            { (product.lat && product.lng) &&
+            { (pro.lat && pro.lng) &&
               <View style={styles.map}>
                 <MapView
                   style={{flex: 1}}
                   zoomEnabled={false}
                   scrollEnabled={false}
                   initialRegion={{
-                    latitude: product.lat,
-                    longitude: product.lng,
+                    latitude: pro.lat,
+                    longitude: pro.lng,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421
                   }}
                   >
                   <Marker
                     onPress={() => this.showOptions()}
-                    coordinate={{latitude: product.lat, longitude: product.lng}}
+                    coordinate={{latitude: pro.lat, longitude: pro.lng}}
                   />
                 </MapView>
               </View>
             }
             <View style={styles.addr}>
-              <Text style={styles.address}>{product.address + ', ' + product.postal_code + ' ' + product.city}</Text>
+              <Text style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</Text>
               <View style={styles.trip}>
                 <TouchableOpacity>
                   <Text style={styles.tripTxt}>Itinéraire</Text>
@@ -162,7 +162,7 @@ class ProScreen extends React.Component<Props>  {
           abs
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show({ component: <PaymentModal price={product.price} onPay={(counter: number) => this.onPay(counter)} /> })}
+          onPress={() => Modal.show({ component: <PaymentModal price={pro.price} onPay={(counter: number) => this.onPay(counter)} /> })}
           />
       </View>
     );
@@ -321,9 +321,9 @@ const mapStateToProps = (state: any) => ({
   toggleWishes: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  addWish: (product: any) => dispatch(addWish(product)),
-  removeWish: (product: any) => dispatch(removeWish(product)),
+  addWish: (pro: any) => dispatch(addWish(pro)),
+  removeWish: (pro: any) => dispatch(removeWish(pro)),
   switchTab: (tab: number) => dispatch(switchTab(tab)),
-  isInWishes: (product: any) => dispatch(isInWishes(product)),
+  isInWishes: (pro: any) => dispatch(isInWishes(pro)),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ProScreen)

@@ -126,22 +126,12 @@ class TabsScreen extends React.Component<Props, State>  {
 
   receivedNotif = async (notification) => {
     const data = notification.data
-    if (data.productId) {
-      const ref = Fire.store().collection('products').doc(data.productId)
-      const product = await Fire.get(ref)
-      if (product) {
-        Actions.product({ product: product })
-        if (data.newComment) {
-          Actions.comments({ product: product })
-        }
-      }
-      await this.props.refreshWishes()
-    } else {
-
-      // Refresh user
-      await this.props.finishLogin()
+    if (data.proId) {
+      const ref = Fire.store().collection('pros').doc(data.proId)
+      const pro = await Fire.get(ref)
+      if (pro)
+        Actions.pro({ pro: pro })
     }
-
   };
 
   selectTab(index: number) {

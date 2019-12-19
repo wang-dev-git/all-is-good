@@ -59,7 +59,7 @@ class SelectCreditCard extends React.Component<Props, State>  {
             <View style={[styles.cardRecap]}>
               <View style={styles.picture}>
                 <AssetImage style={{width: 60, height: 40, flex: undefined}} src={this.getImageForType(c.type)} />
-                <Text style={[styles.productName]}>XXXX XXXX XXXX {c.last4}</Text>
+                <Text style={[styles.cardName]}>XXXX XXXX XXXX {c.last4}</Text>
               </View>
               <View style={styles.checkable}>
                 { c.cardId == card && <FontAwesome name="check" size={22} color={mainStyle.greenColor} />}
@@ -100,28 +100,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  productRecap: {
-    paddingVertical: 18,
-    paddingRight: 6,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
-  },
   rowContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  productName: {
+  cardName: {
     fontSize: 16,
   },
-  productFee: {
-    marginTop: 2,
-    color: mainStyle.redColor,
-    fontSize: 13,
-  },
-  productPrice: {
-    fontSize: 16,
-  },
+  
   addCardBtn: {
     height: 54,
     justifyContent: 'center',

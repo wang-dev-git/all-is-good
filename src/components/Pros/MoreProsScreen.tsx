@@ -9,12 +9,10 @@ import ProItem from './ProItem'
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
 
-import { fetchHomeProducts } from '../../actions/products.action'
-
 import { mainStyle } from '../../styles'
 
 interface Props {
-  products: any;
+  pros: any;
   title: string;
   shops: boolean;
 
@@ -24,18 +22,12 @@ interface State {}
 
 class MoreProsScreen extends React.Component<Props, State>  {
   
-  renderItem(item: any, index: number) {
-    if (this.props.shops)
-      return this.renderShop(item)
-    return this.renderProduct(item, index)    
-  }
-
-  renderProduct(product: any, index: number) {
+  renderPro(pro: any, index: number) {
     return (
       <ProItem
-        product={product}
+        pro={pro}
         index={index}
-        onPress={() => Actions.product({ product })}
+        onPress={() => Actions.pro({ pro })}
         />
     )
   }
@@ -45,7 +37,7 @@ class MoreProsScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { title, products, loading } = this.props
+    const { title, pros, loading } = this.props
     return (
       <View style={styles.container}>
         <HeaderBar
@@ -55,8 +47,8 @@ class MoreProsScreen extends React.Component<Props, State>  {
 
         <FadeInView style={styles.container}>
           <FlatList
-            renderItem={({item, index}) => this.renderItem(item, index)}
-            data={products}
+            renderItem={({item, index}) => this.renderPro(item, index)}
+            data={pros}
             keyExtractor={(item, index) => index.toString()}
             onEndReached={() => this.loadMore()}
           />

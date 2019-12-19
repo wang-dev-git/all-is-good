@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 
 import { HeaderBar, FadeInView } from '../Reusable'
 
-import WishItem from './WishItem'
 import ProItem from '../Pros/ProItem'
 
 import { Actions } from 'react-native-router-flux'
@@ -16,7 +15,7 @@ type Props = {
   wishes: any;
 
   clearWishes: () => void;
-  removeWish: (product: any) => void;
+  removeWish: (pro: any) => void;
 }
 type State = {
 
@@ -24,10 +23,6 @@ type State = {
 
 class WishesScreen extends React.Component<Props, State>  {
   
-  viewProduct(product: any) {
-    Actions.product({ product })
-  }
-
   render() {
     const { wishes, removeWish } = this.props
 
@@ -41,9 +36,9 @@ class WishesScreen extends React.Component<Props, State>  {
           <FlatList
             data={wishes || []}
             renderItem={({ item }) =>
-              <ProductItem
-                product={item}
-                onPress={() => this.viewProduct(item)}
+              <ProItem
+                pro={item}
+                onPress={() => Actions.pro({ pro: item })}
                 onRemove={() => removeWish(item)}
                 />
             }
@@ -79,8 +74,8 @@ const mapStateToProps = (state: any) => ({
   toggle: state.wishesReducer.toggle,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-  addWish: (product: any) => dispatch(addWish(product)),
-  removeWish: (product: any) => dispatch(removeWish(product)),
+  addWish: (pro: any) => dispatch(addWish(pro)),
+  removeWish: (pro: any) => dispatch(removeWish(pro)),
   clearWishes: () => dispatch(clearWishes()),
 })
 

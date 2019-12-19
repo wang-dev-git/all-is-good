@@ -17,31 +17,31 @@ export const loadWishes = createActionThunk('LOAD_WISHES', async () => {
   return JSON.parse(res) || []
 })
 
-export const isInWishes = createActionThunk('IS_IN_WISHES', (product: any, { getState }) => {
+export const isInWishes = createActionThunk('IS_IN_WISHES', (pro: any, { getState }) => {
   const wishes = getState().wishesReducer.list
   if (!wishes)
     return false
   for (const item of wishes) {
-    if (item.id == product.id)
+    if (item.id == pro.id)
       return true
   }
   return false
 })
 
-export const addWish = createActionThunk('ADD_WISH', async (product: any, { getState }) => {
+export const addWish = createActionThunk('ADD_WISH', async (pro: any, { getState }) => {
   const wishes = getState().wishesReducer.list
-  wishes.push(product)
-  Fire.cloud('addFavorite', { productId: product.id })
+  wishes.push(pro)
+  //Fire.cloud('addFavorite', { proId: pro.id })
   return await saveWishes(wishes)
 })
 
-export const removeWish = createActionThunk('REMOVE_WISH', async (product: any, { getState }) => {
+export const removeWish = createActionThunk('REMOVE_WISH', async (pro: any, { getState }) => {
   const wishes = getState().wishesReducer.list
   if (!wishes)
     return []
   for (let i = 0; i < wishes.length; ++i) {
     const wish = wishes[i]
-    if (wish.id == product.id) {
+    if (wish.id == pro.id) {
       wishes.splice(i, 1)
       return await saveWishes(wishes)
     }
@@ -58,7 +58,7 @@ export const refreshWishes = createActionThunk('REFRESH_WISHES', async ({ getSta
   const wishes = getState().wishesReducer.list
   const newWishes: any[] = []
   for (const wish of wishes) {
-    const ref = Fire.store().collection('products').doc(wish.id)
+    const ref = Fire.store().collection('pros').doc(wish.id)
     const res = await Fire.get(ref)
     if (res) {
       res.pictures = await Cache.save(res.pictures)
@@ -69,7 +69,7 @@ export const refreshWishes = createActionThunk('REFRESH_WISHES', async ({ getSta
 })
 
 const initialState = {
-  list: null,
+  list: [],
   toggle: false,
 };
 

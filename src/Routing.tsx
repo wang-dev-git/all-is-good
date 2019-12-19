@@ -12,8 +12,6 @@ import LoginScreen from './components/Login/LoginScreen'
 
 import TabsScreen from './components/Tabs/TabsScreen'
 
-import PaymentScreen from './components/Payment/PaymentScreen'
-import RecapScreen from './components/Payment/RecapScreen'
 import ProfileScreen from './components/Profile/ProfileScreen'
 import UserInfoScreen from './components/UserInfo/UserInfoScreen'
 import OrdersScreen from './components/Orders/OrdersScreen'
@@ -110,11 +108,9 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="tabs" component={TabsScreen} />
 
               <Scene key="more" component={MoreProsScreen} />
-              <Scene key="payment" component={PaymentScreen} />
-              <Scene key="recap" component={RecapScreen} />
 
               <Scene key="profile" component={ProfileScreen} />
-              <Scene key="product" component={ProScreen} />
+              <Scene key="pro" component={ProScreen} />
 
               <Scene key="userInfo" component={UserInfoScreen} />
               <Scene key="orders" component={OrdersScreen} />

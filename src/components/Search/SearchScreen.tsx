@@ -13,18 +13,15 @@ import Icon from '@expo/vector-icons/FontAwesome'
 
 import { mainStyle } from '../../styles'
 
-import { fetchProducts } from '../../actions/products.action'
 import { saveFilters } from '../../actions/filters.action'
 
 import { types, subtypes } from '../../filters'
 
 interface Props {
-  products: any[];
   loading: boolean;
   query: string;
   filters: any;
 
-  fetchProducts: () => void;
   saveFilters: (filters: any) => void;
 }
 interface State {
@@ -51,12 +48,11 @@ class SearchScreen extends React.Component<Props, State>  {
   }
 
   async selectSubcategory(key: any) {
-    const { filters, saveFilters, fetchProducts } = this.props
+    const { filters, saveFilters } = this.props
     this.setState({ subcategory: key })
     filters.type = this.state.category
     filters.subtype = key
     saveFilters(filters)
-    await fetchProducts()
   }
 
   async search(query: string) {
@@ -64,7 +60,6 @@ class SearchScreen extends React.Component<Props, State>  {
     filters.search = query
     this.props.saveFilters(filters)
     this.setState({ forcedShow: false })
-    await this.props.fetchProducts()
   }
 
   backToCategories() {
@@ -110,7 +105,7 @@ class SearchScreen extends React.Component<Props, State>  {
 
   render() {
     const { category, subcategory, forcedShow } = this.state
-    const { query, products, loading, fetchProducts } = this.props
+    const { query, loading } = this.props
     return (
       <View style={styles.container}>
         <Searchbar
@@ -222,11 +217,8 @@ const mapStateToProps = (state: any) => ({
   query: state.filtersReducer.filters.search,
   filters: state.filtersReducer.filters,
   toggle: state.filtersReducer.toggle,
-  products: state.productsReducer.list,
-  loading: state.productsReducer.loading,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   saveFilters: (filters: any) => dispatch(saveFilters(filters)),
-  fetchProducts: () => dispatch(fetchProducts())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)

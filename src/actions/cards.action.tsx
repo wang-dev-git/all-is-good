@@ -34,7 +34,7 @@ export const clearCards = createActionThunk('CLEAR_CARDS', async () => {
 })
 
 const initialState = {
-  list: null,
+  list: [],
   toggle: false,
 };
 

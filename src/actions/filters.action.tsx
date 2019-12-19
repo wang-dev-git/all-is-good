@@ -1,10 +1,10 @@
 import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
 
-import { clearProducts } from './products.action'
+import { clearPros } from './pros.action'
 
 export const saveFilters = createActionThunk('SAVE_FILTERS', async (filters, { dispatch }) => {
-  await dispatch(clearProducts())
+  await dispatch(clearPros())
   return filters
 })
 

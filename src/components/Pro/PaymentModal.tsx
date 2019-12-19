@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { AssetImage, BottomButton } from '../Reusable'
+import { AssetImage, BottomButton, SelectCreditCard } from '../Reusable'
 import { Fire, Flash, Modal } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -21,8 +21,28 @@ const PaymentModal: React.FC<Props> = (props) => {
   
   const price = props.price || 0
   const [counter, updateCounter] = React.useState(1)
+  const [showCards, setShowCards] = React.useState(false)
 
   const total = Number(counter * price).toFixed(2)
+
+  const animation = React.useRef(new Animated.Value(0)).current
+
+  React.useEffect(() => {
+    if (showCards) {
+      Animated.spring(animation, {
+        toValue: 1,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    }
+  }, [showCards])
+
+  const height = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 220],
+  })
+
   return (
     <View>
       <View style={styles.header}>
@@ -46,13 +66,16 @@ const PaymentModal: React.FC<Props> = (props) => {
         </View>
         <Text style={styles.quantityTitle}>Total {total}€</Text>
       </View>
+      <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
+        <SelectCreditCard />
+      </Animated.View>
       <View>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>
       <BottomButton
         title={'Payer ' + total + '€'}
         backgroundColor={mainStyle.themeColor}
-        onPress={() => props.onPay(counter)}
+        onPress={() => setShowCards(true)}
         disabled={counter === 0}
         />
     </View>

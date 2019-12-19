@@ -78,7 +78,6 @@ class SelectCreditCard extends React.Component<Props, State>  {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
     paddingHorizontal: 20,
   },
   title: {

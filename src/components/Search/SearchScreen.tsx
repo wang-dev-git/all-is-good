@@ -7,7 +7,6 @@ import { Fire } from '../../services'
 import { Searchbar } from 'react-native-paper'
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import ProductsList from '../Products/ProductsList'
 import FiltersScreen from '../Filters/FiltersScreen'
 
 import Icon from '@expo/vector-icons/FontAwesome'
@@ -158,12 +157,7 @@ class SearchScreen extends React.Component<Props, State>  {
             <View style={styles.content}>
               
               { /* Results */ }
-              <ProductsList
-                products={products}
-                loading={loading}
-
-                onRefresh={fetchProducts}
-                />
+              
             </View>
           )}
         </FadeInView>

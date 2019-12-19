@@ -31,7 +31,7 @@ interface Props {
   isInWishes: (product: any) => boolean;
 }
 
-class ProductScreen extends React.Component<Props>  {
+class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
     //Actions.updatePrice({ product: this.props.product, onUpdate: (price: number) => this.updatedPrice(price) })
@@ -95,7 +95,7 @@ class ProductScreen extends React.Component<Props>  {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.backBtn} onPress={Actions.pop}>
-              <AntDesign name="close" size={23} color='#fff' />
+              <AntDesign name="arrowleft" size={23} color='#fff' />
             </TouchableOpacity>
           </View>
 
@@ -326,4 +326,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   switchTab: (tab: number) => dispatch(switchTab(tab)),
   isInWishes: (product: any) => dispatch(isInWishes(product)),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProScreen)

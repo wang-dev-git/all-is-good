@@ -4,8 +4,7 @@ import { StyleSheet, Text, View, FlatList, RefreshControl, SectionList, Dimensio
 
 import { HeaderBar, AssetImage, FadeInView, VeilView } from '../Reusable'
 
-import ProductItem from './ProductItem'
-import ShopItem from './ShopItem'
+import ProItem from './ProItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
@@ -23,7 +22,7 @@ interface Props {
 }
 interface State {}
 
-class MoreProductsScreen extends React.Component<Props, State>  {
+class MoreProsScreen extends React.Component<Props, State>  {
   
   renderItem(item: any, index: number) {
     if (this.props.shops)
@@ -33,19 +32,10 @@ class MoreProductsScreen extends React.Component<Props, State>  {
 
   renderProduct(product: any, index: number) {
     return (
-      <ProductItem
+      <ProItem
         product={product}
         index={index}
         onPress={() => Actions.product({ product })}
-        />
-    )
-  }
-
-  renderShop(shop: any) {
-    return (
-      <ShopItem
-        shop={shop}
-        onPress={() => Actions.shop({ shop })}
         />
     )
   }
@@ -120,4 +110,4 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: any) => ({
 
 })
-export default connect(mapStateToProps, mapDispatchToProps)(MoreProductsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(MoreProsScreen)

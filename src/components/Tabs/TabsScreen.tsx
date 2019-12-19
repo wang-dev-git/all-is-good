@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
-import ProductsScreen from '../Products/ProductsScreen'
+import ProsScreen from '../Pros/ProsScreen'
 import SearchScreen from '../Search/SearchScreen'
 import WishesScreen from '../Wishes/WishesScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
@@ -48,7 +48,7 @@ const tabActiveColor = '#222'
 const routes = [
   {
     title: 'Flux',
-    component: ProductsScreen,
+    component: ProsScreen,
     renderIcon: (active: boolean) => (
       <Icon name="home" size={25} color={active ? tabActiveColor : tabColor} />
     )

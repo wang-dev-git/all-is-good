@@ -22,16 +22,31 @@ const ModalContainer: React.SFC<Props> = (props) => {
       props.onClose()
   }
 
-  const animate = React.useRef(new Animated.Value(0)).current;
+  const opacity = React.useRef(new Animated.Value(0)).current;
+  const slide = React.useRef(new Animated.Value(0)).current;
+
 
   React.useEffect(() => {
-    Animated.timing(animate, {
-      toValue: props.shown ? 1 : 0,
-      duration: 320
-    }).start();
+    console.log('animating => ' + props.shown)
+    if (props.shown) {
+      Animated.spring(opacity, {
+        toValue: 1,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    } else {
+      Animated.spring(opacity, {
+        toValue: 0,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    } 
+    
   }, [props.shown]);
 
-  const slide = animate.interpolate({
+  const translateY = opacity.interpolate({
     inputRange: [0, 1],
     outputRange: [300, 0]
   })
@@ -39,9 +54,9 @@ const ModalContainer: React.SFC<Props> = (props) => {
   return (
     <View style={styles.container} pointerEvents={props.shown ? 'auto' : 'none'}>
       <TouchableWithoutFeedback onPress={() => close()}>
-        <Animated.View style={[styles.veil, {opacity: animate}]}></Animated.View>
+        <Animated.View style={[styles.veil, {opacity: opacity}]}></Animated.View>
       </TouchableWithoutFeedback>
-      <Animated.View style={[styles.content, {transform: [{translateY: slide}]}]}>
+      <Animated.View style={[styles.content, {transform: [{translateY: translateY}]}]}>
         {props.component}
       </Animated.View>
     </View>

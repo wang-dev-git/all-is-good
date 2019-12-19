@@ -4,8 +4,7 @@ import { StyleSheet, Text, View, FlatList, Linking, TouchableOpacity, RefreshCon
 
 import { HeaderBar, AssetImage, FadeInView, VeilView } from '../Reusable'
 
-import ProductItem from './ProductItem'
-import ShopItem from './ShopItem'
+import ProItem from './ProItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire, Flash } from '../../services'
@@ -100,7 +99,7 @@ class ProductsScreen extends React.Component<Props, State>  {
 
   renderProduct(product: any, index: number, section: any) {
     return (
-      <ProductItem
+      <ProItem
         product={product}
         index={index}
         sectioned

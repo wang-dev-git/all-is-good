@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 import { HeaderBar, FadeInView } from '../Reusable'
 
 import WishItem from './WishItem'
-import ProductItem from '../Products/ProductItem'
+import ProItem from '../Pros/ProItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'

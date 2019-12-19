@@ -20,8 +20,8 @@ import OrdersScreen from './components/Orders/OrdersScreen'
 import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
 import AddCardScreen from './components/AddCard/AddCardScreen'
 
-import ProductScreen from './components/Product/ProductScreen'
-import MoreProductsScreen from './components/Products/MoreProductsScreen'
+import ProScreen from './components/Pro/ProScreen'
+import MoreProsScreen from './components/Pros/MoreProsScreen'
 
 
 import { Asset } from 'expo-asset'
@@ -109,12 +109,12 @@ export default class Routing extends React.Component<Props, State> {
             <Stack key="root" hideNavBar>
               <Scene key="tabs" component={TabsScreen} />
 
-              <Scene key="more" component={MoreProductsScreen} />
+              <Scene key="more" component={MoreProsScreen} />
               <Scene key="payment" component={PaymentScreen} />
               <Scene key="recap" component={RecapScreen} />
 
               <Scene key="profile" component={ProfileScreen} />
-              <Scene key="product" component={ProductScreen} />
+              <Scene key="product" component={ProScreen} />
 
               <Scene key="userInfo" component={UserInfoScreen} />
               <Scene key="orders" component={OrdersScreen} />

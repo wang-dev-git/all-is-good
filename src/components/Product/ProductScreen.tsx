@@ -53,6 +53,11 @@ class ProductScreen extends React.Component<Props>  {
     }
   }
 
+  onPay(counter: number) {
+    console.log(counter)
+    Modal.hide()
+  }
+
   render() {
     const { user, product, isInWishes } = this.props
 
@@ -154,9 +159,10 @@ class ProductScreen extends React.Component<Props>  {
         </ScrollView>
 
         <BottomButton
+          abs
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show({ component: <PaymentModal /> })}
+          onPress={() => Modal.show({ component: <PaymentModal onPay={(counter: number) => this.onPay(counter)} /> })}
           />
       </View>
     );

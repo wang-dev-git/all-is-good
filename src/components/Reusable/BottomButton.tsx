@@ -12,6 +12,7 @@ interface Props {
   backgroundColor: string;
   style?: any;
   disabled?: boolean;
+  abs?: boolean;
 
   onPress: () => void;
 }
@@ -19,7 +20,7 @@ const BottomButton: React.FC<Props> = (props) => {
   const veil = props.disabled ? '0' : '255'
   return (
     <TouchableOpacity
-      style={[styles.wrapper, {opacity: props.disabled ? 0.46 : 1}]}
+      style={[styles.wrapper, {opacity: props.disabled ? 0.46 : 1}, props.abs ? styles.abs : {}]}
       onPress={props.onPress}
       disabled={props.disabled}
       >
@@ -38,6 +39,9 @@ const BottomButton: React.FC<Props> = (props) => {
 } 
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -53,7 +57,8 @@ const styles = StyleSheet.create({
 
     paddingLeft: 20,
     paddingRight: 20,
-
+  },
+  abs: {
     position: 'absolute',
     bottom: 0,
     right: 0,
@@ -64,9 +69,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  wrapper: {
-    flex: 1,
-  }
 });
 
 export default BottomButton

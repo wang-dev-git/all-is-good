@@ -27,13 +27,13 @@ const ModalContainer: React.SFC<Props> = (props) => {
   React.useEffect(() => {
     Animated.timing(animate, {
       toValue: props.shown ? 1 : 0,
-      duration: 120
+      duration: 320
     }).start();
   }, [props.shown]);
 
   const slide = animate.interpolate({
     inputRange: [0, 1],
-    outputRange: [220, 0]
+    outputRange: [300, 0]
   })
 
   return (

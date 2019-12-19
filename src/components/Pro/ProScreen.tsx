@@ -55,7 +55,7 @@ class ProScreen extends React.Component<Props>  {
 
   onPay(counter: number) {
     console.log(counter)
-    Modal.hide()
+    
   }
 
   render() {
@@ -162,7 +162,7 @@ class ProScreen extends React.Component<Props>  {
           abs
           title="Réserver"
           backgroundColor={mainStyle.themeColor}
-          onPress={() => Modal.show({ component: <PaymentModal price={pro.price} onPay={(counter: number) => this.onPay(counter)} /> })}
+          onPress={() => Modal.show('payment', { component: <PaymentModal price={pro.price} onPay={(counter: number) => this.onPay(counter)} /> })}
           />
       </View>
     );

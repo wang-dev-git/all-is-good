@@ -10,9 +10,9 @@ type ModalData = {
 // Service
 export default class Modal {
   
-  static show(data: ModalData) { 
-    store.dispatch(showModal(data))
+  static show(key: string, data: ModalData) { 
+    store.dispatch(showModal(key, data))
   }
 
-  static hide() { store.dispatch(hideModal()) }
+  static hide(key: string) { store.dispatch(hideModal(key)) }
 }

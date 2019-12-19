@@ -1,23 +1,23 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux'
 
-import { StyleSheet, Animated, View, Text, TouchableOpacity, TouchableWithoutFeedback, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Animated, View, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, Platform, StatusBar } from 'react-native';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 import { mainStyle } from '../../styles'
 
 import { Modal } from '../../services'
 
-interface Props {
+interface ModalProps {
+  name: string;
   shown: boolean;
   onClose?: () => void;
   component: any;
 }
-
-const ModalContainer: React.SFC<Props> = (props) => {
+const ModalInstance: React.FC<ModalProps> = (props) => {
 
   const close = () => {
-    Modal.hide()
+    Modal.hide(props.name)
     if (props.onClose)
       props.onClose()
   }
@@ -25,30 +25,20 @@ const ModalContainer: React.SFC<Props> = (props) => {
   const opacity = React.useRef(new Animated.Value(0)).current;
   const slide = React.useRef(new Animated.Value(0)).current;
 
-
   React.useEffect(() => {
-    console.log('animating => ' + props.shown)
-    if (props.shown) {
-      Animated.spring(opacity, {
-        toValue: 1,
-        velocity: 3,
-        tension: 2,
-        friction: 8,
-      }).start();
-    } else {
-      Animated.spring(opacity, {
-        toValue: 0,
-        velocity: 3,
-        tension: 2,
-        friction: 8,
-      }).start();
-    } 
+    Animated.spring(opacity, {
+      toValue: props.shown ? 1 : 0,
+      velocity: 3,
+      tension: 2,
+      friction: 8,
+    }).start();
     
   }, [props.shown]);
 
+  const height = Dimensions.get('window').height
   const translateY = opacity.interpolate({
     inputRange: [0, 1],
-    outputRange: [300, 0]
+    outputRange: [height, 0]
   })
 
   return (
@@ -56,10 +46,32 @@ const ModalContainer: React.SFC<Props> = (props) => {
       <TouchableWithoutFeedback onPress={() => close()}>
         <Animated.View style={[styles.veil, {opacity: opacity}]}></Animated.View>
       </TouchableWithoutFeedback>
-      <Animated.View style={[styles.content, {transform: [{translateY: translateY}]}]}>
+      <Animated.View style={[styles.content, {opacity: opacity, transform: [{translateY: translateY}]}]}>
         {props.component}
       </Animated.View>
     </View>
+  )
+}
+
+interface Props {
+  modals: any;
+}
+const ModalContainer: React.FC<Props> = (props) => {
+
+  const modals = Object.values(props.modals)
+
+  return (
+    <React.Fragment>
+      {modals.map((item: any, index) => (
+        <ModalInstance
+          key={index}
+          name={item.key}
+          shown={item.shown}
+          component={item.component}
+          onClose={item.onClose}
+          />
+      ))}
+    </React.Fragment>
   )
 }
 
@@ -74,6 +86,7 @@ const styles = StyleSheet.create({
   },
   veil: {
     flex: 1,
+    height: 1000,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   content: {
@@ -91,9 +104,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: any) => ({
-  shown: state.modalReducer.shown,
-  onClose: state.modalReducer.onClose,
-  component: state.modalReducer.component,
+  modals: state.modalReducer.modals,
+  toggle: state.modalReducer.toggle,
 })
 
 export default connect(mapStateToProps)(ModalContainer)

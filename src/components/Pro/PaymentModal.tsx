@@ -22,6 +22,7 @@ const PaymentModal: React.FC<Props> = (props) => {
   const price = props.price || 0
   const [counter, updateCounter] = React.useState(1)
   const [showCards, setShowCards] = React.useState(false)
+  const [card, setCard] = React.useState('')
 
   const total = Number(counter * price).toFixed(2)
 
@@ -40,7 +41,7 @@ const PaymentModal: React.FC<Props> = (props) => {
 
   const height = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 220],
+    outputRange: [0, 100],
   })
 
   return (
@@ -50,33 +51,36 @@ const PaymentModal: React.FC<Props> = (props) => {
         <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
       </View>
       <View style={styles.quantity}>
-        <Text style={styles.quantityTitle}>Choisir la quantity</Text>
+        <Text style={styles.quantityTitle}>Choisir la quantité</Text>
         <View style={styles.quantityBtns}>
           <TouchableOpacity onPress={() => updateCounter(counter > 1 ? counter - 1 : 0)}>
-            <View style={[styles.btn, {backgroundColor: mainStyle.lightColor}]}>
+            <View style={[styles.btn, {backgroundColor: mainStyle.lightColor, marginRight: 30}]}>
               <AntDesign color={'#fff'} size={18} name="minus" />
             </View>
           </TouchableOpacity>
           <Text style={styles.counter}>{counter}</Text>
           <TouchableOpacity onPress={() => updateCounter(counter + 1)}>
-            <View style={[styles.btn, {backgroundColor: mainStyle.themeColor}]}>
+            <View style={[styles.btn, {backgroundColor: mainStyle.themeColor, marginLeft: 30}]}>
               <AntDesign color={'#fff'} size={18} name="plus" />
             </View>
           </TouchableOpacity>      
         </View>
+        <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
+          <SelectCreditCard
+            cardSelected={setCard}
+            />
+        </Animated.View>
+
         <Text style={styles.quantityTitle}>Total {total}€</Text>
       </View>
-      <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
-        <SelectCreditCard />
-      </Animated.View>
-      <View>
+      <View style={{backgroundColor: '#fff'}}>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>
       <BottomButton
-        title={'Payer ' + total + '€'}
+        title={!showCards ? 'Continuer' : 'Payer ' + total + '€'}
         backgroundColor={mainStyle.themeColor}
         onPress={() => setShowCards(true)}
-        disabled={counter === 0}
+        disabled={!showCards ? counter === 0 : card === ''}
         />
     </View>
   );
@@ -86,10 +90,7 @@ const styles = StyleSheet.create({
   
   header: {
     margin: 20,
-    paddingBottom: 20,
     justifyContent: 'center',
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
   },
   title: {
     ...mainStyle.montBold,
@@ -104,8 +105,10 @@ const styles = StyleSheet.create({
 
   quantity: {
 
-    paddingBottom: 20,
+    paddingVertical: 20,
     justifyContent: 'center',
+    borderTopColor: '#ddd',
+    borderTopWidth: 1,
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,
     marginBottom: 20,
@@ -119,8 +122,11 @@ const styles = StyleSheet.create({
   },
   quantityBtns: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  cards: {
+    marginTop: 20,
   },
   counter: {
     width: 80,

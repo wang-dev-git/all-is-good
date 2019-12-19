@@ -3,77 +3,103 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 import AssetImage from './AssetImage'
-import { Fire, Flash, AppConfig } from '../../services'
+import { Fire, Flash, AppConfig, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+import AntDesign from '@expo/vector-icons/AntDesign'
 
 import { mainStyle } from '../../styles'
 
+const getImageForType = (cardType: string) => {
+  switch (cardType) {
+    case 'visa':
+      return require('../../images/cards/visa.png')
+      break
+
+    case 'master-card':
+      return require('../../images/cards/master-card.png')
+      break
+
+    case 'american-express':
+      return require('../../images/cards/american-express.png')
+      break
+  }
+  return require('../../images/cards/american-express.png')
+}
+
 interface Props {
-  user: any;
+  card: string;
   cards: any[];
 
   cardSelected: (cardId: string) => void;
 }
-interface State {
-  card: string;
-}
-class SelectCreditCard extends React.Component<Props, State>  {
-  
-  state = {
-    card: null,
-  }
+const ListCards: React.FC<Props> = (props) => {
+ 
+  const { cards } = props
+  const card = props.card
 
-  getImageForType(cardType: string) {
-    switch (cardType) {
-      case 'visa':
-        return require('../../images/cards/visa.png')
-        break
-
-      case 'master-card':
-        return require('../../images/cards/master-card.png')
-        break
-
-      case 'american-express':
-        return require('../../images/cards/american-express.png')
-        break
-    }
-    return require('../../images/cards/american-express.png')
-  }
-
-  selectCard(card: any) {
-    this.setState({ card: card.cardId })
-    this.props.cardSelected(card.cardId)
-  }
-
-  render() {
-    const { user, cards } = this.props
-    const { card } = this.state
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Mode de paiement</Text>
-        { cards && cards.length ? cards.map((c: any, index: number) => (
-          <TouchableOpacity key={index} onPress={() => this.selectCard(c)}>
-            <View style={[styles.cardRecap]}>
-              <View style={styles.picture}>
-                <AssetImage style={{width: 60, height: 40, flex: undefined}} src={this.getImageForType(c.type)} />
-                <Text style={[styles.cardName]}>XXXX XXXX XXXX {c.last4}</Text>
-              </View>
-              <View style={styles.checkable}>
-                { c.cardId == card && <FontAwesome name="check" size={22} color={mainStyle.greenColor} />}
-              </View>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Votre moyen de paiement</Text>
+      { cards && cards.length ? cards.map((c: any, index: number) => (
+        <TouchableOpacity key={index} onPress={() => props.cardSelected(c.cardId)}>
+          <View style={[styles.cardRecap]}>
+            <View style={styles.picture}>
+              <AssetImage style={{width: 60, height: 40, flex: undefined}} src={getImageForType(c.type)} />
+              <Text style={[styles.cardName]}>XXXX XXXX XXXX {c.last4}</Text>
             </View>
-          </TouchableOpacity>
-        )) : (
-          <TouchableOpacity style={styles.addCardBtn} onPress={Actions.addCard}>
-            <Text style={styles.addCardTxt}>{'Ajouter une Carte Bancaire'.toUpperCase()}</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-    );
+            <View style={styles.checkable}>
+              { c.cardId == card && <AntDesign name="check" size={22} color={mainStyle.greenColor} />}
+            </View>
+          </View>
+        </TouchableOpacity>
+      )) : (
+        <TouchableOpacity style={styles.addCardBtn} onPress={Actions.addCard}>
+          <Text style={styles.addCardTxt}>{'Ajouter une Carte Bancaire'.toUpperCase()}</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+}
+
+interface Props {
+  cards: any[];
+  cardSelected: (cardId: string) => void;
+}
+const SelectCreditCard: React.FC<Props> = (props) => {
+ 
+  const { cards } = props
+  const [card, setCard] = React.useState(cards.length ? cards[0] : null)
+
+  const pickCard = (card: string) => {
+    setCard(card)
   }
+
+  const showCards = () => {
+    Modal.show('show_cards', {
+      component: <ListCards cards={cards} card={card} cardSelected={(card) => pickCard(card)} />
+    })
+  }
+
+  return cards.length ? (
+    <TouchableOpacity style={styles.container} onPress={() => showCards()}>
+      <View style={[styles.cardRecap]}>
+        <View style={styles.picture}>
+          <AssetImage style={{width: 60, height: 40, flex: undefined}} src={getImageForType(card.type)} />
+          <Text style={[styles.cardName]}>XXXX XXXX XXXX {card.last4}</Text>
+        </View>
+        <AntDesign name="down" size={22} color={mainStyle.greenColor} />
+      </View>
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity style={styles.container} onPress={Actions.addCard}>
+      <View style={[styles.cardRecap]}>
+        <Text style={[styles.cardName]}>Aucune carte enregistrée</Text>
+        <AntDesign name="down" size={22} color={mainStyle.greenColor} />
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -81,9 +107,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    ...mainStyle.montLight,
-    fontSize: 20,
-    marginBottom: 18,
+    ...mainStyle.montBold,
+    textAlign: 'center',
+    fontSize: 13,
+    marginVertical: 12,
   },
   picture: {
     flexDirection: 'row',
@@ -133,8 +160,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: any) => ({
-  user: state.authReducer.user,
-
   cards: state.cardsReducer.list,
   cardsToggle: state.cardsReducer.toggle,
 })

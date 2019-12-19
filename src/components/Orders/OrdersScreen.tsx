@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, FlatList, Alert, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { HeaderBar } from '../Reusable'
 
@@ -11,12 +11,13 @@ import { Fire, Flash } from '../../services'
 
 import { mainStyle } from '../../styles'
 
-type Props = {
+interface Props {
   user: any;
 }
-type State = {
+interface State {
   orders: any;
   loading: boolean;
+  tab: number;
 }
 
 class OrdersScreen extends React.Component<Props, State>  {
@@ -24,10 +25,11 @@ class OrdersScreen extends React.Component<Props, State>  {
   state = {
     orders: null,
     loading: false,
+    tab: 0,
   }
 
   componentDidMount() {
-    this.fetchOrders() 
+    //this.fetchOrders() 
   }
 
   async fetchOrders() {
@@ -36,44 +38,60 @@ class OrdersScreen extends React.Component<Props, State>  {
     this.setState({ loading: true })
 
     try {
-      const ref = Fire.store().collection('payments')
+      const snap = await Fire.store().collection('users').doc(user.id).collection('orders')
         .where('userId', '==', user.id)
         .orderBy('createdAt', 'desc')
-      const orders = await Fire.list(ref)
+        .get()
+      const orders: any[] = []
+      snap.forEach((doc: any) => {
+        if (doc.exists) {
+          orders.push({
+            id: doc.id,
+            ...doc.data(),
+          })
+        }
+      })
       this.setState({ loading: false, orders })
     } catch (err) {
       this.setState({ loading: false })
-      Flash.error('Une erreur est survenue')
-      console.warn(err)
+      Flash.error('Impossible de récupérer les commandes')
     }
   }
 
   renderItem(order: any) {
     return (
       <OrderItem
-        order={order}
         product={order.product}
-
-        onPress={() => Actions.tracking({ order: order })}
+        order={order}
         />
     )
   }
 
   render() {
-    const { orders, loading } = this.state
+    const { orders, loading, tab } = this.state
 
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Vos Commandes'
-          back
+          title='Mes Commandes'
           />
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            style={[styles.tab, tab === 0 ? styles.selected : {}]}
+            onPress={() => this.setState({ tab: 0 })}
+            >
+            <Text style={styles.tabTxt}>Passé</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.tab, tab === 1 ? styles.selected : {}]}
+            onPress={() => this.setState({ tab: 1 })}
+            >
+            <Text style={styles.tabTxt}>En cours</Text>
+          </TouchableOpacity>
+        </View>
         <FlatList
-          ListHeaderComponent={() => (
-            <Text style={styles.intro}>Cliquez sur l'état d'une commande pour voir le suivi de votre colis</Text>
-          )}
           data={orders || []}
-          renderItem={(item) => this.renderItem(item.item)}
+          renderItem={({ item }) => this.renderItem(item)}
           /*ListHeaderComponent={() => (
             <TouchableOpacity onPress={() => this.clear()}>
               <Text>Clear</Text>
@@ -81,7 +99,7 @@ class OrdersScreen extends React.Component<Props, State>  {
           )}*/
           ListEmptyComponent={() => (
             <View style={styles.empty}>
-              <Text style={styles.emptyTxt}>Vous n'avez pas de commande{'\n'}en cours</Text>
+              <Text style={styles.emptyTxt}>AUCUNE COMMANDE</Text>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -110,17 +128,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   emptyTxt: {
+    ...mainStyle.montLight,
+    fontSize: 13,
     textAlign: 'center',
     lineHeight: 28,
   },
-  intro: {
+  tabs: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tab: {
+    flex: 1,
+    height: 56,
+    opacity: 0.6,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: '#fff',
+    borderBottomWidth: 3,
+    borderRadius: 1,
+  },
+  selected: {
+    opacity: 1,
+    borderBottomColor: mainStyle.themeColor,
+  },
+  tabTxt: {
     ...mainStyle.montLight,
-    paddingVertical: 20,
-    paddingHorizontal: 28,
-    lineHeight: 26,
-    fontSize: 14,
-    textAlign: 'center',
-  }
+    fontSize: 16,
+  },
 });
 
 

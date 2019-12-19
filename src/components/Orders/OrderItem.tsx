@@ -9,80 +9,51 @@ import { Fire } from '../../services'
 
 import { mainStyle } from '../../styles'
 
-interface Props {
-  order: any;
+type Props = {
   product: any;
 
   onPress: () => void;
 }
-interface State {}
+type State = {
+
+}
 
 class OrderItem extends React.Component<Props, State>  {
+  
+  getTitledStatus() {
+    const { product } = this.props
 
-  getNameForStep(step: string): string {
-    switch (step) {
-      case "pending":
-        return "Payé"
-        break;
-
-      case "in_transit":
-        return "En transit"
-        break;
-
-      case "delivered":
-        return "Disponible en relai"
-        break;
-
-      case "failed":
-        return "Erreur"
-        break;
-      
-      default:
-        return "Inconnu"
+    switch (product.status) {
+      case "selling":
+        return 'En vente'
         break;
     }
-  }
-
-  getColorForStep(step: string) {
-    switch (step) {
-      case "pending":
-        return mainStyle.orangeColor
-        break;
-
-      case "in_transit":
-        return mainStyle.orangeColor
-        break;
-
-      case "delivered":
-        return mainStyle.themeColor
-        break;
-
-      case "failed":
-        return mainStyle.redColor
-        break;
-      
-      default:
-        return mainStyle.redColor
-        break;
-    }
+    return 'Inconnu'
   }
 
   render() {
-    const { order, product, onPress } = this.props
+    const { product, onPress } = this.props
+
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
           <View style={styles.picture}>
-            <AssetImage src={product.pictures && product.pictures.length > 0 ? {uri: product.pictures[0]} : require('../../images/user.png')} resizeMode='cover' style={{ width: undefined, height: undefined }} />
+            <AssetImage src={require('../../images/cooker.png')} resizeMode='cover' style={{ width: undefined, height: undefined }} />
           </View>
           <View style={styles.content}>
             <View style={styles.info}>
-              <Text style={[styles.name]}>{product.name}</Text>   
-              <Text style={styles.priceTxt}>{Number(product.price).toFixed(2)}€</Text>
+              <Text style={styles.name}>{(product.brand || '').toUpperCase()}</Text>
+              <Text style={[styles.name, styles.subtitle]}>{product.name}</Text>   
             </View>
-            <TouchableOpacity style={[styles.statusBtn, {backgroundColor: this.getColorForStep(order.status)}]} disabled>
-              <Text style={[styles.statusTxt]}>{this.getNameForStep(order.status).toUpperCase()}</Text>
-            </TouchableOpacity>
+
+            <View style={styles.price}>
+              <Text></Text>
+              <Text style={styles.priceTxt}>{product.price}€</Text>
+            </View>
+
+            <View style={styles.status}>
+              <Text style={styles.statusTxt}>{this.getTitledStatus().toUpperCase()}</Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -96,9 +67,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomColor: '#eee',
     borderBottomWidth: 1,
-    paddingVertical: 12,
-    paddingRight: 16,
-    paddingLeft: 10,
   },
   content: {
     flex: 1,
@@ -109,22 +77,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   picture: {
-    width: 80,
-    height: 80,
+    width: 120,
+    height: 90,
     padding: 10,
     shadowOffset: { width: 0, height: 0},
     shadowOpacity: 0.2,
     shadowRadius: 6,
   },
-  statusBtn: {
-    width: 120,
-    height: 40,
-    borderRadius: 6,
-    backgroundColor: mainStyle.themeColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   info: {
     backgroundColor: '#fff',
   },
@@ -135,7 +94,11 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: mainStyle.darkColor,
+  },
+  subtitle: {
+    marginTop: 4,
+    fontSize: 14,
+    color: mainStyle.lightColor
   },
   price: {
     flex: 1,
@@ -143,19 +106,17 @@ const styles = StyleSheet.create({
   },
   priceTxt: {
     marginTop: 7,
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
-    opacity: 0.8,
+    color: mainStyle.darkColor
   },
   status: {
     flex: 1,
     paddingRight: 10,
   },
   statusTxt: {
-    ...mainStyle.montBold,
-    fontSize: 11,
-    textAlign: 'center',
-    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
   }
 });
 

@@ -35,10 +35,9 @@ interface Props {
 class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
-    //Actions.updatePrice({ pro: this.props.pro, onUpdate: (price: number) => this.updatedPrice(price) })
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.checkout()
-    }, 500)
+    }, 500)*/
   }
 
   toggleWish() {

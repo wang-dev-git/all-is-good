@@ -21,7 +21,7 @@ const PaymentModal: React.FC<Props> = (props) => {
   
   const price = props.price || 0
   const [counter, updateCounter] = React.useState(1)
-  const [showCards, setShowCards] = React.useState(true)
+  const [showCards, setShowCards] = React.useState(false)
   const [card, setCard] = React.useState('')
 
   const total = Number(counter * price).toFixed(2)
@@ -67,7 +67,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         </View>
         <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
           <Text style={styles.quantityTitle}>Votre moyen de paiement</Text>
-          <SelectCreditCard cardSelected={setCard} />
+          <SelectCreditCard cardSelected={(card) => setCard(card)} />
         </Animated.View>
 
         <Text style={styles.quantityTitle}>Total {total}€</Text>

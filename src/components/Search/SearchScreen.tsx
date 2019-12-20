@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire } from '../../services'
 import { Searchbar } from 'react-native-paper'
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import FiltersScreen from '../Filters/FiltersScreen'
 
 import Icon from '@expo/vector-icons/FontAwesome'
+
+import ProItem from '../Pros/ProItem'
 
 import { mainStyle } from '../../styles'
 
@@ -19,202 +20,131 @@ import { types, subtypes } from '../../filters'
 
 interface Props {
   loading: boolean;
-  query: string;
   filters: any;
 
   saveFilters: (filters: any) => void;
 }
-interface State {
-  category: string;
-  subcategory: string;
-  forcedShow: boolean;
-}
+const SearchScreen: React.FC<Props> = (props) => {
+  const [query, setQuery] = React.useState('')
 
-class SearchScreen extends React.Component<Props, State>  {
-
-  state = {
-    category: 'women',
-    subcategory: '',
-    forcedShow: false,
-  }
-
-  constructor(props) {
-    super(props)
-
-  }
-
-  selectCategory(key: string) {
-    this.setState({ category: key })
-  }
-
-  async selectSubcategory(key: any) {
-    const { filters, saveFilters } = this.props
-    this.setState({ subcategory: key })
-    filters.type = this.state.category
-    filters.subtype = key
-    saveFilters(filters)
-  }
-
-  async search(query: string) {
-    const { filters } = this.props
-    filters.search = query
-    this.props.saveFilters(filters)
-    this.setState({ forcedShow: false })
-  }
-
-  backToCategories() {
-    if (this.state.subcategory) {
-      const { filters, saveFilters } = this.props
-      filters.type = ''
-      filters.subtype = ''
-      saveFilters(filters)
-      this.setState({ subcategory: '', forcedShow: false })
-    }
-  }
-
-  renderCategory(item: any, index: number) {
-    const selected = this.state.category == item.key
-    return (
-      <TouchableOpacity onPress={() => this.selectCategory(item.key)}>
-        <View style={[styles.category, selected ? styles.categorySelected : {}]}>
-          <Text style={[styles.categoryTxt, selected ? styles.categoryTxtSelected : {}]}>{item.title.toUpperCase()}</Text>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-  renderSubcategory(item: any, index: number) {
-
-    return (
-      <TouchableOpacity onPress={() => this.selectSubcategory(item.key)}>
-        <View style={[styles.subcategory, index % 2 != 0 ? { marginLeft: 1 } : {}]}>
-          <View style={[mainStyle.abs, {backgroundColor: item.color}]}></View>
-          <View style={styles.subPicture}>
-            <AssetImage src={item.image} resizeMode='cover' />
-          </View>
-          <Text style={styles.subTxt}>{item.title.toUpperCase()}</Text>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-  makeFilteredSearch() {
-    //this.setState({ forcedShow: true })
-    this.setState({ category: 'women' })
-  }
-
-  render() {
-    const { category, subcategory, forcedShow } = this.state
-    const { query, loading } = this.props
-    return (
-      <View style={styles.container}>
-        <Searchbar
-          autoCorrect={false}
-          placeholder="Rechercher un article..."
-          onChangeText={(query: string) => this.search(query)}
-          value={query}
-          style={styles.searchbar}
-          icon={subcategory == '' ? undefined : 'chevron-left'}
-          onIconPress={() => this.backToCategories()}
+  return (
+    <View style={styles.container}>
+      <HeaderBar
+        title="Rechercher"
         />
-        
-        <FadeInView style={styles.content}>
-          { (query == '' && subcategory == '' && !forcedShow) ? (
-            <View style={[styles.content, {marginTop: 20}]}>
-              { /* Categories */ }
-              <FlatList
-                style={{flexGrow: 0}}
-                data={types}
-                renderItem={({ item, index }) => this.renderCategory(item, index)}
-                keyExtractor={(item, index) => index.toString()}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                />
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBackground}></View>
+        <View style={styles.searchBar}>
+          <TextInput
+            placeholder="Rechercher..."
+            style={styles.searchInput}
+            value={query}
+            onChange={(evt) => setQuery(evt.nativeEvent.text)}
+            autoCorrect={false}
+            />
+          <View style={styles.searchIcon}>
+            <Icon name="search" color={mainStyle.themeColor} size={16} />
+          </View>
+          <View style={styles.filtersIcon}>
+            <Icon name="cog" color={'#fff'} size={16} />
+          </View>
+        </View>
+      </View>
+      <FadeInView style={styles.content}>
+        <FlatList
+          data={[]}
+          renderItem={({ item }) =>
+            <ProItem
+              pro={item}
+              onPress={() => Actions.pro({ pro: item })}
+              />
+          }
 
-              { category != 'filters' ? (
-                <FlatList
-                  style={{flexGrow: 1,}}
-                  showsVerticalScrollIndicator={false}
-                  numColumns={2}
-                  contentContainerStyle={{paddingTop: 30}}
-                  data={subtypes[this.state.category]}
-                  renderItem={({ item, index }) => this.renderSubcategory(item, index)}
-                  keyExtractor={(item, index) => index.toString()}
-                  />
-              ) : (
-                <FiltersScreen
-                  onReady={() => this.makeFilteredSearch()}
-                  />
-              )}
-            </View>
-
-          ) : (
-            <View style={styles.content}>
-              
-              { /* Results */ }
-              
+          ListEmptyComponent={() => (
+            <View style={styles.empty}>
+              <Text>Aucun résultat</Text>
             </View>
           )}
-        </FadeInView>
-
-      </View>
-    );
-  }
+          keyExtractor={(item, index) => index.toString()}
+          />
+      </FadeInView>
+    </View>
+  )
 }
 
+const searchBarHeight = 40
+const searchBarMargin = 20
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
+  searchContainer: {
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchBackground: {
+    position: 'absolute', top: 0, left: 0, right: 0,
+    backgroundColor: mainStyle.themeColor,
+    height: 30,
+  },
+  searchBar: {
+
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  searchIcon: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+
+    width: 50,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filtersIcon: {
+    position: 'absolute',
+    top: 1,
+    right: 1,
+    bottom: 1,
+
+    backgroundColor: mainStyle.themeColor,
+    borderRadius: (searchBarHeight - 2) / 2,
+    height: (searchBarHeight - 2),
+    width: (searchBarHeight - 2),
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchInput: {
+    width: Dimensions.get('window').width - searchBarMargin * 2,
+    height: searchBarHeight,
+    backgroundColor: '#fff',
+    borderRadius: searchBarHeight / 2,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#eee',
+
+    paddingLeft: 40,
+    paddingRight: 55,
+  },
   content: {
     flex: 1,
   },
-  searchbar: {
-    ...ifIphoneX({
-      paddingTop: 44
-
-    }, {
-      paddingTop: 14
-    }),
-  },
-  category: {
-    width: 90,
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 3,
-    borderBottomColor: '#eee',
-  },
-  categorySelected: {
-    borderBottomColor: '#545051',
-  },
-  categoryTxt: {
-    fontSize: 14,
-  },
-  categoryTxtSelected: {
-    fontWeight: 'bold',
-  },
-  subcategory: {
-    width: Dimensions.get('window').width / 2 - 1,
-    height: 220,
+  empty: {
+    flex: 1,
+    marginTop: 200,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 1,
-  },
-  subPicture: {
-    ...mainStyle.abs,
-    opacity: 0.45,
-  },
-  subTxt: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
   }
 });
 
 
 const mapStateToProps = (state: any) => ({
-  query: state.filtersReducer.filters.search,
   filters: state.filtersReducer.filters,
   toggle: state.filtersReducer.toggle,
 })

@@ -29,7 +29,8 @@ class WishesScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Vos Favoris'
+          title='Favoris'
+          back
           />
 
         <FadeInView style={styles.container}>
@@ -39,7 +40,6 @@ class WishesScreen extends React.Component<Props, State>  {
               <ProItem
                 pro={item}
                 onPress={() => Actions.pro({ pro: item })}
-                onRemove={() => removeWish(item)}
                 />
             }
 

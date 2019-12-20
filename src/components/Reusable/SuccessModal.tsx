@@ -27,7 +27,7 @@ const SuccessModal: React.FC<Props> = (props) => {
         <Text style={styles.open}>{props.subtitle}</Text>
       </View>
       <View style={styles.center}>
-        <View style={[styles.icon, {backgroundColor: props.success ? mainStyle.greenColor : mainStyle.redColor}]}>
+        <View style={[styles.icon, {backgroundColor: props.success ? mainStyle.themeColor : mainStyle.redColor}]}>
           <AntDesign name={props.success ? 'check' : 'close'} size={38} color='#fff' />
         </View>
         <Text style={styles.message}>{props.message}</Text>

@@ -26,7 +26,7 @@ const FiltersModal: React.FC<Props> = (props) => {
 
       </View>
       <BottomButton
-        title='Continuer'
+        title='Confirmer'
         titleColor={mainStyle.themeColor}
         backgroundColor={'#fff'}
         onPress={() => Modal.hide('filters')}

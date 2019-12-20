@@ -13,6 +13,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import ProItem from '../Pros/ProItem'
 import CategoryItem from './CategoryItem'
 import FiltersModal from './FiltersModal'
+import SearchBar from './SearchBar'
 
 import { mainStyle } from '../../styles'
 
@@ -87,23 +88,7 @@ const SearchScreen: React.FC<Props> = (props) => {
       <HeaderBar
         title="Rechercher"
         />
-      <View style={styles.searchContainer}>
-        <View style={styles.searchBar}>
-          <TextInput
-            placeholder="Rechercher..."
-            style={styles.searchInput}
-            value={query}
-            onChange={(evt) => setQuery(evt.nativeEvent.text)}
-            autoCorrect={false}
-            />
-          <View style={styles.searchIcon}>
-            <Icon name="search" color={mainStyle.themeColor} size={16} />
-          </View>
-          <TouchableOpacity style={styles.filtersIcon} onPress={() => showFilters()}>
-            <Icon name="cog" color={'#fff'} size={16} />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <SearchBar query={query} onChange={setQuery} />
       <FadeInView style={styles.content}>
         { query !== '' ? (
           <FlatList
@@ -127,7 +112,13 @@ const SearchScreen: React.FC<Props> = (props) => {
           <FlatList
             data={categories}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50, flexWrap: 'wrap', flexDirection: 'row'}}
-            renderItem={({ item, index }) => <CategoryItem index={index} category={item} />}
+            renderItem={({ item, index }) => 
+              <CategoryItem
+                index={index}
+                category={item}
+                onPress={() => setQuery(item.name)}
+                />
+            }
 
             ListEmptyComponent={() => (
               <View style={styles.empty}>

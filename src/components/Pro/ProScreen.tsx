@@ -14,7 +14,6 @@ import Feather from '@expo/vector-icons/Feather'
 import { switchTab } from '../../actions/tab.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
-import ModalContainer from '../Modal/ModalContainer'
 import PaymentModal from './PaymentModal'
 
 import { mainStyle } from '../../styles'

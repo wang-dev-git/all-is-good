@@ -5,19 +5,21 @@ import Icon from '@expo/vector-icons/FontAwesome'
 
 import { mainStyle } from '../../styles'
 
-interface CategoryProps {
+interface Props {
   category: any;
   index: number;
+
+  onPress?: () => void;
 }
-const CategoryItem: React.FC<CategoryProps> = (props) => {
+const CategoryItem: React.FC<Props> = (props) => {
   return (
-    <View style={[styles.container, props.index % 2 == 0 ? {paddingRight: 1} : {paddingLeft: 1}]}>
+    <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {paddingRight: 1} : {paddingLeft: 1}]}>
       <ImageBackground style={{flex: 1}} source={props.category.picture}>
         <View style={styles.veil}>
           <Text style={styles.title}>{props.category.name}</Text>
         </View>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   )
 }
 

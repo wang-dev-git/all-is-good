@@ -7,14 +7,17 @@ import { mainStyle } from '../../styles'
 
 interface CategoryProps {
   category: any;
+  index: number;
 }
 const CategoryItem: React.FC<CategoryProps> = (props) => {
   return (
-    <ImageBackground style={styles.container} source={props.category.picture}>
-      <View style={styles.veil}>
-        <Text style={styles.title}>{props.category.name}</Text>
-      </View>
-    </ImageBackground>
+    <View style={[styles.container, props.index % 2 == 0 ? {paddingRight: 1} : {paddingLeft: 1}]}>
+      <ImageBackground style={{flex: 1}} source={props.category.picture}>
+        <View style={styles.veil}>
+          <Text style={styles.title}>{props.category.name}</Text>
+        </View>
+      </ImageBackground>
+    </View>
   )
 }
 
@@ -22,18 +25,20 @@ const width = Dimensions.get('window').width / 2
 const styles = StyleSheet.create({
   container: {
     width: width,
-    height: width
+    height: width,
+    marginBottom: 1,
   },
   veil: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.53)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     ...mainStyle.montBold,
-    fontSize: 14,
-    color: '#fff'
+    fontSize: 13,
+    color: '#fff',
+    textTransform: 'uppercase',
   }
 });
 

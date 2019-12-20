@@ -47,7 +47,7 @@ const SearchScreen: React.FC<Props> = (props) => {
 
   const categories = [
     {
-      name: 'Restaurant',
+      name: 'Restaurants',
       picture: require('../../images/cooker.png'),
     },
     {
@@ -109,7 +109,7 @@ const SearchScreen: React.FC<Props> = (props) => {
           <FlatList
             data={categories}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 60, flexWrap: 'wrap', flexDirection: 'row'}}
-            renderItem={({ item }) => <CategoryItem category={item} />}
+            renderItem={({ item, index }) => <CategoryItem index={index} category={item} />}
 
             ListEmptyComponent={() => (
               <View style={styles.empty}>

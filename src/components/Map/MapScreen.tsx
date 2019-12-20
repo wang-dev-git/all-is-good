@@ -8,6 +8,7 @@ import { Notifications } from 'expo';
 import { Actions } from 'react-native-router-flux'
 
 const MapView = require('react-native-maps')
+import ngeohash from 'ngeohash'
 
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
@@ -80,9 +81,13 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const refresh = async () => {
+    const zoom = 5
+    const pos = region.__getValue()
+    const hash = ngeohash.encode(pos.latitude, pos.longitude, zoom)
+    console.log(hash)
     setLoading(true)
     try {
-      const prosRef = Fire.store().collection('pros')
+      const prosRef = Fire.store().collection('pros').where('geoHashes', 'array-contains', hash)
       const pros = await Fire.list(prosRef)
       setPros(pros.filter((item) => item.lat !== undefined))
     } catch (err) {
@@ -92,7 +97,7 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
-    const index = Math.round(scrollPos / 220)
+    const index = Math.round((scrollPos - 10) / 220)
     selectPro(pros[index])
   }, [scrollPos])
 
@@ -100,6 +105,11 @@ const MapScreen: React.FC<Props> = (props) => {
     console.log('refreshed')
     refresh()
   }, [address])
+
+  React.useEffect(() => {
+    if (pros.length)
+      selectPro(pros[0])
+  }, [pros])
 
   React.useEffect(() => {
     if (selectedPro) {
@@ -117,8 +127,6 @@ const MapScreen: React.FC<Props> = (props) => {
       onClose: () => refresh()
     })
   }
-
-  console.log(region)
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

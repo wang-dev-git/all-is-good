@@ -100,7 +100,6 @@ const SearchScreen: React.FC<Props> = (props) => {
                 onPress={() => Actions.pro({ pro: item })}
                 />
             }
-
             ListEmptyComponent={() => (
               <View style={styles.empty}>
                 <Text>{loading ? 'Chargement ...' : 'Aucun résultat' }</Text>
@@ -119,10 +118,9 @@ const SearchScreen: React.FC<Props> = (props) => {
                 onPress={() => setQuery(item.name)}
                 />
             }
-
             ListEmptyComponent={() => (
               <View style={styles.empty}>
-                <Text>{loading ? 'Chargement ...' : 'Aucun résultat' }</Text>
+                <Text>{loading ? 'Chargement ...' : '' }</Text>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -139,60 +137,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  searchContainer: {
-    height: searchBarHeight / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: mainStyle.themeColor,
-
-    zIndex: 100,
-  },
-  searchBar: {
-    marginTop: 20,
-
-    shadowOffset: { width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-
-    width: Dimensions.get('window').width - searchBarMargin * 2,
-    height: searchBarHeight,
-  },
-  searchIcon: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-
-    width: 50,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  filtersIcon: {
-    position: 'absolute',
-    top: 1,
-    right: 1,
-    bottom: 1,
-
-    backgroundColor: mainStyle.themeColor,
-    borderRadius: (searchBarHeight - 2) / 2,
-    height: (searchBarHeight - 2),
-    width: (searchBarHeight - 2),
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searchInput: {
-    flex: 1,
-    backgroundColor: '#fff',
-    borderRadius: searchBarHeight / 2,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#eee',
-
-    paddingLeft: 40,
-    paddingRight: 55,
   },
   content: {
     flex: 1,

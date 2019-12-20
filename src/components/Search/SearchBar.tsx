@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-import { AssetImage } from '../Reusable'
+import { FadeInView } from '../Reusable'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -15,6 +15,8 @@ interface Props {
   query: string;
 
   onChange: (query: string) => void;
+  onFilters: () => void;
+  onClear: () => void;
 }
 const SearchBar: React.FC<Props> = (props) => {
   
@@ -31,19 +33,24 @@ const SearchBar: React.FC<Props> = (props) => {
         <View style={styles.searchIcon}>
           <Icon name="search" color={mainStyle.themeColor} size={16} />
         </View>
-        <TouchableOpacity style={styles.filtersIcon} onPress={() => showFilters()}>
+        <TouchableOpacity style={styles.filtersIcon} onPress={() => props.onFilters()}>
           <Icon name="cog" color={'#fff'} size={16} />
         </TouchableOpacity>
+        { props.query.length > 0 &&
+          <TouchableOpacity style={styles.clearIcon} onPress={() => props.onClear()}>
+            <Icon name="close" color={mainStyle.lightColor} size={12} />
+          </TouchableOpacity>
+        }
       </View>
     </View>
   )
 }
 
-const searchBarHeight = 40
+const barHeight = 40
 const searchBarMargin = 20
 const styles = StyleSheet.create({
   container: {
-    height: searchBarHeight / 2,
+    height: barHeight / 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: mainStyle.themeColor,
@@ -58,7 +65,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
 
     width: Dimensions.get('window').width - searchBarMargin * 2,
-    height: searchBarHeight,
+    height: barHeight,
   },
   searchIcon: {
     position: 'absolute',
@@ -78,9 +85,20 @@ const styles = StyleSheet.create({
     bottom: 1,
 
     backgroundColor: mainStyle.themeColor,
-    borderRadius: (searchBarHeight - 2) / 2,
-    height: (searchBarHeight - 2),
-    width: (searchBarHeight - 2),
+    borderRadius: (barHeight - 2) / 2,
+    height: (barHeight - 2),
+    width: (barHeight - 2),
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clearIcon: {
+    position: 'absolute',
+    top: 0,
+    right: barHeight + 2,
+    bottom: 0,
+
+    width: 20,
 
     justifyContent: 'center',
     alignItems: 'center',
@@ -88,7 +106,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     backgroundColor: '#fff',
-    borderRadius: searchBarHeight / 2,
+    borderRadius: barHeight / 2,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#eee',

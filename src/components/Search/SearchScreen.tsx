@@ -88,7 +88,12 @@ const SearchScreen: React.FC<Props> = (props) => {
       <HeaderBar
         title="Rechercher"
         />
-      <SearchBar query={query} onChange={setQuery} />
+      <SearchBar
+        query={query}
+        onChange={setQuery}
+        onFilters={showFilters}
+        onClear={() => setQuery('')}
+        />
       <FadeInView style={styles.content}>
         { query !== '' ? (
           <FlatList

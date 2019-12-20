@@ -7,7 +7,8 @@ import { Notifications } from 'expo';
 
 import { Actions } from 'react-native-router-flux'
 
-import MapView, { Marker, AnimatedRegion, Animated } from 'react-native-maps';
+const MapView = require('react-native-maps')
+
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
 import MapBubble from './MapBubble'
@@ -32,7 +33,7 @@ const MapScreen: React.FC<Props> = (props) => {
   
   const { user } = props
   
-  const [region, setRegion] = React.useState(new AnimatedRegion({
+  const [region, setRegion] = React.useState(new MapView.AnimatedRegion({
     latitude: 48.8240021,
     longitude: 2.21,
     latitudeDelta: 0.03358723958820065,
@@ -94,6 +95,15 @@ const MapScreen: React.FC<Props> = (props) => {
     refresh()
   }, [address])
 
+  React.useEffect(() => {
+    if (selectedPro) {
+      region.timing({
+        latitude: selectedPro.lat,
+        longitude: selectedPro.lng
+      }).start()
+    }
+  }, [selectedPro])
+
   const showFilters = () => {
     Keyboard.dismiss()
     Modal.show('filters', {
@@ -111,14 +121,14 @@ const MapScreen: React.FC<Props> = (props) => {
           title="Autour de vous"
           />
         <View style={styles.container}>
-          <Animated
+          <MapView.Animated
             showsUserLocation
             style={styles.map}
-            initialRegion={region}
-            //onRegionChange={setRegion}
+            region={region}
+            onRegionChange={(r) => region.setValue(r)}
           >
             { pros.map((item, index) => (
-              <Marker
+              <MapView.Marker
                 key={index}
                 onPress={() => selectPro(item)}
                 coordinate={{
@@ -130,17 +140,17 @@ const MapScreen: React.FC<Props> = (props) => {
                   selected={selectedPro && item.id == selectedPro.id}
                   color={mainStyle.themeColor}
                   />
-              </Marker>
+              </MapView.Marker>
             )) }
             {selectedAddress &&
-              <Marker
+              <MapView.Marker
                 coordinate={{
                   longitude: selectedAddress.geometry.location.lng,
                   latitude: selectedAddress.geometry.location.lat
                 }}
               />
             }
-          </Animated>
+          </MapView.Animated>
 
           <View style={styles.floatingTop}>
             <SearchBar

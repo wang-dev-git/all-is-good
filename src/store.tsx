@@ -10,6 +10,7 @@ import { prosReducer } from './actions/pros.action'
 import { modalReducer } from './actions/modal.action'
 import { cardsReducer } from './actions/cards.action'
 import { loaderReducer } from './actions/loader.action'
+import { ordersReducer } from './actions/orders.action'
 
 // Create store by combining reducers
 export const store = createStore(combineReducers({
@@ -19,6 +20,7 @@ export const store = createStore(combineReducers({
   prosReducer,
   wishesReducer,
   cardsReducer,
+  ordersReducer,
   
   modalReducer,
   loaderReducer,

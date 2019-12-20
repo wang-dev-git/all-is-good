@@ -9,50 +9,37 @@ import OrderItem from './OrderItem'
 import { Actions } from 'react-native-router-flux'
 import { Fire, Flash } from '../../services'
 
+import { fetchOrders } from '../../actions/orders.action'
+
 import { mainStyle } from '../../styles'
 
 interface Props {
   user: any;
+  loading: boolean;
+  orders: any;
+
+  fetchOrders: () => void;
 }
 interface State {
-  pastOrders: any[];
-  pendingOrders: any[];
-  loading: boolean;
   tab: number;
 }
 
 class OrdersScreen extends React.Component<Props, State>  {
   
   state = {
-    pastOrders: [],
-    pendingOrders: [],
-    loading: false,
     tab: 1,
   }
 
   componentDidMount() {
-    this.fetchOrders() 
+    this.refresh() 
   }
 
-  async fetchOrders() {
-    const { user } = this.props
-
-    this.setState({ loading: true })
+  async refresh() {
+    const { user, fetchOrders } = this.props
 
     try {
-      const pendingOrdersRef = Fire.store().collection('orders')
-        .where('userId', '==', user.id)
-        .where('validated', '==', false)
-        .orderBy('createdAt', 'desc')
-      const pendingOrders = await Fire.list(pendingOrdersRef)
-      const pastOrdersRef = Fire.store().collection('orders')
-        .where('userId', '==', user.id)
-        .where('validated', '==', true)
-        .orderBy('createdAt', 'desc')
-      const pastOrders = await Fire.list(pastOrdersRef)
-      this.setState({ loading: false, pastOrders, pendingOrders })
+      await fetchOrders()
     } catch (err) {
-      this.setState({ loading: false })
       console.log(err)
       Flash.error('Vérifiez votre connexion internet')
     }
@@ -67,13 +54,13 @@ class OrdersScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { pastOrders, pendingOrders, loading, tab } = this.state
+    const { tab } = this.state
+    const { orders, loading } = this.props
 
     return (
       <View style={styles.container}>
         <HeaderBar
           title='Mes Commandes'
-          back
           />
         <View style={styles.tabs}>
           <TouchableOpacity
@@ -90,7 +77,7 @@ class OrdersScreen extends React.Component<Props, State>  {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={tab === 0 ? pastOrders : pendingOrders}
+          data={tab === 0 ? orders.past : orders.pending}
           renderItem={({ item }) => this.renderItem(item)}
           /*ListHeaderComponent={() => (
             <TouchableOpacity onPress={() => this.clear()}>
@@ -106,7 +93,7 @@ class OrdersScreen extends React.Component<Props, State>  {
           refreshControl={
             <RefreshControl
               refreshing={loading}
-              onRefresh={() => this.fetchOrders()}
+              onRefresh={() => this.refresh()}
             />
           }
           />
@@ -161,9 +148,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
+  orders: state.ordersReducer.orders,
+  loading: state.ordersReducer.loading,
 })
 const mapDispatchToProps = (dispatch: any) => ({
-
+  fetchOrders: () => dispatch(fetchOrders())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersScreen)

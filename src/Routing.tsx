@@ -14,7 +14,7 @@ import TabsScreen from './components/Tabs/TabsScreen'
 
 import ProfileScreen from './components/Profile/ProfileScreen'
 import UserInfoScreen from './components/UserInfo/UserInfoScreen'
-import OrdersScreen from './components/Orders/OrdersScreen'
+import WishesScreen from './components/Wishes/WishesScreen'
 import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
 import AddCardScreen from './components/AddCard/AddCardScreen'
 
@@ -114,7 +114,7 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="pro" component={ProScreen} />
 
               <Scene key="userInfo" component={UserInfoScreen} />
-              <Scene key="orders" component={OrdersScreen} />
+              <Scene key="wishes" component={WishesScreen} />
               <Scene key="creditCards" component={CreditCardsScreen} />
               <Scene key="addCard" component={AddCardScreen} />
             </Stack>

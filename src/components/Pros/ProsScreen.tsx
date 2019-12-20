@@ -47,7 +47,7 @@ class ProsScreen extends React.Component<Props, State>  {
       Flash.error('Veuillez vérifier votre connexion')
     }
    
-    setTimeout(() => Actions.orders(), 200)
+    //setTimeout(() => Actions.orders(), 200)
     /*setTimeout(() => {
       const pros = this.props.pros.byDate
       if (pros && pros.length > 0)

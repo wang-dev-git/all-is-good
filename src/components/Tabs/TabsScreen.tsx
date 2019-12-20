@@ -5,7 +5,7 @@ import { Notifications } from 'expo'
 
 import ProsScreen from '../Pros/ProsScreen'
 import SearchScreen from '../Search/SearchScreen'
-import WishesScreen from '../Wishes/WishesScreen'
+import OrdersScreen from '../Orders/OrdersScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
 import MapScreen from '../Map/MapScreen'
 
@@ -54,32 +54,32 @@ const routes = [
     )
   },
   {
-    title: 'Search',
-    component: SearchScreen,
+    title: 'Map',
+    component: MapScreen,
     renderIcon: (active: boolean) => (
-      <Icon name="search" size={22} color={active ? tabActiveColor : tabColor}  />  
+      <Material name="map-search" size={22} color={active ? tabActiveColor : tabColor}  />  
     )
   },
   {
-    title: 'Map',
-    component: MapScreen,
+    title: 'Search',
+    component: SearchScreen,
     renderIcon: (active: boolean) => active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Material name="map-search" size={22} color={mainStyle.themeColor} />
+        <Icon name="search" size={22} color={mainStyle.themeColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Material name="map-search" size={22} color={'#fff'} />
+        <Icon name="search" size={22} color={'#fff'} />
       </View>
     )
   },
   {
-    title: 'Favoris',
-    component: WishesScreen,
+    title: 'Commandes',
+    component: OrdersScreen,
     renderIcon: (active: boolean) => active ? (
-      <Icon name="heart" size={22} color={active ? tabActiveColor : tabColor} />
+      <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
     ) : (
-      <Icon name="heart-o" size={22} color={active ? tabActiveColor : tabColor} />
+      <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
     )
   },
   {
@@ -176,8 +176,8 @@ class TabsScreen extends React.Component<Props, State>  {
 
     const isSelected = this.isSelected(index)
     let count = 0
-    if (index == 3)
-      count = wishes ? wishes.length : 0
+    //if (index == 3)
+      //count = wishes ? wishes.length : 0
     return (
       <TouchableOpacity key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
         <View style={[styles.tab, isSelected ? {} : {}]}>

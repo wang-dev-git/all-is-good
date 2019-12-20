@@ -154,11 +154,11 @@ class ProfileScreen extends React.Component<Props, State>  {
 
           <View style={styles.group}>
             <MenuLink
-              icon='ticket'
-              title='Réservations'
+              icon='heart'
+              title='Favoris'
               right
               
-              onPress={Actions.orders}
+              onPress={Actions.wishes}
               />
             <MenuLink
               icon='id-card'

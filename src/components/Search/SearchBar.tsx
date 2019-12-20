@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
 
     paddingLeft: 40,
-    paddingRight: 55,
+    paddingRight: 54,
   },
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal } from '../../services'
@@ -48,6 +48,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   }, [query])
 
   const showFilters = () => {
+    Keyboard.dismiss()
     Modal.show('filters', {
       component: <FiltersModal />,
       onClose: () => refresh()

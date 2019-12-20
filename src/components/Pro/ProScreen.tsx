@@ -58,6 +58,8 @@ class ProScreen extends React.Component<Props>  {
     const { pro } = this.props
     const price = Number(pro.price * counter).toFixed(2)
 
+    console.log(card)
+
     try {
       Loader.show('Commande en cours...')
       const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card })

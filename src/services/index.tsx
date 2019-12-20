@@ -7,5 +7,6 @@ import Facebook from './Facebook.service'
 import Time from './Time.service'
 import Cache from './Cache.service'
 import Stripe from './Stripe.service'
+import Loader from './Loader.service'
 
-export { Fire, Maps, AppConfig, Facebook, Flash, Modal, Time, Stripe, Cache }
+export { Fire, Maps, AppConfig, Facebook, Flash, Modal, Time, Stripe, Loader, Cache }

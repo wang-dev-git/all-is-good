@@ -15,7 +15,8 @@ interface Props {
   user: any;
 }
 interface State {
-  orders: any;
+  pastOrders: any[];
+  pendingOrders: any[];
   loading: boolean;
   tab: number;
 }
@@ -23,13 +24,14 @@ interface State {
 class OrdersScreen extends React.Component<Props, State>  {
   
   state = {
-    orders: null,
+    pastOrders: [],
+    pendingOrders: [],
     loading: false,
-    tab: 0,
+    tab: 1,
   }
 
   componentDidMount() {
-    //this.fetchOrders() 
+    this.fetchOrders() 
   }
 
   async fetchOrders() {
@@ -38,42 +40,40 @@ class OrdersScreen extends React.Component<Props, State>  {
     this.setState({ loading: true })
 
     try {
-      const snap = await Fire.store().collection('users').doc(user.id).collection('orders')
+      const pendingOrdersRef = Fire.store().collection('orders')
         .where('userId', '==', user.id)
+        .where('validated', '==', false)
         .orderBy('createdAt', 'desc')
-        .get()
-      const orders: any[] = []
-      snap.forEach((doc: any) => {
-        if (doc.exists) {
-          orders.push({
-            id: doc.id,
-            ...doc.data(),
-          })
-        }
-      })
-      this.setState({ loading: false, orders })
+      const pendingOrders = await Fire.list(pendingOrdersRef)
+      const pastOrdersRef = Fire.store().collection('orders')
+        .where('userId', '==', user.id)
+        .where('validated', '==', true)
+        .orderBy('createdAt', 'desc')
+      const pastOrders = await Fire.list(pastOrdersRef)
+      this.setState({ loading: false, pastOrders, pendingOrders })
     } catch (err) {
       this.setState({ loading: false })
-      Flash.error('Impossible de récupérer les commandes')
+      console.log(err)
+      Flash.error('Vérifiez votre connexion internet')
     }
   }
 
   renderItem(order: any) {
     return (
       <OrderItem
-        product={order.product}
         order={order}
         />
     )
   }
 
   render() {
-    const { orders, loading, tab } = this.state
+    const { pastOrders, pendingOrders, loading, tab } = this.state
 
     return (
       <View style={styles.container}>
         <HeaderBar
           title='Mes Commandes'
+          back
           />
         <View style={styles.tabs}>
           <TouchableOpacity
@@ -90,7 +90,7 @@ class OrdersScreen extends React.Component<Props, State>  {
           </TouchableOpacity>
         </View>
         <FlatList
-          data={orders || []}
+          data={tab === 0 ? pastOrders : pendingOrders}
           renderItem={({ item }) => this.renderItem(item)}
           /*ListHeaderComponent={() => (
             <TouchableOpacity onPress={() => this.clear()}>
@@ -99,7 +99,7 @@ class OrdersScreen extends React.Component<Props, State>  {
           )}*/
           ListEmptyComponent={() => (
             <View style={styles.empty}>
-              <Text style={styles.emptyTxt}>AUCUNE COMMANDE</Text>
+              <Text style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</Text>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}

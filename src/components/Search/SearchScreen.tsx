@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire } from '../../services'
-import { Searchbar } from 'react-native-paper'
+import { Fire, Modal } from '../../services'
+
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
@@ -12,6 +12,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 
 import ProItem from '../Pros/ProItem'
 import CategoryItem from './CategoryItem'
+import FiltersModal from './FiltersModal'
 
 import { mainStyle } from '../../styles'
 
@@ -30,20 +31,28 @@ const SearchScreen: React.FC<Props> = (props) => {
   const [pros, setPros] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
-  React.useEffect(() => {
-    const fetch = async () => {
-      setLoading(true)
-      try {
-        const prosRef = Fire.store().collection('pros')
-        const pros = await Fire.list(prosRef)
-        setPros(pros)
-      } catch (err) {
-        setPros([])
-      }
-      setLoading(false)
+  const refresh = async () => {
+    setLoading(true)
+    try {
+      const prosRef = Fire.store().collection('pros')
+      const pros = await Fire.list(prosRef)
+      setPros(pros)
+    } catch (err) {
+      setPros([])
     }
-    fetch()
+    setLoading(false)
+  }
+
+  React.useEffect(() => {
+    refresh()
   }, [query])
+
+  const showFilters = () => {
+    Modal.show('filters', {
+      component: <FiltersModal />,
+      onClose: () => refresh()
+    })
+  }
 
   const categories = [
     {
@@ -60,6 +69,14 @@ const SearchScreen: React.FC<Props> = (props) => {
     },
     {
       name: 'Veggie',
+      picture: require('../../images/cooker.png'),
+    },
+    {
+      name: 'Boulangeries',
+      picture: require('../../images/cooker.png'),
+    },
+    {
+      name: 'Poisson',
       picture: require('../../images/cooker.png'),
     }
   ]
@@ -81,16 +98,16 @@ const SearchScreen: React.FC<Props> = (props) => {
           <View style={styles.searchIcon}>
             <Icon name="search" color={mainStyle.themeColor} size={16} />
           </View>
-          <View style={styles.filtersIcon}>
+          <TouchableOpacity style={styles.filtersIcon} onPress={() => showFilters()}>
             <Icon name="cog" color={'#fff'} size={16} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <FadeInView style={styles.content}>
         { query !== '' ? (
           <FlatList
             data={pros}
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 60,}}
+            contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
               <ProItem
                 pro={item}
@@ -108,7 +125,7 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <FlatList
             data={categories}
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 60, flexWrap: 'wrap', flexDirection: 'row'}}
+            contentContainerStyle={{paddingBottom: 20, paddingTop: 50, flexWrap: 'wrap', flexDirection: 'row'}}
             renderItem={({ item, index }) => <CategoryItem index={index} category={item} />}
 
             ListEmptyComponent={() => (

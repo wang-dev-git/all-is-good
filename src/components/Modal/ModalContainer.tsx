@@ -57,9 +57,7 @@ interface Props {
   modals: any;
 }
 const ModalContainer: React.FC<Props> = (props) => {
-
   const modals = Object.values(props.modals)
-
   return (
     <React.Fragment>
       {modals.map((item: any, index) => (

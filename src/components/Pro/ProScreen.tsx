@@ -216,7 +216,6 @@ class ProScreen extends React.Component<Props>  {
           onPress={() => this.checkout()}
           />
 
-        <ModalContainer />
       </View>
     );
   }

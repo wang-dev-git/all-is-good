@@ -6,7 +6,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView } from '../Reusable'
+import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
 import { Fire, Flash, Modal } from '../../services'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
@@ -16,8 +16,6 @@ import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
 import ModalContainer from '../Modal/ModalContainer'
 import PaymentModal from './PaymentModal'
-
-import ImageViewer from 'react-native-image-zoom-viewer';
 
 import { mainStyle } from '../../styles'
 
@@ -38,6 +36,9 @@ class ProScreen extends React.Component<Props>  {
     /*setTimeout(() => {
       this.checkout()
     }, 500)*/
+    Modal.show('payment_failure', { component:
+          <SuccessModal success={true} message={'Votre commande na pas pu aboutir'} subtitle='Total: 22€' />
+        })
   }
 
   toggleWish() {
@@ -56,10 +57,45 @@ class ProScreen extends React.Component<Props>  {
     }
   }
 
-  onPay(counter: number, card: string) {
-    console.log(counter)
-    console.log(card)
-    Modal.hide('payment')
+  async onPay(counter: number, card: string) {
+    const { pro } = this.props
+
+    try {
+      const res = await Fire.cloud('proceedOrder', { proId: pro.id })
+      if (res.status === 'success') {
+        Modal.hide('payment')
+        const price = Number(pro.price).toFixed(2)
+        Modal.show('payment_success', { component:
+          <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "€"} />
+        })
+      } else {
+        let error = ''
+        switch (res.error) {
+          case "currently_unavailable":
+            error = "Cet établissement est actuellement indisponible."
+            break;
+
+          case "internal_error":
+            error = "Une erreur est survenue, veuillez contacter l'assistance"
+            break;
+
+          case "payment_declined":
+            error = "Vorte commande n'a pas pu aboutir, veuillez ré-essayer ultérieurement ou en saisissant une nouvelle carte."
+            break;
+          
+          default: 
+            error = "Erreur est survenue, veuillez contacter l'assistance"
+            break;
+        }
+        Modal.show('payment_failure', { component:
+          <SuccessModal success={false} message={error} subtitle='Echec de la commande' />
+        })
+      }
+
+    } catch (err) {
+      console.log(err)
+      Flash.error('Vérifiez votre connexion internet')
+    }
   }
 
   checkout() {

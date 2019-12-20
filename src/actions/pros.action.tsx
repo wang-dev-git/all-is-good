@@ -7,6 +7,7 @@ import Cache from '../services/Cache.service'
 // Recently added pros
 const getRecentPros = async () => {
   const ref = Fire.store().collection('pros')
+    .where('active', '==', true)
     .orderBy('createdAt', 'desc')
     .limit(8)
   return await Fire.list(ref)
@@ -15,7 +16,8 @@ const getRecentPros = async () => {
 // Popular pros
 const getPopularPros = async () => {
   const ref = Fire.store().collection('pros')
-    .orderBy('popularity', 'desc')
+    .where('active', '==', true)
+    .orderBy('createdAt', 'desc')
     .limit(8)
   return await Fire.list(ref)
 }

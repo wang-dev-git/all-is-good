@@ -9,6 +9,7 @@ import NotifBubble from './NotifBubble'
 import FadeInView from './FadeInView'
 import SelectCreditCard from './SelectCreditCard'
 import LinkButton from './LinkButton'
+import SuccessModal from './SuccessModal'
 
 export {
   AssetImage,
@@ -21,5 +22,6 @@ export {
   NotifBubble,
   FadeInView,
   LinkButton,
+  SuccessModal,
   SelectCreditCard,
 }

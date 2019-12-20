@@ -49,13 +49,13 @@ const MapItem: React.FC<Props> = (props: Props) => {
   );
 }
 
-const margin = 20
+const width = 220
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
   shadow: {
-    width: Dimensions.get('window').width - margin * 2,
+    width: width,
     marginVertical: 12,
     marginHorizontal: 10,
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   picture: {
-    height: 120,
+    height: 100,
   },
   info: {
     padding: 10,

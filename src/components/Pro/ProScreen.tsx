@@ -32,9 +32,11 @@ interface Props {
 class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
+    /*
     setTimeout(() => {
       this.checkout()
     }, 500)
+    */
   }
 
   toggleWish() {

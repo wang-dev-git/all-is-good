@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux'
 import MapView, { Marker } from 'react-native-maps';
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
+import MapBubble from './MapBubble'
 import FiltersModal from '../Search/FiltersModal'
 
 import { HeaderBar, FadeInView } from '../Reusable'
@@ -27,6 +28,15 @@ interface Props {
 }
 
 import { mainStyle } from '../../styles'
+
+
+const Bubble: React.FC<Props> = (props) => {
+  return (
+    <View style={styles.bubble}>
+      <View style={styles.bubbleHeart}></View>
+    </View>
+  )  
+}
 
 const MapScreen: React.FC<Props> = (props) => {
   
@@ -121,7 +131,12 @@ const MapScreen: React.FC<Props> = (props) => {
                   longitude: item.lng,
                   latitude: item.lat,
                 }}
-              />
+              >
+                <MapBubble
+                  selected={selectedPro && item.id == selectedPro.id}
+                  color={mainStyle.themeColor}
+                  />
+              </Marker>
             )) }
             {selectedAddress &&
               <Marker
@@ -156,11 +171,6 @@ const MapScreen: React.FC<Props> = (props) => {
           </View>
           { selectedPro &&
             <FadeInView style={styles.floatingBottom}>
-              <View style={styles.listHeader}>
-                <View style={styles.listClose}>
-                  <AntIcon name="close" size={22} color='#fff' />
-                </View>
-              </View>
               <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -174,6 +184,11 @@ const MapScreen: React.FC<Props> = (props) => {
                 }
                 keyExtractor={(item, index) => index.toString()}
                 />
+              <TouchableOpacity style={styles.listHeader} onPress={() => selectPro(null)}>
+                <View style={styles.listClose}>
+                  <AntIcon name="close" size={22} color='#fff' />
+                </View>
+              </TouchableOpacity>
             </FadeInView>
           }
         </View>

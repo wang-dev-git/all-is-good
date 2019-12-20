@@ -4,31 +4,24 @@ import { handleActions } from 'redux-actions';
 import Fire from '../services/Fire.service'
 import Cache from '../services/Cache.service'
 
-// Past orders
-const getPastOrders = async () => {
+// Fetch orders
+const getOrders = async (userId: string, validated: boolean) => {
   const ref = Fire.store().collection('orders')
-    .where('active', '==', true)
+    .where('userId', '==', userId)
+    .where('validated', '==', validated)
     .orderBy('createdAt', 'desc')
-    .limit(8)
-  return await Fire.list(ref)
-}
-
-// Pending orders
-const getPendingOrders = async () => {
-  const ref = Fire.store().collection('orders')
-    .where('active', '==', true)
-    .orderBy('createdAt', 'desc')
-    .limit(8)
+    .limit(20)
   return await Fire.list(ref)
 }
 
 export const fetchOrders = createActionThunk('FETCH_ORDERS', async ({ getState }) => {
-  const pending = await getPendingOrders()
-  const past = await getPastOrders()
+  const userId = getState().authReducer.fireUser.uid
+  const pending = await getOrders(userId, false)
+  const past = await getOrders(userId, true)
 
   return {
-    past: (past),
-    pending: (pending),
+    past: past,
+    pending: pending,
   }
 })
 

@@ -20,6 +20,7 @@ import AddCardScreen from './components/AddCard/AddCardScreen'
 
 import ProScreen from './components/Pro/ProScreen'
 import MoreProsScreen from './components/Pros/MoreProsScreen'
+import LoaderWrapper from './components/Loader/LoaderWrapper'
 
 
 import { Asset } from 'expo-asset'
@@ -130,6 +131,8 @@ export default class Routing extends React.Component<Props, State> {
           floating={true}
           hideStatusBar
           />
+        { /** Global Loader **/ }
+        <LoaderWrapper />
 
       </View>
     )  

@@ -7,7 +7,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
-import { Fire, Flash, Modal } from '../../services'
+import { Fire, Flash, Modal, Loader } from '../../services'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
@@ -33,12 +33,9 @@ interface Props {
 class ProScreen extends React.Component<Props>  {
 
   componentDidMount() {
-    /*setTimeout(() => {
+    setTimeout(() => {
       this.checkout()
-    }, 500)*/
-    Modal.show('payment_failure', { component:
-          <SuccessModal success={true} message={'Votre commande na pas pu aboutir'} subtitle='Total: 22€' />
-        })
+    }, 500)
   }
 
   toggleWish() {
@@ -59,12 +56,14 @@ class ProScreen extends React.Component<Props>  {
 
   async onPay(counter: number, card: string) {
     const { pro } = this.props
+    const price = Number(pro.price * counter).toFixed(2)
 
     try {
-      const res = await Fire.cloud('proceedOrder', { proId: pro.id })
+      Loader.show('Commande en cours...')
+      const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card })
+      Loader.hide()
       if (res.status === 'success') {
         Modal.hide('payment')
-        const price = Number(pro.price).toFixed(2)
         Modal.show('payment_success', { component:
           <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "€"} />
         })
@@ -93,6 +92,7 @@ class ProScreen extends React.Component<Props>  {
       }
 
     } catch (err) {
+      Loader.hide()
       console.log(err)
       Flash.error('Vérifiez votre connexion internet')
     }

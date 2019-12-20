@@ -70,10 +70,14 @@ const SelectCreditCard: React.FC<Props> = (props) => {
   const { cards, cardSelected } = props
   const [card, setCard] = React.useState(cards.length ? cards[0] : null)
 
+  React.useEffect(() => {
+    if (card)
+      cardSelected(card.cardId)
+  }, [card])
+
   const pickCard = (card: any) => {
     Modal.hide('show_cards')
     setCard(card)
-    cardSelected(card.cardId)
   }
 
   const showCards = () => {

@@ -9,6 +9,7 @@ import { wishesReducer } from './actions/wishes.action'
 import { prosReducer } from './actions/pros.action'
 import { modalReducer } from './actions/modal.action'
 import { cardsReducer } from './actions/cards.action'
+import { loaderReducer } from './actions/loader.action'
 
 // Create store by combining reducers
 export const store = createStore(combineReducers({
@@ -18,5 +19,7 @@ export const store = createStore(combineReducers({
   prosReducer,
   wishesReducer,
   cardsReducer,
+  
   modalReducer,
+  loaderReducer,
 }), applyMiddleware(thunk));

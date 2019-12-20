@@ -42,18 +42,18 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const userLocation = useLocation(user)
 
-  /*React.useEffect(() => {
+  /*
+  React.useEffect(() => {
     if (userLocation) {
       const coords = userLocation.coords
       const fetch = async () => {
         const addr = await Maps.getAddress(coords.latitude, coords.longitude)
         if (addr.length) {
           setAddress(addr[0].formatted_address)
-          setRegion({
-            ...region,
+          region.timing({
             latitude: coords.latitude,
             longitude: coords.longitude
-          })
+          }).start()
         }
       }
       fetch()
@@ -66,6 +66,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const [address, setAddress] = React.useState("1 rue de l'Ermitage Sèvres")
   const [pros, setPros] = React.useState([])
   const [loading, setLoading] = React.useState(false)
+  const [scrollPos, setScrollPos] = React.useState(0)
 
   const { addresses, clearAddresses } = useAddresses(address)
   
@@ -89,6 +90,11 @@ const MapScreen: React.FC<Props> = (props) => {
     }
     setLoading(false)
   }
+
+  React.useEffect(() => {
+    const index = Math.round(scrollPos / 220)
+    selectPro(pros[index])
+  }, [scrollPos])
 
   React.useEffect(() => {
     console.log('refreshed')
@@ -176,6 +182,8 @@ const MapScreen: React.FC<Props> = (props) => {
           { selectedPro &&
             <FadeInView style={styles.floatingBottom}>
               <FlatList
+                scrollEventThrottle={0.16}
+                onScroll={(evt) => setScrollPos(evt.nativeEvent.contentOffset.x)}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{paddingTop: 40}}

@@ -15,6 +15,7 @@ const useAddresses = (input: string) => {
   useEffect(() => {
     fetch()
   }, [input])
-  return addresses
+  const clearAddresses = () => setAddresses([])
+  return { addresses, clearAddresses } 
 }
 export default useAddresses

@@ -8,23 +8,20 @@ interface Props {
   selected: boolean;
 }
 const MapBubble: React.FC<Props> = (props) => {
-  if (props.selected)
-    alert("ok")
   return (
     <View>
       <View style={[
         styles.border,
         { borderColor: props.color },
         props.selected ? styles.selected : {}
-      ]}>
-      </View> 
+      ]}></View> 
+      
       <View style={styles.wrapper}>
         <View style={[
           styles.contentColor,
           { backgroundColor: props.color },
           props.selected ? styles.contentSelected : {}
-        ]}>
-        </View>
+        ]}></View>
       </View>
     </View>
   )  

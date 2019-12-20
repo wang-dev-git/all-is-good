@@ -7,7 +7,7 @@ import { Notifications } from 'expo';
 
 import { Actions } from 'react-native-router-flux'
 
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion, Animated } from 'react-native-maps';
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
 import MapBubble from './MapBubble'
@@ -22,32 +22,22 @@ import { Maps } from '../../services'
 import useAddresses from './addresses.hook'
 import useLocation from './location.hook'
 
+import { mainStyle } from '../../styles'
+
 interface Props {
   user: any;
   fireUser: any;
 }
-
-import { mainStyle } from '../../styles'
-
-
-const Bubble: React.FC<Props> = (props) => {
-  return (
-    <View style={styles.bubble}>
-      <View style={styles.bubbleHeart}></View>
-    </View>
-  )  
-}
-
 const MapScreen: React.FC<Props> = (props) => {
   
   const { user } = props
   
-  const [region, setRegion] = React.useState({
+  const [region, setRegion] = React.useState(new AnimatedRegion({
     latitude: 48.8240021,
     longitude: 2.21,
     latitudeDelta: 0.03358723958820065,
     longitudeDelta: 0.04250270688370961,
-  })
+  }))
 
   const userLocation = useLocation(user)
 
@@ -72,19 +62,19 @@ const MapScreen: React.FC<Props> = (props) => {
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
 
-  const [address, setAddress] = React.useState("")
+  const [address, setAddress] = React.useState("1 rue de l'Ermitage Sèvres")
   const [pros, setPros] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
-  const addresses = useAddresses(selectedAddress)
+  const { addresses, clearAddresses } = useAddresses(address)
   
   const onAddressTap = (item) => {
     selectAddress(item)
-    setRegion({
-      ...region,
+    clearAddresses()
+    region.timing({
       latitude: item.geometry.location.lat,
       longitude: item.geometry.location.lng
-    })
+    }).start()
   }
 
   const refresh = async () => {
@@ -100,6 +90,7 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
+    console.log('refreshed')
     refresh()
   }, [address])
 
@@ -111,6 +102,8 @@ const MapScreen: React.FC<Props> = (props) => {
     })
   }
 
+  console.log(region)
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -118,15 +111,16 @@ const MapScreen: React.FC<Props> = (props) => {
           title="Autour de vous"
           />
         <View style={styles.container}>
-          <MapView
+          <Animated
             showsUserLocation
             style={styles.map}
-            region={region}
+            initialRegion={region}
+            //onRegionChange={setRegion}
           >
             { pros.map((item, index) => (
               <Marker
                 key={index}
-                onPress={() => selectPro(item.id)}
+                onPress={() => selectPro(item)}
                 coordinate={{
                   longitude: item.lng,
                   latitude: item.lat,
@@ -146,7 +140,7 @@ const MapScreen: React.FC<Props> = (props) => {
                 }}
               />
             }
-          </MapView>
+          </Animated>
 
           <View style={styles.floatingTop}>
             <SearchBar
@@ -184,11 +178,11 @@ const MapScreen: React.FC<Props> = (props) => {
                 }
                 keyExtractor={(item, index) => index.toString()}
                 />
-              <TouchableOpacity style={styles.listHeader} onPress={() => selectPro(null)}>
-                <View style={styles.listClose}>
+              <View style={styles.listHeader}>
+                <TouchableOpacity style={styles.listClose} onPress={() => selectPro(null)}>
                   <AntIcon name="close" size={22} color='#fff' />
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </FadeInView>
           }
         </View>
@@ -204,8 +198,10 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     margin: 20,
-    marginTop: 80,
+    marginTop: 30,
     padding: 10,
+    borderRadius: 4,
+    overflow: 'hidden',
     backgroundColor: '#fff',
   },
   row: {

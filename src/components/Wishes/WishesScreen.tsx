@@ -42,7 +42,6 @@ class WishesScreen extends React.Component<Props, State>  {
                 onPress={() => Actions.pro({ pro: item })}
                 />
             }
-
             ListEmptyComponent={() => (
               <View style={styles.empty}>
                 <Text>Vous n'avez aucun favoris !</Text>

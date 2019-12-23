@@ -84,7 +84,7 @@ const MapScreen: React.FC<Props> = (props) => {
     const zoom = 5
     const pos = region.__getValue()
     const hash = ngeohash.encode(pos.latitude, pos.longitude, zoom)
-    console.log(hash)
+    console.log('Refresh')
     setLoading(true)
     try {
       const prosRef = Fire.store().collection('pros').where('geoHashes', 'array-contains', hash)
@@ -102,7 +102,6 @@ const MapScreen: React.FC<Props> = (props) => {
   }, [scrollPos])
 
   React.useEffect(() => {
-    console.log('refreshed')
     refresh()
   }, [address])
 
@@ -142,7 +141,12 @@ const MapScreen: React.FC<Props> = (props) => {
             showsUserLocation
             style={styles.map}
             region={region}
-            onRegionChange={(r) => region.setValue(r)}
+            onRegionChangeComplete={(r) => {
+              //refresh()
+            }}
+            onRegionChange={(r) => {
+              region.setValue(r)
+            }}
           >
             { pros.map((item, index) => (
               <MapView.Marker

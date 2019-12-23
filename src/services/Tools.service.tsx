@@ -1,4 +1,13 @@
+import ngeohash from 'ngeohash'
+
 export default class Tools {
+  
+  // Get geohash for given position-level pair
+  static getGeohash(pos: any, level: number) {
+    return ngeohash.encode(pos.latitude, pos.longitude, level)
+  }
+
+  // Get distance between two points
   static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))
       return 0;
@@ -17,4 +26,9 @@ export default class Tools {
     if (unit=="N") { dist = dist * 0.8684 }
     return dist;
   }
+
+  static getRegionZoom(pos) {
+    return Math.round(Math.log(360 / pos.longitudeDelta) / Math.LN2)
+  }
+
 }

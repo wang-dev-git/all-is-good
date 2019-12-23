@@ -7,6 +7,7 @@ interface Props {
   delayed?: boolean;
   style?: any;
   children?: any;
+  pointerEvents?: any;
 
   didAppear?: () => void;
 }
@@ -60,7 +61,7 @@ class FadeInView extends Component<Props, State> {
     const { style } = this.props;
 
     return (
-      <Animated.View style={[{ opacity: viewOpacity }].concat(style || [])}>
+      <Animated.View pointerEvents={this.props.pointerEvents} style={[{ opacity: viewOpacity }].concat(style || [])}>
         {this.props.children}
       </Animated.View>
     );

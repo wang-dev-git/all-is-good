@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Keyboard, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
-import { Fire, Modal } from '../../services'
+import { Fire, Modal, Tools } from '../../services'
 import { Notifications } from 'expo';
 
 import { Actions } from 'react-native-router-flux'
 
 const MapView = require('react-native-maps')
-import ngeohash from 'ngeohash'
 
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
@@ -80,10 +79,27 @@ const MapScreen: React.FC<Props> = (props) => {
     }).start()
   }
 
+  const getGeoZoom = (zoom: number) => {
+    let base = zoom
+    if (base > 11)
+      base = 11
+    if (base < 6)
+      base = 6
+
+    if (base >= 6 && base < 8)
+      return 2
+    if (base >= 8 && base < 9)
+      return 3
+    if (base <= 9 && base < 11)
+      return 4
+    return 5
+  }
+
   const refresh = async () => {
-    const zoom = 5
     const pos = region.__getValue()
-    const hash = ngeohash.encode(pos.latitude, pos.longitude, zoom)
+    const level = Tools.getRegionZoom(pos)
+    const zoom = getGeoZoom(level)
+    const hash = Tools.getGeohash(pos, zoom)
     console.log('Refresh')
     setLoading(true)
     try {
@@ -142,7 +158,8 @@ const MapScreen: React.FC<Props> = (props) => {
             style={styles.map}
             region={region}
             onRegionChangeComplete={(r) => {
-              //refresh()
+              //alert(Tools.getRegionZoom(r) + ' -> ' + getGeoZoom(Tools.getRegionZoom(r)))
+              refresh()
             }}
             onRegionChange={(r) => {
               region.setValue(r)

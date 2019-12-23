@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Tools } from '../../services'
 
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntIcon from '@expo/vector-icons/AntDesign'
@@ -14,13 +14,15 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   pro: any;
+  currentPos: any;
 
   onPress: () => void;
 }
 const MapItem: React.FC<Props> = (props: Props) => {
   
-  const { pro, onPress } = props
+  const { pro, currentPos, onPress } = props
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
+  const distance = Math.floor(Tools.getDistance(pro.lat, pro.lng, currentPos.lat, currentPos.lng))
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -38,7 +40,7 @@ const MapItem: React.FC<Props> = (props: Props) => {
                   <View style={styles.icon}>
                     <MaterialIcon size={18} color='#fff' name="map-marker" />  
                   </View>
-                  <Text style={[styles.open]}>4 km</Text> 
+                  <Text style={[styles.open]}>{distance} km</Text> 
                 </View> 
               </View>
             </View>

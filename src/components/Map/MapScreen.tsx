@@ -128,6 +128,9 @@ const MapScreen: React.FC<Props> = (props) => {
     })
   }
 
+  const pos = region.__getValue()
+  const currentPos = {lat: pos.latitude, lng: pos.longitude}
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -198,6 +201,7 @@ const MapScreen: React.FC<Props> = (props) => {
                 data={pros || []}
                 renderItem={({ item }) =>
                   <MapItem
+                    currentPos={currentPos}
                     pro={item}
                     onPress={() => Actions.pro({ pro: item })}
                     />

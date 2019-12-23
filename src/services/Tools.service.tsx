@@ -1,5 +1,5 @@
-class Tools {
-  static distance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N') {
+export default class Tools {
+  static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))
       return 0;
     

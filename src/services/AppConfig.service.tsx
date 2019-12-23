@@ -1,6 +1,8 @@
 import Constants from 'expo-constants'
 
 type Environment = {
+  searchId: string;
+  searchSecret: string;
   stripeAPIKey: string;
   firebaseOptions: any;
 }
@@ -17,7 +19,7 @@ export default class AppConfig {
    */
 
   // Default tab for the main Tab Bar
-  static defaultTab: number = 1;
+  static defaultTab: number = 2;
 
   // Facebook ID
   static facebookId: string = '2609459805809503'
@@ -32,6 +34,8 @@ export default class AppConfig {
   static envs: Environments = {
     // Development configuration
     dev: {
+      searchId: 'AKIAVF7FTF2SA4RZ726I',
+      searchSecret: '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',
       stripeAPIKey: 'pk_test_ZqfQqyALkPrkNMasg3kwvFE5',
       firebaseOptions: {
         apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",
@@ -46,6 +50,8 @@ export default class AppConfig {
     },
     // Production configuration
     prod: {
+      searchId: '',
+      searchSecret: '',
       stripeAPIKey: '',
       firebaseOptions: {
         apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",

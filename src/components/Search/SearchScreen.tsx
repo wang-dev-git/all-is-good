@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal } from '../../services'
+import { Fire, Modal, Search } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -35,6 +35,8 @@ const SearchScreen: React.FC<Props> = (props) => {
   const refresh = async () => {
     setLoading(true)
     try {
+      //const search = await Search.filter({})
+
       const prosRef = Fire.store().collection('pros')
       const pros = await Fire.list(prosRef)
       setPros(pros)
@@ -115,7 +117,8 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <FlatList
             data={categories}
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 50, flexWrap: 'wrap', flexDirection: 'row'}}
+            numColumns={2}
+            contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
             renderItem={({ item, index }) => 
               <CategoryItem
                 index={index}

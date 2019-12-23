@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "aws-sdk": "^2.595.0",
     "expo": "^34.0.1",
     "expo-blur": "~6.0.0",
     "expo-constants": "^6.0.0",

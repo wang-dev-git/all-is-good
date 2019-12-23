@@ -20,7 +20,6 @@ export const modalReducer = handleActions(
       modals[action.payload.key] = action.payload.data
       modals[action.payload.key].key = action.payload.key
       modals[action.payload.key].shown = true
-
       return {
         ...state,
         toggle: !state.toggle,

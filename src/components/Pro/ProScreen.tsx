@@ -14,6 +14,7 @@ import Feather from '@expo/vector-icons/Feather'
 import { switchTab } from '../../actions/tab.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
+import ModalContainer from '../Modal/ModalContainer'
 import PaymentModal from './PaymentModal'
 
 import { mainStyle } from '../../styles'
@@ -67,7 +68,7 @@ class ProScreen extends React.Component<Props>  {
       Loader.hide()
       if (res.status === 'success') {
         Modal.hide('payment')
-        Modal.show('payment_success', { component:
+        Modal.show('payment_success', { local: true, component:
           <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "€"} />
         })
       } else {
@@ -89,7 +90,7 @@ class ProScreen extends React.Component<Props>  {
             error = "Erreur est survenue, veuillez contacter l'assistance"
             break;
         }
-        Modal.show('payment_failure', { component:
+        Modal.show('payment_failure', { local: true, component:
           <SuccessModal success={false} message={error} subtitle='Echec de la commande' />
         })
       }
@@ -103,7 +104,7 @@ class ProScreen extends React.Component<Props>  {
 
   checkout() {
     const { pro } = this.props
-    Modal.show('payment', { component:
+    Modal.show('payment', { local: true, component:
       <PaymentModal
         price={pro.price}
         onPay={(counter: number, card: string) => this.onPay(counter, card)}
@@ -217,6 +218,7 @@ class ProScreen extends React.Component<Props>  {
           onPress={() => this.checkout()}
           />
 
+        <ModalContainer />
       </View>
     );
   }

@@ -135,7 +135,7 @@ export default class Routing extends React.Component<Props, State> {
         <LoaderWrapper />
 
         { /** Global Loader **/ }
-        <ModalContainer />
+        <ModalContainer generic />
       </View>
     )  
   }

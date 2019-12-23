@@ -9,6 +9,8 @@ import { mainStyle } from '../../styles'
 import { Modal } from '../../services'
 
 interface ModalProps {
+  local: boolean;
+
   name: string;
   shown: boolean;
   onClose?: () => void;
@@ -55,14 +57,20 @@ const ModalInstance: React.FC<ModalProps> = (props) => {
 
 interface Props {
   modals: any;
+  generic?: boolean;
 }
 const ModalContainer: React.FC<Props> = (props) => {
-  const modals = Object.values(props.modals)
+  let modals = Object.values(props.modals)
+  if (props.generic)
+    modals = modals.filter((item: any) => !item.local)
+  else
+    modals = modals.filter((item: any) => item.local)
   return (
     <React.Fragment>
       {modals.map((item: any, index) => (
         <ModalInstance
           key={index}
+          local={item.local}
           name={item.key}
           shown={item.shown}
           component={item.component}

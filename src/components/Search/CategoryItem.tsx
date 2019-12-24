@@ -14,7 +14,7 @@ interface Props {
 const CategoryItem: React.FC<Props> = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {paddingRight: 1} : {paddingLeft: 1}]}>
-      <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={props.category.picture}>
+      <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
         <View style={styles.veil}>
           <Text style={styles.title}>{props.category.name}</Text>
         </View>

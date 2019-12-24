@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal, Search } from '../../services'
+import { Fire, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -17,7 +17,7 @@ import SearchBar from './SearchBar'
 
 import { mainStyle } from '../../styles'
 
-import { saveFilters } from '../../actions/filters.action'
+import { searchByName, saveFilters } from '../../actions/filters.action'
 
 interface Props {
   loading: boolean;
@@ -27,30 +27,16 @@ interface Props {
 }
 const SearchScreen: React.FC<Props> = (props) => {
   const [query, setQuery] = React.useState('')
-  const [pros, setPros] = React.useState([])
   const [loading, setLoading] = React.useState(false)
 
+  const searchable = useSelector(state => state.filtersReducer.searchable)
+  const categories = useSelector(state => state.filtersReducer.categories)
+  const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
+  const dispatch = useDispatch()
+
   const refresh = async () => {
-    setLoading(true)
-    try {
-      //const search = await Search.filter({})
-
-      const prosRef = Fire.store().collection('pros')
-      const pros = await Fire.list(prosRef)
-      setPros(pros)
-    } catch (err) {
-      setPros([])
-    }
-    setLoading(false)
+    dispatch(searchByName(query))
   }
-
-  React.useEffect(() => {
-    const check = async () => {
-      const res = await Search.check()
-      console.log(res)
-    }
-    check()
-  }, [])
 
   React.useEffect(() => {
     refresh()
@@ -63,33 +49,6 @@ const SearchScreen: React.FC<Props> = (props) => {
       onClose: () => refresh()
     })
   }
-
-  const categories = [
-    {
-      name: 'Restaurants',
-      picture: require('../../images/cooker.png'),
-    },
-    {
-      name: 'Sushis',
-      picture: require('../../images/cooker.png'),
-    },
-    {
-      name: 'Burgers',
-      picture: require('../../images/cooker.png'),
-    },
-    {
-      name: 'Veggie',
-      picture: require('../../images/cooker.png'),
-    },
-    {
-      name: 'Boulangeries',
-      picture: require('../../images/cooker.png'),
-    },
-    {
-      name: 'Poisson',
-      picture: require('../../images/cooker.png'),
-    }
-  ]
 
   return (
     <View style={styles.container}>
@@ -105,7 +64,7 @@ const SearchScreen: React.FC<Props> = (props) => {
       <FadeInView style={styles.content}>
         { query !== '' ? (
           <FlatList
-            data={pros}
+            data={searchable}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
               <ProItem
@@ -120,16 +79,20 @@ const SearchScreen: React.FC<Props> = (props) => {
             )}
             keyExtractor={(item, index) => index.toString()}
             />
+        ) : loadingCategories ? (
+          <Text>
+            Chargement en cours...
+          </Text>
         ) : (
           <FlatList
             data={categories}
             numColumns={2}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
-            renderItem={({ item, index }) => 
+            renderItem={(item: any) => 
               <CategoryItem
-                index={index}
-                category={item}
-                onPress={() => setQuery(item.name)}
+                index={item.index}
+                category={item.item}
+                onPress={() => setQuery(item.item.name)}
                 />
             }
             ListEmptyComponent={() => (

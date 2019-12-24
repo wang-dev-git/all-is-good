@@ -21,6 +21,7 @@ import { switchTab } from '../../actions/tab.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCards } from '../../actions/cards.action'
+import { loadCategories, loadSearchable } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
 import { NotifBubble } from '../Reusable'
@@ -36,6 +37,8 @@ interface Props {
   switchTab: (idx: number) => void;
   finishLogin: () => void;
   loadCards: () => void;
+  loadSearchable: () => void;
+  loadCategories: () => void;
   loadWishes: () => void;
   refreshWishes: () => void;
 }
@@ -109,6 +112,9 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.loadWishes()
         await this.props.loadCards()
         await this.props.refreshWishes()
+        await this.props.loadCategories()
+
+        this.props.loadSearchable()
        
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
@@ -249,6 +255,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   autologin: (user: any) => dispatch(autologin(user)),
   finishLogin: () => dispatch(finishLogin()),
   loadWishes: () => dispatch(loadWishes()),
+  loadCategories: () => dispatch(loadCategories()),
+  loadSearchable: () => dispatch(loadSearchable()),
   loadCards: () => dispatch(loadCards()),
   refreshWishes: () => dispatch(refreshWishes()),
 })

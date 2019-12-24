@@ -11,7 +11,6 @@ import AntIcon from '@expo/vector-icons/AntDesign'
 
 import { Actions } from 'react-native-router-flux'
 
-import { getBrandName } from '../../filters'
 import { mainStyle } from '../../styles'
 
 interface Props {

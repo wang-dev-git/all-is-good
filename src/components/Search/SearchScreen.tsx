@@ -33,7 +33,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const refresh = async () => {
     const filtered = searchable.filter((item) => {
       const nameMatches = item.name && item.name.toLowerCase().includes(query.toLowerCase())
-      const typeMatches = item.type && item.type.toLowerCase().includes(query.toLowerCase())
+      const typeMatches = item.type && item.type.name.toLowerCase().includes(query.toLowerCase())
       return nameMatches || typeMatches
     })
     setPros(filtered)

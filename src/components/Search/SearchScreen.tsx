@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
@@ -19,15 +19,11 @@ import { mainStyle } from '../../styles'
 
 import { searchByName, saveFilters } from '../../actions/filters.action'
 
-interface Props {
-  loading: boolean;
-  filters: any;
-
-  saveFilters: (filters: any) => void;
-}
+interface Props {}
 const SearchScreen: React.FC<Props> = (props) => {
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
+  const [pros, setPros] = React.useState([])
 
   const searchable = useSelector(state => state.filtersReducer.searchable)
   const categories = useSelector(state => state.filtersReducer.categories)
@@ -35,7 +31,12 @@ const SearchScreen: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
 
   const refresh = async () => {
-    dispatch(searchByName(query))
+    const filtered = searchable.filter((item) => {
+      const nameMatches = item.name && item.name.toLowerCase().includes(query.toLowerCase())
+      const typeMatches = item.type && item.type.toLowerCase().includes(query.toLowerCase())
+      return nameMatches || typeMatches
+    })
+    setPros(filtered)
   }
 
   React.useEffect(() => {
@@ -64,7 +65,7 @@ const SearchScreen: React.FC<Props> = (props) => {
       <FadeInView style={styles.content}>
         { query !== '' ? (
           <FlatList
-            data={searchable}
+            data={pros}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
               <ProItem
@@ -84,24 +85,26 @@ const SearchScreen: React.FC<Props> = (props) => {
             Chargement en cours...
           </Text>
         ) : (
-          <FlatList
-            data={categories}
-            numColumns={2}
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
-            renderItem={(item: any) => 
-              <CategoryItem
-                index={item.index}
-                category={item.item}
-                onPress={() => setQuery(item.item.name)}
-                />
-            }
-            ListEmptyComponent={() => (
-              <View style={styles.empty}>
-                <Text>{loading ? 'Chargement ...' : '' }</Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            />
+          <View>
+            <FlatList
+              data={categories}
+              numColumns={2}
+              contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
+              renderItem={(item: any) => 
+                <CategoryItem
+                  index={item.index}
+                  category={item.item}
+                  onPress={() => setQuery(item.item.name)}
+                  />
+              }
+              ListEmptyComponent={() => (
+                <View style={styles.empty}>
+                  <Text>{loading ? 'Chargement ...' : '' }</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              />
+          </View>
         )}
       </FadeInView>
     </View>
@@ -126,12 +129,4 @@ const styles = StyleSheet.create({
   }
 });
 
-
-const mapStateToProps = (state: any) => ({
-  filters: state.filtersReducer.filters,
-  toggle: state.filtersReducer.toggle,
-})
-const mapDispatchToProps = (dispatch: any) => ({
-  saveFilters: (filters: any) => dispatch(saveFilters(filters)),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen)
+export default SearchScreen

@@ -9,10 +9,8 @@ import Cache from './Cache.service'
 import Stripe from './Stripe.service'
 import Loader from './Loader.service'
 import Tools from './Tools.service'
-import Search from './Search.service'
 
 export {
-  Search,
   Tools,
   Fire,
   Maps,

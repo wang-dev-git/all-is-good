@@ -19,8 +19,6 @@ import { mainStyle } from '../../styles'
 
 import { saveFilters } from '../../actions/filters.action'
 
-import { types, subtypes } from '../../filters'
-
 interface Props {
   loading: boolean;
   filters: any;
@@ -45,6 +43,14 @@ const SearchScreen: React.FC<Props> = (props) => {
     }
     setLoading(false)
   }
+
+  React.useEffect(() => {
+    const check = async () => {
+      const res = await Search.check()
+      console.log(res)
+    }
+    check()
+  }, [])
 
   React.useEffect(() => {
     refresh()

@@ -5,7 +5,7 @@ import Fire from '../services/Fire.service'
 import { clearPros } from './pros.action'
 
 export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
-  const categoriesRef = Fire.store().collection('categories')
+  const categoriesRef = Fire.store().collection('categories').where('active', '==', true)
   return await Fire.list(categoriesRef)
 })
 

@@ -10,7 +10,7 @@ export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
 })
 
 export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async () => {
-  const prosRef = Fire.store().collection('pros')
+  const prosRef = Fire.store().collection('pros').where('active', '==', true)
   return await Fire.list(prosRef)
 })
 

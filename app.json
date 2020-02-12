@@ -3,7 +3,7 @@
     "name": "Food Bowel",
     "slug": "Food-Bowel",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -28,10 +28,10 @@
       "infoPlist": {
         "CFBundleURLTypes": {
           "CFBundleURLSchemes": [
-            "fb2609459805809503"
+            "fb183325136228494"
           ]
         },
-        "FacebookAppId": "2609459805809503",
+        "FacebookAppId": "183325136228494",
         "FacebookDisplayName": "Food Bowel",
         "LSApplicationQueriesSchemes": [
           "fbapi",
@@ -46,8 +46,8 @@
       "versionCode": 100
     },
     "version": "1.0.0",
-    "facebookAppId": "2609459805809503",
-    "facebookScheme": "fb2609459805809503",
+    "facebookAppId": "183325136228494",
+    "facebookScheme": "fb183325136228494",
     "facebookDisplayName": "Food Bowel"
   }
 }

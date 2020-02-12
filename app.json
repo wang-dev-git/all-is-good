@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Food Bowel",
-    "slug": "Food-Bowel",
+    "name": "AllIsGood",
+    "slug": "AllIsGood",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
@@ -24,15 +24,15 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.foodbowel.app",
+      "bundleIdentifier": "com.allisgood.app",
       "infoPlist": {
         "CFBundleURLTypes": {
           "CFBundleURLSchemes": [
-            "fb183325136228494"
+            "fb2609459805809503"
           ]
         },
-        "FacebookAppId": "183325136228494",
-        "FacebookDisplayName": "Food Bowel",
+        "FacebookAppId": "2609459805809503",
+        "FacebookDisplayName": "AllIsGood",
         "LSApplicationQueriesSchemes": [
           "fbapi",
           "fb-messenger-share-api",
@@ -42,12 +42,12 @@
       }
     },
     "android": {
-      "package": "com.foodbowel.app",
-      "versionCode": 100
+      "package": "com.allisgood.app",
+      "versionCode": 102
     },
-    "version": "1.0.0",
-    "facebookAppId": "183325136228494",
-    "facebookScheme": "fb183325136228494",
-    "facebookDisplayName": "Food Bowel"
+    "version": "1.0.2",
+    "facebookAppId": "2609459805809503",
+    "facebookScheme": "fb2609459805809503",
+    "facebookDisplayName": "AllIsGood"
   }
 }

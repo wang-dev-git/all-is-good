@@ -70,7 +70,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
           <TitledInput
             title={'E-mail'}
             value={info.email}
-            placeholder='exemple@isclothing.fr'
+            placeholder='exemple@allisgood.fr'
             maxLength={maxTitle}
             autocorrect={false}
 

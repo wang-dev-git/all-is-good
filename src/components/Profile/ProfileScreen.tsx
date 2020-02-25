@@ -82,13 +82,13 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   appStore() {
-    Linking.openURL('https://apps.apple.com/fr/app/isclothing/id1481450876?ls=1')
+    Linking.openURL('https://google.fr')
   }
 
   async help() {
     Alert.alert(
       'Assistance',
-      'En demandant à rentrer en contact avec IsClothing, vous acceptez de continuer vos échanges via la boite mail renseignée lors de la création de votre compte',
+      'En demandant à rentrer en contact avec All Is Good, vous acceptez de continuer vos échanges via la boite mail renseignée lors de la création de votre compte',
       [
         {
           text: 'Annuler',
@@ -106,14 +106,14 @@ class ProfileScreen extends React.Component<Props, State>  {
   async showMail() {
     try {
       const res = await MailComposer.composeAsync({
-        recipients: ['contact@isclothing.fr'],
-        subject: "Demande d'assistance IsClothing",
+        recipients: ['contact@allisgood.fr'],
+        subject: "Demande d'assistance All Is Good",
         body: '',
         isHtml: false,
       })
       console.log(res)
     } catch (err) {
-      alert("Veuillez envoyer un mail à : contact@isclothing.fr")
+      alert("Veuillez envoyer un mail à : contact@allisgood.fr")
     }
   }
 

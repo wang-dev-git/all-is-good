@@ -133,7 +133,7 @@ class LoginScreen extends React.Component<Props, State>  {
             <TitledInput
               title={'E-mail'}
               value={user.email}
-              placeholder='exemple@isclothing.fr'
+              placeholder='exemple@allisgood.fr'
               maxLength={maxTitle}
               autocorrect={false}
 

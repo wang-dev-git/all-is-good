@@ -43,9 +43,9 @@
     },
     "android": {
       "package": "com.allisgood.app",
-      "versionCode": 102
+      "versionCode": 103
     },
-    "version": "1.0.2",
+    "version": "1.0.3",
     "facebookAppId": "2609459805809503",
     "facebookScheme": "fb2609459805809503",
     "facebookDisplayName": "AllIsGood"

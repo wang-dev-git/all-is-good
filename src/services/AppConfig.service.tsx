@@ -24,7 +24,7 @@ export default class AppConfig {
   // Facebook ID
   static facebookId: string = '2609459805809503'
 
-  // IsClothing Application fee (Percentage)
+  // All Is Good Application fee (Percentage)
   static applicationFee: number = 0.10
 
   /**

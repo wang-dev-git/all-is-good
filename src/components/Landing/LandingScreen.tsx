@@ -38,7 +38,7 @@ class LandingScreen extends React.Component<Props, State>  {
   }
 
   openConditions() {
-    Linking.openURL('http://isclothing.fr/conditions-generales.html')
+    Linking.openURL('https://google.fr')
   }
 
   render() {

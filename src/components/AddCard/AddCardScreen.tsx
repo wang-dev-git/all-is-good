@@ -112,7 +112,7 @@ class AddCardScreen extends React.Component<Props, State>  {
             onPress={() => this.proceed()}
             />
 
-          <Text style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par IsClothing</Text>
+          <Text style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good</Text>
         </ScrollView>
 
         <PageLoader

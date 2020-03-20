@@ -3,7 +3,6 @@
     "name": "AllIsGood",
     "slug": "AllIsGood",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
@@ -43,9 +42,9 @@
     },
     "android": {
       "package": "com.allisgood.app",
-      "versionCode": 103
+      "versionCode": 104
     },
-    "version": "1.0.3",
+    "version": "1.0.4",
     "facebookAppId": "2609459805809503",
     "facebookScheme": "fb2609459805809503",
     "facebookDisplayName": "AllIsGood"

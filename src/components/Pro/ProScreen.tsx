@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
 import { Fire, Flash, Modal, Loader } from '../../services'
+import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
@@ -163,10 +164,19 @@ class ProScreen extends React.Component<Props>  {
           <View style={styles.info}>
             <View>
               <Text style={styles.title}>Restaurant</Text>
-              <Text style={styles.open}><AntDesign size={14} name="clockcircle" />  Aujourd'hui 21:40 - 22:20</Text>
+
+              <View style={styles.row}>
+                <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
+                <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
+              </View>
+
+              <View style={styles.row}>
+                <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+                <Text style={styles.open}>4km</Text>
+              </View>
             </View>
+
             <View>
-              <Text style={styles.price}></Text>
               <Text style={styles.price}>{Number(pro.price).toFixed(2)}€</Text>
             </View>
           </View>
@@ -273,7 +283,7 @@ const styles = StyleSheet.create({
   title: {
     ...mainStyle.montBold,
     fontSize: 15,
-    height: 26,
+    marginBottom: 20,
   },
   price: {
     ...mainStyle.montBold,
@@ -283,7 +293,6 @@ const styles = StyleSheet.create({
   open: {
     ...mainStyle.montText,
     fontSize: 13,
-    height: 26,
   },
 
   descriptionWrapper: {
@@ -377,6 +386,16 @@ const styles = StyleSheet.create({
       top: 26
     })
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  icon: {
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
 });
 

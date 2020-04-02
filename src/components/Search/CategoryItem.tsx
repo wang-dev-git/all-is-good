@@ -11,7 +11,6 @@ interface Props {
 
   onPress?: () => void;
 }
-// @refresh reset
 const CategoryItem: React.FC<Props> = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>

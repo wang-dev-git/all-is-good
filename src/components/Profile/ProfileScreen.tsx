@@ -117,6 +117,10 @@ class ProfileScreen extends React.Component<Props, State>  {
     }
   }
 
+  becomePro() {
+    Linking.openURL('https://google.fr')
+  }
+
   render() {
     const { user } = this.props
     const { uploading } = this.state
@@ -153,13 +157,6 @@ class ProfileScreen extends React.Component<Props, State>  {
           </View>
 
           <View style={styles.group}>
-            <MenuLink
-              icon='heart'
-              title='Favoris'
-              right
-              
-              onPress={Actions.wishes}
-              />
             <MenuLink
               icon='id-card'
               title='Mes Coordonnées'
@@ -201,6 +198,13 @@ class ProfileScreen extends React.Component<Props, State>  {
               onPress={() => this.logout()}
               />
            </View>
+
+           <View style={styles.join}>
+             <Text style={styles.joinTxt}>Vous possédez un magasin ? Rejoignez All Is Good et aider à éviter le gaspillage</Text>
+             <TouchableOpacity onPress={() => this.becomePro()}>
+               <Text style={styles.joinLink}>En savoir plus...</Text>
+             </TouchableOpacity>
+           </View>
         </ScrollView>
         <PageLoader
           title='Validation...'
@@ -218,6 +222,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    backgroundColor: '#eee',
   },
   userInfo: {
     flexDirection: 'column',
@@ -232,20 +237,20 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   picture: {
-    ...mainStyle.circle(100),
+    ...mainStyle.circle(130),
     borderWidth: 1,
     borderColor: '#E3E4EE'
   },
   editPicture: {
-    ...mainStyle.circle(30),
+    ...mainStyle.circle(42),
     backgroundColor: mainStyle.themeColor,
 
     justifyContent: 'center',
     alignItems: 'center',
 
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 0,
+    right: 0,
   },
   userName: {
     ...mainStyle.montLight,
@@ -268,6 +273,24 @@ const styles = StyleSheet.create({
     borderTopColor: '#E3E4EE',
     marginTop: 20,
   },
+  join: {
+    paddingHorizontal: 30,
+    paddingTop: 30,
+    paddingBottom: 16,
+  },
+  joinTxt: {
+    ...mainStyle.montText,
+    lineHeight: 23,
+    color: '#666',
+    textAlign: 'center',
+  },
+  joinLink: {
+    marginTop: 9,
+    ...mainStyle.montBold,
+    color: '#333',
+    fontSize: 15,
+    textAlign: 'center',
+  }
 });
 
 const mapStateToProps = (state: any) => ({

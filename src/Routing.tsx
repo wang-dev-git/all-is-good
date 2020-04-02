@@ -50,7 +50,7 @@ export default class Routing extends React.Component<Props, State> {
 
   async loadPictures() {
     const imageAssets = cacheImages([
-      require('./images/cooker.png'),
+      require('./images/baigy.png'),
       require('./images/like.png'),
       require('./images/like_empty.png'),
       require('./images/logo.png'),

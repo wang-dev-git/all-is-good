@@ -2,6 +2,8 @@ import React from 'react';
 
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 
+import { mainStyle } from '../../styles'
+
 interface Props {
   title: string;
   value: string;
@@ -27,7 +29,7 @@ const TitledInput: React.SFC<Props> = (props) => {
   }
   return (
     <View style={[styles.container, props.editable === false ? {opacity: 0.42} : {}]}>
-      <Text style={props.multiline ? {marginBottom: 8} : {}}>{props.title.toUpperCase()}</Text>
+      <Text style={[styles.title, props.multiline ? {marginBottom: 8} : {}]}>{props.title}</Text>
       <TextInput
         value={props.value}
         placeholder={props.placeholder}
@@ -45,16 +47,27 @@ const TitledInput: React.SFC<Props> = (props) => {
   )
 }
 
+// @refresh reset
+const inputHeight = 22
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    paddingLeft: 20,
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    paddingLeft: mainStyle.sideMargin,
+    paddingRight: mainStyle.sideMargin,
+  },
+  title: {
+    ...mainStyle.montBold,
+    fontSize: 13,
+    color: mainStyle.themeColor,
   },
   input: {
+    marginTop: 12,
     color: '#777',
+    borderColor: '#ddd',
+    paddingHorizontal: 22,
+    borderWidth: 1,
+    height: inputHeight,
+    borderRadius: inputHeight,
   },
 });
 

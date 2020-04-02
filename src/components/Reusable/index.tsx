@@ -10,6 +10,8 @@ import FadeInView from './FadeInView'
 import SelectCreditCard from './SelectCreditCard'
 import LinkButton from './LinkButton'
 import SuccessModal from './SuccessModal'
+import SmallButton from './SmallButton'
+import CheckBox from './CheckBox'
 
 export {
   AssetImage,
@@ -24,4 +26,6 @@ export {
   LinkButton,
   SuccessModal,
   SelectCreditCard,
+  CheckBox,
+  SmallButton,
 }

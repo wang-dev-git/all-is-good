@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, BottomButton, PageLoader } from '../Reusable'
+import { HeaderBar, TitledInput, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
@@ -23,6 +23,7 @@ interface State {
   loading: boolean;
   forgotten: boolean;
   sending: boolean;
+  checked: boolean;
 }
 
 class LoginScreen extends React.Component<Props, State>  {
@@ -35,7 +36,8 @@ class LoginScreen extends React.Component<Props, State>  {
       first_name: '',//Julien',
       last_name: '',//Brunet',
     },
-    registering: false,
+    checked: false,
+    registering: true,
     loading: false,
     forgotten: false,
     sending: false
@@ -48,7 +50,7 @@ class LoginScreen extends React.Component<Props, State>  {
   }
 
   async proceed() {
-    const { user, registering } = this.state
+    const { user, registering, checked } = this.state
 
     if (user.email === '' ||
       user.password === '') {
@@ -62,6 +64,10 @@ class LoginScreen extends React.Component<Props, State>  {
       }
       if (user.password !== user.confirm) {
         Flash.error('Les mots de passes ne correspondent pas')
+        return;
+      }
+      if (!checked) {
+        Flash.error("Vous devez lire et accepter nos conditoins d'utilisation")
         return;
       }
     }
@@ -126,99 +132,97 @@ class LoginScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Connexion'
+          title={forgotten ? 'Mot de passe oublié' : registering ? 'Inscription' : 'Connexion'}
           back
           />
         <KeyboardAwareScrollView>
+          <TitledInput
+            title={'Entrez votre email'}
+            value={user.email}
+            placeholder='exemple@allisgood.fr'
+            maxLength={maxTitle}
+            autocorrect={false}
+
+            onChange={({ nativeEvent }) => this.onChange('email', nativeEvent.text)}
+            />
+
+          { !forgotten &&
             <TitledInput
-              title={'E-mail'}
-              value={user.email}
-              placeholder='exemple@allisgood.fr'
+              secure
+              title={'Choisir un mot de passe'}
+              value={user.password}
+              placeholder='**********'
               maxLength={maxTitle}
               autocorrect={false}
 
-              onChange={({ nativeEvent }) => this.onChange('email', nativeEvent.text)}
+              onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
               />
+          }
 
-            { !forgotten &&
+          { registering &&
+            <View>
               <TitledInput
                 secure
-                title={'Mot de passe'}
-                value={user.password}
+                title={'Répéter le mot de passe'}
+                value={user.confirm}
                 placeholder='**********'
                 maxLength={maxTitle}
                 autocorrect={false}
 
-                onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
+                onChange={({ nativeEvent }) => this.onChange('confirm', nativeEvent.text)}
                 />
-            }
+              <TitledInput
+                title={'Votre prénom'}
+                value={user.first_name}
+                placeholder='ex: Marie'
+                maxLength={maxTitle}
+                autocorrect={false}
 
-            { registering &&
-              <View>
-                <TitledInput
-                  secure
-                  title={'Confirmez le Mot de passe'}
-                  value={user.confirm}
-                  placeholder='**********'
-                  maxLength={maxTitle}
-                  autocorrect={false}
+                onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
+                />
+              <TitledInput
+                title={'Votre nom'}
+                value={user.last_name}
+                placeholder='ex: Dupont'
+                maxLength={maxTitle}
+                autocorrect={false}
 
-                  onChange={({ nativeEvent }) => this.onChange('confirm', nativeEvent.text)}
-                  />
-                <TitledInput
-                  title={'Prénom'}
-                  value={user.first_name}
-                  placeholder='ex: Marie'
-                  maxLength={maxTitle}
-                  autocorrect={false}
+                onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}
+                />
 
-                  onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
-                  />
-                <TitledInput
-                  title={'Nom'}
-                  value={user.last_name}
-                  placeholder='ex: Dupont'
-                  maxLength={maxTitle}
-                  autocorrect={false}
+              <CheckBox
+                active={this.state.checked}
+                title="En vous inscrivant, vous acceptez les conditions d'utilisation"
+                onPress={() => this.setState({checked: !this.state.checked})}
+                />
+             </View>
+           }
 
-                  onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}
-                  />
+          <View style={{paddingTop: 20, paddingBottom: 22, alignItems: 'center'}}>
+            { !forgotten ? (
+              <SmallButton
+                title={registering ? 'M\'inscrire' : 'Me connecter'}
+                onPress={() => this.proceed()}
+                />
+            ) : (
+              <SmallButton
+                title={'Changer mon mot de passe'}
+                onPress={() => this.forgotPassword()}
+                />
+            )}
+          </View>
 
-                <Text style={styles.outro}>Nous ne traiterons vos données que dans la mesure où cela est nécessaire pour créer et gérer
-                votre accès à nos services en ligne. Vos données ne sauraient être conservées après la
-                fermeture de votre compte.</Text>
-               </View>
-             }
-
-            <View style={styles.switcher}>
-              <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
-                <Text style={styles.switcherTxt}>{registering ? 'Vous avez déjà un compte ?' : 'Pas encore inscrit ?'}</Text>
+          <View style={styles.switcher}>
+            { !registering &&
+              <TouchableOpacity onPress={() => this.setState({ forgotten: !forgotten })}>
+                <Text style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</Text>
               </TouchableOpacity>
-              { !registering &&
-                <TouchableOpacity style={{marginTop: 20}} onPress={() => this.setState({ forgotten: !forgotten })}>
-                  <Text style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</Text>
-                </TouchableOpacity>
-              }
-            </View>
-
-            <View style={{paddingTop: 40, paddingBottom: 22}}>
-              { !forgotten ? (
-                <BottomButton
-                  title={registering ? 'M\'inscrire' : 'Me connecter'}
-                  backgroundColor={mainStyle.themeColor}
-
-                  onPress={() => this.proceed()}
-                  />
-              ) : (
-                <BottomButton
-                  title={'Changer mon mot de passe'}
-                  backgroundColor={mainStyle.themeColor}
-
-                  onPress={() => this.forgotPassword()}
-                  />
-              )}
-            </View>
-          </KeyboardAwareScrollView>
+            }
+            <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
+              <Text style={styles.switcherTxt}>{registering ? 'Vous avez déjà un compte ?' : 'Pas encore inscrit ?'}</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAwareScrollView>
 
         <PageLoader
           title={registering ? 'Validation...' : 'Vérification...'}
@@ -229,16 +233,24 @@ class LoginScreen extends React.Component<Props, State>  {
   }
 }
 
+// @refresh reset
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   switcher: {
-    marginTop: 20,
+    marginTop: 10,
+    paddingBottom: mainStyle.phonePaddingBottom + 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   switcherTxt: {
+    ...mainStyle.montText,
+    fontSize: 16,
     color: 'rgb(100, 100, 222)',
     textAlign: 'center',
+    marginBottom: 22,
   },
   outro: {
     marginTop: 12,

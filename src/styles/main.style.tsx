@@ -1,3 +1,5 @@
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+
 export const mainStyle = {
   // Colors
   themeGradient: { start: '#02EBE2', end: '#00A5EB' },
@@ -45,5 +47,13 @@ export const mainStyle = {
     bottom: 0,
     left: 0,
     right: 0,
-  }
+  },
+
+  phonePaddingBottom: ifIphoneX({
+    paddingBottom: 40,
+  },{
+    paddingBottom: 20,
+  }).paddingBottom,
+
+  sideMargin: 18,
 }

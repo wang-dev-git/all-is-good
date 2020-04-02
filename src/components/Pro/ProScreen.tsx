@@ -192,10 +192,21 @@ class ProScreen extends React.Component<Props>  {
                     longitudeDelta: 0.0421
                   }}
                   >
-                  <Marker
-                    onPress={() => this.showOptions()}
-                    coordinate={{latitude: pro.lat, longitude: pro.lng}}
-                  />
+                  { pro.logo ? (
+                    <Marker
+                      onPress={() => void 0}
+                      coordinate={{latitude: pro.lat, longitude: pro.lng}}
+                    >
+                      <View style={{...mainStyle.circle(40)}}>
+                        <AssetImage resizeMode='cover' src={{ uri: pro.logo }} />
+                      </View>
+                    </Marker>
+                  ) : (
+                    <Marker
+                      onPress={() => void 0}
+                      coordinate={{latitude: pro.lat, longitude: pro.lng}}
+                    />
+                  )}
                 </MapView>
               </View>
             }
@@ -244,7 +255,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(60),
+    ...mainStyle.circle(80),
   },
 
   info: {

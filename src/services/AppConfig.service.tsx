@@ -21,6 +21,9 @@ export default class AppConfig {
   // Default tab for the main Tab Bar
   static defaultTab: number = 2;
 
+  // Default tab for the main Tab Bar
+  static defaultLang = 'fr'
+
   // Facebook ID
   static facebookId: string = '2609459805809503'
 

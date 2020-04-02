@@ -1,7 +1,11 @@
+import ExpoFileSystemStorage from "redux-persist-expo-filesystem"
+
 import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { persistStore, persistCombineReducers } from "redux-persist";
 import thunk from 'redux-thunk';
 
 // All reducers
+import { langReducer } from './actions/lang.action'
 import { tabReducer } from './actions/tab.action'
 import { filtersReducer } from './actions/filters.action'
 import { authReducer } from './actions/auth.action'
@@ -12,8 +16,15 @@ import { cardsReducer } from './actions/cards.action'
 import { loaderReducer } from './actions/loader.action'
 import { ordersReducer } from './actions/orders.action'
 
+// Secure storage
+const config = {
+  key: "root",
+  storage: ExpoFileSystemStorage,
+  blacklist: ['tabReducer']
+};
+
 // Create store by combining reducers
-export const store = createStore(combineReducers({
+const reducers = persistCombineReducers(config, {
   tabReducer,
   authReducer,
   filtersReducer,
@@ -24,4 +35,9 @@ export const store = createStore(combineReducers({
   
   modalReducer,
   loaderReducer,
-}), applyMiddleware(thunk));
+})
+
+
+const store = createStore(reducers, applyMiddleware(thunk))
+const persistor = persistStore(store)
+export { store, persistor }

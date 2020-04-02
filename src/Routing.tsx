@@ -9,6 +9,7 @@ import ModalContainer from './components/Modal/ModalContainer'
 
 import LandingScreen from './components/Landing/LandingScreen'
 import LoginScreen from './components/Login/LoginScreen'
+import ForgotScreen from './components/Forgot/ForgotScreen'
 
 import TabsScreen from './components/Tabs/TabsScreen'
 
@@ -100,6 +101,7 @@ export default class Routing extends React.Component<Props, State> {
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
               <Scene key="login" component={LoginScreen} hideNavBar />
+              <Scene key="forgot" component={ForgotScreen} hideNavBar />
             </Stack>
           </Modal>
         </Router>

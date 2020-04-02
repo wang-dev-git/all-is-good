@@ -5,6 +5,8 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from
 import { HeaderBar, TitledInput, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
+import { Actions } from 'react-native-router-flux'
+
 import Icon from '@expo/vector-icons/FontAwesome'
 
 import { saveName } from '../../actions/auth.action'
@@ -114,25 +116,12 @@ class LoginScreen extends React.Component<Props, State>  {
     this.setState({ loading: false })
   }
 
-  async forgotPassword() {
-    const { user } = this.state
-    this.setState({ sending: true })
-    try {
-      await Fire.auth().sendPasswordResetEmail(user.email)
-      Flash.show('Mail envoyé à ' + user.email)
-      this.setState({ forgotten: false })
-    } catch (err) {
-      Flash.error('Mail entré incorrect')
-    }
-    this.setState({ sending: false })
-  }
-
   render() {
     const { user, registering, loading, forgotten } = this.state
     return (
       <View style={styles.container}>
         <HeaderBar
-          title={forgotten ? 'Mot de passe oublié' : registering ? 'Inscription' : 'Connexion'}
+          title={registering ? 'Inscription' : 'Connexion'}
           back
           />
         <KeyboardAwareScrollView>
@@ -146,18 +135,16 @@ class LoginScreen extends React.Component<Props, State>  {
             onChange={({ nativeEvent }) => this.onChange('email', nativeEvent.text)}
             />
 
-          { !forgotten &&
-            <TitledInput
-              secure
-              title={'Choisir un mot de passe'}
-              value={user.password}
-              placeholder='**********'
-              maxLength={maxTitle}
-              autocorrect={false}
+          <TitledInput
+            secure
+            title={'Choisir un mot de passe'}
+            value={user.password}
+            placeholder='**********'
+            maxLength={maxTitle}
+            autocorrect={false}
 
-              onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
-              />
-          }
+            onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
+            />
 
           { registering &&
             <View>
@@ -199,22 +186,15 @@ class LoginScreen extends React.Component<Props, State>  {
            }
 
           <View style={{paddingTop: 20, paddingBottom: 22, alignItems: 'center'}}>
-            { !forgotten ? (
-              <SmallButton
-                title={registering ? "C'est parti !" : "C'est parti !"}
-                onPress={() => this.proceed()}
-                />
-            ) : (
-              <SmallButton
-                title={'Changer mon mot de passe'}
-                onPress={() => this.forgotPassword()}
-                />
-            )}
+            <SmallButton
+              title={registering ? "C'est parti !" : "C'est parti !"}
+              onPress={() => this.proceed()}
+              />
           </View>
 
           <View style={styles.switcher}>
             { !registering &&
-              <TouchableOpacity onPress={() => this.setState({ forgotten: !forgotten })}>
+              <TouchableOpacity onPress={Actions.forgot}>
                 <Text style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</Text>
               </TouchableOpacity>
             }

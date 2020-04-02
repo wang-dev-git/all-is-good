@@ -32,6 +32,7 @@ const reducers = persistCombineReducers(config, {
   wishesReducer,
   cardsReducer,
   ordersReducer,
+  langReducer,
   
   modalReducer,
   loaderReducer,

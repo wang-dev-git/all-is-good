@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } 
 import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, VeilView, PageLoader } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Lang } from '../../services'
 
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -21,6 +21,7 @@ import { mainStyle } from '../../styles'
 
 type Props = {
   user: any;
+  lang: any;
 
   updateUser: (info: any) => void;
   clearCards: () => void;
@@ -153,7 +154,7 @@ class ProfileScreen extends React.Component<Props, State>  {
             </View>
             <Text style={styles.userName}>{user.first_name + ' ' + user.last_name}</Text>
             <TouchableOpacity onPress={Actions.userInfo}>
-              <Text style={styles.userEdit}>Modifier</Text>            
+              <Text style={styles.userEdit}>{this.props.lang.PROFILE_EDIT_BTN}</Text>            
             </TouchableOpacity>
           </View>
 
@@ -164,6 +165,13 @@ class ProfileScreen extends React.Component<Props, State>  {
               right
               
               onPress={Actions.userInfo}
+              />
+            <MenuLink
+              icon='id-card'
+              title='Réglages'
+              right
+              
+              onPress={Actions.settings}
               />
             <MenuLink
               icon='credit-card-alt'
@@ -296,6 +304,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
+  lang: state.langReducer.lang,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   updateUser: (info: any) => dispatch(updateUser(info)),

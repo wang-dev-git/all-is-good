@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal } from '../../services'
+import { Fire, Modal, Lang } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'

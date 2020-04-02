@@ -13,6 +13,7 @@ import LoginScreen from './components/Login/LoginScreen'
 import TabsScreen from './components/Tabs/TabsScreen'
 
 import ProfileScreen from './components/Profile/ProfileScreen'
+import SettingsScreen from './components/Settings/SettingsScreen'
 import UserInfoScreen from './components/UserInfo/UserInfoScreen'
 import WishesScreen from './components/Wishes/WishesScreen'
 import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
@@ -94,6 +95,7 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="wishes" component={WishesScreen} />
               <Scene key="creditCards" component={CreditCardsScreen} />
               <Scene key="addCard" component={AddCardScreen} />
+              <Scene key="settings" component={SettingsScreen} />
             </Stack>
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />

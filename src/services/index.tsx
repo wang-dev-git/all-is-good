@@ -21,5 +21,5 @@ export {
   Time,
   Stripe,
   Loader,
-  Cache
+  Cache,
 }

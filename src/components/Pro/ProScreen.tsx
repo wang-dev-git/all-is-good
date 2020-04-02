@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
   },
   tripTxt: {
     ...mainStyle.montText,
-    backgroundColor: mainStyle.redColor,
+    backgroundColor: mainStyle.themeColor,
     color: '#fff',
     textTransform: 'uppercase',
     paddingHorizontal: 14,

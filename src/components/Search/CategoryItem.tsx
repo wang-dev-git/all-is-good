@@ -11,9 +11,10 @@ interface Props {
 
   onPress?: () => void;
 }
+// @refresh reset
 const CategoryItem: React.FC<Props> = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {paddingRight: 1} : {paddingLeft: 1}]}>
+    <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
       <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
         <View style={styles.veil}>
           <Text style={styles.title}>{props.category.name}</Text>
@@ -23,12 +24,17 @@ const CategoryItem: React.FC<Props> = (props) => {
   )
 }
 
-const width = Dimensions.get('window').width / 2
+const margin = 10
+const marginBottom = 18
+const width = (Dimensions.get('window').width / 2) - (margin + margin / 2)
 const styles = StyleSheet.create({
   container: {
     width: width,
     height: width,
-    marginBottom: 1,
+    borderRadius: width / 2,
+    overflow: 'hidden',
+    marginBottom: marginBottom,
+    backgroundColor: 'red',
   },
   veil: {
     flex: 1,

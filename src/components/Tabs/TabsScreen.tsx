@@ -7,6 +7,7 @@ import ProsScreen from '../Pros/ProsScreen'
 import SearchScreen from '../Search/SearchScreen'
 import OrdersScreen from '../Orders/OrdersScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
+import WishesScreen from '../Wishes/WishesScreen'
 import MapScreen from '../Map/MapScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -50,21 +51,18 @@ const tabColor = '#999'
 const tabActiveColor = '#222'
 const routes = [
   {
-    title: 'Flux',
-    component: ProsScreen,
+    component: ProfileScreen,
     renderIcon: (active: boolean) => (
-      <Icon name="home" size={25} color={active ? tabActiveColor : tabColor} />
+      <Icon name={active ? "user" : "user-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
     )
   },
   {
-    title: 'Map',
     component: MapScreen,
     renderIcon: (active: boolean) => (
       <Material name="map-search" size={22} color={active ? tabActiveColor : tabColor}  />  
     )
   },
   {
-    title: 'Search',
     component: SearchScreen,
     renderIcon: (active: boolean) => active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
@@ -77,19 +75,17 @@ const routes = [
     )
   },
   {
-    title: 'Commandes',
+    component: WishesScreen,
+    renderIcon: (active: boolean) => (
+      <Icon name={active ? "heart" : "heart-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
+    )
+  },
+  {
     component: OrdersScreen,
     renderIcon: (active: boolean) => active ? (
       <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
     ) : (
       <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
-    )
-  },
-  {
-    title: 'Menu',
-    component: ProfileScreen,
-    renderIcon: (active: boolean) => (
-      <Icon name={active ? "user" : "user-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
     )
   },
 ]

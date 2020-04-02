@@ -233,7 +233,6 @@ class LoginScreen extends React.Component<Props, State>  {
   }
 }
 
-// @refresh reset
 const styles = StyleSheet.create({
   container: {
     flex: 1,

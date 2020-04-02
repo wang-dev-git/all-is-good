@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, BottomButton, PageLoader } from '../Reusable'
+import { HeaderBar, TitledInput, SmallButton, PageLoader } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
@@ -98,12 +98,9 @@ class UserInfoScreen extends React.Component<Props, State>  {
             />
 
           {/* Save Button */}
-          <View>
-            <BottomButton
-              style={{marginTop: 24}}
+          <View style={{alignItems: 'center', paddingTop: 20}}>
+            <SmallButton
               title={'Enregistrer'}
-              backgroundColor={mainStyle.themeColor}
-
               onPress={() => this.save()}
               />
           </View>

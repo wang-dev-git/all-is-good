@@ -201,7 +201,7 @@ class LoginScreen extends React.Component<Props, State>  {
           <View style={{paddingTop: 20, paddingBottom: 22, alignItems: 'center'}}>
             { !forgotten ? (
               <SmallButton
-                title={registering ? 'M\'inscrire' : 'Me connecter'}
+                title={registering ? "C'est parti !" : "C'est parti !"}
                 onPress={() => this.proceed()}
                 />
             ) : (

@@ -49,13 +49,17 @@ class LandingScreen extends React.Component<Props, State>  {
         {/*<VeilView abs start={'rgba(0, 165, 235, 0.34)'} end={'rgba(220, 2, 250, 0.34)'} />*/}
 
         <View style={styles.logoWrapper}>
-          <Text style={styles.logo}>All Is Good</Text>
+          <View style={styles.logo}>
+            <AssetImage src={require('../../images/logo.png')} resizeMode='contain' />
+          </View>
         </View>
 
         <View style={styles.floatingBottom}>
 
-          <View style={styles.cooker}>
-            <AssetImage src={require('../../images/cooker.png')} resizeMode='contain' />
+          <Text style={styles.introTxt}>Venez dégustez, venez manger écolo</Text>
+
+          <View style={styles.introImg}>
+            <AssetImage src={require('../../images/baigy.png')} resizeMode='contain' />
           </View>
 
           <View style={styles.btns}>
@@ -103,14 +107,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    fontSize: 50,
-    color: '#333',
-    fontWeight: 'bold',
+    width: 260,
+    height: 120,
   },
 
-  cooker: {
-    width: 210,
-    height: 210,
+  introTxt: {
+    ...mainStyle.montBold,
+    fontSize: 16,
+    paddingHorizontal: 12,
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+
+  introImg: {
+    width: Dimensions.get('window').width * 0.6,
+    height: Dimensions.get('window').width * 0.6,
     marginBottom: 20,
   },
 

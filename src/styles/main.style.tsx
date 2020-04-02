@@ -1,4 +1,4 @@
-export const mainStyle: any = {
+export const mainStyle = {
   // Colors
   themeGradient: { start: '#02EBE2', end: '#00A5EB' },
   themeColor: 'rgb(64, 192, 164)', // lighter: #02EBE2

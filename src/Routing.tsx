@@ -50,34 +50,10 @@ export default class Routing extends React.Component<Props, State> {
 
   async loadPictures() {
     const imageAssets = cacheImages([
-      require('./images/bg-landing.jpg'),
-      require('./images/intro.png'),
+      require('./images/cooker.png'),
       require('./images/like.png'),
       require('./images/like_empty.png'),
       require('./images/logo.png'),
-      require('./images/wall.png'),
-
-      require('./images/categories/women/women_accessories.png'),
-      require('./images/categories/women/women_bags.png'),
-      require('./images/categories/women/women_clothes.png'),
-      require('./images/categories/women/women_jewelry.png'),
-      require('./images/categories/women/women_makeup.png'),
-      require('./images/categories/women/women_parfums.png'),
-      //require('./images/categories/women/women_shoes.png'),
-
-      require('./images/categories/men/men_accessories.png'),
-      require('./images/categories/men/men_bags.png'),
-      require('./images/categories/men/men_clothes.png'),
-      require('./images/categories/men/men_jewelry.png'),
-      require('./images/categories/men/men_parfums.png'),
-      require('./images/categories/men/men_shoes.png'),
-
-      require('./images/categories/children/children_accessories.png'),
-      require('./images/categories/children/children_bags.png'),
-      require('./images/categories/children/children_clothes.png'),
-      require('./images/categories/children/children_jewelry.png'),
-      require('./images/categories/children/children_parfums.png'),
-      require('./images/categories/children/children_shoes.png'),
     ])
 
     const fontAssets = cacheFonts([

@@ -48,7 +48,7 @@ interface State {
 }
 
 const tabColor = '#999'
-const tabActiveColor = '#222'
+const tabActiveColor = mainStyle.themeColor
 const routes = [
   {
     component: ProfileScreen,

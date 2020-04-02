@@ -133,6 +133,7 @@ class ProfileScreen extends React.Component<Props, State>  {
       <View style={styles.container}>
         <HeaderBar
           title='Mon profil'
+          logo
           />
         
         <ScrollView style={styles.content} contentContainerStyle={{paddingBottom: 40}}>

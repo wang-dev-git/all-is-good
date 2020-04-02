@@ -12,6 +12,7 @@ import Constants from 'expo-constants';
 
 import NotifBubble from './NotifBubble'
 import VeilView from './VeilView'
+import AssetImage from './AssetImage'
 
 import { mainStyle } from '../../styles'
 
@@ -19,6 +20,7 @@ interface Props {
   user: any;
   title?: string;
   titleView?: any;
+  logo?: boolean;
   rightView?: any;
   barView?: any;
   back?: boolean;
@@ -32,7 +34,13 @@ const HeaderBar: React.SFC<Props> = (props) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'light-content'} />
-      { props.barView ? (props.barView) : (
+      { props.barView ? (props.barView) : props.logo ? (
+        <View style={styles.center}>
+          <View style={styles.logo}>
+            <AssetImage src={require('../../images/logo_bowl.png')} />
+          </View>
+        </View>
+      ) : (
         <View style={styles.content}>
           {/* Center */}
           <View style={styles.center}>
@@ -79,6 +87,12 @@ const styles = StyleSheet.create({
     }),
 
     backgroundColor: mainStyle.themeColor
+  },
+
+  logo: {
+    marginTop: 16,
+    width: 120,
+    height: 45,
   },
 
   content: {

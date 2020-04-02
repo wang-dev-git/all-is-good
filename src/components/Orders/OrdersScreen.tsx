@@ -60,7 +60,8 @@ class OrdersScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Mes Commandes'
+          title='Mes commandes'
+          logo
           />
         <View style={styles.tabs}>
           <TouchableOpacity

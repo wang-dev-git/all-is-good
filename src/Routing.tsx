@@ -54,6 +54,7 @@ export default class Routing extends React.Component<Props, State> {
       require('./images/like.png'),
       require('./images/like_empty.png'),
       require('./images/logo.png'),
+      require('./images/logo_bowl.png'),
     ])
 
     const fontAssets = cacheFonts([

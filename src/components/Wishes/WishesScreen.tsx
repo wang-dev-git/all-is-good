@@ -30,7 +30,7 @@ class WishesScreen extends React.Component<Props, State>  {
       <View style={styles.container}>
         <HeaderBar
           title='Favoris'
-          back
+          logo
           />
 
         <FadeInView style={styles.container}>

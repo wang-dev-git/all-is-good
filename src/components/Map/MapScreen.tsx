@@ -151,6 +151,7 @@ const MapScreen: React.FC<Props> = (props) => {
       <View style={styles.container}>
         <HeaderBar
           title="Autour de vous"
+          logo
           />
         <View style={styles.container}>
           <MapView.Animated

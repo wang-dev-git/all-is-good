@@ -55,6 +55,7 @@ const SearchScreen: React.FC<Props> = (props) => {
     <View style={styles.container}>
       <HeaderBar
         title="Rechercher"
+        logo
         />
       <SearchBar
         query={query}

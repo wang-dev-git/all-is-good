@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage } from '../Reusable'
 import { Fire, Flash, Tools } from '../../services'
@@ -26,33 +26,38 @@ const MapItem: React.FC<Props> = (props: Props) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.info}>
-          <View style={{}}>
-            <Text numberOfLines={1} style={styles.name}>{name}</Text>
-          </View>
-        </View>
         <View style={[styles.shadow]}>
-          <ImageBackground source={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' style={styles.picture}>
-            <View style={{ position: 'absolute', flex: 1, top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-              <View style={styles.icon}>
-                <MaterialIcon size={18} color='#fff' name="map-marker" />  
-              </View>
-              <Text style={[styles.open]}>{distance} km</Text> 
+          <View style={styles.content}>
+
+            <View style={styles.picture}>
+              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
-          </ImageBackground>
-          
+
+            <View style={styles.info}>
+              <View style={[styles.row, { justifyContent: 'space-between' }]}>
+                <Text numberOfLines={1} style={styles.name}>{name}</Text>
+                <View style={styles.row}>
+                  <View style={styles.icon}>
+                    <MaterialIcon size={18} color='#fff' name="map-marker" />  
+                  </View>
+                  <Text style={[styles.open]}>{distance} km</Text> 
+                </View> 
+              </View>
+            </View>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
 
-const width = 140
+const width = 220
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
   shadow: {
+    width: width,
     marginVertical: 12,
     marginHorizontal: 10,
 
@@ -60,23 +65,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  picture: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
+  content: {
+    flex: 1,
     overflow: 'hidden',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  picture: {
+    height: 100,
   },
   info: {
-
+    padding: 10,
+    backgroundColor: mainStyle.themeColor,
   },
   name: {
     ...mainStyle.montBold,
     fontSize: 16,
-    color: '#333',
-    marginBottom: 0,
+    color: '#fff'
   },
   open: {
-    ...mainStyle.montBold,
+    ...mainStyle.montText,
     fontSize: 13,
     color: '#fff',
   },
@@ -85,15 +94,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    marginRight: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
   },
 });
 
-const mapStateToProps = (state: any) => ({
-
-})
-const mapDispatchToProps = (dispatch: any) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(MapItem)
+export default MapItem

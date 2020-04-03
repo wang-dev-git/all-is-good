@@ -3,9 +3,9 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 export const mainStyle = {
   // Colors
   themeGradient: { start: '#02EBE2', end: '#00A5EB' },
-  themeColor: 'rgb(64, 192, 164)', // lighter: #02EBE2
+  themeColor: 'rgb(163, 211, 189)', // old: 'rgb(64, 192, 164)'
   themeColorAlpha: (alpha: string) => {
-    return 'rgba(64, 192, 164, ' + alpha + ')'
+    return 'rgba(64, 211, 189, ' + alpha + ')'
   }, 
   lightColor: '#6E6E6E',
   darkColor: '#263238',

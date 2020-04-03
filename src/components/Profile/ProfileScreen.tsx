@@ -123,7 +123,7 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { user } = this.props
+    const { user, lang } = this.props
     const { uploading } = this.state
 
     if (!user) { return (null) }
@@ -133,7 +133,6 @@ class ProfileScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Mon profil'
           logo
           />
         
@@ -161,14 +160,14 @@ class ProfileScreen extends React.Component<Props, State>  {
           <View style={styles.group}>
             <MenuLink
               icon='id-card'
-              title='Mes Coordonnées'
+              title={lang.PROFILE_INFO}
               right
               
               onPress={Actions.userInfo}
               />
             <MenuLink
               icon='id-card'
-              title='Réglages'
+              title={lang.PROFILE_SETTINGS}
               right
               
               onPress={Actions.settings}
@@ -176,7 +175,7 @@ class ProfileScreen extends React.Component<Props, State>  {
             <MenuLink
               icon='credit-card-alt'
               iconSize={16}
-              title='Mes moyens de paiement'
+              title={lang.PROFILE_CARDS}
               right
 
               onPress={Actions.creditCards}
@@ -184,7 +183,7 @@ class ProfileScreen extends React.Component<Props, State>  {
 
             <MenuLink
               icon='headphones'
-              title="Assistance"
+              title={lang.PROFILE_HELP}
               right
               
               onPress={() => this.help()}
@@ -192,7 +191,7 @@ class ProfileScreen extends React.Component<Props, State>  {
             <MenuLink
               icon='star'
               iconSize={16}
-              title={'Notez l\'application'}
+              title={lang.PROFILE_RATING}
               right
 
               onPress={() => this.appStore()}
@@ -202,7 +201,7 @@ class ProfileScreen extends React.Component<Props, State>  {
            <View style={[styles.group, { marginTop: 40 }]}>
             <MenuLink
               icon='sign-out'
-              title='Déconnexion'
+              title={lang.PROFILE_LOGOUT}
 
               onPress={() => this.logout()}
               />

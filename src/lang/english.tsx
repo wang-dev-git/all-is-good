@@ -5,6 +5,12 @@ export default {
 
   // Profile
   PROFILE_EDIT_BTN: "Edit",
+  PROFILE_INFO: "My info",
+  PROFILE_SETTINGS: "Settings",
+  PROFILE_CARDS: "Saved credit cards",
+  PROFILE_HELP: "Get help",
+  PROFILE_RATING: "Rate the app!",
+  PROFILE_LOGOUT: "Log out",
 
   // Settings
   SETTINGS_TITLE: "Settings",

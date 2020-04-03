@@ -8,4 +8,8 @@ export default {
 
   // Settings
   SETTINGS_TITLE: "Réglages",
+
+  // Pro
+  PRO_BUY_BTN: "Réserver maintenant",
+  PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
 }

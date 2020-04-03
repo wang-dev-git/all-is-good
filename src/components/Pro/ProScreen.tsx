@@ -24,6 +24,7 @@ interface Props {
   user: any;
   pro: any;
   wishes: any;
+  lang: any;
 
   switchTab: (tab: number) => void;
   addWish: (pro: any) => void;
@@ -114,7 +115,7 @@ class ProScreen extends React.Component<Props>  {
   }
 
   render() {
-    const { user, pro, isInWishes } = this.props
+    const { user, pro, isInWishes, lang } = this.props
 
     const inWishes = isInWishes(pro)
     const hasDesc = pro.description != undefined && pro.description != ''
@@ -126,6 +127,8 @@ class ProScreen extends React.Component<Props>  {
         pics.push({url: pro.pictures[i]})
     }
 
+    console.log(lang)
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
@@ -136,7 +139,7 @@ class ProScreen extends React.Component<Props>  {
               height={ifIphoneX({height: 260}, {height: 200}).height}
               pictures={pro.pictures || []}
               />
-            <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .06)' />
+            <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .46)' />
             
             <TouchableOpacity
               style={styles.wishBtn}
@@ -154,6 +157,7 @@ class ProScreen extends React.Component<Props>  {
           </View>
 
           <View style={styles.logoWrapper}>
+            <Text style={styles.name}>{pro.name}</Text>
             <View style={styles.shadow}>
               <View style={styles.logo}>
                 <AssetImage src={pro.logo ? { uri: pro.logo} : undefined} resizeMode="cover" />
@@ -177,13 +181,14 @@ class ProScreen extends React.Component<Props>  {
             </View>
 
             <View>
+              <Text style={[styles.oldPrice]}>{Number(pro.price + 10).toFixed(2)}€</Text>
               <Text style={styles.price}>{Number(pro.price).toFixed(2)}€</Text>
             </View>
           </View>
 
           { hasDesc &&
             <View style={styles.descriptionWrapper}>
-              <Text style={styles.descriptionTitle}>Ce que tu peux avoir</Text>
+              <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
               <Text style={styles.description}>{pro.description}</Text>
             </View>
           }
@@ -234,12 +239,12 @@ class ProScreen extends React.Component<Props>  {
 
         <BottomButton
           abs
-          title="Réserver"
+          title={lang.PRO_BUY_BTN}
           backgroundColor={mainStyle.themeColor}
           onPress={() => this.checkout()}
           />
 
-        <ModalContainer />
+        {/*<ModalContainer /> */}
       </View>
     );
   }
@@ -255,9 +260,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
+  name: {
+    ...mainStyle.montBold,
+    color: '#fff',
+    marginTop: 18,
+    fontSize: 18,
+  },
   logoWrapper: {
-    marginTop: -40,
-    marginLeft: 15,
+    marginTop: -50,
+    marginHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   shadow: {
     shadowOffset: { width: 0, height: 2},
@@ -265,7 +278,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(80),
+    ...mainStyle.circle(70),
   },
 
   info: {
@@ -283,12 +296,19 @@ const styles = StyleSheet.create({
   title: {
     ...mainStyle.montBold,
     fontSize: 15,
-    marginBottom: 20,
+    marginBottom: 9,
   },
   price: {
     ...mainStyle.montBold,
     fontSize: 15,
     height: 26,
+  },
+  oldPrice: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    height: 26,
+    color: '#aaa',
+    textDecorationLine: 'line-through'
   },
   open: {
     ...mainStyle.montText,
@@ -392,7 +412,8 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   icon: {
-    width: 30,
+    width: 20,
+    marginRight: 6,
     justifyContent: 'center',
     alignItems: 'center',
   }
@@ -404,6 +425,7 @@ const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
   wishes: state.wishesReducer.list,
   toggleWishes: state.wishesReducer.toggle,
+  lang: state.langReducer.lang,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   addWish: (pro: any) => dispatch(addWish(pro)),

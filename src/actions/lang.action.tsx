@@ -18,6 +18,7 @@ export const updateLang = createActionThunk('SET_LANG', (id: any) => {
     lang: langs[id]
   }
 })
+export const clearLang = createActionThunk('CLEAR_LANG', () => void 0)
 
 const initialState = {
   id: AppConfig.defaultLang,
@@ -32,6 +33,7 @@ export const langReducer = handleActions(
       id: action.payload.id,
       lang: action.payload.lang,
     }),
+    'CLEAR_LANG_SUCCEEDED': () => (initialState)
   },
   initialState
 );

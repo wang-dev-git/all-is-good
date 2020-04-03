@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
 import { HeaderBar, FadeInView } from '../Reusable'
@@ -21,38 +21,36 @@ type State = {
 
 }
 
-class WishesScreen extends React.Component<Props, State>  {
-  
-  render() {
-    const { wishes, removeWish } = this.props
+const WishesScreen: React.FC<Props> = (props) => {
 
-    return (
-      <View style={styles.container}>
-        <HeaderBar
-          title='Favoris'
-          logo
+  const lang = useSelector(state => state.langReducer.lang)
+  const { wishes, removeWish } = props
+
+  return (
+    <View style={styles.container}>
+      <HeaderBar
+        logo
+        />
+
+      <FadeInView style={styles.container}>
+        <FlatList
+          data={wishes || []}
+          renderItem={({ item }) =>
+            <WishItem
+              pro={item}
+              onPress={() => Actions.pro({ pro: item })}
+              />
+          }
+          ListEmptyComponent={() => (
+            <View style={styles.empty}>
+              <Text>{lang.FAVORITE_NONE}</Text>
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
           />
-
-        <FadeInView style={styles.container}>
-          <FlatList
-            data={wishes || []}
-            renderItem={({ item }) =>
-              <WishItem
-                pro={item}
-                onPress={() => Actions.pro({ pro: item })}
-                />
-            }
-            ListEmptyComponent={() => (
-              <View style={styles.empty}>
-                <Text>Vous n'avez aucun favoris !</Text>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            />
-        </FadeInView>
-      </View>
-    );
-  }
+      </FadeInView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

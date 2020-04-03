@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { FadeInView } from '../Reusable'
@@ -19,12 +19,12 @@ interface Props {
   onClear: () => void;
 }
 const SearchBar: React.FC<Props> = (props) => {
-  
+  const lang = useSelector(state => state.langReducer.lang)
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
         <TextInput
-          placeholder="Rechercher..."
+          placeholder={lang.GLOBAL_SEARCH_PLACEHOLDER}
           style={styles.searchInput}
           value={props.query}
           onChange={(evt) => props.onChange(evt.nativeEvent.text)}

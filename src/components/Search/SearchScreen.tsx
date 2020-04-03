@@ -46,7 +46,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const showFilters = () => {
     Keyboard.dismiss()
     Modal.show('filters', {
-      component: <FiltersModal />,
+      content: () => <FiltersModal />,
       onClose: () => refresh()
     })
   }
@@ -54,7 +54,6 @@ const SearchScreen: React.FC<Props> = (props) => {
   return (
     <View style={styles.container}>
       <HeaderBar
-        title="Rechercher"
         logo
         />
       <SearchBar

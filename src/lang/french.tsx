@@ -1,5 +1,8 @@
 // French
 export default {
+  // Global
+  GLOBAL_SEARCH_PLACEHOLDER: 'Rechercher...',
+
   // Login
   LOGIN_BTN_TXT: "C'est parti !",
 
@@ -18,4 +21,7 @@ export default {
   // Pro
   PRO_BUY_BTN: "Réserver maintenant",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
+
+  // Favorite
+  FAVORITE_NONE: "Vous n'avez aucun favoris",
 }

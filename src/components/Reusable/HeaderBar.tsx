@@ -37,7 +37,7 @@ const HeaderBar: React.SFC<Props> = (props) => {
       { props.barView ? (props.barView) : props.logo ? (
         <View style={styles.center}>
           <View style={styles.logo}>
-            <AssetImage src={require('../../images/logo_bowl.png')} />
+            <AssetImage src={require('../../images/logo_white.png')} />
           </View>
         </View>
       ) : (

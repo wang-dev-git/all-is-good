@@ -4,7 +4,7 @@ import { showModal, hideModal } from '../actions/modal.action'
 
 type ModalData = {
   local?: boolean;
-  component: any;
+  content: any;
   onClose?: () => void;
 }
 

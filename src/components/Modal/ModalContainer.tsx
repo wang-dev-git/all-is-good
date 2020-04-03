@@ -14,7 +14,7 @@ interface ModalProps {
   name: string;
   shown: boolean;
   onClose?: () => void;
-  component: any;
+  content: any;
 }
 const ModalInstance: React.FC<ModalProps> = (props) => {
 
@@ -49,7 +49,7 @@ const ModalInstance: React.FC<ModalProps> = (props) => {
         <Animated.View style={[styles.veil, {opacity: opacity}]}></Animated.View>
       </TouchableWithoutFeedback>
       <Animated.View style={[styles.content, {opacity: opacity, transform: [{translateY: translateY}]}]}>
-        {props.component}
+        {props.content !== undefined ? props.content() : null}
       </Animated.View>
     </View>
   )
@@ -65,18 +65,23 @@ const ModalContainer: React.FC<Props> = (props) => {
     modals = modals.filter((item: any) => !item.local)
   else
     modals = modals.filter((item: any) => item.local)
+
+  const renderModal = (modal, index) => {
+    return (
+      <ModalInstance
+        key={index}
+        local={modal.local}
+        name={modal.key}
+        shown={modal.shown}
+        content={modal.content}
+        onClose={modal.onClose}
+      />
+    )
+  }
+
   return (
     <React.Fragment>
-      {modals.map((item: any, index) => (
-        <ModalInstance
-          key={index}
-          local={item.local}
-          name={item.key}
-          shown={item.shown}
-          component={item.component}
-          onClose={item.onClose}
-          />
-      ))}
+      {modals.map((item: any, index) => renderModal(item, index))}
     </React.Fragment>
   )
 }

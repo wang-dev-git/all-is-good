@@ -70,9 +70,9 @@ class ProScreen extends React.Component<Props>  {
       Loader.hide()
       if (res.status === 'success') {
         Modal.hide('payment')
-        Modal.show('payment_success', { local: true, component:
+        Modal.show('payment_success', { local: true, content: () => (
           <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "€"} />
-        })
+        )})
       } else {
         let error = ''
         switch (res.error) {
@@ -92,9 +92,9 @@ class ProScreen extends React.Component<Props>  {
             error = "Erreur est survenue, veuillez contacter l'assistance"
             break;
         }
-        Modal.show('payment_failure', { local: true, component:
+        Modal.show('payment_failure', { local: true, content: () => (
           <SuccessModal success={false} message={error} subtitle='Echec de la commande' />
-        })
+        )})
       }
 
     } catch (err) {
@@ -106,12 +106,12 @@ class ProScreen extends React.Component<Props>  {
 
   checkout() {
     const { pro } = this.props
-    Modal.show('payment', { local: true, component:
+    Modal.show('payment', { local: true, content: () => (
       <PaymentModal
         price={pro.price}
         onPay={(counter: number, card: string) => this.onPay(counter, card)}
         />
-    })
+    )})
   }
 
   render() {
@@ -126,8 +126,6 @@ class ProScreen extends React.Component<Props>  {
       for (let i = 0; i < pro.pictures.length; ++i)
         pics.push({url: pro.pictures[i]})
     }
-
-    console.log(lang)
 
     return (
       <View style={styles.container}>
@@ -244,7 +242,7 @@ class ProScreen extends React.Component<Props>  {
           onPress={() => this.checkout()}
           />
 
-        {/*<ModalContainer /> */}
+        <ModalContainer />
       </View>
     );
   }

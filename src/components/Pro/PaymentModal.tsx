@@ -43,7 +43,7 @@ const PaymentModal: React.FC<Props> = (props) => {
     inputRange: [0, 1],
     outputRange: [0, 100],
   })
-
+  
   return (
     <View>
       <View style={styles.header}>

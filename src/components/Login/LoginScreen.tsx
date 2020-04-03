@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
@@ -32,11 +32,11 @@ class LoginScreen extends React.Component<Props, State>  {
   
   state = {
     user: {
-      email: '',//swag1@gmail.com',
-      password: '',//coucou123',
-      confirm: '',//coucou123',
-      first_name: '',//Julien',
-      last_name: '',//Brunet',
+      email: AppConfig.isProd() ? '' : 'julien@brunet.fr',
+      password: AppConfig.isProd() ? '' : 'coucou123',
+      confirm: AppConfig.isProd() ? '' : 'coucou123',
+      first_name: AppConfig.isProd() ? '' : 'Julien',
+      last_name: AppConfig.isProd() ? '' : 'Brunet',
     },
     checked: false,
     registering: true,

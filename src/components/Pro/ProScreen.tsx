@@ -71,7 +71,7 @@ class ProScreen extends React.Component<Props>  {
       if (res.status === 'success') {
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
-          <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "€"} />
+          <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "$"} />
         )})
       } else {
         let error = ''
@@ -179,8 +179,8 @@ class ProScreen extends React.Component<Props>  {
             </View>
 
             <View>
-              <Text style={[styles.oldPrice]}>{Number(pro.price + 10).toFixed(2)}€</Text>
-              <Text style={styles.price}>{Number(pro.price).toFixed(2)}€</Text>
+              <Text style={[styles.oldPrice]}>{Number(pro.price + 10).toFixed(2)}$</Text>
+              <Text style={styles.price}>{Number(pro.price).toFixed(2)}$</Text>
             </View>
           </View>
 

@@ -70,13 +70,13 @@ const PaymentModal: React.FC<Props> = (props) => {
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
         </Animated.View>
 
-        <Text style={styles.quantityTitle}>Total {total}€</Text>
+        <Text style={styles.quantityTitle}>Total {total}$</Text>
       </View>
       <View style={{backgroundColor: '#fff'}}>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>
       <BottomButton
-        title={!showCards ? 'Continuer' : 'Payer ' + total + '€'}
+        title={!showCards ? 'Continuer' : 'Payer ' + total + '$'}
         backgroundColor={mainStyle.themeColor}
         onPress={() => !showCards ? setShowCards(true) : props.onPay(counter, card)}
         disabled={!showCards ? counter === 0 : card === ''}

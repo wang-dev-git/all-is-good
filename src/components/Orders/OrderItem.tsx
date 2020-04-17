@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage } from '../Reusable'
@@ -21,8 +21,34 @@ interface Props {
 const OrderItem: React.FC<Props> = (props: Props) => {
   
   const { order, onPress } = props
+  const lang = useSelector(state => state.langReducer.lang)
   const pro = order.pro
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
+  
+  const getStatus = () => {
+    switch (order.status || 'waiting') {
+      case 'waiting':
+        return lang.ORDER_WAITING
+        break;
+
+      case 'taken':
+        return lang.ORDER_TAKEN
+        break;
+
+      case 'delivered':
+        return lang.ORDER_DELIVERED
+        break;
+
+      case 'cancelled':
+        return lang.ORDER_CANCELLED
+        break;
+
+      case 'refunded':
+        return lang.ORDER_REFUNDED
+        break;
+    }
+  }
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -40,7 +66,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   <View style={styles.icon}>
                     <AntIcon size={14} name="clockcircle" />
                   </View>
-                  <Text style={[styles.open]}> Aujourd'hui 21:40 - 22:05</Text>
+                  <Text style={[styles.open]}> {getStatus()}</Text>
                 </View>
                 <View style={styles.row}>
                   <View style={styles.icon}>

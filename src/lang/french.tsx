@@ -15,6 +15,13 @@ export default {
   PROFILE_HELP: "Assistance",
   PROFILE_LOGOUT: "Déconnexion",
 
+  // Orders
+  ORDER_WAITING: 'En attente',
+  ORDER_TAKEN: 'Pris en charge',
+  ORDER_CANCELLED: 'Annulé',
+  ORDER_DELIVERED: 'Livré',
+  ORDER_REFUNDED: 'Remboursée',
+
   // Settings
   SETTINGS_TITLE: "Réglages",
 

@@ -15,6 +15,13 @@ export default {
   PROFILE_RATING: "Rate the app!",
   PROFILE_LOGOUT: "Log out",
 
+  // Orders
+  ORDER_WAITING: 'Waiting',
+  ORDER_TAKEN: 'Preparing...',
+  ORDER_CANCELLED: 'Canceled',
+  ORDER_DELIVERED: 'Delivered',
+  ORDER_REFUNDED: 'Refunded',
+
   // Settings
   SETTINGS_TITLE: "Settings",
 

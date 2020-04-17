@@ -179,7 +179,7 @@ class ProScreen extends React.Component<Props>  {
             </View>
 
             <View>
-              <Text style={[styles.oldPrice]}>{Number(pro.price + 10).toFixed(2)}$</Text>
+              <Text style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</Text>
               <Text style={styles.price}>{Number(pro.price).toFixed(2)}$</Text>
             </View>
           </View>

@@ -70,8 +70,9 @@ const PaymentModal: React.FC<Props> = (props) => {
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
         </Animated.View>
 
-        <Text style={styles.quantityTitle}>Total {total}$</Text>
-      </View>
+          <Text style={styles.quantityTitle}>Total: {Number(price).toFixed(2)}$
+            (<Text style={{textDecorationLine: 'line-through'}}>{Number(Number(price) * 1.7).toFixed(2)}$</Text>)</Text>
+    </View>
       <View style={{backgroundColor: '#fff'}}>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>

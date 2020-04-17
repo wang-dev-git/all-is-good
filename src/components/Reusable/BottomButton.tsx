@@ -20,7 +20,7 @@ const BottomButton: React.FC<Props> = (props) => {
   const veil = props.disabled ? '0' : '255'
   return (
     <TouchableOpacity
-      style={[styles.wrapper, {opacity: props.disabled ? 0.46 : 1}, props.abs ? styles.abs : {}]}
+      style={[styles.wrapper, {opacity: props.disabled ? 1 : 1}, props.abs ? styles.abs : {}]}
       onPress={props.onPress}
       disabled={props.disabled}
       >

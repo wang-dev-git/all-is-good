@@ -6,7 +6,7 @@ import { CreditCardInput } from "react-native-credit-card-input";
 
 import Stripe from 'react-native-stripe-api';
 
-import { HeaderBar, TitledInput, BottomButton, PageLoader } from '../Reusable'
+import { HeaderBar, TitledInput, SmallButton, PageLoader, KeyboardScrollView } from '../Reusable'
 import { Actions } from 'react-native-router-flux'
 import { Fire, Flash, AppConfig } from '../../services'
 
@@ -99,21 +99,21 @@ class AddCardScreen extends React.Component<Props, State>  {
           title='Ajouter une carte'
           back
           />
-        <ScrollView contentContainerStyle={{paddingTop: 30}}>
+        <KeyboardScrollView contentContainerStyle={{paddingTop: 30, paddingBottom: 20}}>
           <CreditCardInput ref="CCInput" onChange={(form: any) => this.onChange(form)} />
 
-          {/* Sell Button */}
-          <BottomButton
-            style={{marginTop: 40}}
+
+          <View style={{marginTop: 40, alignItems: 'center'}}>
+          <SmallButton
             title={'Valider'}
-            backgroundColor={mainStyle.themeColor}
             disabled={!card.valid}
 
             onPress={() => this.proceed()}
             />
+          </View>
 
           <Text style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good</Text>
-        </ScrollView>
+        </KeyboardScrollView>
 
         <PageLoader
           title={'Vérification...'}

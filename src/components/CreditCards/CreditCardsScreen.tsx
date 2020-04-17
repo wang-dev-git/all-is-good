@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
-import { HeaderBar, BottomButton, AssetImage } from '../Reusable'
+import { HeaderBar, SmallButton, AssetImage } from '../Reusable'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
@@ -80,7 +80,7 @@ class CreditCardsScreen extends React.Component<Props, State>  {
           keyExtractor={(item, index) => index.toString()}
           />
         <View style={styles.floatingBottom}>
-          <BottomButton
+          <SmallButton
             title={'Ajouter une carte'}
             backgroundColor={mainStyle.themeColor}
 
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     top: undefined,
     paddingTop: 20,
     paddingBottom: 20,
+    alignItems: 'center',
   },
   picture: {
     width: 30,

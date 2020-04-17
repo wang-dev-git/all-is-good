@@ -13,6 +13,7 @@ import SuccessModal from './SuccessModal'
 import SmallButton from './SmallButton'
 import CheckBox from './CheckBox'
 import TouchableBounce from './TouchableBounce'
+import KeyboardScrollView from './KeyboardScrollView'
 
 export {
   AssetImage,
@@ -29,5 +30,6 @@ export {
   SelectCreditCard,
   CheckBox,
   SmallButton,
+  KeyboardScrollView,
   TouchableBounce,
 }

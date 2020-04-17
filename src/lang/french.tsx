@@ -19,9 +19,10 @@ export default {
   SETTINGS_TITLE: "Réglages",
 
   // Pro
-  PRO_BUY_BTN: "Réserver maintenant",
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
+  PRO_BUY_BTN: "Réserver maintenant",
+  PRO_SOLD_OUT: "Victime de son succès",
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",

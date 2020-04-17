@@ -19,9 +19,10 @@ export default {
   SETTINGS_TITLE: "Settings",
 
   // Pro
-  PRO_BUY_BTN: "Order now",
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "What you can have",
+  PRO_BUY_BTN: "Order now",
+  PRO_SOLD_OUT: "Sold out!",
 
   // Favorite
   FAVORITE_NONE: "You have no favorite yet",

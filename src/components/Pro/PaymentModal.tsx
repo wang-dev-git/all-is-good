@@ -13,14 +13,15 @@ import Feather from '@expo/vector-icons/Feather'
 import { mainStyle } from '../../styles'
 
 interface Props {
-  price: number;
+  pro: any;
   onPay: (counter: number, card: string) => void;
 }
 
 const PaymentModal: React.FC<Props> = (props) => {
   
-  const price = props.price || 0
-  const [counter, updateCounter] = React.useState(1)
+  const quantity_max = props.pro.quantity || 0
+  const price = props.pro.price || 0
+  const [counter, setCounter] = React.useState(1)
   const [showCards, setShowCards] = React.useState(false)
   const [card, setCard] = React.useState('')
 
@@ -39,6 +40,16 @@ const PaymentModal: React.FC<Props> = (props) => {
     }
   }, [showCards])
 
+  const updateCounter = (delta: number) => {
+    const newCounter = counter + delta
+    if (newCounter > quantity_max)
+      setCounter(quantity_max)
+    else if (newCounter < 0)
+      setCounter(0)
+    else
+      setCounter(newCounter)
+  }
+
   const height = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 100],
@@ -53,13 +64,13 @@ const PaymentModal: React.FC<Props> = (props) => {
       <View style={styles.quantity}>
         <Text style={styles.quantityTitle}>Choisir la quantité</Text>
         <View style={styles.quantityBtns}>
-          <TouchableOpacity onPress={() => updateCounter(counter > 1 ? counter - 1 : 0)}>
+          <TouchableOpacity onPress={() => updateCounter(-1)}>
             <View style={[styles.btn, {backgroundColor: mainStyle.lightColor, marginRight: 30}]}>
               <AntDesign color={'#fff'} size={18} name="minus" />
             </View>
           </TouchableOpacity>
           <Text style={styles.counter}>{counter}</Text>
-          <TouchableOpacity onPress={() => updateCounter(counter + 1)}>
+          <TouchableOpacity onPress={() => updateCounter(1)}>
             <View style={[styles.btn, {backgroundColor: mainStyle.themeColor, marginLeft: 30}]}>
               <AntDesign color={'#fff'} size={18} name="plus" />
             </View>

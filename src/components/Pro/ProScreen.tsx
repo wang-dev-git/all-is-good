@@ -108,7 +108,7 @@ class ProScreen extends React.Component<Props>  {
     const { pro } = this.props
     Modal.show('payment', { local: true, content: () => (
       <PaymentModal
-        price={pro.price}
+        pro={pro}
         onPay={(counter: number, card: string) => this.onPay(counter, card)}
         />
     )})
@@ -127,6 +127,8 @@ class ProScreen extends React.Component<Props>  {
       for (let i = 0; i < pro.pictures.length; ++i)
         pics.push({url: pro.pictures[i]})
     }
+
+    const soldOut = !pro.quantity || pro.quantity < 0
 
     return (
       <View style={styles.container}>
@@ -244,7 +246,8 @@ class ProScreen extends React.Component<Props>  {
 
         <BottomButton
           abs
-          title={lang.PRO_BUY_BTN}
+          title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
+          disabled={soldOut}
           backgroundColor={mainStyle.themeColor}
           onPress={() => this.checkout()}
           />

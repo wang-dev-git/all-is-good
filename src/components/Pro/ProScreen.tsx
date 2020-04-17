@@ -130,6 +130,8 @@ class ProScreen extends React.Component<Props>  {
 
     const soldOut = !pro.quantity || pro.quantity < 0
 
+    console.log(pro)
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />

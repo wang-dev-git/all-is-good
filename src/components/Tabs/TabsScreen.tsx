@@ -21,7 +21,6 @@ import Material from '@expo/vector-icons/MaterialCommunityIcons'
 import { switchTab } from '../../actions/tab.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
-import { loadCards } from '../../actions/cards.action'
 import { loadCategories, loadSearchable } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
@@ -37,7 +36,6 @@ interface Props {
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
   finishLogin: () => void;
-  loadCards: () => void;
   loadSearchable: () => void;
   loadCategories: () => void;
   loadWishes: () => void;
@@ -128,10 +126,8 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.props.finishLogin()
         await this.props.loadWishes()
-        await this.props.loadCards()
         await this.props.refreshWishes()
         await this.props.loadCategories()
-
         this.props.loadSearchable()
        
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
@@ -275,7 +271,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   loadWishes: () => dispatch(loadWishes()),
   loadCategories: () => dispatch(loadCategories()),
   loadSearchable: () => dispatch(loadSearchable()),
-  loadCards: () => dispatch(loadCards()),
   refreshWishes: () => dispatch(refreshWishes()),
 })
 

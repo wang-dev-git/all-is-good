@@ -20,6 +20,7 @@ export default {
 
   // Pro
   PRO_BUY_BTN: "Order now",
+  PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "What you can have",
 
   // Favorite

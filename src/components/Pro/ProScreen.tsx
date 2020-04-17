@@ -119,6 +119,7 @@ class ProScreen extends React.Component<Props>  {
 
     const inWishes = isInWishes(pro)
     const hasDesc = pro.description != undefined && pro.description != ''
+    const hasOffer = pro.offer != undefined && pro.offer != ''
     const seller = pro.seller
 
     const pics: any = []
@@ -155,7 +156,6 @@ class ProScreen extends React.Component<Props>  {
           </View>
 
           <View style={styles.logoWrapper}>
-            <Text style={styles.name}>{pro.name}</Text>
             <View style={styles.shadow}>
               <View style={styles.logo}>
                 <AssetImage src={pro.logo ? { uri: pro.logo} : undefined} resizeMode="cover" />
@@ -165,7 +165,7 @@ class ProScreen extends React.Component<Props>  {
 
           <View style={styles.info}>
             <View>
-              <Text style={styles.title}>Restaurant</Text>
+              <Text style={styles.title}>{pro.name}</Text>
 
               <View style={styles.row}>
                 <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
@@ -186,8 +186,15 @@ class ProScreen extends React.Component<Props>  {
 
           { hasDesc &&
             <View style={styles.descriptionWrapper}>
-              <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
+              <Text style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</Text>
               <Text style={styles.description}>{pro.description}</Text>
+            </View>
+          }
+
+          { hasOffer &&
+            <View style={styles.descriptionWrapper}>
+              <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
+              <Text style={styles.description}>{pro.offer}</Text>
             </View>
           }
           
@@ -293,7 +300,7 @@ const styles = StyleSheet.create({
 
   title: {
     ...mainStyle.montBold,
-    fontSize: 15,
+    fontSize: 20,
     marginBottom: 9,
   },
   price: {

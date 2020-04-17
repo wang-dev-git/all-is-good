@@ -52,19 +52,31 @@ const tabActiveColor = mainStyle.themeColor
 const routes = [
   {
     component: ProfileScreen,
-    renderIcon: (active: boolean) => (
-      <Icon name={active ? "user" : "user-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
+    renderIcon: (active: boolean) => !active ? (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="user" size={22} color={mainStyle.themeColor} />
+      </View>
+    ) : (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="user-o" size={22} color={'#fff'} />
+      </View>
     )
   },
   {
     component: MapScreen,
-    renderIcon: (active: boolean) => (
-      <Material name="map-search" size={22} color={active ? tabActiveColor : tabColor}  />  
+    renderIcon: (active: boolean) => !active ? (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+        <Material name="map-search" size={22} color={mainStyle.themeColor} />
+      </View>
+    ) : (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Material name="map-search" size={22} color={'#fff'} />
+      </View>
     )
   },
   {
     component: SearchScreen,
-    renderIcon: (active: boolean) => active ? (
+    renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="search" size={22} color={mainStyle.themeColor} />
       </View>
@@ -76,16 +88,26 @@ const routes = [
   },
   {
     component: WishesScreen,
-    renderIcon: (active: boolean) => (
-      <Icon name={active ? "heart" : "heart-o"} size={active ? 25 : 22} color={active ? tabActiveColor : tabColor} />
+    renderIcon: (active: boolean) => !active ? (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="heart" size={22} color={mainStyle.themeColor} />
+      </View>
+    ) : (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="heart-o" size={22} color={'#fff'} />
+      </View>
     )
   },
   {
     component: OrdersScreen,
-    renderIcon: (active: boolean) => active ? (
-      <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
+    renderIcon: (active: boolean) => !active ? (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="ticket" size={22} color={mainStyle.themeColor} />
+      </View>
     ) : (
-      <Icon name="ticket" size={22} color={active ? tabActiveColor : tabColor} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="ticket" size={22} color={'#fff'} />
+      </View>
     )
   },
 ]

@@ -18,6 +18,7 @@ interface Props {
   index: number;
   pro: any;
   wishes: any;
+  isWish?: boolean;
 
   switchTab: (tab: number) => void;
   addWish: (pro: any) => void;
@@ -56,26 +57,29 @@ const ProItem: React.FC<Props> = (props: Props) => {
               <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
-            <View style={styles.info}>
-              <Text numberOfLines={1} style={styles.name}>{name}</Text>
-              <View style={styles.row}>
-                <View style={styles.icon}>
-                  <AntIcon size={14} name="clockcircle" />
+            <View style={styles.infoWrapper}>
+              <View style={styles.info}>
+                <Text numberOfLines={1} style={styles.name}>{name}</Text>
+                {!props.isWish &&
+                  <View style={styles.row}>
+                    <View style={styles.icon}>
+                      <AntIcon size={14} name="clockcircle" />
+                    </View>
+                    <Text style={[styles.open]}> Aujourd'hui 21:40 - 22:05</Text>
+                  </View>
+                }
+                <View style={styles.row}>
+                  <View style={styles.icon}>
+                    <MaterialIcon size={18} name="map-marker" />  
+                  </View>
+                  <Text style={[styles.open]}>4 km</Text>               
                 </View>
-                <Text style={[styles.open]}> Aujourd'hui 21:40 - 22:05</Text>
               </View>
-              <View style={styles.row}>
-                <View style={styles.icon}>
-                  <MaterialIcon size={18} name="map-marker" />  
+
+              <View style={styles.logoWrapper}>
+                <View style={styles.logo}>
+                  <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
                 </View>
-                <Text style={[styles.open]}>4 km</Text>               
-              </View>
-            </View>
-
-
-            <View style={styles.logoWrapper}>
-              <View style={styles.logo}>
-                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
               </View>
             </View>
 
@@ -119,27 +123,30 @@ const styles = StyleSheet.create({
     height: 110,
   },
   logoWrapper: {
-    position: 'absolute',
-    top: 95,
-    left: 12,
-
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(42),
+    ...mainStyle.circle(52),
     borderWidth: 1,
     borderColor: '#ddd',
   },
+  infoWrapper: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 12,
+  },
   info: {
     padding: 10,
-    backgroundColor: '#fff',
   },
   name: {
     ...mainStyle.montBold,
-    fontSize: 16,
-    marginLeft: 60,
+    fontSize: 20,
+    marginLeft: 6,
+    marginBottom: 4,
     color: mainStyle.darkColor
   },
   open: {
@@ -148,7 +155,7 @@ const styles = StyleSheet.create({
     color: mainStyle.darkColor,
   },
   row: {
-    marginTop: 10,
+    marginTop: 4,
     flexDirection: 'row',
     alignItems: 'center',
   },

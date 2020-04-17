@@ -27,7 +27,7 @@ const MenuLink: React.SFC<Props> = (props) => {
         </View>
 
         { props.right &&
-          <AntDesign name="right" size={14} color='#E3E4EE' />
+          <AntDesign name="right" size={14} color='#666' />
         }
       </View>
     </TouchableOpacity>

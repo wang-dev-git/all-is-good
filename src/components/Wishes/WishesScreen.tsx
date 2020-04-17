@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 
 import { HeaderBar, FadeInView } from '../Reusable'
 
-import WishItem from './WishItem'
+import ProItem from '../Pros/ProItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
@@ -36,7 +36,8 @@ const WishesScreen: React.FC<Props> = (props) => {
         <FlatList
           data={wishes || []}
           renderItem={({ item }) =>
-            <WishItem
+            <ProItem
+              isWish
               pro={item}
               onPress={() => Actions.pro({ pro: item })}
               />

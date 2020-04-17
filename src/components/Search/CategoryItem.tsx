@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, F
 
 import Icon from '@expo/vector-icons/FontAwesome'
 
+import { TouchableBounce } from '../Reusable'
+
 import { mainStyle } from '../../styles'
 
 interface Props {
@@ -13,13 +15,13 @@ interface Props {
 }
 const CategoryItem: React.FC<Props> = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
+    <TouchableBounce width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
       <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
         <View style={styles.veil}>
           <Text style={styles.title}>{props.category.name}</Text>
         </View>
       </ImageBackground>
-    </TouchableOpacity>
+    </TouchableBounce>
   )
 }
 

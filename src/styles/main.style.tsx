@@ -17,15 +17,15 @@ export const mainStyle = {
 
   montText: {
     fontSize: 15,
-    fontFamily: 'montserrat',
+    fontFamily: 'nunito',
   },
   montLight: {
     fontSize: 15,
-    fontFamily: 'montserrat-light',
+    fontFamily: 'nunito-light',
   },
   montBold: {
     fontSize: 13,
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'nunito-bold',
   },
 
   // Styles 

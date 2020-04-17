@@ -63,7 +63,10 @@ export default class Routing extends React.Component<Props, State> {
     const fontAssets = cacheFonts([
       { 'montserrat-light': require('../assets/fonts/Montserrat-Light.ttf') },
       { 'montserrat': require('../assets/fonts/Montserrat-Regular.ttf') },
-      { 'montserrat-bold': require('../assets/fonts/Montserrat-Bold.ttf') }
+      { 'montserrat-bold': require('../assets/fonts/Montserrat-Bold.ttf') },
+      { 'nunito-light': require('../assets/fonts/Nunito-Light.ttf') },
+      { 'nunito': require('../assets/fonts/Nunito-Regular.ttf') },
+      { 'nunito-bold': require('../assets/fonts/Nunito-Bold.ttf') }
     ]);
 
     await Promise.all([...imageAssets, ...fontAssets]);

@@ -12,6 +12,7 @@ import LinkButton from './LinkButton'
 import SuccessModal from './SuccessModal'
 import SmallButton from './SmallButton'
 import CheckBox from './CheckBox'
+import TouchableBounce from './TouchableBounce'
 
 export {
   AssetImage,
@@ -28,4 +29,5 @@ export {
   SelectCreditCard,
   CheckBox,
   SmallButton,
+  TouchableBounce,
 }

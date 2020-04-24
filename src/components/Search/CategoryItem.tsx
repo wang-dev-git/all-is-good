@@ -27,7 +27,7 @@ const CategoryItem: React.FC<Props> = (props) => {
   )
 }
 
-const margin = 10
+const margin = 14
 const marginBottom = 18
 const width = (Dimensions.get('window').width / 2) - (margin + margin / 2)
 const styles = StyleSheet.create({
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     height: width,
     borderRadius: width / 2,
     borderColor: '#fff',
-    borderWidth: 4,
+    borderWidth: 5,
     overflow: 'hidden',
     marginBottom: marginBottom,
     backgroundColor: 'red',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...mainStyle.montBold,
-    fontSize: 13,
+    fontSize: 14,
     color: '#fff',
     textTransform: 'uppercase',
   }

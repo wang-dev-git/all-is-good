@@ -33,9 +33,11 @@ const SearchBar: React.FC<Props> = (props) => {
         <View style={styles.searchIcon}>
           <Icon name="search" color={mainStyle.themeColor} size={16} />
         </View>
+        {/*}
         <TouchableOpacity style={styles.filtersIcon} onPress={() => props.onFilters()}>
           <Icon name="cog" color={'#fff'} size={16} />
         </TouchableOpacity>
+        */}
         { props.query.length > 0 &&
           <TouchableOpacity style={styles.clearIcon} onPress={() => props.onClear()}>
             <Icon name="close" color={mainStyle.lightColor} size={12} />
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   clearIcon: {
     position: 'absolute',
     top: 0,
-    right: barHeight + 2,
+    right: 10,//barHeight + 2,
     bottom: 0,
 
     width: 20,

@@ -236,9 +236,6 @@ const styles = StyleSheet.create({
       height: barHeight,
     }),
     backgroundColor: mainStyle.themeColor,
-    borderTopWidth: 1,
-    borderTopColor: '#ede',
-
     flexDirection: 'row',
     alignItems: 'center',
   },

@@ -2,10 +2,10 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 export const mainStyle = {
   // Colors
-  themeGradient: { start: '#02EBE2', end: '#00A5EB' },
-  themeColor: 'rgb(64, 192, 164)', // old: 'rgb(64, 192, 164)'
+  themeGradient: { start: '#628e6b', end: '#628e6b' },
+  themeColor: 'rgb(98, 142, 107)', // old: 'rgb(64, 192, 164)'
   themeColorAlpha: (alpha: string) => {
-    return 'rgba(64, 192, 164, ' + alpha + ')'
+    return 'rgba(98, 142, 107, ' + alpha + ')'
   }, 
   lightColor: '#6E6E6E',
   darkColor: '#263238',

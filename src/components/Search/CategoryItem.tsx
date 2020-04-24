@@ -15,13 +15,15 @@ interface Props {
 }
 const CategoryItem: React.FC<Props> = (props) => {
   return (
-    <TouchableBounce width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
-      <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
-        <View style={styles.veil}>
-          <Text style={styles.title}>{props.category.name}</Text>
-        </View>
-      </ImageBackground>
-    </TouchableBounce>
+    <View style={styles.shadow}>
+      <TouchableBounce width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
+        <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
+          <View style={styles.veil}>
+            <Text style={styles.title}>{props.category.name}</Text>
+          </View>
+        </ImageBackground>
+      </TouchableBounce>
+    </View>
   )
 }
 
@@ -29,10 +31,17 @@ const margin = 10
 const marginBottom = 18
 const width = (Dimensions.get('window').width / 2) - (margin + margin / 2)
 const styles = StyleSheet.create({
+  shadow: {
+    shadowOffset: { width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   container: {
     width: width,
     height: width,
     borderRadius: width / 2,
+    borderColor: '#fff',
+    borderWidth: 4,
     overflow: 'hidden',
     marginBottom: marginBottom,
     backgroundColor: 'red',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
 import ProsScreen from '../Pros/ProsScreen'
@@ -45,18 +45,18 @@ interface State {
   booted: boolean;
 }
 
-const tabColor = '#999'
+const tabColor = '#fff'
 const tabActiveColor = mainStyle.themeColor
 const routes = [
   {
     component: ProfileScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="user" size={22} color={mainStyle.themeColor} />
+        <Icon name="user" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="user-o" size={22} color={'#fff'} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="user-o" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -64,11 +64,11 @@ const routes = [
     component: MapScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Material name="map-search" size={22} color={mainStyle.themeColor} />
+        <Material name="map-search" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Material name="map-search" size={22} color={'#fff'} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Material name="map-search" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -76,11 +76,11 @@ const routes = [
     component: SearchScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="search" size={22} color={mainStyle.themeColor} />
+        <Icon name="search" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="search" size={22} color={'#fff'} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="search" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -88,11 +88,11 @@ const routes = [
     component: WishesScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="heart" size={22} color={mainStyle.themeColor} />
+        <Icon name="heart" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="heart-o" size={22} color={'#fff'} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="heart-o" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -100,11 +100,11 @@ const routes = [
     component: OrdersScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={mainStyle.themeColor} />
+        <Icon name="ticket" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: mainStyle.themeColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={'#fff'} />
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="ticket" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -199,12 +199,12 @@ class TabsScreen extends React.Component<Props, State>  {
     //if (index == 3)
       //count = wishes ? wishes.length : 0
     return (
-      <TouchableOpacity key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
+      <TouchableWithoutFeedback key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
         <View style={[styles.tab, isSelected ? {} : {}]}>
           {item.renderIcon(isSelected)}
           <NotifBubble count={count} backgroundColor={index == 4 ? undefined : mainStyle.themeColor} />
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     }, {
       height: barHeight,
     }),
-    backgroundColor: '#fff',
+    backgroundColor: mainStyle.themeColor,
     borderTopWidth: 1,
     borderTopColor: '#ede',
 

@@ -161,15 +161,14 @@ class TabsScreen extends React.Component<Props, State>  {
   isSelected(index: number) {
     return this.props.tab == index
   }
-
-  renderCurrentRoute() {
-    const idx = this.props.tab
-    if (idx >= routes.length)
-      return null
-
-    const CurrentRoute = routes[idx].component
+  
+  renderRoute(item: any, index: number) {
+    const Route = item.component
+    const isCurrent = this.props.tab == index
     return (
-      <CurrentRoute />
+      <View key={index} style={{flex: 1, ...mainStyle.abs, opacity: isCurrent ? 1 : 0}} pointerEvents={isCurrent ? 'auto': 'none'}>
+        <Route />
+      </View>
     )
   }
 
@@ -179,7 +178,7 @@ class TabsScreen extends React.Component<Props, State>  {
         {/* Content */}
         { (this.state.booted && this.props.user) &&
           <View style={styles.content}>
-            {this.renderCurrentRoute()}
+            {routes.map((item, index) => this.renderRoute(item, index))}
           </View>
         }
 

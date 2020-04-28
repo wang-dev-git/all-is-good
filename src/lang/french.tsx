@@ -34,11 +34,12 @@ export default {
   PRO_SOLD_OUT: "Victime de son succès",
 
   // Payment
-  PAYMENT_METHOD: 'Votre moyen de paiement',
-  PAYMENT_QUANTITY: 'Choisir la quantité',
-  PAYMENT_MODE: 'Mode de récupération',
+  PAYMENT_CHOOSE_QUANTITY: 'Choisir la quantité',
+  PAYMENT_QUANTITY: 'Quantité',
+  PAYMENT_CHOOSE_MODE: 'Mode de récupération',
   PAYMENT_PICK_UP: 'à'.toUpperCase() + ' emporter',
   PAYMENT_DELIVERY: 'Livraison',
+  PAYMENT_CHOOSE_METHOD: 'Votre moyen de paiement',
   PAYMENT_CONFIRM: 'Payer',
 
   // Favorite

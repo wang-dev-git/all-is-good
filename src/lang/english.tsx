@@ -2,6 +2,7 @@
 export default {
   // Global
   GLOBAL_SEARCH_PLACEHOLDER: 'Search...',
+  GLOBAL_TODAY: "Today",
 
   // Login
   LOGIN_BTN_TXT: "Let's go!",

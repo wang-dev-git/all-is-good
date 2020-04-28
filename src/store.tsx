@@ -20,7 +20,7 @@ import { ordersReducer } from './actions/orders.action'
 const config = {
   key: "root",
   storage: ExpoFileSystemStorage,
-  blacklist: ['tabReducer']
+  blacklist: ['tabReducer', 'modalReducer', 'loaderReducer']
 };
 
 // Create store by combining reducers

@@ -1,11 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { AssetImage, BottomButton, SelectCreditCard } from '../Reusable'
-import { Fire, Flash, Modal } from '../../services'
+import { Fire, Flash, Modal, Time } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
@@ -55,11 +56,14 @@ const PaymentModal: React.FC<Props> = (props) => {
     outputRange: [0, 100],
   })
   
+  const opening = Time.getPickUpRange(props.pro)
+  const lang = useSelector(state => state.langReducer.lang)
+
   return (
     <View>
       <View style={styles.header}>
         <Text style={styles.title}>Restaurant</Text>
-        <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
+        <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
       </View>
       <View style={styles.quantity}>
         <Text style={styles.quantityTitle}>Choisir la quantité</Text>

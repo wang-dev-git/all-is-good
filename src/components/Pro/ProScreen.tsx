@@ -7,7 +7,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
-import { Fire, Flash, Modal, Loader } from '../../services'
+import { Fire, Flash, Modal, Time, Loader } from '../../services'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
@@ -129,6 +129,7 @@ class ProScreen extends React.Component<Props>  {
     }
 
     const soldOut = !pro.quantity || pro.quantity < 0
+    const opening = Time.getPickUpRange(pro)
 
     console.log(pro)
 
@@ -173,7 +174,7 @@ class ProScreen extends React.Component<Props>  {
 
               <View style={styles.row}>
                 <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
-                <Text style={styles.open}>Aujourd'hui 21:40 - 22:20</Text>
+                <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
               </View>
 
               <View style={styles.row}>

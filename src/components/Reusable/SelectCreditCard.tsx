@@ -81,14 +81,14 @@ const SelectCreditCard: React.FC<Props> = (props) => {
   }
 
   const showCards = () => {
-    Modal.show('show_cards', { component:
+    Modal.show('show_cards', { content: () => (
       <ListCards
         cardsToggle={props.cardsToggle}
         cards={cards}
         card={card}
         pick={(card) => pickCard(card)}
         />
-    })
+    )})
   }
 
   return cards.length ? (

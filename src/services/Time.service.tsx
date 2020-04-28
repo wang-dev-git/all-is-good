@@ -19,4 +19,8 @@ export default class Time {
     return moment(date).format('dddd, DD MMMM à HH:mm')
   }
 
+  static getPickUpRange(pro) {
+    return pro.pick_up_start ? (pro.pick_up_start + ' - ' + pro.pick_up_end) : null
+  }
+
 }

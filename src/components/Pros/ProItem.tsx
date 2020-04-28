@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Time } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 import { switchTab } from '../../actions/tab.action'
@@ -47,6 +47,8 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const { pro, index, onPress, isInWishes } = props
   const inWishes = isInWishes(pro)
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
+  const opening = Time.getPickUpRange(pro)
+  const lang = useSelector(state => state.langReducer.lang)
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -60,12 +62,12 @@ const ProItem: React.FC<Props> = (props: Props) => {
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <Text numberOfLines={1} style={styles.name}>{name}</Text>
-                {!props.isWish &&
+                {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>
                       <AntIcon size={14} name="clockcircle" />
                     </View>
-                    <Text style={[styles.open]}> Aujourd'hui 21:40 - 22:05</Text>
+                    <Text style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</Text>
                   </View>
                 }
                 <View style={styles.row}>

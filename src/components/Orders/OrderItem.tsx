@@ -13,6 +13,8 @@ import { Actions } from 'react-native-router-flux'
 
 import { mainStyle } from '../../styles'
 
+import OrderStatus from '../../types/order_status'
+
 interface Props {
   order: any;
 
@@ -21,33 +23,36 @@ interface Props {
 const OrderItem: React.FC<Props> = (props: Props) => {
   
   const { order, onPress } = props
-  console.log(order)
+
   const lang = useSelector(state => state.langReducer.lang)
   const langId = useSelector(state => state.langReducer.langId)
   const pro = order.pro || {}
-  const proName = pro.names && pro.names[langId] ? pro.names[langId] : ''
-  const name = proName.length > 22 ? (proName.substr(0, 18) + '...') : proName
+  const name = pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
 
   const getStatus = () => {
-    switch (order.status || 'waiting') {
-      case 'waiting':
+    switch (order.status || OrderStatus.ORDER_PENDING) {
+      case OrderStatus.ORDER_PENDING:
         return lang.ORDER_WAITING
         break;
 
-      case 'taken':
-        return lang.ORDER_TAKEN
+      case OrderStatus.ORDER_PREPARING:
+        return lang.ORDER_PREPARING
         break;
 
-      case 'delivered':
+      case OrderStatus.ORDER_READY_TO_TAKE:
+        return lang.ORDER_PICK_UP_READY
+        break;
+
+      case OrderStatus.ORDER_DELIVERING:
+        return lang.ORDER_DELIVERING
+        break;
+
+      case OrderStatus.ORDER_DELIVERED:
         return lang.ORDER_DELIVERED
         break;
 
-      case 'cancelled':
+      case OrderStatus.ORDER_CANCELED_BY_PRO, OrderStatus.ORDER_CANCELED_BY_USER:
         return lang.ORDER_CANCELLED
-        break;
-
-      case 'refunded':
-        return lang.ORDER_REFUNDED
         break;
     }
   }

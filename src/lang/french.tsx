@@ -18,10 +18,11 @@ export default {
 
   // Orders
   ORDER_WAITING: 'En attente',
-  ORDER_TAKEN: 'Pris en charge',
+  ORDER_PREPARING: 'Préparation en cours',
+  ORDER_PICK_UP_READY: 'Prêt à récupérer',
+  ORDER_DELIVERING: 'Livraison en cours',
+  ORDER_DELIVERED: 'Réceptionné',
   ORDER_CANCELLED: 'Annulé',
-  ORDER_DELIVERED: 'Livré',
-  ORDER_REFUNDED: 'Remboursée',
 
   // Settings
   SETTINGS_TITLE: "Réglages",

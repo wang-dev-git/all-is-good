@@ -106,9 +106,8 @@ const ProScreen: React.FC<Props> = (props) => {
   const seller = pro.seller
 
   const pics: any = []
-  if (pro.pictures) {
-    for (let i = 0; i < pro.pictures.length; ++i)
-      pics.push({url: pro.pictures[i]})
+  if (pro.picture) {
+    pics.push(pro.picture)
   }
 
   const soldOut = !pro.quantity || pro.quantity < 0
@@ -124,7 +123,7 @@ const ProScreen: React.FC<Props> = (props) => {
           <ImageSlider
             width={Dimensions.get('window').width}
             height={ifIphoneX({height: 260}, {height: 200}).height}
-            pictures={pro.pictures || []}
+            pictures={pics}
             />
           <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .46)' />
           

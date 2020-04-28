@@ -88,7 +88,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
       </View>
       <FlatList
         data={current}
-        renderItem={renderItem}
+        renderItem={({item, index}) => renderItem(item)}
         /*ListHeaderComponent={() => (
           <TouchableOpacity onPress={() => this.clear()}>
             <Text>Clear</Text>

@@ -4,34 +4,19 @@ import { handleActions } from 'redux-actions';
 import Fire from '../services/Fire.service'
 import Cache from '../services/Cache.service'
 
-// Fetch orders
-const getOrders = async (userId: string, validated: boolean) => {
+export const fetchOrders = createActionThunk('FETCH_ORDERS', async ({ getState }) => {
+  const userId = getState().authReducer.fireUser.uid
   const ref = Fire.store().collection('orders')
     .where('userId', '==', userId)
-    .where('validated', '==', validated)
     .orderBy('createdAt', 'desc')
     .limit(20)
   return await Fire.list(ref)
-}
-
-export const fetchOrders = createActionThunk('FETCH_ORDERS', async ({ getState }) => {
-  const userId = getState().authReducer.fireUser.uid
-  const pending = await getOrders(userId, false)
-  const past = await getOrders(userId, true)
-
-  return {
-    past: past,
-    pending: pending,
-  }
 })
 
 export const clearOrders = createActionThunk('CLEAR_PROS', () => void 0)
 
 const initialState = {
-  orders: {
-    past: [],
-    pending: []
-  },
+  list: [],
   loading: false,
 };
 
@@ -44,7 +29,7 @@ export const ordersReducer = handleActions(
     }),
     'FETCH_ORDERS_SUCCEEDED': (state: any, action: any) => ({
       ...state,
-      orders: action.payload,
+      list: action.payload,
       loading: false,
     }),
     'FETCH_ORDERS_FAILED': (state: any, action: any) => ({

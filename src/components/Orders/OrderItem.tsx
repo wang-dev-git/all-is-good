@@ -21,10 +21,13 @@ interface Props {
 const OrderItem: React.FC<Props> = (props: Props) => {
   
   const { order, onPress } = props
+  console.log(order)
   const lang = useSelector(state => state.langReducer.lang)
-  const pro = order.pro
-  const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  
+  const langId = useSelector(state => state.langReducer.langId)
+  const pro = order.pro || {}
+  const proName = pro.names && pro.names[langId] ? pro.names[langId] : ''
+  const name = proName.length > 22 ? (proName.substr(0, 18) + '...') : proName
+
   const getStatus = () => {
     switch (order.status || 'waiting') {
       case 'waiting':
@@ -56,7 +59,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
             <View style={styles.infoWrapper}>

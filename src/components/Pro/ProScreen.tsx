@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
@@ -13,6 +13,7 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
 import { switchTab } from '../../actions/tab.action'
+import { fetchOrders } from '../../actions/orders.action'
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 
 import ModalContainer from '../Modal/ModalContainer'
@@ -21,52 +22,40 @@ import PaymentModal from './PaymentModal'
 import { mainStyle } from '../../styles'
 
 interface Props {
-  user: any;
   pro: any;
-  wishes: any;
-  lang: any;
-  langId: string;
-
-  switchTab: (tab: number) => void;
-  addWish: (pro: any) => void;
-  removeWish: (pro: any) => void;
-  isInWishes: (pro: any) => boolean;
 }
 
-class ProScreen extends React.Component<Props>  {
+const ProScreen: React.FC<Props> = (props) => {
 
-  componentDidMount() {
-    /*
-    setTimeout(() => {
-      this.checkout()
-    }, 500)
-    */
-  }
+  const user = useSelector(state => state.authReducer.user)
+  const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
+  const pro = props.pro
+  const dispatch = useDispatch()
 
-  toggleWish() {
-    const { addWish, removeWish, pro, isInWishes } = this.props
+  const toggleWish = () => {
     const onPress = () => {
-      this.props.switchTab(3)
+      dispatch(switchTab(3))
       Actions.reset('root')
     }
 
-    if (isInWishes(pro)) {
-      removeWish(pro)
+    if (dispatch(isInWishes(pro))) {
+      dispatch(removeWish(pro))
       Flash.show('Supprimé des favoris !')
     } else {
-      addWish(pro)
+      dispatch(addWish(pro))
       Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
     }
   }
 
-  async onPay(counter: number, card: string) {
-    const { pro } = this.props
+  const onPay = async (counter: number, card: string) => {
     const price = Number(pro.price * counter).toFixed(2)
     try {
       Loader.show('Commande en cours...')
       const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card })
       Loader.hide()
       if (res.status === 'success') {
+        await dispatch(fetchOrders())
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
           <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "$"} />
@@ -102,161 +91,156 @@ class ProScreen extends React.Component<Props>  {
     }
   }
 
-  checkout() {
-    const { pro } = this.props
+  const checkout = () => {
     Modal.show('payment', { local: true, content: () => (
       <PaymentModal
         pro={pro}
-        onPay={(counter: number, card: string) => this.onPay(counter, card)}
+        onPay={onPay}
         />
     )})
   }
 
-  render() {
-    const { user, pro, isInWishes, lang, langId } = this.props
+  const inWishes = dispatch(isInWishes(pro))
+  const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined
+  const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined
+  const seller = pro.seller
 
-    const inWishes = isInWishes(pro)
-    const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined
-    const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined
-    const seller = pro.seller
-
-    const pics: any = []
-    if (pro.pictures) {
-      for (let i = 0; i < pro.pictures.length; ++i)
-        pics.push({url: pro.pictures[i]})
-    }
-
-    const soldOut = !pro.quantity || pro.quantity < 0
-    const opening = Time.getPickUpRange(pro)
-
-    console.log(pro)
-
-    return (
-      <View style={styles.container}>
-        <StatusBar barStyle='light-content' />
-        <ScrollView contentContainerStyle={ifIphoneX({ paddingBottom: 80 }, { paddingBottom: 60 })}>
-          <View>
-            <ImageSlider
-              width={Dimensions.get('window').width}
-              height={ifIphoneX({height: 260}, {height: 200}).height}
-              pictures={pro.pictures || []}
-              />
-            <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .46)' />
-            
-            <TouchableOpacity
-              style={styles.wishBtn}
-              onPress={() => this.toggleWish()}>
-              { inWishes ? (
-                <AssetImage src={require('../../images/like.png')} />
-              ) : (
-                <AssetImage src={require('../../images/like_empty.png')} />
-              )}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.backBtn} onPress={Actions.pop}>
-              <AntDesign name="arrowleft" size={23} color='#fff' />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.logoWrapper}>
-            <View style={styles.shadow}>
-              <View style={styles.logo}>
-                <AssetImage src={pro.logo ? { uri: pro.logo} : undefined} resizeMode="cover" />
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.info}>
-            <View>
-              <Text style={styles.title}>{pro.name}</Text>
-
-              <View style={styles.row}>
-                <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
-                <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
-              </View>
-
-              <View style={styles.row}>
-                <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-                <Text style={styles.open}>4km</Text>
-              </View>
-            </View>
-
-            <View>
-              <Text style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</Text>
-              <Text style={styles.price}>{Number(pro.price).toFixed(2)}$</Text>
-            </View>
-          </View>
-
-          { hasDesc &&
-            <View style={styles.descriptionWrapper}>
-              <Text style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</Text>
-              <Text style={styles.description}>{pro.descriptions[langId]}</Text>
-            </View>
-          }
-
-          { hasOffer &&
-            <View style={styles.descriptionWrapper}>
-              <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
-              <Text style={styles.description}>{pro.offers[langId]}</Text>
-            </View>
-          }
-          
-          <View style={styles.location}>
-            { (pro.lat && pro.lng) &&
-              <View style={styles.map}>
-                <MapView
-                  style={{flex: 1}}
-                  zoomEnabled={false}
-                  scrollEnabled={false}
-                  initialRegion={{
-                    latitude: pro.lat,
-                    longitude: pro.lng,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                  }}
-                  >
-                  { pro.logo ? (
-                    <Marker
-                      onPress={() => void 0}
-                      coordinate={{latitude: pro.lat, longitude: pro.lng}}
-                    >
-                      <View style={{...mainStyle.circle(40)}}>
-                        <AssetImage resizeMode='cover' src={{ uri: pro.logo }} />
-                      </View>
-                    </Marker>
-                  ) : (
-                    <Marker
-                      onPress={() => void 0}
-                      coordinate={{latitude: pro.lat, longitude: pro.lng}}
-                    />
-                  )}
-                </MapView>
-              </View>
-            }
-            <View style={styles.addr}>
-              <Text style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</Text>
-              <View style={styles.trip}>
-                <TouchableOpacity>
-                  <Text style={styles.tripTxt}>Itinéraire</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-
-        </ScrollView>
-
-        <BottomButton
-          abs
-          title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
-          disabled={soldOut}
-          backgroundColor={mainStyle.themeColor}
-          onPress={() => this.checkout()}
-          />
-
-        <ModalContainer />
-      </View>
-    );
+  const pics: any = []
+  if (pro.pictures) {
+    for (let i = 0; i < pro.pictures.length; ++i)
+      pics.push({url: pro.pictures[i]})
   }
+
+  const soldOut = !pro.quantity || pro.quantity < 0
+  const opening = Time.getPickUpRange(pro)
+
+  console.log(pro)
+
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle='light-content' />
+      <ScrollView contentContainerStyle={ifIphoneX({ paddingBottom: 80 }, { paddingBottom: 60 })}>
+        <View>
+          <ImageSlider
+            width={Dimensions.get('window').width}
+            height={ifIphoneX({height: 260}, {height: 200}).height}
+            pictures={pro.pictures || []}
+            />
+          <VeilView abs start='rgba(0, 0, 0, 0.23)' end='rgba(0, 0, 0, .46)' />
+          
+          <TouchableOpacity
+            style={styles.wishBtn}
+            onPress={toggleWish}>
+            { inWishes ? (
+              <AssetImage src={require('../../images/like.png')} />
+            ) : (
+              <AssetImage src={require('../../images/like_empty.png')} />
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.backBtn} onPress={Actions.pop}>
+            <AntDesign name="arrowleft" size={23} color='#fff' />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.logoWrapper}>
+          <View style={styles.shadow}>
+            <View style={styles.logo}>
+              <AssetImage src={pro.logo ? { uri: pro.logo} : undefined} resizeMode="cover" />
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.info}>
+          <View>
+            <Text style={styles.title}>{pro.name}</Text>
+
+            <View style={styles.row}>
+              <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
+              <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
+            </View>
+
+            <View style={styles.row}>
+              <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+              <Text style={styles.open}>4km</Text>
+            </View>
+          </View>
+
+          <View>
+            <Text style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</Text>
+            <Text style={styles.price}>{Number(pro.price).toFixed(2)}$</Text>
+          </View>
+        </View>
+
+        { hasDesc &&
+          <View style={styles.descriptionWrapper}>
+            <Text style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</Text>
+            <Text style={styles.description}>{pro.descriptions[langId]}</Text>
+          </View>
+        }
+
+        { hasOffer &&
+          <View style={styles.descriptionWrapper}>
+            <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
+            <Text style={styles.description}>{pro.offers[langId]}</Text>
+          </View>
+        }
+        
+        <View style={styles.location}>
+          { (pro.lat && pro.lng) &&
+            <View style={styles.map}>
+              <MapView
+                style={{flex: 1}}
+                zoomEnabled={false}
+                scrollEnabled={false}
+                initialRegion={{
+                  latitude: pro.lat,
+                  longitude: pro.lng,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421
+                }}
+                >
+                { pro.logo ? (
+                  <Marker
+                    onPress={() => void 0}
+                    coordinate={{latitude: pro.lat, longitude: pro.lng}}
+                  >
+                    <View style={{...mainStyle.circle(40)}}>
+                      <AssetImage resizeMode='cover' src={{ uri: pro.logo }} />
+                    </View>
+                  </Marker>
+                ) : (
+                  <Marker
+                    onPress={() => void 0}
+                    coordinate={{latitude: pro.lat, longitude: pro.lng}}
+                  />
+                )}
+              </MapView>
+            </View>
+          }
+          <View style={styles.addr}>
+            <Text style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</Text>
+            <View style={styles.trip}>
+              <TouchableOpacity>
+                <Text style={styles.tripTxt}>Itinéraire</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+      </ScrollView>
+
+      <BottomButton
+        abs
+        title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
+        disabled={soldOut}
+        backgroundColor={mainStyle.themeColor}
+        onPress={checkout}
+        />
+
+      <ModalContainer />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -429,18 +413,4 @@ const styles = StyleSheet.create({
 
 });
 
-
-const mapStateToProps = (state: any) => ({
-  user: state.authReducer.user,
-  wishes: state.wishesReducer.list,
-  toggleWishes: state.wishesReducer.toggle,
-  lang: state.langReducer.lang,
-  langId: state.langReducer.id,
-})
-const mapDispatchToProps = (dispatch: any) => ({
-  addWish: (pro: any) => dispatch(addWish(pro)),
-  removeWish: (pro: any) => dispatch(removeWish(pro)),
-  switchTab: (tab: number) => dispatch(switchTab(tab)),
-  isInWishes: (pro: any) => dispatch(isInWishes(pro)),
-})
-export default connect(mapStateToProps, mapDispatchToProps)(ProScreen)
+export default ProScreen

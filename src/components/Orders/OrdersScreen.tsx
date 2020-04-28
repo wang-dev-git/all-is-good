@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { HeaderBar } from '../Reusable'
@@ -13,39 +13,32 @@ import { fetchOrders } from '../../actions/orders.action'
 
 import { mainStyle } from '../../styles'
 
+import OrderStatus from '../../types/order_status'
+
 interface Props {
   user: any;
-  loading: boolean;
-  orders: any;
-
-  fetchOrders: () => void;
 }
-interface State {
-  tab: number;
-}
-
-class OrdersScreen extends React.Component<Props, State>  {
+const OrdersScreen: React.FC<Props> = (props) => {
   
-  state = {
-    tab: 1,
-  }
+  const [tab, setTab] = React.useState(0)
+  const orders = useSelector(state => state.ordersReducer.list)
+  const loading = useSelector(state => state.ordersReducer.loading)
+  const dispatch = useDispatch()
 
-  componentDidMount() {
-    this.refresh() 
-  }
-
-  async refresh() {
-    const { user, fetchOrders } = this.props
-
+  const refresh = async () => {
     try {
-      await fetchOrders()
+      await dispatch(fetchOrders())
     } catch (err) {
       console.log(err)
       Flash.error('Vérifiez votre connexion internet')
     }
   }
 
-  renderItem(order: any) {
+  React.useEffect(() => {
+    refresh()
+  }, [])
+
+  const renderItem = (order: any) => {
     return (
       <OrderItem
         order={order}
@@ -53,55 +46,70 @@ class OrdersScreen extends React.Component<Props, State>  {
     )
   }
 
-  render() {
-    const { tab } = this.state
-    const { orders, loading } = this.props
+  const current = orders.filter(item => {
 
-    return (
-      <View style={styles.container}>
-        <HeaderBar
-          title='Mes commandes'
-          logo
-          />
-        <View style={styles.tabs}>
-          <TouchableOpacity
-            style={[styles.tab, tab === 0 ? styles.selected : {}]}
-            onPress={() => this.setState({ tab: 0 })}
-            >
-            <Text style={styles.tabTxt}>Passé</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.tab, tab === 1 ? styles.selected : {}]}
-            onPress={() => this.setState({ tab: 1 })}
-            >
-            <Text style={styles.tabTxt}>En cours</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={tab === 0 ? orders.past : orders.pending}
-          renderItem={({ item }) => this.renderItem(item)}
-          /*ListHeaderComponent={() => (
-            <TouchableOpacity onPress={() => this.clear()}>
-              <Text>Clear</Text>
-            </TouchableOpacity>
-          )}*/
-          ListEmptyComponent={() => (
-            <View style={styles.empty}>
-              <Text style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          refreshControl={
-            <RefreshControl
-              refreshing={loading}
-              onRefresh={() => this.refresh()}
-            />
-          }
-          />
+    if (tab === 1 && (
+      !item.status ||
+      item.status === OrderStatus.ORDER_PENDING ||
+      item.status === OrderStatus.ORDER_PREPARING ||
+      item.status === OrderStatus.ORDER_READY_TO_TAKE ||
+      item.status === OrderStatus.ORDER_DELIVERING
+    ))
+      return true
+    if (tab === 0 && (
+      item.status === OrderStatus.ORDER_CANCELED_BY_PRO ||
+      item.status === OrderStatus.ORDER_CANCELED_BY_USER ||
+      item.status === OrderStatus.ORDER_DELIVERED
+    ))
+      return true
 
+    return false 
+  })
+
+  return (
+    <View style={styles.container}>
+      <HeaderBar
+        title='Mes commandes'
+        logo
+        />
+      <View style={styles.tabs}>
+        <TouchableOpacity
+          style={[styles.tab, tab === 0 ? styles.selected : {}]}
+          onPress={() => setTab(0)}
+          >
+          <Text style={styles.tabTxt}>Passé</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, tab === 1 ? styles.selected : {}]}
+          onPress={() => setTab(1)}
+          >
+          <Text style={styles.tabTxt}>En cours</Text>
+        </TouchableOpacity>
       </View>
-    );
-  }
+      <FlatList
+        data={current}
+        renderItem={renderItem}
+        /*ListHeaderComponent={() => (
+          <TouchableOpacity onPress={() => this.clear()}>
+            <Text>Clear</Text>
+          </TouchableOpacity>
+        )}*/
+        ListEmptyComponent={() => (
+          <View style={styles.empty}>
+            <Text style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={refresh}
+          />
+        }
+        />
+
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -146,14 +154,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const mapStateToProps = (state: any) => ({
-  user: state.authReducer.user,
-  orders: state.ordersReducer.orders,
-  loading: state.ordersReducer.loading,
-})
-const mapDispatchToProps = (dispatch: any) => ({
-  fetchOrders: () => dispatch(fetchOrders())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersScreen)
+export default OrdersScreen

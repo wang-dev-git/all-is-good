@@ -25,6 +25,7 @@ interface Props {
   pro: any;
   wishes: any;
   lang: any;
+  langId: string;
 
   switchTab: (tab: number) => void;
   addWish: (pro: any) => void;
@@ -61,9 +62,6 @@ class ProScreen extends React.Component<Props>  {
   async onPay(counter: number, card: string) {
     const { pro } = this.props
     const price = Number(pro.price * counter).toFixed(2)
-
-    console.log(card)
-
     try {
       Loader.show('Commande en cours...')
       const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card })
@@ -115,11 +113,11 @@ class ProScreen extends React.Component<Props>  {
   }
 
   render() {
-    const { user, pro, isInWishes, lang } = this.props
+    const { user, pro, isInWishes, lang, langId } = this.props
 
     const inWishes = isInWishes(pro)
-    const hasDesc = pro.description != undefined && pro.description != ''
-    const hasOffer = pro.offer != undefined && pro.offer != ''
+    const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined
+    const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined
     const seller = pro.seller
 
     const pics: any = []
@@ -192,14 +190,14 @@ class ProScreen extends React.Component<Props>  {
           { hasDesc &&
             <View style={styles.descriptionWrapper}>
               <Text style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</Text>
-              <Text style={styles.description}>{pro.description}</Text>
+              <Text style={styles.description}>{pro.descriptions[langId]}</Text>
             </View>
           }
 
           { hasOffer &&
             <View style={styles.descriptionWrapper}>
               <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
-              <Text style={styles.description}>{pro.offer}</Text>
+              <Text style={styles.description}>{pro.offers[langId]}</Text>
             </View>
           }
           
@@ -437,6 +435,7 @@ const mapStateToProps = (state: any) => ({
   wishes: state.wishesReducer.list,
   toggleWishes: state.wishesReducer.toggle,
   lang: state.langReducer.lang,
+  langId: state.langReducer.id,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   addWish: (pro: any) => dispatch(addWish(pro)),

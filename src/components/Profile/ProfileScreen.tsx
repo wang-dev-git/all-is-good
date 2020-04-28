@@ -112,7 +112,6 @@ class ProfileScreen extends React.Component<Props, State>  {
         body: '',
         isHtml: false,
       })
-      console.log(res)
     } catch (err) {
       alert("Veuillez envoyer un mail à : contact@allisgood.fr")
     }

@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     height: 110,
   },
   logoWrapper: {
+    marginRight: 12,
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -135,7 +136,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: 12,
   },
   info: {
     padding: 10,
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
     ...mainStyle.montBold,
     fontSize: 20,
     marginLeft: 6,
+    marginRight: 12,
     marginBottom: 4,
     color: mainStyle.darkColor
   },

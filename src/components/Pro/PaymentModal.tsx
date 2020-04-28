@@ -25,6 +25,7 @@ const PaymentModal: React.FC<Props> = (props) => {
   const [counter, setCounter] = React.useState(1)
   const [showCards, setShowCards] = React.useState(false)
   const [card, setCard] = React.useState('')
+  const [mode, setMode] = React.useState('')
 
   const total = Number(counter * price).toFixed(2)
 
@@ -66,7 +67,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
       </View>
       <View style={styles.quantity}>
-        <Text style={styles.quantityTitle}>Choisir la quantité</Text>
+        <Text style={styles.subtitle}>{lang.PAYMENT_QUANTITY}</Text>
         <View style={styles.quantityBtns}>
           <TouchableOpacity onPress={() => updateCounter(-1)}>
             <View style={[styles.btn, {backgroundColor: mainStyle.lightColor, marginRight: 30}]}>
@@ -80,17 +81,45 @@ const PaymentModal: React.FC<Props> = (props) => {
             </View>
           </TouchableOpacity>      
         </View>
+
         <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
-          <Text style={styles.quantityTitle}>Votre moyen de paiement</Text>
+          <Text style={styles.subtitle}>{lang.PAYMENT_MODE}</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity style={styles.modeContainer} onPress={() => setMode('pick_up')}>
+              <View style={styles.modeCheck}>
+                { mode === 'pick_up' &&
+                  <AntDesign name="check" size={14} />
+                }
+              </View>
+              <Text>{lang.PAYMENT_PICK_UP}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.modeContainer} onPress={() => setMode('delivery')}>
+              <View style={styles.modeCheck}>
+                { mode === 'delivery' &&
+                  <AntDesign name="check" size={14} />
+                }
+              </View>
+              <Text>{lang.PAYMENT_DELIVERY}</Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+
+        <Animated.View style={[styles.cards, {opacity: animation, height: height}]}>
+          <Text style={styles.subtitle}>{lang.PAYMENT_METHOD}</Text>
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
         </Animated.View>
 
-          <Text style={styles.quantityTitle}>Total: {Number(price).toFixed(2)}$
-            (<Text style={{textDecorationLine: 'line-through'}}>{Number(Number(price) * 1.7).toFixed(2)}$</Text>)</Text>
+        <Text style={styles.subtitle}>
+          Total: {Number(price).toFixed(2)}$
+          (<Text style={{textDecorationLine: 'line-through'}}>{Number(Number(price) * 1.7).toFixed(2)}$</Text>)
+        </Text>
     </View>
+      {/*}
       <View style={{backgroundColor: '#fff'}}>
         <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
       </View>
+    */}
       <BottomButton
         title={!showCards ? 'Continuer' : 'Payer ' + total + '$'}
         backgroundColor={mainStyle.themeColor}
@@ -124,12 +153,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderTopColor: '#ddd',
     borderTopWidth: 1,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
+    //borderBottomColor: '#ddd',
+    //borderBottomWidth: 1,
     marginBottom: 20,
   },
 
-  quantityTitle: {
+  subtitle: {
     ...mainStyle.montBold,
     textAlign: 'center',
     fontSize: 13,
@@ -155,6 +184,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  modeContainer: {
+
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 22,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginHorizontal: 12,
+  },
+  modeCheck: {
+    width: 14,
+    marginRight: 12,
+  },
   conditions: {
 
     ...mainStyle.montLight,

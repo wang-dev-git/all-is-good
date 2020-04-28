@@ -33,6 +33,14 @@ export default {
   PRO_BUY_BTN: "Réserver maintenant",
   PRO_SOLD_OUT: "Victime de son succès",
 
+  // Payment
+  PAYMENT_METHOD: 'Votre moyen de paiement',
+  PAYMENT_QUANTITY: 'Choisir la quantité',
+  PAYMENT_MODE: 'Mode de récupération',
+  PAYMENT_PICK_UP: 'à'.toUpperCase() + ' emporter',
+  PAYMENT_DELIVERY: 'Livraison',
+  PAYMENT_CONFIRM: 'Payer',
+
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",
 }

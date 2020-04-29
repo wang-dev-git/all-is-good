@@ -10,6 +10,7 @@ interface Props {
   title: string;
 
   onPress: () => void;
+  onTapText: () => void;
 }
 const CheckBox: React.FC<Props> = (props) => {
 
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    flex: 1,
     ...mainStyle.montLight,
     fontSize: 13,
     color: mainStyle.lightColor,

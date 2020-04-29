@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   addressTxt: {
     ...mainStyle.montText,
     marginLeft: 6,
+    flex: 1,
   },
   empty: {
     alignItems: 'center',

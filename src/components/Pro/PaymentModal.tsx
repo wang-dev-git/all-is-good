@@ -118,15 +118,15 @@ const PaymentModal: React.FC<Props> = (props) => {
 
   const translateCards = cardsAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 300],
+    outputRange: [0, 400],
   })
   const translateModes = modesAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 300],
+    outputRange: [0, 400],
   })
   const translateDelivery = deliveryAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 300],
+    outputRange: [0, 400],
   })
   
   const opening = Time.getPickUpRange(props.pro)
@@ -175,7 +175,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         </Text>
 
         <Animated.View style={[styles.modes, {transform: [{translateY: translateModes}]}]}>
-          <TouchableOpacity style={styles.line} onPress={() => {setShowModes(false); setShowDelivery(false); setShowCards(false); setShowConfirm(false)}}>
+          <TouchableOpacity style={styles.line} onPress={() => {setShowModes(false); setShowDelivery(false); setShowCards(false);}}>
             <Text style={styles.lineTitle}>{lang.PAYMENT_QUANTITY}</Text>
             <Text style={styles.lineValue}>{counter}</Text>
           </TouchableOpacity>
@@ -206,7 +206,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         </Animated.View>
 
         <Animated.View style={[styles.delivery, {transform: [{translateY: translateDelivery}]}]}>
-          <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false); setShowConfirm(false)}}>
+          <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false);}}>
             <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
             <Text style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +3$</Text>
           </TouchableOpacity>
@@ -221,12 +221,12 @@ const PaymentModal: React.FC<Props> = (props) => {
 
         <Animated.View style={[styles.cards, mode === 'delivery' ? {top: 100} : {}, {transform: [{translateY: translateCards}]}]}>
           { mode === 'delivery' ? (
-            <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false); setShowConfirm(false)}}>
+            <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
               <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</Text>
               <Text style={styles.lineValue}>{address ? address.formatted_address : 'Aucune adresse'}</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false); setShowConfirm(false)}}>
+            <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
               <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
               <Text style={styles.lineValue}>{mode === 'delivery' ? lang.PAYMENT_DELIVERY : lang.PAYMENT_PICK_UP}</Text>
             </TouchableOpacity>
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   },
   quantity: {
 
-    height: 300,
+    height: 340,
 
     paddingVertical: 20,
     justifyContent: 'center',

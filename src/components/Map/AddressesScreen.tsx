@@ -14,6 +14,7 @@ import FiltersModal from '../Search/FiltersModal'
 import { HeaderBar, FadeInView } from '../Reusable'
 
 import Icon from '@expo/vector-icons/FontAwesome'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AntIcon from '@expo/vector-icons/AntDesign'
 
 import useAddresses from './addresses.hook'
@@ -26,7 +27,7 @@ interface Props {
 }
 const AddressesScreen: React.FC<Props> = (props) => {
   
-  const [search, setSearch] = React.useState('')
+  const [search, setSearch] = React.useState(props.selected ? props.selected.formatted_address : '')
   const [selectedAddress, selectAddress] = React.useState(null)
   const { addresses, clearAddresses } = useAddresses(search)
   
@@ -35,44 +36,44 @@ const AddressesScreen: React.FC<Props> = (props) => {
   const renderAddress = (address: any) => {
     return (
       <TouchableOpacity style={styles.address} onPress={() => {props.onSelect(address); Actions.pop()}}>
+        <MaterialIcons name="place" size={19} />
         <Text style={styles.addressTxt}>{address.formatted_address}</Text>
       </TouchableOpacity>
     )
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <HeaderBar
-          title={lang.ADDRESSES_TITLE}
-          back
+    <View style={styles.container}>
+      <HeaderBar
+        title={lang.ADDRESSES_TITLE}
+        back
+        />
+      <View>
+        <TextInput
+          value={search}
+          style={styles.search}
+          placeholder={lang.ADDRESSES_PLACEHOLDER}
+          onChange={(evt) => setSearch(evt.nativeEvent.text)}
           />
-        <View>
-          <TextInput
-            value={search}
-            style={styles.search}
-            placeholder={props.selected ? props.selected.formatted_address : lang.ADDRESSES_PLACEHOLDER}
-            onChange={(evt) => setSearch(evt.nativeEvent.text)}
-            />
-          { search.length > 0 &&
-            <TouchableOpacity style={styles.clearIcon} onPress={() => setSearch('')}>
-              <AntIcon name="close" color='#000' size={16} />
-            </TouchableOpacity>
-          }
-        </View>
-        <FlatList
-          data={addresses}
-          contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
-          renderItem={({ item }) => renderAddress(item)}
-          ListEmptyComponent={() => (
-            <View style={styles.empty}>
-              <Text style={styles.emptyTxt}>{lang.ADDRESSES_EMPTY}</Text>
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          />
+        { search.length > 0 &&
+          <TouchableOpacity style={styles.clearIcon} onPress={() => setSearch('')}>
+            <AntIcon name="close" color='#000' size={16} />
+          </TouchableOpacity>
+        }
       </View>
-    </TouchableWithoutFeedback>
+      <FlatList
+        style={{flex: 1}}
+        data={addresses}
+        contentContainerStyle={{paddingBottom: 20, paddingTop: 0,}}
+        renderItem={({ item }) => renderAddress(item)}
+        ListEmptyComponent={() => (
+          <View style={styles.empty}>
+            <Text style={styles.emptyTxt}>{lang.ADDRESSES_EMPTY}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        />
+    </View>
   );
 }
 
@@ -94,10 +95,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  address: {
+    paddingVertical: 12,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    paddingHorizontal: 14,
+  },
+  addressTxt: {
+    ...mainStyle.montText,
+    marginLeft: 6,
+  },
   empty: {
     alignItems: 'center',
   },
   emptyTxt: {
+    marginTop: 40,
     textAlign: 'center',
   }
 });

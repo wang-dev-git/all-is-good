@@ -29,7 +29,6 @@ const PaymentModal: React.FC<Props> = (props) => {
   const [confirmed, setConfirmed] = React.useState(false)
   const [showCards, setShowCards] = React.useState(false)
   const [showModes, setShowModes] = React.useState(false)
-  const [showConfirm, setShowConfirm] = React.useState(false)
   const [showDelivery, setShowDelivery] = React.useState(false)
   const [card, setCard] = React.useState('')
   const [address, setAddress] = React.useState<any>(null)
@@ -40,7 +39,6 @@ const PaymentModal: React.FC<Props> = (props) => {
   const modesAnimation = React.useRef(new Animated.Value(1)).current
   const deliveryAnimation = React.useRef(new Animated.Value(1)).current
   const cardsAnimation = React.useRef(new Animated.Value(1)).current
-  const confirmAnimation = React.useRef(new Animated.Value(1)).current
 
   React.useEffect(() => {
     if (showCards) {
@@ -96,24 +94,6 @@ const PaymentModal: React.FC<Props> = (props) => {
     }
   }, [showModes])
 
-  React.useEffect(() => {
-    if (showConfirm) {
-      Animated.spring(confirmAnimation, {
-        toValue: 0,
-        velocity: 3,
-        tension: 2,
-        friction: 8,
-      }).start();
-    } else {
-      Animated.spring(confirmAnimation, {
-        toValue: 1,
-        velocity: 3,
-        tension: 2,
-        friction: 8,
-      }).start();
-    }
-  }, [showConfirm])
-
   const updateCounter = (delta: number) => {
     const newCounter = counter + delta
     if (newCounter > quantity_max)
@@ -131,8 +111,6 @@ const PaymentModal: React.FC<Props> = (props) => {
       setShowDelivery(true)
     } else if (!showCards) {
       setShowCards(true)
-    } else if (!showConfirm) {
-      setShowConfirm(true)
     } else {
       props.onPay(counter, card)
     }
@@ -150,10 +128,6 @@ const PaymentModal: React.FC<Props> = (props) => {
     inputRange: [0, 1],
     outputRange: [0, 300],
   })
-  const translateConfirm = confirmAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 300],
-  })
   
   const opening = Time.getPickUpRange(props.pro)
   const lang = useSelector(state => state.langReducer.lang)
@@ -161,13 +135,12 @@ const PaymentModal: React.FC<Props> = (props) => {
   const checkCanProceed = () => {
     if (!showModes)
       return counter > 0
-    if (!showCards)
+    if (!showCards) {
+      if (showDelivery)
+        return address !== null
       return mode !== ''
-    if (showDelivery && !showConfirm)
-      return address !== null
-    if (!showConfirm)
-      return card !== ''
-    return confirmed
+    }
+    return confirmed && card !== ''
   }
 
   const canProceed = checkCanProceed()
@@ -260,14 +233,7 @@ const PaymentModal: React.FC<Props> = (props) => {
           )}
           <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_METHOD}</Text>
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
-        </Animated.View>
-
-        <Animated.View style={[styles.confirm, mode === 'delivery' ? {top: 150} : {}, {transform: [{translateY: translateConfirm}]}]}>
-          <TouchableOpacity style={styles.line} onPress={() => setShowConfirm(false)}>
-            <Text style={styles.lineTitle}>{lang.PAYMENT_METHOD}</Text>
-            <Text style={styles.lineValue}>XXXX XXXX XXXX 1234</Text>
-          </TouchableOpacity>
-
+          
           <CheckBox
             active={confirmed}
             title={'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good'}
@@ -275,7 +241,7 @@ const PaymentModal: React.FC<Props> = (props) => {
             onTapText={() => setConfirmed(!confirmed)}
             />
         </Animated.View>
-        
+
     </View>
       {/*}
       <View style={{backgroundColor: '#fff'}}>
@@ -283,7 +249,7 @@ const PaymentModal: React.FC<Props> = (props) => {
       </View>
     */}
       <BottomButton
-        title={!showConfirm ? 'Continuer' : 'Payer ' + total + '$'}
+        title={!showCards ? 'Continuer' : 'Payer ' + total + '$'}
         backgroundColor={mainStyle.themeColor}
         onPress={nextStep}
         disabled={!canProceed}
@@ -373,14 +339,6 @@ const styles = StyleSheet.create({
   cards: {
     position: 'absolute',
     top: 50,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#fff',
-  },
-  confirm: {
-    position: 'absolute',
-    top: 100,
     left: 0,
     right: 0,
     bottom: 0,

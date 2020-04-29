@@ -225,6 +225,9 @@ const PaymentModal: React.FC<Props> = (props) => {
           { mode !== '' &&
             <View style={{marginTop: 20,}}>
               <Text style={styles.conditions}>{mode === 'delivery' ? deliveryOpening : pickUpOpening}</Text>
+              { mode === 'delivery' &&
+                <Text style={styles.conditions}>Les frais de livraison sont de 3$</Text>
+              }
             </View>
           }
         </Animated.View>

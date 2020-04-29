@@ -39,8 +39,14 @@ export default {
   PAYMENT_CHOOSE_MODE: 'Mode de récupération',
   PAYMENT_PICK_UP: 'à'.toUpperCase() + ' emporter',
   PAYMENT_DELIVERY: 'Livraison',
+  PAYMENT_CHOOSE_ADDRESS: 'Adresse de livraison',
   PAYMENT_CHOOSE_METHOD: 'Votre moyen de paiement',
   PAYMENT_CONFIRM: 'Payer',
+
+  // Addresses
+  ADDRESSES_TITLE: 'Adresse de livraison',
+  ADDRESSES_PLACEHOLDER: 'Entrez votre adresse...',
+  ADDRESSES_EMPTY: 'Aucune adresse ne correspond',
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",

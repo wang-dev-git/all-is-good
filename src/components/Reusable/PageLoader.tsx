@@ -11,6 +11,7 @@ interface Props {
 
 const PageLoader: React.SFC<Props> = (props) => (
   <Spinner
+    overlayColor='rgba(0, 0, 0, 0.82)'
     visible={props.loading}
     textContent={props.title}
     textStyle={{...styles.textStyle, ...props.textStyle}}

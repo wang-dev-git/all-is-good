@@ -13,6 +13,7 @@ import ForgotScreen from './components/Forgot/ForgotScreen'
 
 import TabsScreen from './components/Tabs/TabsScreen'
 
+import AddressesScreen from './components/Map/AddressesScreen'
 import ProfileScreen from './components/Profile/ProfileScreen'
 import SettingsScreen from './components/Settings/SettingsScreen'
 import UserInfoScreen from './components/UserInfo/UserInfoScreen'
@@ -96,6 +97,7 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="profile" component={ProfileScreen} />
               <Scene key="pro" component={ProScreen} />
 
+              <Scene key="addresses" component={AddressesScreen} />
               <Scene key="userInfo" component={UserInfoScreen} />
               <Scene key="wishes" component={WishesScreen} />
               <Scene key="creditCards" component={CreditCardsScreen} />

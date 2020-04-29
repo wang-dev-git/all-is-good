@@ -13,6 +13,7 @@ interface Props {
 
 const LoaderWrapper: React.SFC<Props> = (props) => (
   <Spinner
+    overlayColor='rgba(0, 0, 0, 0.82)'
     visible={props.shown}
     textContent={props.title}
     textStyle={styles.textStyle}

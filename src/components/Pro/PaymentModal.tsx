@@ -9,6 +9,8 @@ import { AssetImage, BottomButton, SelectCreditCard } from '../Reusable'
 import { Fire, Flash, Modal, Time } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import Fontiso from '@expo/vector-icons/Fontiso'
 import Feather from '@expo/vector-icons/Feather'
 
 import { mainStyle } from '../../styles'
@@ -25,13 +27,16 @@ const PaymentModal: React.FC<Props> = (props) => {
   const [counter, setCounter] = React.useState(1)
   const [showCards, setShowCards] = React.useState(false)
   const [showModes, setShowModes] = React.useState(false)
+  const [showDelivery, setShowDelivery] = React.useState(false)
   const [card, setCard] = React.useState('')
+  const [address, setAddress] = React.useState<any>(null)
   const [mode, setMode] = React.useState('')
 
   const total = Number(counter * price).toFixed(2)
 
-  const cardsAnimation = React.useRef(new Animated.Value(1)).current
   const modesAnimation = React.useRef(new Animated.Value(1)).current
+  const deliveryAnimation = React.useRef(new Animated.Value(1)).current
+  const cardsAnimation = React.useRef(new Animated.Value(1)).current
 
   React.useEffect(() => {
     if (showCards) {
@@ -50,6 +55,24 @@ const PaymentModal: React.FC<Props> = (props) => {
       }).start();
     }
   }, [showCards])
+
+  React.useEffect(() => {
+    if (showDelivery) {
+      Animated.spring(deliveryAnimation, {
+        toValue: 0,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    } else {
+      Animated.spring(deliveryAnimation, {
+        toValue: 1,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    }
+  }, [showDelivery])
 
   React.useEffect(() => {
     if (showModes) {
@@ -79,21 +102,29 @@ const PaymentModal: React.FC<Props> = (props) => {
       setCounter(newCounter)
   }
 
-  const opacityCards = cardsAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0],
-  })
+  const nextStep = () => {
+    if (!showModes) {
+      setShowModes(true)
+    } else if (!showDelivery && mode === 'delivery') {
+      setShowDelivery(true)
+    } else if (!showCards) {
+      setShowCards(true)
+    } else {
+      props.onPay(counter, card)
+    }
+  }
+
   const translateCards = cardsAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 200],
-  })
-  const opacityModes = modesAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0],
+    outputRange: [0, 300],
   })
   const translateModes = modesAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 200],
+    outputRange: [0, 300],
+  })
+  const translateDelivery = deliveryAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 300],
   })
   
   const opening = Time.getPickUpRange(props.pro)
@@ -121,38 +152,55 @@ const PaymentModal: React.FC<Props> = (props) => {
           </TouchableOpacity>      
         </View>
 
-        <Animated.View style={[styles.modes, {opacity: showModes ? 1 : 0, transform: [{translateY: translateModes}]}]}>
-          <TouchableOpacity style={styles.line} onPress={() => setShowModes(false)}>
+        <Animated.View style={[styles.modes, {transform: [{translateY: translateModes}]}]}>
+          <TouchableOpacity style={styles.line} onPress={() => {setShowModes(false); setShowDelivery(false); setShowCards(false)}}>
             <Text style={styles.lineTitle}>{lang.PAYMENT_QUANTITY}</Text>
             <Text style={styles.lineValue}>{counter}</Text>
           </TouchableOpacity>
           <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
           <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-            <TouchableOpacity style={styles.modeContainer} onPress={() => setMode('pick_up')}>
+            <TouchableOpacity style={[styles.modeContainer, mode === 'pick_up' ? styles.selected : {}]} onPress={() => setMode('pick_up')}>
               <View style={styles.modeCheck}>
-                { mode === 'pick_up' &&
-                  <AntDesign name="check" size={14} />
-                }
+                <MaterialIcons name="place" size={18} color={mode === 'pick_up' ? '#fff' : '#000'} />
               </View>
-              <Text>{lang.PAYMENT_PICK_UP}</Text>
+              <Text style={[styles.modeTxt, mode === 'pick_up' ? { color: '#fff' } : {}]}>{lang.PAYMENT_PICK_UP}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.modeContainer} onPress={() => setMode('delivery')}>
+            <TouchableOpacity style={[styles.modeContainer, mode === 'delivery' ? styles.selected : {}]} onPress={() => setMode('delivery')}>
               <View style={styles.modeCheck}>
-                { mode === 'delivery' &&
-                  <AntDesign name="check" size={14} />
-                }
+                <Feather name="truck" size={14} color={mode === 'delivery' ? '#fff' : '#000'} />
               </View>
-              <Text>{lang.PAYMENT_DELIVERY}</Text>
+              <Text style={[styles.modeTxt, mode === 'delivery' ? { color: '#fff' } : {}]}>{lang.PAYMENT_DELIVERY}</Text>
             </TouchableOpacity>
           </View>
         </Animated.View>
 
-        <Animated.View style={[styles.cards, {opacity: showCards ? 1 : 0, transform: [{translateY: translateCards}]}]}>
-          <TouchableOpacity style={styles.line} onPress={() => setShowCards(false)}>
+        <Animated.View style={[styles.delivery, {transform: [{translateY: translateDelivery}]}]}>
+          <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false)}}>
             <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
-            <Text style={styles.lineValue}>{mode === 'delivery' ? lang.PAYMENT_DELIVERY : lang.PAYMENT_PICK_UP}</Text>
+            <Text style={styles.lineValue}>{lang.PAYMENT_DELIVERY}</Text>
           </TouchableOpacity>
+          <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</Text>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity style={styles.addressContainer} onPress={() => Actions.addresses({ selected: address, onSelect: setAddress })}>
+              <Text style={styles.addressTxt} numberOfLines={2}>{address !== null ? address.formatted_address : 'Sélectionner une adresse'}</Text>
+              <AntDesign name="down" />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+
+        <Animated.View style={[styles.cards, mode === 'delivery' ? {top: 100} : {}, {transform: [{translateY: translateCards}]}]}>
+          { mode === 'delivery' ? (
+            <TouchableOpacity style={styles.line} onPress={() => setShowCards(false)}>
+              <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</Text>
+              <Text style={styles.lineValue}>{address ? address.formatted_address : 'Aucune adresse'}</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.line} onPress={() => setShowCards(false)}>
+              <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
+              <Text style={styles.lineValue}>{mode === 'delivery' ? lang.PAYMENT_DELIVERY : lang.PAYMENT_PICK_UP}</Text>
+            </TouchableOpacity>
+          )}
           <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_METHOD}</Text>
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
         </Animated.View>
@@ -170,7 +218,7 @@ const PaymentModal: React.FC<Props> = (props) => {
       <BottomButton
         title={!showCards ? 'Continuer' : 'Payer ' + total + '$'}
         backgroundColor={mainStyle.themeColor}
-        onPress={() => !showModes ? setShowModes(true) : !showCards ? setShowCards(true) : props.onPay(counter, card)}
+        onPress={nextStep}
         disabled={!showCards ? counter === 0 : card === ''}
         />
     </View>
@@ -205,11 +253,16 @@ const styles = StyleSheet.create({
   },
   lineTitle: {
     ...mainStyle.montText,
+    flex: 1,
   },
   lineValue: {
     ...mainStyle.montBold,
+    flex: 1,
+    textAlign: 'right',
   },
-
+  selected: {
+    backgroundColor: mainStyle.themeColor,
+  },
   quantity: {
 
     height: 230,
@@ -242,6 +295,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#fff',
   },
+  delivery: {
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#fff',
+  },
   cards: {
     position: 'absolute',
     top: 50,
@@ -261,7 +322,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  addressContainer: {
 
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 22,
+
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    marginHorizontal: 12,
+  },
+  addressTxt: {
+    textAlign: 'center',
+    marginRight: 8,
+  },
   modeContainer: {
 
     borderWidth: 1,
@@ -277,6 +354,10 @@ const styles = StyleSheet.create({
   modeCheck: {
     width: 14,
     marginRight: 12,
+  },
+  modeTxt: {
+    ...mainStyle.montText,
+    color: '#000',
   },
   conditions: {
 

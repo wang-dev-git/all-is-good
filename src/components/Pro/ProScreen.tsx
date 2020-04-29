@@ -21,6 +21,8 @@ import PaymentModal from './PaymentModal'
 
 import { mainStyle } from '../../styles'
 
+import { getIcon } from '../../types/pro_icons'
+
 interface Props {
   pro: any;
 }
@@ -103,6 +105,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const inWishes = dispatch(isInWishes(pro))
   const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined
   const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined
+  const hasAllergens = pro.allergens != undefined && pro.allergens[langId] != undefined
   const seller = pro.seller
 
   const pics: any = []
@@ -114,6 +117,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const opening = Time.getPickUpRange(pro)
 
   console.log(pro)
+  const icons = pro.icons || []
 
   return (
     <View style={styles.container}>
@@ -154,15 +158,25 @@ const ProScreen: React.FC<Props> = (props) => {
           <View>
             <Text style={styles.title}>{pro.name}</Text>
 
-            <View style={styles.row}>
+            <View style={[styles.row, { marginBottom: 6 }]}>
               <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
               <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
             </View>
 
-            <View style={styles.row}>
+            <View style={[styles.row, { marginBottom: 6 }]}>
               <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
               <Text style={styles.open}>4km</Text>
             </View>
+
+            { icons.length > 0 &&
+              <View style={styles.row}>
+                { icons.map((iconId) => (
+                  <View style={{ width: 42, height: 40 }}>
+                    <AssetImage src={getIcon(iconId)} />
+                  </View>
+                )) }
+              </View>
+            }
           </View>
 
           <View>
@@ -182,6 +196,13 @@ const ProScreen: React.FC<Props> = (props) => {
           <View style={styles.descriptionWrapper}>
             <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
             <Text style={styles.description}>{pro.offers[langId]}</Text>
+          </View>
+        }
+
+        { hasAllergens &&
+          <View style={styles.descriptionWrapper}>
+            <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</Text>
+            <Text style={styles.description}>{pro.allergens[langId]}</Text>
           </View>
         }
         
@@ -279,7 +300,7 @@ const styles = StyleSheet.create({
 
     marginTop: 12,
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
 
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,
@@ -401,7 +422,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 6,
   },
   icon: {
     width: 20,

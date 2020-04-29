@@ -30,6 +30,7 @@ export default {
   // Pro
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
+  PRO_PACKAGE_ALLERGENS_TITLE: "Allergènes",
   PRO_BUY_BTN: "Réserver maintenant",
   PRO_SOLD_OUT: "Victime de son succès",
 

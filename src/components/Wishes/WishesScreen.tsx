@@ -42,7 +42,7 @@ const WishesScreen: React.FC<Props> = (props) => {
             <ListEmpty
               text={lang.FAVORITE_NONE}
               image={require('../../images/nofavorite.png')}
-              wrapperStyle={{marginTop: 120}}
+              wrapperStyle={{marginTop: 40}}
               btnTxt={lang.FAVORITE_DISCOVER}
               onPressBtn={() => dispatch(switchTab(0))}
               />

@@ -36,7 +36,7 @@ const ListEmpty: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

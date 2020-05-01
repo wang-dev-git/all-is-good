@@ -164,7 +164,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: mainStyle.themeColor,
   },
   tabs: {
     flexDirection: 'row',
@@ -173,21 +173,20 @@ const styles = StyleSheet.create({
   tab: {
     flex: 1,
     height: 56,
-    opacity: 0.6,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomColor: '#fff',
+    borderBottomColor: mainStyle.themeColor,
     borderBottomWidth: 3,
     borderRadius: 1,
   },
   selected: {
-    opacity: 1,
-    borderBottomColor: mainStyle.themeColor,
+    borderBottomColor: '#fff',
   },
   tabTxt: {
-    ...mainStyle.montLight,
+    ...mainStyle.montBold,
     fontSize: 16,
+    color: '#fff'
   },
 });
 

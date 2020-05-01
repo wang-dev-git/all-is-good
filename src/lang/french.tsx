@@ -4,6 +4,7 @@ export default {
   GLOBAL_SEARCH_PLACEHOLDER: 'Rechercher...',
   GLOBAL_TODAY: "Aujourd'hui",
   GLOBAL_LOADING: 'Chargement...',
+  GLOBAL_LOADING_ERROR: 'Erreur de chargement...',
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
 
   // Login

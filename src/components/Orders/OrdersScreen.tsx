@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
-import { HeaderBar, MyText } from '../Reusable'
+import { HeaderBar, MyText, ListEmpty } from '../Reusable'
 
 import OrderItem from './OrderItem'
 
@@ -142,9 +142,9 @@ const OrdersScreen: React.FC<Props> = (props) => {
         renderItem={({item, index}) => renderItem(item)}
         contentContainerStyle={{ paddingBottom: 20, }}
         ListEmptyComponent={() => (
-          <View style={styles.empty}>
-            <MyText style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</MyText>
-          </View>
+          <ListEmpty
+            title={loading ? 'Chargement...' : 'AUCUNE COMMANDE'}
+            />
         )}
         keyExtractor={(item, index) => index.toString()}
         refreshControl={
@@ -163,18 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  empty: {
-    flex: 1,
-    marginTop: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyTxt: {
-    ...mainStyle.montLight,
-    fontSize: 13,
-    textAlign: 'center',
-    lineHeight: 28,
   },
   tabs: {
     flexDirection: 'row',

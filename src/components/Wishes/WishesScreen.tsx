@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
-import { HeaderBar, FadeInView, AssetImage, MyText } from '../Reusable'
+import { HeaderBar, FadeInView, AssetImage, MyText, ListEmpty } from '../Reusable'
 
 import ProItem from '../Pros/ProItem'
 
@@ -45,10 +45,11 @@ const WishesScreen: React.FC<Props> = (props) => {
               />
           }
           ListEmptyComponent={() => (
-            <View style={styles.empty}>
-              <AssetImage src={require('../../images/nofavorite.png')} style={styles.emptyPic} />
-              <MyText style={styles.emptyTxt}>{lang.FAVORITE_NONE}</MyText>
-            </View>
+            <ListEmpty
+              text={lang.FAVORITE_NONE}
+              image={require('../../images/nofavorite.png')}
+              wrapperStyle={{marginTop: 120}}
+              />
           )}
           keyExtractor={(item, index) => index.toString()}
           />
@@ -62,20 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: mainStyle.themeColor,
   },
-  empty: {
-    flex: 1,
-    marginTop: 120,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyPic: {
-    width: 160,
-    height: 160,
-  },
-  emptyTxt: {
-    marginTop: 22,
-    color: '#fff',
-  }
 });
 
 

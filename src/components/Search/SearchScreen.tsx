@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, MyText , FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
+import { HeaderBar, TitledInput, MyText, ListEmpty, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
@@ -81,10 +81,10 @@ const SearchScreen: React.FC<Props> = (props) => {
                 />
             }
             ListEmptyComponent={() => (
-              <View style={styles.empty}>
-                <AssetImage src={require('../../images/noresult.png')} style={styles.emptyPic} />
-                <MyText style={styles.emptyTxt}>{loading ? lang.GLOBAL_LOADING : lang.GLOBAL_NO_RESULT }</MyText>
-              </View>
+              <ListEmpty
+                text={loading ? lang.GLOBAL_LOADING : lang.GLOBAL_NO_RESULT}
+                image={require('../../images/noresult.png')}
+                />
             )}
             keyExtractor={(item, index) => index.toString()}
             />
@@ -106,9 +106,9 @@ const SearchScreen: React.FC<Props> = (props) => {
                   />
               }
               ListEmptyComponent={() => (
-                <View style={styles.empty}>
-                  <MyText style={styles.emptyTxt}>{loading ? 'Chargement ...' : 'Erreur du chargement' }</MyText>
-                </View>
+                <ListEmpty
+                  text={loading ? lang.GLOBAL_LOADING : lang.GLOBAL_LOADING_ERROR}
+                  />
               )}
               keyExtractor={(item, index) => index.toString()}
               />
@@ -129,20 +129,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  empty: {
-    flex: 1,
-    marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  emptyPic: {
-    width: 160,
-    height: 160,
-  },
-  emptyTxt: {
-    marginTop: 22,
-    color: '#fff',
-  }
 });
 
 export default SearchScreen

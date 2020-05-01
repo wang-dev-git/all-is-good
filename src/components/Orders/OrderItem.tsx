@@ -18,6 +18,7 @@ import OrderStatus from '../../types/order_status'
 
 interface Props {
   order: any;
+  canCancel: boolean;
 
   onPress?: () => void;
   onCancel?: () => void;
@@ -97,15 +98,17 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                     <Text style={styles.statusTime}>15:30</Text>
                   </View>
 
-                  <View style={{alignItems: 'center', marginTop: 6,}}>
-                    <LinkButton
-                      title="Annuler la commande"
-                      color={mainStyle.redColor}
-                      textStyle={{fontSize: 16}}
+                  { props.canCancel &&
+                    <View style={{alignItems: 'center', marginTop: 6,}}>
+                      <LinkButton
+                        title="Annuler la commande"
+                        color={mainStyle.redColor}
+                        textStyle={{fontSize: 16}}
 
-                      onPress={props.onCancel}
-                      />
-                  </View>
+                        onPress={props.onCancel}
+                        />
+                    </View>
+                  }
                 </Collapsible>
               </View>
             </View>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { HeaderBar } from '../Reusable'
 
 import OrderItem from './OrderItem'
 
 import { Actions } from 'react-native-router-flux'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Loader } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
 
@@ -38,10 +38,51 @@ const OrdersScreen: React.FC<Props> = (props) => {
     refresh()
   }, [])
 
+  const onCancel = (order: any) => {
+    Alert.alert(
+      'Annuler',
+      'Souhaitez-vous vraiment annuler cette commande ? Vous ne serez pas remboursé',
+      [
+        {
+          text: 'Non',
+          style: 'cancel',
+        },
+        {text: 'Oui, annuler', style: 'destructive', onPress: () => {
+          cancel(order)
+        }},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  const cancel = async (order: any) => {
+    Loader.show('Annulation...')
+    try {
+      const ref = Fire.store().collection('orders').doc(order.id)
+      const history = order.history || []
+      history.push({
+        status: OrderStatus.ORDER_CANCELED_BY_USER,
+        date: new Date()
+      })
+      await ref.update({
+        cancelledAt: new Date(),
+        status: OrderStatus.ORDER_CANCELED_BY_USER,
+        history: history
+      })
+      await refresh()
+      Flash.show('Commande annulée')
+    } catch (err) {
+
+    }
+    Loader.hide()
+  }
+
   const renderItem = (order: any) => {
     return (
       <OrderItem
         order={order}
+        canCancel={tab === 1}
+        onCancel={() => onCancel(order)}
         />
     )
   }

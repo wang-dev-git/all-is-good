@@ -100,11 +100,11 @@ const routes = [
     component: ProfileScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="cog" size={22} color={tabColor} />
+        <Icon name="user" size={22} color={tabColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="cog" size={22} color={tabActiveColor} />
+        <Icon name="user-o" size={22} color={tabActiveColor} />
       </View>
     )
   },

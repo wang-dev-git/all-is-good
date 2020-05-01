@@ -86,6 +86,14 @@ class ProfileScreen extends React.Component<Props, State>  {
     Linking.openURL('https://google.fr')
   }
 
+  showInsta() {
+    Linking.openURL('https://google.fr')
+  }
+
+  showFacebook() {
+    Linking.openURL('https://google.fr')
+  }
+
   async help() {
     Alert.alert(
       'Assistance',
@@ -212,6 +220,16 @@ class ProfileScreen extends React.Component<Props, State>  {
                <Text style={styles.joinLink}>En savoir plus...</Text>
              </TouchableOpacity>
            </View>
+
+           <View style={[styles.nets]}>
+             <TouchableOpacity style={styles.net} onPress={() => this.showInsta()}>
+               <AssetImage src={require('../../images/insta_logo.png')} />
+             </TouchableOpacity>
+
+             <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
+               <AssetImage src={require('../../images/fb_logo.png')} />
+             </TouchableOpacity>
+           </View>
         </ScrollView>
         <PageLoader
           title='Validation...'
@@ -297,7 +315,19 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 15,
     textAlign: 'center',
-  }
+  },
+
+  nets: {
+    marginTop: 28,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  net: {
+    width: 54,
+    height: 54,
+    marginHorizontal: 20,
+  },
 });
 
 const mapStateToProps = (state: any) => ({

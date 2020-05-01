@@ -2,7 +2,7 @@ import * as GoogleSignIn from 'expo-google-sign-in'
 
 export default class Google {
 
-  static iosClientId = '629888312461-halueuaic691dmpbj7rgmf1a2l5a0cv6.apps.googleusercontent.com'
+  static iosClientId = '467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4.apps.googleusercontent.com'
 
   static async init() {
     return await GoogleSignIn.initAsync({ clientId: this.iosClientId });

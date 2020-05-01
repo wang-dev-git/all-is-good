@@ -59,7 +59,9 @@ const ProItem: React.FC<Props> = (props: Props) => {
               <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
-            <View><Text>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text></View>
+            <View style={styles.quantity}>
+              <Text style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text>
+            </View>
 
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
@@ -145,6 +147,20 @@ const styles = StyleSheet.create({
   },
   info: {
     padding: 10,
+  },
+  quantity: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: mainStyle.orangeColor,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  quantityTxt: {
+    ...mainStyle.montBold,
+    color: '#fff',
   },
   name: {
     ...mainStyle.montBold,

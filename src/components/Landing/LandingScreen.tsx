@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking, StatusBar, Dimension
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Icon from '@expo/vector-icons/FontAwesome';
 import { AssetImage, VeilView } from '../Reusable'
-import { Fire, Facebook, Flash } from '../../services'
+import { Fire, Facebook, Google, Flash } from '../../services'
 import { Actions } from 'react-native-router-flux'
 import { saveName } from '../../actions/auth.action'
 
@@ -14,14 +14,36 @@ import { mainStyle } from '../../styles'
 interface Props {
   saveName: (name: any) => void;
 }
-interface State {}
+interface State {
+  editing: boolean;
+}
 class LandingScreen extends React.Component<Props, State>  {
   
+  state = {
+    editing: false
+  }
+
   login() {
     Actions.login()
   }
 
+  async googleLogin() {
+    this.setState({ editing: true })
+    try {
+      await Google.init()
+      const res = await Google.login()
+      const user = res.user
+      const pictureURL = null
+      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.first_name, last_name: user.last_name })
+      await Fire.signInGoogle(res.token)
+    } catch (err) {
+      Flash.error('Connexion impossible: ' + JSON.stringify(err))
+    }
+    this.setState({ editing: false })
+  }
+
   async facebookLogin() {
+    this.setState({ editing: true })
     try {
       const res = await Facebook.login()
       const user = res.user
@@ -31,6 +53,7 @@ class LandingScreen extends React.Component<Props, State>  {
     } catch (err) {
       Flash.error('Connexion impossible: ' + JSON.stringify(err))
     }
+    this.setState({ editing: false })
   }
 
   componentDidMount() {
@@ -64,18 +87,27 @@ class LandingScreen extends React.Component<Props, State>  {
 
           <View style={styles.btns}>
 
-            <TouchableOpacity onPress={() => this.login()}>
+            <TouchableOpacity disabled={this.state.editing} onPress={() => this.login()}>
               <View style={[styles.btn, {backgroundColor: mainStyle.themeColor}]}>
                 <Text style={styles.txt}>Se connecter</Text>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{marginTop: 12}} onPress={() => this.facebookLogin()}>
+            <TouchableOpacity disabled={this.state.editing} style={{marginTop: 6}} onPress={() => this.facebookLogin()}>
               <View style={[styles.btn, {backgroundColor: '#3C5A99'}]}>
                 <View style={styles.floating}>
                   <Icon name='facebook' color={'#fff'} size={22} />  
                 </View>
                 <Text style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>Connexion Facebook</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity disabled={this.state.editing} style={{marginTop: 6}}  onPress={() => this.googleLogin()}>
+              <View style={[styles.btn, {backgroundColor: '#d47'}]}>
+                <View style={styles.floating}>
+                  <Icon name='google' color={'#fff'} size={14} />
+                </View>
+                <Text style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{'Connexion Google'}</Text>
               </View>
             </TouchableOpacity>
 

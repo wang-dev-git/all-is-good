@@ -29,6 +29,12 @@ export default class Fire {
     return firebase.auth().signInWithCredential(credential)
   }
 
+  // Sign in using google token
+  static signInGoogle(token: any) {
+    const credential = firebase.auth.GoogleAuthProvider.credential(token);
+    return firebase.auth().signInWithCredential(credential)
+  }
+
   // Retrieve base storage
   static storage() {
     return firebase.storage()

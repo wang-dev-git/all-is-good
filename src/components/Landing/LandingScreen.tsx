@@ -34,7 +34,7 @@ class LandingScreen extends React.Component<Props, State>  {
       const res = await Google.login()
       const user = res.user
       const pictureURL = null
-      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.first_name, last_name: user.last_name })
+      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.firstName, last_name: user.lastName })
       await Fire.signInGoogle(res.token)
     } catch (err) {
       Flash.error('Connexion impossible: ' + JSON.stringify(err))

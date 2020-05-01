@@ -116,7 +116,6 @@ const ProScreen: React.FC<Props> = (props) => {
   const soldOut = !pro.quantity || pro.quantity < 0
   const opening = Time.getPickUpRange(pro)
 
-  console.log(pro)
   const icons = pro.icons || []
 
   return (
@@ -169,9 +168,9 @@ const ProScreen: React.FC<Props> = (props) => {
             </View>
 
             { icons.length > 0 &&
-              <View style={styles.row}>
+              <View style={styles.bigRow}>
                 { icons.map((iconId, index) => (
-                  <View key={index} style={{ width: 42, height: 40 }}>
+                  <View key={index} style={styles.proIcon}>
                     <AssetImage src={getIcon(iconId)} />
                   </View>
                 )) }
@@ -423,11 +422,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  bigRow: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+  },
   icon: {
     width: 20,
     marginRight: 6,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  proIcon: {
+    width: 36,
+    height: 36,
+    marginRight: 12,
+    marginTop: 4,
+    marginBottom: 4,
   }
 
 });

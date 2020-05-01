@@ -7,6 +7,9 @@ export default {
   GLOBAL_LOADING_ERROR: 'Erreur de chargement...',
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
 
+  // Home
+  HOME_SEARCH_AGAIN: 'Nouvelle recherche',
+
   // Login
   LOGIN_BTN_TXT: "C'est parti !",
 

@@ -84,6 +84,8 @@ const SearchScreen: React.FC<Props> = (props) => {
               <ListEmpty
                 text={loading ? lang.GLOBAL_LOADING : lang.GLOBAL_NO_RESULT}
                 image={require('../../images/noresult.png')}
+                btnTxt={lang.HOME_SEARCH_AGAIN}
+                onPressBtn={() => setQuery('')}
                 />
             )}
             keyExtractor={(item, index) => index.toString()}

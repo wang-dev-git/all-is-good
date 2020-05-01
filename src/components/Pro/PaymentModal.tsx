@@ -168,8 +168,9 @@ const PaymentModal: React.FC<Props> = (props) => {
             </View>
           </TouchableOpacity>      
         </View>
+        <MyText style={[styles.conditions, {marginTop: 40}]}>{lang.PAYMENT_QUANTITY_SUBTITLE}</MyText>
 
-        <MyText style={[styles.subtitle, {marginTop: 40, fontSize: 17}]}>
+        <MyText style={[styles.subtitle, {marginTop: 10, fontSize: 17}]}>
           Total: {Number(total).toFixed(2)}$
           (<MyText style={{textDecorationLine: 'line-through'}}>{Number(Number(price * counter) * 1.7).toFixed(2)}$</MyText>)
         </MyText>

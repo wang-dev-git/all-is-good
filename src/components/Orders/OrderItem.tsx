@@ -19,6 +19,7 @@ import OrderStatus from '../../types/order_status'
 interface Props {
   order: any;
   canCancel: boolean;
+  expanded: boolean;
 
   onPress?: () => void;
   onCancel?: () => void;
@@ -31,7 +32,6 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   const langId = useSelector(state => state.langReducer.langId)
   const pro = order.pro || {}
   const name = pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  const [shown, setShown] = React.useState(false)
 
   const getStatus = () => {
     switch (order.status || OrderStatus.ORDER_PENDING) {
@@ -63,9 +63,10 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
   const quantity = order.quantity || 0
   const ref = order.ref || '#A123'
+  const history = order.history || []
 
   return (
-    <TouchableOpacity onPress={() => setShown(!shown)}>
+    <TouchableOpacity onPress={props.onPress}>
       <View style={styles.container}>
         <View style={[styles.shadow]}>
           <View style={styles.content}>
@@ -88,16 +89,14 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   <Text style={styles.statusTime}>18:30</Text>
                 </View>
 
-                <Collapsible collapsed={!shown}>
-                  <View style={styles.row}>
-                    <Text style={styles.statusTitle}>Préparation en cours</Text>
-                    <Text style={styles.statusTime}>17:30</Text>
-                  </View>
-                  <View style={styles.row}>
-                    <Text style={styles.statusTitle}>Commande passée</Text>
-                    <Text style={styles.statusTime}>15:30</Text>
-                  </View>
-
+                <Collapsible collapsed={!props.expanded}>
+                  { history.slice(1).map((item, index) => (
+                    <View key={index} style={styles.row}>
+                      <Text style={styles.statusTitle}>Préparation en cours</Text>
+                      <Text style={styles.statusTime}>17:30</Text>
+                    </View>
+                  )) }
+                  
                   { props.canCancel &&
                     <View style={{alignItems: 'center', marginTop: 6,}}>
                       <LinkButton

@@ -24,6 +24,8 @@ const OrdersScreen: React.FC<Props> = (props) => {
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
   const dispatch = useDispatch()
+  const [shown, setShown] = React.useState<any>(null)
+  const listRef = React.useRef<FlatList<any[]>>()
 
   const refresh = async () => {
     try {
@@ -37,6 +39,11 @@ const OrdersScreen: React.FC<Props> = (props) => {
   React.useEffect(() => {
     refresh()
   }, [])
+
+  React.useEffect(() => {
+    setShown(null)
+    listRef.current.scrollToIndex({ index: 0 })
+  }, [tab])
 
   const onCancel = (order: any) => {
     Alert.alert(
@@ -81,8 +88,10 @@ const OrdersScreen: React.FC<Props> = (props) => {
     return (
       <OrderItem
         order={order}
+        expanded={shown && shown.id === order.id}
         canCancel={tab === 1}
         onCancel={() => onCancel(order)}
+        onPress={() => setShown(order)}
         />
     )
   }
@@ -128,6 +137,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         </TouchableOpacity>
       </View>
       <FlatList
+        ref={listRef}
         data={current}
         renderItem={({item, index}) => renderItem(item)}
         /*ListHeaderComponent={() => (

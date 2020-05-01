@@ -53,7 +53,7 @@ const WishItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/noimage.png')} resizeMode='cover' />
             </View>
 
             <View style={styles.info}>
@@ -69,7 +69,7 @@ const WishItem: React.FC<Props> = (props: Props) => {
 
             <View style={styles.logoWrapper}>
               <View style={styles.logo}>
-                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
+                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/noimage.png')} resizeMode='cover' />
               </View>
             </View>
 

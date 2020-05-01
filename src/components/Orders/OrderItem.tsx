@@ -80,7 +80,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/noimage.png')} resizeMode='cover' />
             </View>
 
             <View style={styles.infoWrapper}>
@@ -130,7 +130,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
           <View style={{position: 'absolute', top: 80, left: 0, right: 0, alignItems: 'center'}}>
             <View style={styles.logoWrapper}>
               <View style={styles.logo}>
-                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
+                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/noimage.png')} resizeMode='cover' />
               </View>
             </View>
           </View>

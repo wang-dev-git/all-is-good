@@ -91,7 +91,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         expanded={shown && shown.id === order.id}
         canCancel={tab === 1}
         onCancel={() => onCancel(order)}
-        onPress={() => setShown(order)}
+        onPress={() => setShown(shown && shown.id === order.id ? null : order)}
         />
     )
   }
@@ -140,11 +140,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         ref={listRef}
         data={current}
         renderItem={({item, index}) => renderItem(item)}
-        /*ListHeaderComponent={() => (
-          <TouchableOpacity onPress={() => this.clear()}>
-            <MyText>Clear</MyText>
-          </TouchableOpacity>
-        )}*/
+        contentContainerStyle={{ paddingBottom: 20, }}
         ListEmptyComponent={() => (
           <View style={styles.empty}>
             <MyText style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</MyText>

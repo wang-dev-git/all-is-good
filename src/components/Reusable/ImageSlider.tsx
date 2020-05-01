@@ -67,19 +67,27 @@ export default class ImageSlider extends React.Component<Props, State>  {
   render() {
     const { selectedIndex } = this.state
     const { pictures } = this.props
+
+    const { width, height } = this.props
     return (
       <View style={styles.container}>
-        <FlatList
-          data={pictures}
-          pagingEnabled
-          onScroll={(event: any) => this.onScroll(event)}
-          scrollEventThrottle={16}
-          horizontal
-          bounces={false}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item, index}) => this.renderItem(item, index)}
-          keyExtractor={(item, index) => index.toString()}
-          />
+        { pictures.length ? (
+          <FlatList
+            data={pictures}
+            pagingEnabled
+            onScroll={(event: any) => this.onScroll(event)}
+            scrollEventThrottle={16}
+            horizontal
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({item, index}) => this.renderItem(item, index)}
+            keyExtractor={(item, index) => index.toString()}
+            />
+        ) : (
+          <View style={[styles.picture, {width: width, height: height}]}>
+            <AssetImage src={require('../../images/noimage.png')} />
+          </View>
+        )}
         <View style={styles.pagination}>
           {pictures.map((item, index) => 
             <View

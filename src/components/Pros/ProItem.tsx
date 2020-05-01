@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage } from '../Reusable'
+import { AssetImage, MyText } from '../Reusable'
 import { Fire, Flash, Time } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
@@ -56,7 +56,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/noimage.png')} resizeMode='cover' />
             </View>
 
             { !props.isWish &&
@@ -86,7 +86,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
 
               <View style={styles.logoWrapper}>
                 <View style={styles.logo}>
-                  <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
+                  <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/noimage.png')} resizeMode='cover' />
                 </View>
               </View>
             </View>

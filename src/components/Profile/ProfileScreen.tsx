@@ -135,7 +135,7 @@ class ProfileScreen extends React.Component<Props, State>  {
 
     if (!user) { return (null) }
 
-    const userPicture = user.pictures && user.pictures.length ? {uri: user.pictures[0]} : require('../../images/user.png')
+    const userPicture = user.pictures && user.pictures.length ? {uri: user.pictures[0]} : require('../../images/noimage.png')
 
     return (
       <View style={styles.container}>

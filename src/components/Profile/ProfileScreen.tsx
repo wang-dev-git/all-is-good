@@ -188,6 +188,7 @@ class ProfileScreen extends React.Component<Props, State>  {
               
               onPress={() => this.help()}
               />
+            {/*
             <MenuLink
               icon='star'
               iconSize={16}
@@ -196,6 +197,7 @@ class ProfileScreen extends React.Component<Props, State>  {
 
               onPress={() => this.appStore()}
               />
+            */}
             <MenuLink
               icon='cog'
               title={lang.PROFILE_SETTINGS}

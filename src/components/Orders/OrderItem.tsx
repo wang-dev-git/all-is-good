@@ -100,28 +100,26 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   </View>
                 }
 
-                { history.length > 1 &&
-                  <Collapsible collapsed={!props.expanded}>
-                    { history.slice(1).reverse().map((item, index) => (
-                      <View key={index} style={styles.row}>
-                        <MyText style={styles.statusTitle}>{getStatus(item)}</MyText>
-                        <MyText style={styles.statusTime}>{getHour(item)}</MyText>
-                      </View>
-                    )) }
-                    
-                    { props.canCancel &&
-                      <View style={{alignItems: 'center', marginTop: 6,}}>
-                        <LinkButton
-                          title="Annuler la commande"
-                          color={mainStyle.redColor}
-                          textStyle={{fontSize: 16}}
+                <Collapsible collapsed={!props.expanded}>
+                  { history.length > 1 && history.slice(1).reverse().map((item, index) => (
+                    <View key={index} style={styles.row}>
+                      <MyText style={styles.statusTitle}>{getStatus(item)}</MyText>
+                      <MyText style={styles.statusTime}>{getHour(item)}</MyText>
+                    </View>
+                  )) }
+                  
+                  { props.canCancel &&
+                    <View style={{alignItems: 'center', marginTop: 6,}}>
+                      <LinkButton
+                        title="Annuler la commande"
+                        color={mainStyle.redColor}
+                        textStyle={{fontSize: 16}}
 
-                          onPress={props.onCancel}
-                          />
-                      </View>
-                    }
-                  </Collapsible>
-                }
+                        onPress={props.onCancel}
+                        />
+                    </View>
+                  }
+                </Collapsible>
               </View>
             </View>
             

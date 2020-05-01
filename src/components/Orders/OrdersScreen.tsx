@@ -145,7 +145,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         contentContainerStyle={{ paddingBottom: 20, }}
         ListEmptyComponent={() => (
           <ListEmpty
-            text={loading ? lang.GLOBAL_LOADING : 'OK' + lang.ORDERS_NONE}
+            text={loading ? lang.GLOBAL_LOADING : lang.ORDERS_NONE}
             />
         )}
         keyExtractor={(item, index) => index.toString()}

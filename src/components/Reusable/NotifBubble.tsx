@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { mainStyle } from '../../styles'
 
+import MyText from './MyText'
+
 interface Props {
   count: number;
   backgroundColor?: string;
@@ -16,7 +18,7 @@ const NotifBubble: React.FC<Props> = (props) => {
       props.count > 0 ? mainStyle.circle(18) : {...mainStyle.circle(9), top: 6, right: 14},
       props.backgroundColor ? { backgroundColor: props.backgroundColor } : {}
     ]}>
-      {props.count > 0 && <Text style={styles.count}>{props.count}</Text>}
+      {props.count > 0 && <MyText style={styles.count}>{props.count}</MyText>}
     </View>
   );
 } 

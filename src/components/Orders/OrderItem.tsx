@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, LinkButton } from '../Reusable'
+import { AssetImage, LinkButton, MyText } from '../Reusable'
 import { Fire, Flash, Time } from '../../services'
 
 import { switchTab } from '../../actions/tab.action'
@@ -86,17 +86,17 @@ const OrderItem: React.FC<Props> = (props: Props) => {
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
-                  <Text style={styles.quantity}>{lang.ORDER_QUANTITY}: {quantity}</Text>
-                  <Text style={[styles.quantity, { textAlign: 'right' }]}>{order.price}$</Text>
+                  <MyText style={styles.quantity}>{lang.ORDER_QUANTITY}: {quantity}</MyText>
+                  <MyText style={[styles.quantity, { textAlign: 'right' }]}>{order.price}$</MyText>
                 </View>
 
-                <Text numberOfLines={1} style={styles.name}>{name}</Text>
-                <Text style={styles.ref}>{ref}</Text>
+                <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
+                <MyText style={styles.ref}>{ref}</MyText>
 
                 { last &&
                   <View style={styles.row}>
-                    <Text style={styles.statusTitle}>{getStatus(last)}</Text>
-                    <Text style={styles.statusTime}>{getHour(last)}</Text>
+                    <MyText style={styles.statusTitle}>{getStatus(last)}</MyText>
+                    <MyText style={styles.statusTime}>{getHour(last)}</MyText>
                   </View>
                 }
 
@@ -104,8 +104,8 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   <Collapsible collapsed={!props.expanded}>
                     { history.slice(1).reverse().map((item, index) => (
                       <View key={index} style={styles.row}>
-                        <Text style={styles.statusTitle}>{getStatus(item)}</Text>
-                        <Text style={styles.statusTime}>{getHour(item)}</Text>
+                        <MyText style={styles.statusTitle}>{getStatus(item)}</MyText>
+                        <MyText style={styles.statusTime}>{getHour(item)}</MyText>
                       </View>
                     )) }
                     

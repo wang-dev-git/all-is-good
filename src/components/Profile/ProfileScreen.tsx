@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } 
 
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, VeilView, PageLoader } from '../Reusable'
-import { Fire, Flash, Lang } from '../../services'
+import { HeaderBar, MyText , AssetImage, BottomButton, VeilView, PageLoader } from '../Reusable'
+import { Fire, Flash } from '../../services'
 
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -158,9 +158,9 @@ class ProfileScreen extends React.Component<Props, State>  {
                 <Icon name="edit" size={16} color='#fff' />
               </TouchableOpacity>
             </View>
-            <Text style={styles.userName}>{user.first_name + ' ' + user.last_name}</Text>
+            <MyText style={styles.userName}>{user.first_name + ' ' + user.last_name}</MyText>
             <TouchableOpacity onPress={Actions.userInfo}>
-              <Text style={styles.userEdit}>{this.props.lang.PROFILE_EDIT_BTN}</Text>            
+              <MyText style={styles.userEdit}>{this.props.lang.PROFILE_EDIT_BTN}</MyText>            
             </TouchableOpacity>
           </View>
 
@@ -215,9 +215,9 @@ class ProfileScreen extends React.Component<Props, State>  {
            </View>
 
            <View style={styles.join}>
-             <Text style={styles.joinTxt}>Vous possédez un magasin ? Rejoignez All Is Good et aider à éviter le gaspillage</Text>
+             <MyText style={styles.joinTxt}>Vous possédez un magasin ? Rejoignez All Is Good et aider à éviter le gaspillage</MyText>
              <TouchableOpacity onPress={() => this.becomePro()}>
-               <Text style={styles.joinLink}>En savoir plus...</Text>
+               <MyText style={styles.joinLink}>En savoir plus...</MyText>
              </TouchableOpacity>
            </View>
 

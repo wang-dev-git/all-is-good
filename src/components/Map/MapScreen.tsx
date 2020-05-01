@@ -14,7 +14,7 @@ import MapItem from './MapItem'
 import MapBubble from './MapBubble'
 import FiltersModal from '../Search/FiltersModal'
 
-import { HeaderBar, FadeInView } from '../Reusable'
+import { HeaderBar, FadeInView, MyText } from '../Reusable'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
@@ -206,7 +206,7 @@ const MapScreen: React.FC<Props> = (props) => {
                     onPress={() => onAddressTap(item)}
                     style={styles.addressWrapper}
                     >
-                    <Text>{item.formatted_address}</Text>
+                    <MyText>{item.formatted_address}</MyText>
                   </TouchableOpacity>
                 )) }
               </View>

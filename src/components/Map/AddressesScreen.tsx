@@ -11,7 +11,7 @@ import MapItem from './MapItem'
 import MapBubble from './MapBubble'
 import FiltersModal from '../Search/FiltersModal'
 
-import { HeaderBar, FadeInView } from '../Reusable'
+import { HeaderBar, FadeInView, MyText } from '../Reusable'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
@@ -37,7 +37,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
     return (
       <TouchableOpacity style={styles.address} onPress={() => {props.onSelect(address); Actions.pop()}}>
         <MaterialIcons name="place" size={19} />
-        <Text style={styles.addressTxt}>{address.formatted_address}</Text>
+        <MyText style={styles.addressTxt}>{address.formatted_address}</MyText>
       </TouchableOpacity>
     )
   }
@@ -68,7 +68,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
         renderItem={({ item }) => renderAddress(item)}
         ListEmptyComponent={() => (
           <View style={styles.empty}>
-            <Text style={styles.emptyTxt}>{lang.ADDRESSES_EMPTY}</Text>
+            <MyText style={styles.emptyTxt}>{lang.ADDRESSES_EMPTY}</MyText>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}

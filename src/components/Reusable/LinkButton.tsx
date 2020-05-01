@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { mainStyle } from '../../styles'
 
+import MyText from './MyText'
+
 interface Props {
   title: string;
   color: string;
@@ -20,7 +22,7 @@ const LinkButton: React.FC<Props> = (props) => {
       onPress={props.onPress}
       disabled={props.disabled}
       >   
-      <Text style={[styles.title, props.color ? {color: props.color} : {}, props.textStyle ? props.textStyle : {}]}>{props.title}</Text>
+      <MyText style={[styles.title, props.color ? {color: props.color} : {}, props.textStyle ? props.textStyle : {}]}>{props.title}</MyText>
     </TouchableOpacity>
   );
 } 

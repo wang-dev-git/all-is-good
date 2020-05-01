@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
+import { HeaderBar, TitledInput, MyText, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
 import { Fire, Flash, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
@@ -195,11 +195,11 @@ class LoginScreen extends React.Component<Props, State>  {
           <View style={styles.switcher}>
             { !registering &&
               <TouchableOpacity onPress={Actions.forgot}>
-                <Text style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</Text>
+                <MyText style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</MyText>
               </TouchableOpacity>
             }
             <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
-              <Text style={styles.switcherTxt}>{registering ? 'Vous avez déjà un compte ?' : 'Pas encore inscrit ?'}</Text>
+              <MyText style={styles.switcherTxt}>{registering ? 'Vous avez déjà un compte ?' : 'Pas encore inscrit ?'}</MyText>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>

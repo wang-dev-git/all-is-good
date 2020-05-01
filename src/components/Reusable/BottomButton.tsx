@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import VeilView from './VeilView'
+import MyText from './MyText'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Icon from '@expo/vector-icons/FontAwesome';
@@ -32,7 +33,7 @@ const BottomButton: React.FC<Props> = (props) => {
           startPos={{x: 0.2, y: 0}}
           endPos={{x: 1, y: 1}}
           />
-        <Text style={[styles.title, props.titleColor ? {color: props.titleColor} : {}]}>{props.title.toUpperCase()}</Text>
+        <MyText style={[styles.title, props.titleColor ? {color: props.titleColor} : {}]}>{props.title.toUpperCase()}</MyText>
       </View>
     </TouchableOpacity>
   );

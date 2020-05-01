@@ -6,7 +6,7 @@ import { CreditCardInput } from "react-native-credit-card-input";
 
 import Stripe from 'react-native-stripe-api';
 
-import { HeaderBar, TitledInput, SmallButton, PageLoader, KeyboardScrollView } from '../Reusable'
+import { HeaderBar, MyText, TitledInput, SmallButton, PageLoader, KeyboardScrollView } from '../Reusable'
 import { Actions } from 'react-native-router-flux'
 import { Fire, Flash, AppConfig } from '../../services'
 
@@ -118,7 +118,7 @@ class AddCardScreen extends React.Component<Props, State>  {
             />
           </View>
 
-          <Text style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good</Text>
+          <MyText style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good</MyText>
         </KeyboardScrollView>
 
         <PageLoader

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking, StatusBar, Dimension
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Icon from '@expo/vector-icons/FontAwesome';
-import { AssetImage, VeilView } from '../Reusable'
+import { AssetImage, VeilView, MyText } from '../Reusable'
 import { Fire, Facebook, Google, Flash } from '../../services'
 import { Actions } from 'react-native-router-flux'
 import { saveName } from '../../actions/auth.action'
@@ -79,7 +79,7 @@ class LandingScreen extends React.Component<Props, State>  {
 
         <View style={styles.floatingBottom}>
 
-          <Text style={styles.introTxt}>Venez dégustez, venez manger écolo</Text>
+          <MyText style={styles.introTxt}>Venez dégustez, venez manger écolo</MyText>
 
           <View style={styles.introImg}>
             <AssetImage src={require('../../images/baigy.png')} resizeMode='contain' />
@@ -89,7 +89,7 @@ class LandingScreen extends React.Component<Props, State>  {
 
             <TouchableOpacity disabled={this.state.editing} onPress={() => this.login()}>
               <View style={[styles.btn, {backgroundColor: mainStyle.themeColor}]}>
-                <Text style={styles.txt}>Se connecter</Text>
+                <MyText style={styles.txt}>Se connecter</MyText>
               </View>
             </TouchableOpacity>
 
@@ -98,7 +98,7 @@ class LandingScreen extends React.Component<Props, State>  {
                 <View style={styles.floating}>
                   <Icon name='facebook' color={'#fff'} size={22} />  
                 </View>
-                <Text style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>Connexion Facebook</Text>
+                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>Connexion Facebook</MyText>
               </View>
             </TouchableOpacity>
 
@@ -107,12 +107,12 @@ class LandingScreen extends React.Component<Props, State>  {
                 <View style={styles.floating}>
                   <Icon name='google' color={'#fff'} size={14} />
                 </View>
-                <Text style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{'Connexion Google'}</Text>
+                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{'Connexion Google'}</MyText>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.openConditions()}>
-              <Text style={styles.cgu}>En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente</Text>
+              <MyText style={styles.cgu}>En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente</MyText>
             </TouchableOpacity>
           </View>
         </View>

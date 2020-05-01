@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } 
 
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, VeilView, PageLoader } from '../Reusable'
-import { Fire, Flash, Lang } from '../../services'
+import { HeaderBar, AssetImage, BottomButton, MyText , VeilView, PageLoader } from '../Reusable'
+import { Fire, Flash } from '../../services'
 
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -39,7 +39,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
         />
       
       <ScrollView style={styles.scroll} contentContainerStyle={{paddingBottom: 40}}>
-        <Text style={styles.groupTitle}>{lang.SETTINGS_LANG}</Text>
+        <MyText style={styles.groupTitle}>{lang.SETTINGS_LANG}</MyText>
         <View style={styles.group}>
           { opts.map((opt, index) => (
             <TouchableOpacity key={index} style={styles.option} onPress={() => dispatch(updateLang(opt.key))}>
@@ -50,7 +50,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
                       <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                     }
                   </View>
-                  <Text style={styles.title}>{opt.name}</Text>
+                  <MyText style={styles.title}>{opt.name}</MyText>
                 </View>
 
                 { /*opt.key === id &&

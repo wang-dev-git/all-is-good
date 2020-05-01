@@ -128,7 +128,7 @@ class ProsScreen extends React.Component<Props, State>  {
               <View style={styles.mainHeader}>
                 <AssetImage style={styles.headerBackground} src={require('../../images/cooker.png')} resizeMode='cover' />
                 <VeilView abs start={mainStyle.themeColorAlpha(0.4)} end={mainStyle.themeColor} startPos={{x: 0, y: 0}} endPos={{x: 1, y: 0.8}} />
-                <Text style={styles.mainHeaderTxt}>Faites vous plaisir{'\n'}en économisant !</Text>
+                <MyText style={styles.mainHeaderTxt}>Faites vous plaisir{'\n'}en économisant !</MyText>
               </View>
             )}
             contentContainerStyle={{paddingBottom: 20}}
@@ -136,7 +136,7 @@ class ProsScreen extends React.Component<Props, State>  {
             renderItem={({item, index, section}) => this.renderPro(item, index, section)}
             renderSectionHeader={({section}) => (
               <TouchableOpacity onPress={() => this.showMore(section.key, section.subtitle)}>
-                <Text style={styles.headerTxt}>{section.title}</Text>
+                <MyText style={styles.headerTxt}>{section.title}</MyText>
               </TouchableOpacity>
             )}
             sections={[
@@ -160,7 +160,7 @@ class ProsScreen extends React.Component<Props, State>  {
     const { loading } = this.props
     return (
       <View style={styles.empty}>
-        <Text>{ loading ? 'Chargement en cours... ' : 'Aucun produit'}</Text>
+        <MyText>{ loading ? 'Chargement en cours... ' : 'Aucun produit'}</MyText>
       </View>
     )
   }

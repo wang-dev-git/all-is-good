@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { StyleSheet, Text, View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
-import { HeaderBar } from '../Reusable'
+import { HeaderBar, MyText } from '../Reusable'
 
 import OrderItem from './OrderItem'
 
@@ -127,13 +127,13 @@ const OrdersScreen: React.FC<Props> = (props) => {
           style={[styles.tab, tab === 0 ? styles.selected : {}]}
           onPress={() => setTab(0)}
           >
-          <Text style={styles.tabTxt}>Passé</Text>
+          <MyText style={styles.tabTxt}>Passé</MyText>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, tab === 1 ? styles.selected : {}]}
           onPress={() => setTab(1)}
           >
-          <Text style={styles.tabTxt}>En cours</Text>
+          <MyText style={styles.tabTxt}>En cours</MyText>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -142,12 +142,12 @@ const OrdersScreen: React.FC<Props> = (props) => {
         renderItem={({item, index}) => renderItem(item)}
         /*ListHeaderComponent={() => (
           <TouchableOpacity onPress={() => this.clear()}>
-            <Text>Clear</Text>
+            <MyText>Clear</MyText>
           </TouchableOpacity>
         )}*/
         ListEmptyComponent={() => (
           <View style={styles.empty}>
-            <Text style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</Text>
+            <MyText style={styles.emptyTxt}>{loading ? 'Chargement...' : 'AUCUNE COMMANDE'}</MyText>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}

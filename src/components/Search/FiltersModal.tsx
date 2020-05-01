@@ -4,7 +4,7 @@ import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { AssetImage, BottomButton, SelectCreditCard } from '../Reusable'
+import { AssetImage, BottomButton, SelectCreditCard, MyText } from '../Reusable'
 import { Fire, Flash, Modal } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -20,7 +20,7 @@ const FiltersModal: React.FC<Props> = (props) => {
   return (
     <View style={{backgroundColor: mainStyle.themeColor}}>
       <View style={styles.header}>
-        <Text style={styles.title}>Filtres</Text>
+        <MyText style={styles.title}>Filtres</MyText>
       </View>
       <View style={styles.center}>
 

@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { mainStyle } from '../../styles'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
+import MyText from './MyText'
+
 interface Props {
   title: string;
   icon?: string;
@@ -23,7 +25,7 @@ const SmallButton: React.FC<Props> = (props) => {
       disabled={props.disabled}
       >
       {props.icon && <AntDesign name={props.icon} color={props.iconColor || '#000'} size={props.iconSize || 18} />}
-      <Text numberOfLines={1} style={[styles.title, props.textStyle ? props.textStyle : {}]}>{props.title}</Text>
+      <MyText numberOfLines={1} style={[styles.title, props.textStyle ? props.textStyle : {}]}>{props.title}</MyText>
     </TouchableOpacity>
   );
 } 

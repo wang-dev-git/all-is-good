@@ -5,7 +5,7 @@ import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { AssetImage, BottomButton, CheckBox, SelectCreditCard } from '../Reusable'
+import { AssetImage, BottomButton, CheckBox, SelectCreditCard, MyText } from '../Reusable'
 import { Fire, Flash, Modal, Time } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -150,18 +150,18 @@ const PaymentModal: React.FC<Props> = (props) => {
   return (
     <View>
       <View style={styles.header}>
-        <Text style={styles.title}>Restaurant</Text>
-        <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
+        <MyText style={styles.title}>Restaurant</MyText>
+        <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
       </View>
       <View style={styles.quantity}>
-        <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_QUANTITY}</Text>
+        <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_QUANTITY}</MyText>
         <View style={styles.quantityBtns}>
           <TouchableOpacity onPress={() => updateCounter(-1)}>
             <View style={[styles.btn, {backgroundColor: mainStyle.lightColor, marginRight: 30}]}>
               <AntDesign color={'#fff'} size={18} name="minus" />
             </View>
           </TouchableOpacity>
-          <Text style={styles.counter}>{counter}</Text>
+          <MyText style={styles.counter}>{counter}</MyText>
           <TouchableOpacity onPress={() => updateCounter(1)}>
             <View style={[styles.btn, {backgroundColor: mainStyle.themeColor, marginLeft: 30}]}>
               <AntDesign color={'#fff'} size={18} name="plus" />
@@ -169,37 +169,37 @@ const PaymentModal: React.FC<Props> = (props) => {
           </TouchableOpacity>      
         </View>
 
-        <Text style={[styles.subtitle, {marginTop: 40, fontSize: 17}]}>
+        <MyText style={[styles.subtitle, {marginTop: 40, fontSize: 17}]}>
           Total: {Number(total).toFixed(2)}$
-          (<Text style={{textDecorationLine: 'line-through'}}>{Number(Number(price * counter) * 1.7).toFixed(2)}$</Text>)
-        </Text>
+          (<MyText style={{textDecorationLine: 'line-through'}}>{Number(Number(price * counter) * 1.7).toFixed(2)}$</MyText>)
+        </MyText>
 
         <Animated.View style={[styles.modes, {transform: [{translateY: translateModes}]}]}>
           <TouchableOpacity style={styles.line} onPress={() => {setShowModes(false); setShowDelivery(false); setShowCards(false);}}>
-            <Text style={styles.lineTitle}>{lang.PAYMENT_QUANTITY}</Text>
-            <Text style={styles.lineValue}>{counter}</Text>
+            <MyText style={styles.lineTitle}>{lang.PAYMENT_QUANTITY}</MyText>
+            <MyText style={styles.lineValue}>{counter}</MyText>
           </TouchableOpacity>
-          <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
+          <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_MODE}</MyText>
           <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <TouchableOpacity style={[styles.modeContainer, mode === 'pick_up' ? styles.selected : {}]} onPress={() => setMode('pick_up')}>
               <View style={styles.modeCheck}>
                 <MaterialIcons name="place" size={18} color={mode === 'pick_up' ? '#fff' : '#000'} />
               </View>
-              <Text style={[styles.modeTxt, mode === 'pick_up' ? { color: '#fff' } : {}]}>{lang.PAYMENT_PICK_UP}</Text>
+              <MyText style={[styles.modeTxt, mode === 'pick_up' ? { color: '#fff' } : {}]}>{lang.PAYMENT_PICK_UP}</MyText>
             </TouchableOpacity>
 
             <TouchableOpacity style={[styles.modeContainer, mode === 'delivery' ? styles.selected : {}, !pro.has_delivery ? {opacity: 0.4} : {}]} disabled={!pro.has_delivery} onPress={() => setMode('delivery')}>
               <View style={styles.modeCheck}>
                 <Feather name="truck" size={14} color={mode === 'delivery' ? '#fff' : '#000'} />
               </View>
-              <Text style={[styles.modeTxt, mode === 'delivery' ? { color: '#fff' } : {}]}>{lang.PAYMENT_DELIVERY}</Text>
+              <MyText style={[styles.modeTxt, mode === 'delivery' ? { color: '#fff' } : {}]}>{lang.PAYMENT_DELIVERY}</MyText>
             </TouchableOpacity>
           </View>
           { mode !== '' &&
             <View style={{marginTop: 20,}}>
-              <Text style={styles.conditions}>{mode === 'delivery' ? deliveryOpening : pickUpOpening}</Text>
+              <MyText style={styles.conditions}>{mode === 'delivery' ? deliveryOpening : pickUpOpening}</MyText>
               { mode === 'delivery' &&
-                <Text style={styles.conditions}>Les frais de livraison sont de 3$</Text>
+                <MyText style={styles.conditions}>Les frais de livraison sont de 3$</MyText>
               }
             </View>
           }
@@ -207,13 +207,13 @@ const PaymentModal: React.FC<Props> = (props) => {
 
         <Animated.View style={[styles.delivery, {transform: [{translateY: translateDelivery}]}]}>
           <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false);}}>
-            <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
-            <Text style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +3$</Text>
+            <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</MyText>
+            <MyText style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +3$</MyText>
           </TouchableOpacity>
-          <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</Text>
+          <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity style={styles.addressContainer} onPress={() => Actions.addresses({ selected: address, onSelect: setAddress })}>
-              <Text style={styles.addressTxt} numberOfLines={1}>{address !== null ? address.formatted_address : 'Sélectionner une adresse'}</Text>
+              <MyText style={styles.addressTxt} numberOfLines={1}>{address !== null ? address.formatted_address : 'Sélectionner une adresse'}</MyText>
               <AntDesign name="down" />
             </TouchableOpacity>
           </View>
@@ -222,16 +222,16 @@ const PaymentModal: React.FC<Props> = (props) => {
         <Animated.View style={[styles.cards, mode === 'delivery' ? {top: 100} : {}, {transform: [{translateY: translateCards}]}]}>
           { mode === 'delivery' ? (
             <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
-              <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</Text>
-              <Text style={styles.lineValue}>{address ? address.formatted_address : 'Aucune adresse'}</Text>
+              <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
+              <MyText style={styles.lineValue}>{address ? address.formatted_address : 'Aucune adresse'}</MyText>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
-              <Text style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</Text>
-              <Text style={styles.lineValue}>{mode === 'delivery' ? lang.PAYMENT_DELIVERY : lang.PAYMENT_PICK_UP}</Text>
+              <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</MyText>
+              <MyText style={styles.lineValue}>{mode === 'delivery' ? lang.PAYMENT_DELIVERY : lang.PAYMENT_PICK_UP}</MyText>
             </TouchableOpacity>
           )}
-          <Text style={styles.subtitle}>{lang.PAYMENT_CHOOSE_METHOD}</Text>
+          <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_METHOD}</MyText>
           <SelectCreditCard cardSelected={(card) => setCard(card)} />
           
           <CheckBox
@@ -245,7 +245,7 @@ const PaymentModal: React.FC<Props> = (props) => {
     </View>
       {/*}
       <View style={{backgroundColor: '#fff'}}>
-        <Text style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</Text>
+        <MyText style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</MyText>
       </View>
     */}
       <BottomButton

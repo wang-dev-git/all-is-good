@@ -156,16 +156,16 @@ const ProScreen: React.FC<Props> = (props) => {
 
         <View style={styles.info}>
           <View>
-            <Text style={styles.title}>{pro.name}</Text>
+            <MyText style={styles.title}>{pro.name}</MyText>
 
             <View style={[styles.row, { marginBottom: 6 }]}>
               <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
-              <Text style={styles.open}>{lang.GLOBAL_TODAY} {opening}</Text>
+              <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
             </View>
 
             <View style={[styles.row, { marginBottom: 6 }]}>
               <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-              <Text style={styles.open}>4km</Text>
+              <MyText style={styles.open}>4km</MyText>
             </View>
 
             { icons.length > 0 &&
@@ -180,29 +180,29 @@ const ProScreen: React.FC<Props> = (props) => {
           </View>
 
           <View>
-            <Text style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</Text>
-            <Text style={styles.price}>{Number(pro.price).toFixed(2)}$</Text>
+            <MyText style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</MyText>
+            <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
           </View>
         </View>
 
         { hasDesc &&
           <View style={styles.descriptionWrapper}>
-            <Text style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</Text>
-            <Text style={styles.description}>{pro.descriptions[langId]}</Text>
+            <MyText style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</MyText>
+            <MyText style={styles.description}>{pro.descriptions[langId]}</MyText>
           </View>
         }
 
         { hasOffer &&
           <View style={styles.descriptionWrapper}>
-            <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</Text>
-            <Text style={styles.description}>{pro.offers[langId]}</Text>
+            <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</MyText>
+            <MyText style={styles.description}>{pro.offers[langId]}</MyText>
           </View>
         }
 
         { hasAllergens &&
           <View style={styles.descriptionWrapper}>
-            <Text style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</Text>
-            <Text style={styles.description}>{pro.allergens[langId]}</Text>
+            <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</MyText>
+            <MyText style={styles.description}>{pro.allergens[langId]}</MyText>
           </View>
         }
         
@@ -239,10 +239,10 @@ const ProScreen: React.FC<Props> = (props) => {
             </View>
           }
           <View style={styles.addr}>
-            <Text style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</Text>
+            <MyText style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</MyText>
             <View style={styles.trip}>
               <TouchableOpacity>
-                <Text style={styles.tripTxt}>Itinéraire</Text>
+                <MyText style={styles.tripTxt}>Itinéraire</MyText>
               </TouchableOpacity>
             </View>
           </View>

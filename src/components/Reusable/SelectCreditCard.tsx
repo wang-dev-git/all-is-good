@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import AssetImage from './AssetImage'
+import MyText from './MyText'
 import { Fire, Flash, AppConfig, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
@@ -40,20 +41,20 @@ const ListCards: React.FC<ListProps> = (props) => {
   const { card, cards } = props
   return (
     <ScrollView style={{maxHeight: 500}}>
-      <Text style={styles.title}>Choisir une carte</Text>
+      <MyText style={styles.title}>Choisir une carte</MyText>
       {cards.map((c: any, index: number) => (
         <TouchableOpacity key={index} onPress={() => props.pick(c)}>
           <View style={[styles.cardRecap]}>
             <View style={styles.picture}>
               <AssetImage style={{width: 60, height: 40, flex: undefined}} src={getImageForType(c.type)} />
-              <Text style={[styles.cardName]}>XXXX XXXX XXXX {c.last4}</Text>
+              <MyText style={[styles.cardName]}>XXXX XXXX XXXX {c.last4}</MyText>
             </View>
             { c.cardId == card.cardId && <AntDesign name="check" size={18} color={mainStyle.lightColor} />}
           </View>
         </TouchableOpacity>
       ))}
       <TouchableOpacity style={styles.addCardBtn} onPress={Actions.addCard}>
-        <Text style={styles.addCardTxt}>Ajouter une carte</Text>
+        <MyText style={styles.addCardTxt}>Ajouter une carte</MyText>
         <AntDesign name="right" size={18} color={mainStyle.themeColor} />
       </TouchableOpacity>
     </ScrollView>
@@ -96,7 +97,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
       <View style={styles.cardChosen}>
         <View style={styles.cardContent}>
           <AssetImage style={{width: 40, height: 30, flex: undefined}} src={getImageForType(card.type)} />
-          <Text style={styles.cardName}>XXXX XXXX XXXX {card.last4}</Text>
+          <MyText style={styles.cardName}>XXXX XXXX XXXX {card.last4}</MyText>
           <AntDesign name="down" size={18} color={mainStyle.lightColor} />
         </View>
       </View>
@@ -105,7 +106,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
     <TouchableOpacity style={styles.container} onPress={Actions.addCard}>
       <View style={styles.cardChosen}>
         <View style={styles.cardContent}>
-          <Text style={styles.cardName}>Aucune carte enregistrée</Text>
+          <MyText style={styles.cardName}>Aucune carte enregistrée</MyText>
           <AntDesign name="down" size={18} color={mainStyle.lightColor} />
         </View>
       </View>

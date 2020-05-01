@@ -4,6 +4,8 @@ import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 import { mainStyle } from '../../styles'
 
+import MyText from './MyText'
+
 interface Props {
   title: string;
   value: string;
@@ -29,7 +31,7 @@ const TitledInput: React.SFC<Props> = (props) => {
   }
   return (
     <View style={[styles.container, props.editable === false ? {opacity: 0.42} : {}]}>
-      <Text style={[styles.title, props.multiline ? {marginBottom: 8} : {}]}>{props.title}</Text>
+      <MyText style={[styles.title, props.multiline ? {marginBottom: 8} : {}]}>{props.title}</MyText>
       <TextInput
         value={props.value}
         placeholder={props.placeholder}

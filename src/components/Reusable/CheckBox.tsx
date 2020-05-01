@@ -5,6 +5,8 @@ import Icon from '@expo/vector-icons/AntDesign'
 
 import { mainStyle } from '../../styles'
 
+import MyText from './MyText'
+
 interface Props {
   active: boolean;
   title: string;
@@ -25,7 +27,7 @@ const CheckBox: React.FC<Props> = (props) => {
         }
       </View>
       <TouchableOpacity style={{flex: 1}} onPress={props.onTapText}>
-        <Text style={styles.title}>{props.title}</Text>
+        <MyText style={styles.title}>{props.title}</MyText>
       </TouchableOpacity>
     </TouchableOpacity>
   );

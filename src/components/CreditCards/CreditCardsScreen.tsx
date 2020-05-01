@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Alert, FlatList, TouchableOpacity, RefreshControl } from 'react-native';
 
-import { HeaderBar, SmallButton, AssetImage } from '../Reusable'
+import { HeaderBar, SmallButton, MyText, AssetImage } from '../Reusable'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
@@ -48,10 +48,10 @@ class CreditCardsScreen extends React.Component<Props, State>  {
           <View style={styles.picture}>
             <AssetImage src={this.getImageForType(card.type)} />
           </View>
-          <Text style={styles.number}>XXXX XXXX XXXX {card.last4}</Text>
+          <MyText style={styles.number}>XXXX XXXX XXXX {card.last4}</MyText>
         </View>
         <View style={[mainStyle.row, {marginRight: 1}]}>
-          <Text style={styles.expiry}>{card.expiry}</Text>
+          <MyText style={styles.expiry}>{card.expiry}</MyText>
           <TouchableOpacity onPress={() => this.remove(card, index)}>
             <Icon name="trash" size={22} color={mainStyle.lightColor} />
           </TouchableOpacity>
@@ -74,7 +74,7 @@ class CreditCardsScreen extends React.Component<Props, State>  {
           renderItem={({ item, index }) => this.renderCard(item, index)}
           ListEmptyComponent={() => (
             <View style={styles.empty}>
-              <Text style={styles.emptyTxt}>Vous n'avez enregistré{'\n'}aucune carte</Text>
+              <MyText style={styles.emptyTxt}>Vous n'avez enregistré{'\n'}aucune carte</MyText>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}

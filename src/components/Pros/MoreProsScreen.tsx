@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, FlatList, RefreshControl, SectionList, Dimensions } from 'react-native';
 
-import { HeaderBar, AssetImage, FadeInView, VeilView } from '../Reusable'
+import { HeaderBar, MyText , AssetImage, FadeInView, VeilView } from '../Reusable'
 
 import ProItem from './ProItem'
 
@@ -61,7 +61,7 @@ class MoreProsScreen extends React.Component<Props, State>  {
     const { loading } = this.props
     return (
       <View style={styles.empty}>
-        <Text>{ loading ? 'Chargement en cours... ' : 'Aucun produit'}</Text>
+        <MyText>{ loading ? 'Chargement en cours... ' : 'Aucun produit'}</MyText>
       </View>
     )
   }

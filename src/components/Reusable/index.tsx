@@ -1,4 +1,5 @@
 import AssetImage from './AssetImage'
+import MyText from './MyText'
 import VeilView from './VeilView'
 import BottomButton from './BottomButton'
 import HeaderBar from './HeaderBar'
@@ -32,4 +33,5 @@ export {
   SmallButton,
   KeyboardScrollView,
   TouchableBounce,
+  MyText
 }

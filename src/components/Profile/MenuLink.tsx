@@ -4,6 +4,8 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntDesign from '@expo/vector-icons/AntDesign'
 
+import { MyText } from '../Reusable'
+
 import { mainStyle } from '../../styles'
 
 interface Props {
@@ -23,7 +25,7 @@ const MenuLink: React.SFC<Props> = (props) => {
           <View style={styles.icon}>
             <Icon name={props.icon} size={props.iconSize || 18} color={mainStyle.themeColor} />
           </View>
-          <Text style={styles.title}>{props.title}</Text>
+          <MyText style={styles.title}>{props.title}</MyText>
         </View>
 
         { props.right &&

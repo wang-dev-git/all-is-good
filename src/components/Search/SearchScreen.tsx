@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal, Lang } from '../../services'
+import { HeaderBar, TitledInput, MyText , FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
+import { Fire, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -81,15 +81,15 @@ const SearchScreen: React.FC<Props> = (props) => {
             }
             ListEmptyComponent={() => (
               <View style={styles.empty}>
-                <Text>{loading ? 'Chargement ...' : 'Aucun résultat' }</Text>
+                <MyText>{loading ? 'Chargement ...' : 'Aucun résultat' }</MyText>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
             />
         ) : loadingCategories ? (
-          <Text>
+          <MyText>
             Chargement en cours...
-          </Text>
+          </MyText>
         ) : (
           <View>
             <FlatList
@@ -105,7 +105,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               }
               ListEmptyComponent={() => (
                 <View style={styles.empty}>
-                  <Text>{loading ? 'Chargement ...' : '' }</Text>
+                  <MyText>{loading ? 'Chargement ...' : '' }</MyText>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}

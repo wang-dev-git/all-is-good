@@ -13,6 +13,7 @@ import Constants from 'expo-constants';
 import NotifBubble from './NotifBubble'
 import VeilView from './VeilView'
 import AssetImage from './AssetImage'
+import MyText from './MyText'
 
 import { mainStyle } from '../../styles'
 
@@ -45,7 +46,7 @@ const HeaderBar: React.SFC<Props> = (props) => {
           {/* Center */}
           <View style={styles.center}>
             { props.title ? (
-              <Text style={styles.title}>{(title || '').toUpperCase()}</Text>
+              <MyText style={styles.title}>{(title || '').toUpperCase()}</MyText>
             ) : props.titleView}
           </View>
 

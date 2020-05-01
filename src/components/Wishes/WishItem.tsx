@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage } from '../Reusable'
+import { AssetImage, MyText } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
@@ -57,12 +57,12 @@ const WishItem: React.FC<Props> = (props: Props) => {
             </View>
 
             <View style={styles.info}>
-              <Text numberOfLines={1} style={styles.name}>{name}</Text>
+              <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
               <View style={styles.row}>
                 <View style={styles.icon}>
                   <MaterialIcon size={18} name="map-marker" />  
                 </View>
-                <Text style={[styles.open]}>4 km</Text>               
+                <MyText style={[styles.open]}>4 km</MyText>               
               </View>
             </View>
 

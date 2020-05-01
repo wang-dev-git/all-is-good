@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
-import { HeaderBar, FadeInView } from '../Reusable'
+import { HeaderBar, FadeInView, MyText } from '../Reusable'
 
 import ProItem from '../Pros/ProItem'
 
@@ -10,6 +10,8 @@ import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'
 
 import { addWish, removeWish, clearWishes } from '../../actions/wishes.action'
+
+import { mainStyle } from '../../styles'
 
 type Props = {
   wishes: any;
@@ -44,7 +46,7 @@ const WishesScreen: React.FC<Props> = (props) => {
           }
           ListEmptyComponent={() => (
             <View style={styles.empty}>
-              <Text>{lang.FAVORITE_NONE}</Text>
+              <MyText>{lang.FAVORITE_NONE}</MyText>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -57,6 +59,7 @@ const WishesScreen: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: mainStyle.themeColor,
   },
   empty: {
     flex: 1,

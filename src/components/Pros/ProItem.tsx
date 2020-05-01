@@ -61,26 +61,26 @@ const ProItem: React.FC<Props> = (props: Props) => {
 
             { !props.isWish &&
               <View style={styles.quantity}>
-                <Text style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text>
+                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</MyText>
               </View>
             }
 
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
-                <Text numberOfLines={2} style={styles.name}>{name}</Text>
+                <MyText numberOfLines={2} style={styles.name}>{name}</MyText>
                 {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>
                       <AntIcon size={14} name="clockcircle" />
                     </View>
-                    <Text style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</Text>
+                    <MyText style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</MyText>
                   </View>
                 }
                 <View style={styles.row}>
                   <View style={styles.icon}>
                     <MaterialIcon size={18} name="map-marker" />  
                   </View>
-                  <Text style={[styles.open]}>4 km</Text>               
+                  <MyText style={[styles.open]}>4 km</MyText>               
                 </View>
               </View>
 

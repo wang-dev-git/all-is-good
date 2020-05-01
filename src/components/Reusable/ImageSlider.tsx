@@ -3,6 +3,7 @@ import { StyleSheet, Image, FlatList, View, TouchableOpacity, TouchableWithoutFe
 
 import AssetImage from './AssetImage'
 import VeilView from './VeilView'
+import MyText from './MyText'
 
 import Icon from '@expo/vector-icons/AntDesign'
 
@@ -52,7 +53,7 @@ export default class ImageSlider extends React.Component<Props, State>  {
         <View style={[styles.picture, {width: width, height: height}]}>
           <AssetImage style={styles.bgImage} src={{uri: picture}} resizeMode='cover' />
           {/*<VeilView abs start={mainStyle.themeColorAlpha(0.3)} end={mainStyle.themeColorAlpha(0.8)} />*/}
-          <Text style={styles.text}>{item.count}</Text>
+          <MyText style={styles.text}>{item.count}</MyText>
           { this.props.onRemove &&
             <TouchableOpacity style={styles.close} onPress={() => this.props.onRemove(index)}>
               <Icon name="close" size={18} color='#333' />

@@ -19,6 +19,7 @@ import AntIcon from '@expo/vector-icons/AntDesign'
 import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { switchTab } from '../../actions/tab.action'
+import { updateLang } from '../../actions/lang.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable } from '../../actions/filters.action'
@@ -32,6 +33,7 @@ interface Props {
   user: any;
   tab: number;
   wishes: any;
+  langId: string;
 
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
@@ -39,6 +41,7 @@ interface Props {
   loadSearchable: () => void;
   loadCategories: () => void;
   loadWishes: () => void;
+  updateLang: (id: string) => void;
   refreshWishes: () => void;
 }
 interface State {
@@ -260,6 +263,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
   tab: state.tabReducer.tab,
+  langId: state.langReducer.id,
   wishes: state.wishesReducer.list,
   toggleWishes: state.wishesReducer.toggle,
 })
@@ -271,6 +275,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   loadCategories: () => dispatch(loadCategories()),
   loadSearchable: () => dispatch(loadSearchable()),
   refreshWishes: () => dispatch(refreshWishes()),
+  updateLang: (id: string) => dispatch(updateLang(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabsScreen)

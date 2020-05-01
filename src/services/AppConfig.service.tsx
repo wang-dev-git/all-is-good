@@ -19,7 +19,7 @@ export default class AppConfig {
    */
 
   // Default tab for the main Tab Bar
-  static defaultTab: number = 2;
+  static defaultTab: number = 0;
 
   // Default tab for the main Tab Bar
   static defaultLang = 'fr'

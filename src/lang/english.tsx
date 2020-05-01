@@ -3,6 +3,8 @@ export default {
   // Global
   GLOBAL_SEARCH_PLACEHOLDER: 'Search...',
   GLOBAL_TODAY: "Today",
+  GLOBAL_LOADING: 'Chargement...',
+  GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
 
   // Login
   LOGIN_BTN_TXT: "Let's go!",

@@ -85,7 +85,7 @@ export default class ImageSlider extends React.Component<Props, State>  {
             />
         ) : (
           <View style={[styles.picture, {width: width, height: height}]}>
-            <AssetImage src={require('../../images/noimage.png')} />
+            <AssetImage src={require('../../images/noimage.png')} resizeMode='cover' />
           </View>
         )}
         <View style={styles.pagination}>

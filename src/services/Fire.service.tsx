@@ -10,7 +10,8 @@ export default class Fire {
 
   // Initialize Firebase
   static init() {
-    firebase.initializeApp(AppConfig.get().firebaseOptions);
+    if (!firebase.apps || !firebase.apps.length)
+      firebase.initializeApp(AppConfig.get().firebaseOptions);
   }
 
   // Retrieve base firestore

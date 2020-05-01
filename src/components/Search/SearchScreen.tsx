@@ -25,6 +25,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const [loading, setLoading] = React.useState(false)
   const [pros, setPros] = React.useState([])
 
+  const lang = useSelector(state => state.langReducer.lang)
   const searchable = useSelector(state => state.filtersReducer.searchable)
   const categories = useSelector(state => state.filtersReducer.categories)
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
@@ -81,7 +82,8 @@ const SearchScreen: React.FC<Props> = (props) => {
             }
             ListEmptyComponent={() => (
               <View style={styles.empty}>
-                <MyText>{loading ? 'Chargement ...' : 'Aucun résultat' }</MyText>
+                <AssetImage src={require('../../images/noresult.png')} style={styles.emptyPic} />
+                <MyText style={styles.emptyTxt}>{loading ? lang.GLOBAL_LOADING : lang.GLOBAL_NO_RESULT }</MyText>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
@@ -105,7 +107,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               }
               ListEmptyComponent={() => (
                 <View style={styles.empty}>
-                  <MyText>{loading ? 'Chargement ...' : '' }</MyText>
+                  <MyText style={styles.emptyTxt}>{loading ? 'Chargement ...' : 'Erreur du chargement' }</MyText>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -129,9 +131,17 @@ const styles = StyleSheet.create({
   },
   empty: {
     flex: 1,
-    marginTop: 200,
+    marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptyPic: {
+    width: 160,
+    height: 160,
+  },
+  emptyTxt: {
+    marginTop: 22,
+    color: '#fff',
   }
 });
 

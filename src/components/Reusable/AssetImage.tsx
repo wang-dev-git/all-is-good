@@ -16,7 +16,7 @@ const AssetImage: React.SFC<Props> = (props) => {
   return (
     <Image
       resizeMode={props.resizeMode}
-      style={[styles.image, props.style]}
+      style={[styles.image, props.style || {}]}
       source={props.src}
       />
   )

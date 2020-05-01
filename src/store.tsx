@@ -22,7 +22,6 @@ const config = {
   storage: ExpoFileSystemStorage,
   blacklist: [
     'tabReducer', 'modalReducer', 'loaderReducer',
-    'langReducer' // SHOULD NOT BE BLACKLISTED -- testing only
   ]
 };
 

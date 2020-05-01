@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage, LinkButton } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { Fire, Flash, Time } from '../../services'
 
 import { switchTab } from '../../actions/tab.action'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
@@ -33,8 +33,8 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   const pro = order.pro || {}
   const name = pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
 
-  const getStatus = () => {
-    switch (order.status || OrderStatus.ORDER_PENDING) {
+  const getStatus = (item: any) => {
+    switch (item.status || OrderStatus.ORDER_PENDING) {
       case OrderStatus.ORDER_PENDING:
         return lang.ORDER_WAITING
         break;
@@ -61,9 +61,17 @@ const OrderItem: React.FC<Props> = (props: Props) => {
     }
   }
 
+  const getHour = (item: any) => {
+    const date = Fire.getDateFor(item.date)
+    return Time.moment(date).format('HH:mm')
+  }
+
   const quantity = order.quantity || 0
   const ref = order.ref || '#A123'
   const history = order.history || []
+  const last = history.length ? history[history.length - 1] : null
+
+  console.log(history)
 
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -84,31 +92,36 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
                 <Text numberOfLines={1} style={styles.name}>{name}</Text>
                 <Text style={styles.ref}>{ref}</Text>
-                <View style={styles.row}>
-                  <Text style={styles.statusTitle}>En livraison</Text>
-                  <Text style={styles.statusTime}>18:30</Text>
-                </View>
 
-                <Collapsible collapsed={!props.expanded}>
-                  { history.slice(1).map((item, index) => (
-                    <View key={index} style={styles.row}>
-                      <Text style={styles.statusTitle}>Préparation en cours</Text>
-                      <Text style={styles.statusTime}>17:30</Text>
-                    </View>
-                  )) }
-                  
-                  { props.canCancel &&
-                    <View style={{alignItems: 'center', marginTop: 6,}}>
-                      <LinkButton
-                        title="Annuler la commande"
-                        color={mainStyle.redColor}
-                        textStyle={{fontSize: 16}}
+                { last &&
+                  <View style={styles.row}>
+                    <Text style={styles.statusTitle}>{getStatus(last)}</Text>
+                    <Text style={styles.statusTime}>{getHour(last)}</Text>
+                  </View>
+                }
 
-                        onPress={props.onCancel}
-                        />
-                    </View>
-                  }
-                </Collapsible>
+                { history.length > 1 &&
+                  <Collapsible collapsed={!props.expanded}>
+                    { history.slice(1).reverse().map((item, index) => (
+                      <View key={index} style={styles.row}>
+                        <Text style={styles.statusTitle}>{getStatus(item)}</Text>
+                        <Text style={styles.statusTime}>{getHour(item)}</Text>
+                      </View>
+                    )) }
+                    
+                    { props.canCancel &&
+                      <View style={{alignItems: 'center', marginTop: 6,}}>
+                        <LinkButton
+                          title="Annuler la commande"
+                          color={mainStyle.redColor}
+                          textStyle={{fontSize: 16}}
+
+                          onPress={props.onCancel}
+                          />
+                      </View>
+                    }
+                  </Collapsible>
+                }
               </View>
             </View>
             

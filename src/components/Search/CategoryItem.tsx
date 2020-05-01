@@ -15,7 +15,7 @@ interface Props {
   onPress?: () => void;
 }
 const CategoryItem: React.FC<Props> = (props) => {
-  const langId = useSelector(state => state.langReducer.langId)
+  const langId = useSelector(state => state.langReducer.id)
   const name = props.category.names ? props.category.names[langId] : ''
   return (
     <View style={styles.shadow}>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD4GqaUBB2iZ3h4rsnHvcFkg0vq_QAt_uo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>467075255307</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.allisgood.com</string>
+	<key>PROJECT_ID</key>
+	<string>all-is-good-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>all-is-good-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:467075255307:ios:4c42462d75e575c2460b0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://all-is-good-dev.firebaseio.com</string>
+</dict>
+</plist>

@@ -24,6 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.allisgood.app",
+      "googleServicesFile": "./keys/GoogleService-prod.plist",
       "infoPlist": {
         "CFBundleURLTypes": {
           "CFBundleURLSchemes": [
@@ -38,10 +39,16 @@
           "fbauth2",
           "fbshareextension"
         ]
+      },
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4"
+        }
       }
     },
     "android": {
       "package": "com.allisgood.app",
+      "googleServicesFile": "./keys/google-prod.json",
       "versionCode": 107
     },
     "version": "1.0.7",

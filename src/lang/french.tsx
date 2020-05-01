@@ -20,6 +20,7 @@ export default {
   PROFILE_LOGOUT: "Déconnexion",
 
   // Orders
+  ORDERS_NONE: 'Aucune commande',
   ORDER_WAITING: 'En attente',
   ORDER_PREPARING: 'Préparation en cours',
   ORDER_PICK_UP_READY: 'Prêt à récupérer',
@@ -57,4 +58,5 @@ export default {
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",
+  FAVORITE_DISCOVER: "Découvrez des restaurants",
 }

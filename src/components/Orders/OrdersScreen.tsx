@@ -21,6 +21,7 @@ interface Props {
 const OrdersScreen: React.FC<Props> = (props) => {
   
   const [tab, setTab] = React.useState(1)
+  const lang = useSelector(state => state.langReducer.lang)
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
   const dispatch = useDispatch()
@@ -42,7 +43,8 @@ const OrdersScreen: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     setShown(null)
-    listRef.current.scrollToIndex({ index: 0 })
+    if (current.length)
+      listRef.current.scrollToIndex({ index: 0 })
   }, [tab])
 
   const onCancel = (order: any) => {
@@ -143,7 +145,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         contentContainerStyle={{ paddingBottom: 20, }}
         ListEmptyComponent={() => (
           <ListEmpty
-            title={loading ? 'Chargement...' : 'AUCUNE COMMANDE'}
+            text={loading ? lang.GLOBAL_LOADING : 'OK' + lang.ORDERS_NONE}
             />
         )}
         keyExtractor={(item, index) => index.toString()}

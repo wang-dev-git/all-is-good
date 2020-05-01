@@ -12,6 +12,7 @@ import AntIcon from '@expo/vector-icons/AntDesign'
 import { Actions } from 'react-native-router-flux'
 
 import { mainStyle } from '../../styles'
+import Collapsible from 'react-native-collapsible'
 
 import OrderStatus from '../../types/order_status'
 
@@ -28,6 +29,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   const langId = useSelector(state => state.langReducer.langId)
   const pro = order.pro || {}
   const name = pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
+  const [shown, setShown] = React.useState(false)
 
   const getStatus = () => {
     switch (order.status || OrderStatus.ORDER_PENDING) {
@@ -58,7 +60,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={() => setShown(!shown)}>
       <View style={styles.container}>
         <View style={[styles.shadow]}>
           <View style={styles.content}>
@@ -90,6 +92,10 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                 </View>
               </View>
             </View>
+            
+            <Collapsible collapsed={!shown}>
+              <Text>Hello</Text>
+            </Collapsible>
           </View>
         </View>
       </View>

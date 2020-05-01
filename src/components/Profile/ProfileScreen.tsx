@@ -165,13 +165,6 @@ class ProfileScreen extends React.Component<Props, State>  {
               onPress={Actions.userInfo}
               />
             <MenuLink
-              icon='id-card'
-              title={lang.PROFILE_SETTINGS}
-              right
-              
-              onPress={Actions.settings}
-              />
-            <MenuLink
               icon='credit-card-alt'
               iconSize={16}
               title={lang.PROFILE_CARDS}
@@ -194,6 +187,13 @@ class ProfileScreen extends React.Component<Props, State>  {
               right
 
               onPress={() => this.appStore()}
+              />
+            <MenuLink
+              icon='cog'
+              title={lang.PROFILE_SETTINGS}
+              right
+              
+              onPress={Actions.settings}
               />
            </View>
 

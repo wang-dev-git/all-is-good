@@ -20,7 +20,7 @@ interface Props {
 }
 const OrdersScreen: React.FC<Props> = (props) => {
   
-  const [tab, setTab] = React.useState(0)
+  const [tab, setTab] = React.useState(1)
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
   const dispatch = useDispatch()

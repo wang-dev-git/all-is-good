@@ -25,6 +25,7 @@ export default {
 
   // Settings
   SETTINGS_TITLE: "Settings",
+  SETTINGS_LANG: "Languages",
 
   // Pro
   PRO_DESCRIPTION_TITLE: "Description",

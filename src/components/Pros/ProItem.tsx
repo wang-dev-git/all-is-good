@@ -59,6 +59,8 @@ const ProItem: React.FC<Props> = (props: Props) => {
               <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
+            <View><Text>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text></View>
+
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <Text numberOfLines={1} style={styles.name}>{name}</Text>

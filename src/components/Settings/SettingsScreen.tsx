@@ -39,7 +39,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
         />
       
       <ScrollView style={styles.scroll} contentContainerStyle={{paddingBottom: 40}}>
-        
+        <Text style={styles.groupTitle}>{lang.SETTINGS_LANG}</Text>
         <View style={styles.group}>
           { opts.map((opt, index) => (
             <TouchableOpacity key={index} style={styles.option} onPress={() => dispatch(updateLang(opt.key))}>
@@ -70,6 +70,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  groupTitle: {
+    ...mainStyle.montBold,
+    paddingLeft: 20,
+    paddingTop: 12,
+    paddingBottom: 6,
+    fontSize: 18
   },
   option: {
     paddingLeft: 10,

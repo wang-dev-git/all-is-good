@@ -100,7 +100,13 @@ class AddCardScreen extends React.Component<Props, State>  {
           back
           />
         <KeyboardScrollView contentContainerStyle={{paddingTop: 30, paddingBottom: 20}}>
-          <CreditCardInput color={"blue"} ref="CCInput" onChange={(form: any) => this.onChange(form)} />
+          <CreditCardInput
+            color={"blue"}
+            ref="CCInput"
+            onChange={(form: any) => this.onChange(form)}
+            cardImageFront={require('../../images/cards/front.jpeg')}
+            cardImageBack={require('../../images/cards/back.jpeg')}
+            />
 
 
           <View style={{marginTop: 40, alignItems: 'center'}}>

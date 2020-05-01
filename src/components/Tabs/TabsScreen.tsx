@@ -49,14 +49,26 @@ const tabColor = '#fff'
 const tabActiveColor = mainStyle.themeColor
 const routes = [
   {
-    component: ProfileScreen,
+    component: SearchScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="user" size={22} color={tabColor} />
+        <Icon name="home" size={22} color={tabColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="user-o" size={22} color={tabActiveColor} />
+        <Icon name="home" size={22} color={tabActiveColor} />
+      </View>
+    )
+  },
+  {
+    component: OrdersScreen,
+    renderIcon: (active: boolean) => !active ? (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="ticket" size={22} color={tabColor} />
+      </View>
+    ) : (
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+        <Icon name="ticket" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -73,18 +85,6 @@ const routes = [
     )
   },
   {
-    component: SearchScreen,
-    renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="search" size={22} color={tabColor} />
-      </View>
-    ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="search" size={22} color={tabActiveColor} />
-      </View>
-    )
-  },
-  {
     component: WishesScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
@@ -97,14 +97,14 @@ const routes = [
     )
   },
   {
-    component: OrdersScreen,
+    component: ProfileScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={tabColor} />
+        <Icon name="cog" size={22} color={tabColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={tabActiveColor} />
+        <Icon name="cog" size={22} color={tabActiveColor} />
       </View>
     )
   },
@@ -218,9 +218,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     ...ifIphoneX({
-      paddingBottom: barHeightX,
+      marginBottom: barHeightX,
     }, {
-      paddingBottom: barHeight,
+      marginBottom: barHeight,
     })
   },
 

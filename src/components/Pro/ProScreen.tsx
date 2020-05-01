@@ -170,8 +170,8 @@ const ProScreen: React.FC<Props> = (props) => {
 
             { icons.length > 0 &&
               <View style={styles.row}>
-                { icons.map((iconId) => (
-                  <View style={{ width: 42, height: 40 }}>
+                { icons.map((iconId, index) => (
+                  <View key={index} style={{ width: 42, height: 40 }}>
                     <AssetImage src={getIcon(iconId)} />
                   </View>
                 )) }

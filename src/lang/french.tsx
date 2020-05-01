@@ -23,6 +23,7 @@ export default {
   ORDER_DELIVERING: 'Livraison en cours',
   ORDER_DELIVERED: 'Réceptionné',
   ORDER_CANCELLED: 'Annulé',
+  ORDER_QUANTITY: 'Qté.',
 
   // Settings
   SETTINGS_TITLE: "Réglages",

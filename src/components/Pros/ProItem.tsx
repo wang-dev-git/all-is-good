@@ -56,16 +56,18 @@ const ProItem: React.FC<Props> = (props: Props) => {
           <View style={styles.content}>
 
             <View style={styles.picture}>
-              <AssetImage src={pro.pictures ? {uri: pro.pictures[0]} : require('../../images/user.png')} resizeMode='cover' />
+              <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/user.png')} resizeMode='cover' />
             </View>
 
-            <View style={styles.quantity}>
-              <Text style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text>
-            </View>
+            { !props.isWish &&
+              <View style={styles.quantity}>
+                <Text style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</Text>
+              </View>
+            }
 
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
-                <Text numberOfLines={1} style={styles.name}>{name}</Text>
+                <Text numberOfLines={2} style={styles.name}>{name}</Text>
                 {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>
@@ -129,6 +131,9 @@ const styles = StyleSheet.create({
     height: 110,
   },
   logoWrapper: {
+    position: 'absolute',
+    top: 12,
+    right: 6,
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 3,
@@ -140,13 +145,11 @@ const styles = StyleSheet.create({
   },
   infoWrapper: {
     backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingRight: 12,
   },
   info: {
-    padding: 10,
+    paddingLeft: 10,
+    paddingVertical: 10,
+    marginRight: 62,
   },
   quantity: {
     position: 'absolute',

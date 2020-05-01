@@ -22,6 +22,7 @@ export default {
   ORDER_CANCELLED: 'Canceled',
   ORDER_DELIVERED: 'Delivered',
   ORDER_REFUNDED: 'Refunded',
+  ORDER_QUANTITY: 'Qty',
 
   // Settings
   SETTINGS_TITLE: "Settings",

@@ -10,7 +10,7 @@ interface Props {
   textStyle?: any;
   disabled?: boolean;
 
-  onPress: () => void;
+  onPress?: () => void;
 }
 const LinkButton: React.FC<Props> = (props) => {
   const veil = props.disabled ? '0' : '255'

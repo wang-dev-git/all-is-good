@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage } from '../Reusable'
+import { AssetImage, LinkButton } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
 import { switchTab } from '../../actions/tab.action'
@@ -20,6 +20,7 @@ interface Props {
   order: any;
 
   onPress?: () => void;
+  onCancel?: () => void;
 }
 const OrderItem: React.FC<Props> = (props: Props) => {
   
@@ -59,6 +60,9 @@ const OrderItem: React.FC<Props> = (props: Props) => {
     }
   }
 
+  const quantity = order.quantity || 0
+  const ref = order.ref || '#A123'
+
   return (
     <TouchableOpacity onPress={() => setShown(!shown)}>
       <View style={styles.container}>
@@ -71,31 +75,49 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
-                <Text numberOfLines={1} style={styles.name}>{name}</Text>
-                <View style={styles.row}>
-                  <View style={styles.icon}>
-                    <AntIcon size={14} name="clockcircle" />
-                  </View>
-                  <Text style={[styles.open]}> {getStatus()}</Text>
+                <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
+                  <Text style={styles.quantity}>{lang.ORDER_QUANTITY}: {quantity}</Text>
+                  <Text style={[styles.quantity, { textAlign: 'right' }]}>{order.price}$</Text>
                 </View>
-                <View style={styles.row}>
-                  <View style={styles.icon}>
-                    <MaterialIcon size={18} name="map-marker" />  
-                  </View>
-                  <Text style={[styles.open]}>4 km</Text>               
-                </View>
-              </View>
 
-              <View style={styles.logoWrapper}>
-                <View style={styles.logo}>
-                  <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
+                <Text numberOfLines={1} style={styles.name}>{name}</Text>
+                <Text style={styles.ref}>{ref}</Text>
+                <View style={styles.row}>
+                  <Text style={styles.statusTitle}>En livraison</Text>
+                  <Text style={styles.statusTime}>18:30</Text>
                 </View>
+
+                <Collapsible collapsed={!shown}>
+                  <View style={styles.row}>
+                    <Text style={styles.statusTitle}>Préparation en cours</Text>
+                    <Text style={styles.statusTime}>17:30</Text>
+                  </View>
+                  <View style={styles.row}>
+                    <Text style={styles.statusTitle}>Commande passée</Text>
+                    <Text style={styles.statusTime}>15:30</Text>
+                  </View>
+
+                  <View style={{alignItems: 'center', marginTop: 6,}}>
+                    <LinkButton
+                      title="Annuler la commande"
+                      color={mainStyle.redColor}
+                      textStyle={{fontSize: 16}}
+
+                      onPress={props.onCancel}
+                      />
+                  </View>
+                </Collapsible>
               </View>
             </View>
             
-            <Collapsible collapsed={!shown}>
-              <Text>Hello</Text>
-            </Collapsible>
+          </View>
+
+          <View style={{position: 'absolute', top: 80, left: 0, right: 0, alignItems: 'center'}}>
+            <View style={styles.logoWrapper}>
+              <View style={styles.logo}>
+                <AssetImage src={pro.logo ? {uri: pro.logo} : require('../../images/user.png')} resizeMode='cover' />
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -127,10 +149,12 @@ const styles = StyleSheet.create({
     height: 110,
   },
   logoWrapper: {
-    marginRight: 12,
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 3,
+  },
+  quantity: {
+    fontSize: 15,
   },
   logo: {
     ...mainStyle.circle(52),
@@ -144,15 +168,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   info: {
+    flex: 1,
     padding: 10,
   },
   name: {
-    ...mainStyle.montBold,
-    fontSize: 20,
-    marginLeft: 6,
-    marginRight: 12,
-    marginBottom: 4,
+    ...mainStyle.montText,
+    fontSize: 18,
+    marginTop: 12,
+    textAlign: 'center',
     color: mainStyle.darkColor
+  },
+  ref: {
+    marginTop: 3,
+    ...mainStyle.montBold,
+    fontSize: 18,
+    textAlign: 'center',
+    color: mainStyle.darkColor,
+    marginBottom: 12,
+  },
+  statusTitle: {
+    ...mainStyle.montBold,
+    fontSize: 15,
   },
   open: {
     ...mainStyle.montText,
@@ -160,9 +196,13 @@ const styles = StyleSheet.create({
     color: mainStyle.darkColor,
   },
   row: {
-    marginTop: 4,
+    paddingHorizontal: 3,
+    paddingVertical: 12,
+    borderTopColor: '#ddd',
+    borderTopWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   icon: {
     justifyContent: 'center',

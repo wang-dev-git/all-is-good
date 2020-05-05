@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
-import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, Text, Animated, View, Slider, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -19,6 +19,7 @@ const FiltersModal: React.FC<Props> = (props) => {
   
   const lang = useSelector(state => state.langReducer.lang)
   const [address, setAddress] = React.useState({ formatted_address: "1 rue de l'Ermitage" })
+  const [distance, setDistance] = React.useState(3)
 
   const changeAddress = () => {
     Modal.hide('filters')
@@ -44,6 +45,15 @@ const FiltersModal: React.FC<Props> = (props) => {
         </View>
         <View style={styles.group}>
           <MyText style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
+          <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
+            <Slider
+              minimumValue={5}
+              maximumValue={30}
+              value={distance}
+              minimumTrackTintColor={'#ded'}
+              maximumTrackTintColor={'#fff'}
+              />
+            </View>
         </View>
       </View>
       <BottomButton

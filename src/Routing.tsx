@@ -55,6 +55,7 @@ export default class Routing extends React.Component<Props, State> {
     const imageAssets = cacheImages([
       require('./images/noimage.png'),
       require('./images/nofavorite.png'),
+      require('./images/noorder.png'),
       require('./images/noresult.png'),
       require('./images/baigy.png'),
       require('./images/like.png'),

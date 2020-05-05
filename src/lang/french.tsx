@@ -62,6 +62,7 @@ export default {
 
   // Orders
   ORDERS_NONE: 'Aucune commande',
+  ORDERS_NONE_BTN: "Découvrir nos restaurants",
   ORDER_WAITING: 'En attente',
   ORDER_PREPARING: 'Préparation en cours',
   ORDER_PICK_UP_READY: 'Prêt à récupérer',

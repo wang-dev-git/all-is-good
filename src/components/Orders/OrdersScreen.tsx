@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux'
 import { Fire, Flash, Loader, Modal } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
+import { switchTab } from '../../actions/tab.action'
 
 import { mainStyle } from '../../styles'
 
@@ -157,6 +158,9 @@ const OrdersScreen: React.FC<Props> = (props) => {
         ListEmptyComponent={() => (
           <ListEmpty
             text={loading ? lang.GLOBAL_LOADING : lang.ORDERS_NONE}
+            image={require('../../images/noorder.png')}
+            btnTxt={lang.ORDERS_NONE_BTN}
+            onPressBtn={() => dispatch(switchTab(0))}
             />
         )}
         keyExtractor={(item, index) => index.toString()}

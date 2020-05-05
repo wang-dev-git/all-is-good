@@ -101,15 +101,15 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   showInsta() {
-    Linking.openURL('https://google.fr')
+    Linking.openURL('https://www.instagram.com/allisgood.app/')
   }
 
   showFacebook() {
-    Linking.openURL('https://google.fr')
+    Linking.openURL('https://www.facebook.com/AllisGoodApp')
   }
 
   showTwitter() {
-    Linking.openURL('https://google.fr')
+    Linking.openURL('https://twitter.com/AllisGo03643362')
   }
 
   async help() {

@@ -264,7 +264,7 @@ const ProScreen: React.FC<Props> = (props) => {
 
       </ScrollView>
 
-      <FloatingButton
+      <BottomButton
         abs
         title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
         disabled={soldOut}

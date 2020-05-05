@@ -41,9 +41,23 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   logout() {
-    this.props.clearCards()
-    Actions.pop()
-    Fire.auth().signOut()
+    const { lang } = this.props
+    Alert.alert(
+      lang.PROFILE_LOGOUT,
+      lang.PROFILE_LOGOUT_CONFIRM,
+      [
+        {
+          text: lang.GLOBAL_CANCEL,
+          onPress: () => void 0,
+          style: 'cancel',
+        },
+        {text: lang.GLOBAL_OK, onPress: () => {
+          this.props.clearCards()
+          Actions.pop()
+          Fire.auth().signOut()
+        }},
+      ],
+    );
   }
 
   async editPicture() {
@@ -231,6 +245,10 @@ class ProfileScreen extends React.Component<Props, State>  {
              <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
                <AssetImage src={require('../../images/fb_logo.png')} />
              </TouchableOpacity>
+
+             <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
+               <AssetImage src={require('../../images/twitter_logo.png')} />
+             </TouchableOpacity>
            </View>
         </ScrollView>
         <PageLoader
@@ -326,8 +344,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   net: {
-    width: 54,
-    height: 54,
+    width: 44,
+    height: 44,
     marginHorizontal: 20,
   },
 });

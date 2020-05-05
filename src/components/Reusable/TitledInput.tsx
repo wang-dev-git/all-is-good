@@ -49,7 +49,6 @@ const TitledInput: React.SFC<Props> = (props) => {
   )
 }
 
-// @refresh reset
 const inputHeight = 22
 const styles = StyleSheet.create({
   container: {

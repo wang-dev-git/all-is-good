@@ -6,6 +6,8 @@ export default {
   GLOBAL_LOADING: 'Chargement...',
   GLOBAL_LOADING_ERROR: 'Erreur de chargement...',
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
+  GLOBAL_CANCEL: 'Annuler',
+  GLOBAL_OK: 'OK',
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
@@ -21,6 +23,7 @@ export default {
   PROFILE_RATING: "Notez l'application",
   PROFILE_HELP: "Assistance",
   PROFILE_LOGOUT: "Déconnexion",
+  PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
 
   // Orders
   ORDERS_NONE: 'Aucune commande',

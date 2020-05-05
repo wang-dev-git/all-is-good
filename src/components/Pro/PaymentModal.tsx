@@ -355,8 +355,9 @@ const styles = StyleSheet.create({
   subtitle: {
     ...mainStyle.montBold,
     textAlign: 'center',
-    fontSize: 13,
-    marginVertical: 12,
+    fontSize: 17,
+    marginTop: 32,
+    marginBottom: 12,
   },
   quantityBtns: {
     flexDirection: 'row',

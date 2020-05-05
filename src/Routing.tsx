@@ -125,10 +125,10 @@ export default class Routing extends React.Component<Props, State> {
           hideStatusBar
           />
         { /** Global Loader **/ }
-        <LoaderWrapper />
+        <ModalContainer generic />
 
         { /** Global Loader **/ }
-        <ModalContainer generic />
+        <LoaderWrapper />
       </View>
     )  
   }

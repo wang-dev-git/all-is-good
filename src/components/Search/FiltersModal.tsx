@@ -1,33 +1,50 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, Text, Animated, View, Slider, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { AssetImage, BottomButton, SelectCreditCard, MyText } from '../Reusable'
-import { Fire, Flash, Modal } from '../../services'
+import { Fire, Flash, Modal, Loader } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
 import { mainStyle } from '../../styles'
+import { updateUser } from '../../actions/auth.action'
+
+const min = 5
+const max = 30
 
 interface Props {
 }
 const FiltersModal: React.FC<Props> = (props) => {
   
+  const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const [address, setAddress] = React.useState({ formatted_address: "1 rue de l'Ermitage" })
-  const [distance, setDistance] = React.useState(3)
+  const [distance, setDistance] = React.useState(user && user.distance ? user.distance : max)
+  const dispatch = useDispatch()
 
   const changeAddress = () => {
     Modal.hide('filters')
     Actions.addresses({ selected: address, onSelect: setAddress })
   }
 
-  const onConfirm = () => {
-    Modal.hide('filters')
+  const onConfirm = async () => {
+    if (user.distance !== distance) {
+      Loader.show('Chargement en cours...')
+      try {
+        await dispatch(updateUser({ distance: distance }))
+        Modal.hide('filters')
+      } catch (err) {
+
+      }
+      Loader.hide()
+    } else {
+      Modal.hide('filters')
+    }
   }
 
   return (
@@ -44,16 +61,24 @@ const FiltersModal: React.FC<Props> = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.group}>
-          <MyText style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <MyText style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
+            <MyText type='bold' style={{ color: '#fff', marginRight: 16 }}>{Number(distance).toFixed(0)}km</MyText>
+          </View>
           <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
             <Slider
-              minimumValue={5}
-              maximumValue={30}
+              minimumValue={min}
+              maximumValue={max}
               value={distance}
               minimumTrackTintColor={'#ded'}
               maximumTrackTintColor={'#fff'}
+              onValueChange={setDistance}
               />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <MyText style={{ color: '#fff' }}>{min}km</MyText>
+              <MyText style={{ color: '#fff' }}>{max}km</MyText>
             </View>
+          </View>
         </View>
       </View>
       <BottomButton

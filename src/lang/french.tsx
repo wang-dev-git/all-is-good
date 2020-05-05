@@ -8,12 +8,27 @@ export default {
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
   GLOBAL_CANCEL: 'Annuler',
   GLOBAL_OK: 'OK',
+  GLOBAL_OPTIONAL: 'optionnel',
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
 
   // Login
+  LOGIN_TITLE: 'Connexion',
+  LOGIN_REGISTER_TITLE: 'Inscription',
+  LOGIN_MESSAGE: 'Ravi de vous revoir !',
+  LOGIN_REGISTER_MESSAGE: 'Bienvenue !',
+  LOGIN_EMAIL: 'Entrez votre email',
+  LOGIN_PASSWORD: 'Choisir un mot de passe',
+  LOGIN_CONFIRM_PASSWORD: 'Répéter le mot de passe',
+  LOGIN_FIRST_NAME: 'Votre prénom',
+  LOGIN_LAST_NAME: 'Votre nom',
+  LOGIN_PHONE: 'Votre numéro de téléphone',
   LOGIN_BTN_TXT: "C'est parti !",
+  LOGIN_ALREADY_REGISTERED: 'Vous avez déjà un compte ?',
+  LOGIN_NOT_REGISTERED: 'Pas encore inscrit ?',
+  LOGIN_FORGOT_PASSWORD: 'Mot de passe oublié ?',
+  LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez les conditions d'utilisation",
 
   // Profile
   PROFILE_EDIT_BTN: "Modifier",

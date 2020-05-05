@@ -17,13 +17,14 @@ const maxTitle = 60
 const maxDescription = 255
 
 interface Props {
+  lang: any;
+
   saveName: (name: any) => void;
 }
 interface State {
   user: any;
   registering: boolean;
   loading: boolean;
-  forgotten: boolean;
   sending: boolean;
   checked: boolean;
 }
@@ -41,7 +42,6 @@ class LoginScreen extends React.Component<Props, State>  {
     checked: false,
     registering: true,
     loading: false,
-    forgotten: false,
     sending: false
   }
 
@@ -117,16 +117,17 @@ class LoginScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { user, registering, loading, forgotten } = this.state
+    const { lang } = this.props
+    const { user, registering, loading } = this.state
     return (
       <View style={styles.container}>
         <HeaderBar
-          title={registering ? 'Inscription' : 'Connexion'}
+          title={registering ? lang.LOGIN_REGISTER_TITLE : lang.LOGIN_TITLE}
           back
           />
         <KeyboardAwareScrollView>
           <TitledInput
-            title={'Entrez votre email'}
+            title={lang.LOGIN_EMAIL}
             value={user.email}
             placeholder='exemple@allisgood.fr'
             maxLength={maxTitle}
@@ -137,7 +138,7 @@ class LoginScreen extends React.Component<Props, State>  {
 
           <TitledInput
             secure
-            title={'Choisir un mot de passe'}
+            title={lang.LOGIN_PASSWORD}
             value={user.password}
             placeholder='**********'
             maxLength={maxTitle}
@@ -150,7 +151,7 @@ class LoginScreen extends React.Component<Props, State>  {
             <View>
               <TitledInput
                 secure
-                title={'Répéter le mot de passe'}
+                title={lang.LOGIN_CONFIRM_PASSWORD}
                 value={user.confirm}
                 placeholder='**********'
                 maxLength={maxTitle}
@@ -159,7 +160,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 onChange={({ nativeEvent }) => this.onChange('confirm', nativeEvent.text)}
                 />
               <TitledInput
-                title={'Votre prénom'}
+                title={lang.LOGIN_FIRST_NAME}
                 value={user.first_name}
                 placeholder='ex: Marie'
                 maxLength={maxTitle}
@@ -168,7 +169,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
                 />
               <TitledInput
-                title={'Votre nom'}
+                title={lang.LOGIN_LAST_NAME}
                 value={user.last_name}
                 placeholder='ex: Dupont'
                 maxLength={maxTitle}
@@ -179,15 +180,16 @@ class LoginScreen extends React.Component<Props, State>  {
 
               <CheckBox
                 active={this.state.checked}
-                title="En vous inscrivant, vous acceptez les conditions d'utilisation"
+                title={lang.LOGIN_CONDITIONS}
                 onPress={() => this.setState({checked: !this.state.checked})}
+                onTapText={() => this.setState({checked: !this.state.checked})}
                 />
              </View>
            }
 
-          <View style={{paddingTop: 20, paddingBottom: 22, alignItems: 'center'}}>
+          <View style={{paddingTop: 20, paddingBottom: 12, alignItems: 'center'}}>
             <SmallButton
-              title={registering ? "C'est parti !" : "C'est parti !"}
+              title={lang.LOGIN_BTN_TXT}
               onPress={() => this.proceed()}
               />
           </View>
@@ -195,11 +197,11 @@ class LoginScreen extends React.Component<Props, State>  {
           <View style={styles.switcher}>
             { !registering &&
               <TouchableOpacity onPress={Actions.forgot}>
-                <MyText style={styles.switcherTxt}>{forgotten ? 'Je connais mon mot de passe' : 'Mot de passe oublié ?'}</MyText>
+                <MyText style={styles.switcherTxt}>{lang.LOGIN_FORGOT_PASSWORD}</MyText>
               </TouchableOpacity>
             }
             <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
-              <MyText style={styles.switcherTxt}>{registering ? 'Vous avez déjà un compte ?' : 'Pas encore inscrit ?'}</MyText>
+              <MyText style={styles.switcherTxt}>{registering ? lang.LOGIN_ALREADY_REGISTERED : lang.LOGIN_ALREADY_REGISTERED}</MyText>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   switcher: {
-    marginTop: 10,
+    marginTop: 0,
     paddingBottom: mainStyle.phonePaddingBottom + 20,
     alignItems: 'center',
     justifyContent: 'center',
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state: any) => ({
-
+  lang: state.langReducer.lang,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   saveName: (name: any) => dispatch(saveName(name)),

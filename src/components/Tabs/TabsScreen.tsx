@@ -121,6 +121,10 @@ class TabsScreen extends React.Component<Props, State>  {
 
   notifListener: any = null
   async componentDidMount() {
+
+    this.props.updateLang(this.props.langId)
+
+
     Fire.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
         if (this.state.booted)

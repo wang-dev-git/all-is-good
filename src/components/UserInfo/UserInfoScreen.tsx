@@ -18,6 +18,7 @@ const maxDescription = 255
 
 type Props = {
   user: any;
+  lang: any;
   loading: boolean;
 
   updateUser: (info: any) => void;
@@ -32,7 +33,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
     super(props)
 
     this.state = {
-      info: props.user,
+      info: { ...props.user },
     }
   }
 
@@ -58,7 +59,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { user, loading } = this.props
+    const { user, lang, loading } = this.props
     const { info } = this.state
     return (
       <View style={styles.container}>
@@ -68,7 +69,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
           />
         <KeyboardAwareScrollView>
           <TitledInput
-            title={'E-mail'}
+            title={lang.USER_INFO_EMAIL}
             value={info.email}
             placeholder='exemple@allisgood.fr'
             maxLength={maxTitle}
@@ -79,7 +80,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
             />
 
           <TitledInput
-            title={'Prénom'}
+            title={lang.USER_INFO_FIRST_NAME}
             value={info.first_name}
             placeholder='ex: Marie'
             maxLength={maxTitle}
@@ -88,13 +89,21 @@ class UserInfoScreen extends React.Component<Props, State>  {
             onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
             />
           <TitledInput
-            title={'Nom'}
+            title={lang.USER_INFO_LAST_NAME}
             value={info.last_name}
             placeholder='ex: Dupont'
             maxLength={maxTitle}
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}
+            />
+          <TitledInput
+            title={lang.USER_INFO_PHONE}
+            value={info.phone}
+            placeholder='ex: 06 42 98 68 42'
+            autocorrect={false}
+
+            onChange={({ nativeEvent }) => this.onChange('phone', nativeEvent.text)}
             />
 
           {/* Save Button */}
@@ -124,6 +133,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
+  lang: state.langReducer.lang,
   loading: state.authReducer.updating,
 })
 const mapDispatchToProps = (dispatch: any) => ({

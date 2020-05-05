@@ -38,7 +38,7 @@ const TitledInput: React.SFC<Props> = (props) => {
         onChange={onChange}
         multiline={props.multiline}
         style={[styles.input, props.multiline ? {minHeight: 60} : {height: 50}]}
-        maxLength={props.maxLength || 500}
+        maxLength={props.maxLength || 100}
         keyboardType={props.keyboardType}
         underlineColorAndroid='transparent'
         secureTextEntry={props.secure}

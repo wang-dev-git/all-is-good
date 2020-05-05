@@ -39,6 +39,14 @@ export default {
   PROFILE_HELP: "Assistance",
   PROFILE_LOGOUT: "Déconnexion",
   PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+  PROFILE_JOIN_AIG: 'Vous possédez un magasin ? Rejoignez All is Good et aidez à éviter le gaspillage',
+  PROFILE_JOIN_AIG_BTN: 'Rejoindre All is Good',
+
+  USER_INFO_TITLE: 'Mes coordonnées',
+  USER_INFO_EMAIL: 'Email',
+  USER_INFO_FIRST_NAME: 'Prénom',
+  USER_INFO_LAST_NAME: 'Nom',
+  USER_INFO_PHONE: 'Téléphone',
 
   // Orders
   ORDERS_NONE: 'Aucune commande',

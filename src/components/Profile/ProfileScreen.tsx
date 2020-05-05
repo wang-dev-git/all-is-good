@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } 
 
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, MyText , AssetImage, BottomButton, VeilView, PageLoader } from '../Reusable'
+import { HeaderBar, MyText , AssetImage, BottomButton, VeilView, PageLoader, SmallButton } from '../Reusable'
 import { Fire, Flash } from '../../services'
 
 import Constants from 'expo-constants';
@@ -231,10 +231,16 @@ class ProfileScreen extends React.Component<Props, State>  {
            </View>
 
            <View style={styles.join}>
-             <MyText style={styles.joinTxt}>Vous possédez un magasin ? Rejoignez All Is Good et aider à éviter le gaspillage</MyText>
-             <TouchableOpacity onPress={() => this.becomePro()}>
+             <MyText style={styles.joinTxt}>{lang.PROFILE_JOIN_AIG}</MyText>
+             {/*<TouchableOpacity onPress={() => this.becomePro()}>
                <MyText style={styles.joinLink}>En savoir plus...</MyText>
-             </TouchableOpacity>
+             </TouchableOpacity>*/}
+             <View style={{alignItems: 'center', marginTop: 18,}}>
+               <SmallButton
+                 title={lang.PROFILE_JOIN_AIG_BTN}
+                 onPress={() => this.becomePro()}
+                 />
+             </View>
            </View>
 
            <View style={[styles.nets]}>
@@ -325,6 +331,7 @@ const styles = StyleSheet.create({
   },
   joinTxt: {
     ...mainStyle.montText,
+    fontSize: 16,
     lineHeight: 23,
     color: '#666',
     textAlign: 'center',

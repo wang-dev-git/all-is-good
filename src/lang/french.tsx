@@ -40,6 +40,8 @@ export default {
   PROFILE_CARDS: "Moyens de paiement",
   PROFILE_RATING: "Notez l'application",
   PROFILE_HELP: "Assistance",
+  PROFILE_HELP_MSG: "Vous pouvez nous envoyer un mail à l'adresse suivante:\ncontact@allisgood-app.com\nou visiter notre site internet",
+  PROFILE_HELP_BTN: "Voir le site",
   PROFILE_LOGOUT: "Déconnexion",
   PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
   PROFILE_JOIN_AIG: 'Vous possédez un magasin ? Rejoignez All is Good et aidez à éviter le gaspillage',

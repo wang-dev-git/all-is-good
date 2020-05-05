@@ -109,17 +109,19 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   async help() {
+    const { lang } = this.props
     Alert.alert(
-      'Assistance',
-      'En demandant à rentrer en contact avec All Is Good, vous acceptez de continuer vos échanges via la boite mail renseignée lors de la création de votre compte',
+      lang.PROFILE_HELP,
+      lang.PROFILE_HELP_MSG,
       [
         {
-          text: 'Annuler',
+          text: lang.GLOBAL_CANCEL,
           onPress: () => void 0,
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => {
-          this.showMail()
+        {text: lang.PROFILE_HELP_BTN, onPress: () => {
+          Linking.openURL('https://allisgood-app.com/')
+          //this.showMail()
         }},
       ],
       {cancelable: false},

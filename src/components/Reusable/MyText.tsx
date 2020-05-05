@@ -4,17 +4,22 @@ import { StyleSheet, Text } from 'react-native';
 interface Props {
   children?: any;
   style?: any;
+  numberOfLines?: any;
 
   type?: 'bold' | 'light' | 'normal';
 }
 
 const MyText: React.FC<Props> = (props) => {
   return (
-    <Text style={[
+    <Text
+      {...props}
+      numberOfLines={props.numberOfLines}
+      style={[
       styles.txt,
       props.type === 'bold' ? styles.txtBold :
       props.type === 'light' ? styles.txtLight : {},
-      props.style || {}]}>{props.children}</Text>
+      props.style || {}]}
+      >{props.children}</Text>
   )
 }
 

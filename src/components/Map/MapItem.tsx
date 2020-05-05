@@ -34,7 +34,7 @@ const MapItem: React.FC<Props> = (props: Props) => {
             </View>
 
             <View style={styles.info}>
-              <View style={[styles.row, { justifyContent: 'space-between' }]}>
+              <View style={[]}>
                 <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
                 <View style={styles.row}>
                   <View style={styles.icon}>
@@ -90,13 +90,15 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   row: {
+    marginTop: 3,
     flexDirection: 'row',
     alignItems: 'center',
   },
   icon: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 30,
+    width: 20,
+    marginLeft: -2,
   },
 });
 

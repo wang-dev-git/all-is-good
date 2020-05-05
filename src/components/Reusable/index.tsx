@@ -3,6 +3,7 @@ import MyText from './MyText'
 import ListEmpty from './ListEmpty'
 import VeilView from './VeilView'
 import BottomButton from './BottomButton'
+import FloatingButton from './FloatingButton'
 import HeaderBar from './HeaderBar'
 import TitledInput from './TitledInput'
 import PageLoader from './PageLoader'
@@ -22,6 +23,7 @@ export {
   VeilView,
   ListEmpty,
   BottomButton,
+  FloatingButton,
   HeaderBar,
   TitledInput,
   PageLoader,

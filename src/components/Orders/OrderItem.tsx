@@ -71,8 +71,6 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   const history = order.history || []
   const last = history.length ? history[history.length - 1] : null
 
-  console.log(history)
-
   return (
     <TouchableOpacity onPress={props.onPress}>
       <View style={styles.container}>

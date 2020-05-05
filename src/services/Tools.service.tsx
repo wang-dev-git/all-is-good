@@ -1,4 +1,5 @@
 import ngeohash from 'ngeohash'
+import { Platform, NativeModules } from 'react-native'
 
 export default class Tools {
   
@@ -29,6 +30,22 @@ export default class Tools {
 
   static getRegionZoom(pos) {
     return Math.round(Math.log(360 / pos.longitudeDelta) / Math.LN2)
+  }
+
+  static getDefaultLanguage() {
+    let locale = 'en'
+    if (Platform.OS === 'ios') {
+      locale = NativeModules.SettingsManager.settings.AppleLocale // "fr_FR"
+      console.log(" ==> Current settings: ", NativeModules.SettingsManager.settings)
+      if (locale === undefined) {
+        locale = NativeModules.SettingsManager.settings.AppleLanguages[0]
+        if (locale == undefined)
+          return "en"
+      }
+    } else {
+      locale = NativeModules.I18nManager.localeIdentifier;
+    }
+    return locale
   }
 
 }

@@ -151,6 +151,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         keyExtractor={(item, index) => index.toString()}
         refreshControl={
           <RefreshControl
+            tintColor='#fff'
             refreshing={loading}
             onRefresh={refresh}
           />

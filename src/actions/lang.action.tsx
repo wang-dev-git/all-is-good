@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 import Fire from '../services/Fire.service'
 import AppConfig from '../services/AppConfig.service'
+import Tools from '../services/Tools.service'
 
 import french from '../lang/french'
 import english from '../lang/english'
@@ -20,9 +21,12 @@ export const updateLang = createActionThunk('SET_LANG', (id: any) => {
 })
 export const clearLang = createActionThunk('CLEAR_LANG', () => void 0)
 
+const deviceLanguage = Tools.getDefaultLanguage()
+console.log('Device language: ' + deviceLanguage)
+
 const initialState = {
-  id: AppConfig.defaultLang,
-  lang: langs[AppConfig.defaultLang],
+  id: deviceLanguage,
+  lang: langs[deviceLanguage],
 };
 
 // Reducer

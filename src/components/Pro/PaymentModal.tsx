@@ -144,8 +144,8 @@ const PaymentModal: React.FC<Props> = (props) => {
   }
 
   const canProceed = checkCanProceed()
-  const deliveryOpening = 'Nous pourrons livrer votre commande entre ' + pro.delivery_start + ' et ' + pro.delivery_end
-  const pickUpOpening = 'Vous pourrez venir récupérer votre commande entre ' + pro.pick_up_start + ' et ' + pro.pick_up_end
+  const deliveryOpening = 'Nous pourrons livrer votre commande\nentre ' + pro.delivery_start + ' et ' + pro.delivery_end
+  const pickUpOpening = 'Vous pourrez venir récupérer votre commande\nentre ' + pro.pick_up_start + ' et ' + pro.pick_up_end
 
   return (
     <View>
@@ -168,7 +168,7 @@ const PaymentModal: React.FC<Props> = (props) => {
             </View>
           </TouchableOpacity>      
         </View>
-        <MyText style={[styles.conditions, {marginTop: 40}]}>{lang.PAYMENT_QUANTITY_SUBTITLE}</MyText>
+        <MyText style={[styles.surprise, {marginTop: 40}]}>{lang.PAYMENT_QUANTITY_SUBTITLE}</MyText>
 
         <MyText style={[styles.subtitle, {marginTop: 10, fontSize: 17}]}>
           Total: {Number(total).toFixed(2)}$
@@ -394,6 +394,16 @@ const styles = StyleSheet.create({
   modeTxt: {
     ...mainStyle.montText,
     color: '#000',
+  },
+  surprise: {
+    ...mainStyle.montLight,
+    fontSize: 18,
+    color: mainStyle.lightColor,
+    textAlign: 'center',
+    marginTop: 6,
+    lineHeight: 22,
+    paddingHorizontal: 20,
+    marginVertical: 20,
   },
   conditions: {
 

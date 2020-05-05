@@ -71,7 +71,7 @@ export default {
 
   // Payment
   PAYMENT_CHOOSE_QUANTITY: 'Choisir la quantité',
-  PAYMENT_QUANTITY_SUBTITLE: 'Choisissez la quantité de paniers surprises\nque vous souhaitez commander. Attention les produits présents dans le panier peuvent légèrement varier en fonction des invendus. Pensez également à vérifier les produits allergène',
+  PAYMENT_QUANTITY_SUBTITLE: 'Attention les produits présents dans le panier peuvent légèrement varier en fonction des invendus',
   PAYMENT_QUANTITY: 'Quantité',
   PAYMENT_CHOOSE_MODE: 'Mode de récupération',
   PAYMENT_PICK_UP: 'à'.toUpperCase() + ' emporter',

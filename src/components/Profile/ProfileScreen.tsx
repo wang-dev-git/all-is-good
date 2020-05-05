@@ -108,6 +108,10 @@ class ProfileScreen extends React.Component<Props, State>  {
     Linking.openURL('https://google.fr')
   }
 
+  showTwitter() {
+    Linking.openURL('https://google.fr')
+  }
+
   async help() {
     const { lang } = this.props
     Alert.alert(
@@ -254,7 +258,7 @@ class ProfileScreen extends React.Component<Props, State>  {
                <AssetImage src={require('../../images/fb_logo.png')} />
              </TouchableOpacity>
 
-             <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
+             <TouchableOpacity style={styles.net} onPress={() => this.showTwitter()}>
                <AssetImage src={require('../../images/twitter_logo.png')} />
              </TouchableOpacity>
            </View>

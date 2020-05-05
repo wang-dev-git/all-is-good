@@ -29,6 +29,8 @@ export const modalReducer = handleActions(
 
     'HIDE_MODAL_SUCCEEDED': (state: any, action: any) => {
       const modals = state.modals
+      if (!modals[action.payload.key])
+        return state
       modals[action.payload.key].shown = false
       return {
         ...state,
@@ -38,6 +40,8 @@ export const modalReducer = handleActions(
 
     'TERMINATE_MODAL_SUCCEEDED': (state: any, action: any) => {
       const modals = state.modals
+      if (!modals[action.payload.key])
+        return state
       delete modals[action.payload.key]
       return {
         ...state,

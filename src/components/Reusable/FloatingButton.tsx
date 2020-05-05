@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     marginHorizontal: 20,
-    borderRadius: 12,
+    borderRadius: 54 / 2,
     overflow: 'hidden',
     ...ifIphoneX({
       marginBottom: 30,

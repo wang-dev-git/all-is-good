@@ -73,6 +73,7 @@ class AddCardScreen extends React.Component<Props, State>  {
       cardId: cardId,
     })
     console.log(cardId)
+    console.log(values.type)
   }
 
   async requestStripeToken(card: any) {

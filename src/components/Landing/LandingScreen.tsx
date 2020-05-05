@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   btn: {
     width: Dimensions.get('window').width - (margin * 2),
     height: 44,
-    borderRadius: 8,
+    borderRadius: 44 / 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

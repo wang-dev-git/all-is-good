@@ -103,7 +103,7 @@ class LandingScreen extends React.Component<Props, State>  {
             </TouchableOpacity>
 
             <TouchableOpacity disabled={this.state.editing} style={{marginTop: 6}}  onPress={() => this.googleLogin()}>
-              <View style={[styles.btn, {backgroundColor: '#d47'}]}>
+              <View style={[styles.btn, {backgroundColor: '#d93025'}]}>
                 <View style={styles.floating}>
                   <Icon name='google' color={'#fff'} size={14} />
                 </View>

@@ -126,6 +126,9 @@ class LoginScreen extends React.Component<Props, State>  {
           back
           />
         <KeyboardAwareScrollView>
+
+          <MyText type='bold' style={styles.welcome}>{registering ? lang.LOGIN_REGISTER_MESSAGE : lang.LOGIN_MESSAGE}</MyText>
+
           <TitledInput
             title={lang.LOGIN_EMAIL}
             value={user.email}
@@ -219,6 +222,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  welcome: {
+    marginTop: 32,
+    marginBottom: 10,
+    textAlign: 'center',
+    color: mainStyle.themeColor,
+    fontSize: 23,
+    textTransform: 'uppercase',
+    paddingHorizontal: 30,
   },
   switcher: {
     marginTop: 0,

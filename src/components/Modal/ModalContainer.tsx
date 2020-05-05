@@ -33,7 +33,10 @@ const ModalInstance: React.FC<ModalProps> = (props) => {
       velocity: 3,
       tension: 2,
       friction: 8,
-    }).start();
+    }).start(() => {
+      if (!props.shown)
+        Modal.terminate(props.name)
+    });
     
   }, [props.shown]);
 

@@ -1,6 +1,6 @@
 import { store } from '../store'
 
-import { showModal, hideModal } from '../actions/modal.action'
+import { showModal, hideModal, terminateModal } from '../actions/modal.action'
 
 type ModalData = {
   local?: boolean;
@@ -16,4 +16,6 @@ export default class Modal {
   }
 
   static hide(key: string) { store.dispatch(hideModal(key)) }
+
+  static terminate(key: string) { store.dispatch(terminateModal(key)) }
 }

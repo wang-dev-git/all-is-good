@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 // Actions
 export const showModal = createActionThunk('SHOW_MODAL', (key: string, data: any) => ({key: key, data: data}))
 export const hideModal = createActionThunk('HIDE_MODAL', (key: string) => ({key: key}))
+export const terminateModal = createActionThunk('TERMINATE_MODAL', (key: string) => ({key: key}))
 
 // Initial state
 const initialState = {
@@ -29,6 +30,15 @@ export const modalReducer = handleActions(
     'HIDE_MODAL_SUCCEEDED': (state: any, action: any) => {
       const modals = state.modals
       modals[action.payload.key].shown = false
+      return {
+        ...state,
+        toggle: !state.toggle,
+      }
+    },
+
+    'TERMINATE_MODAL_SUCCEEDED': (state: any, action: any) => {
+      const modals = state.modals
+      delete modals[action.payload.key]
       return {
         ...state,
         toggle: !state.toggle,

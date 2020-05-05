@@ -54,7 +54,6 @@ const SearchScreen: React.FC<Props> = (props) => {
     Keyboard.dismiss()
     Modal.show('filters', {
       content: () => <FiltersModal />,
-      onClose: () => refresh()
     })
   }
 
@@ -95,7 +94,7 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <View>
             <FlatList
-              data={[]}
+              data={categories}
               numColumns={2}
               contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
               renderItem={(item: any) => 

@@ -142,7 +142,7 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   becomePro() {
-    Linking.openURL('https://google.fr')
+    Linking.openURL('https://allisgood-app.com')
   }
 
   render() {
@@ -259,6 +259,7 @@ class ProfileScreen extends React.Component<Props, State>  {
              </TouchableOpacity>
            </View>
         </ScrollView>
+
         <PageLoader
           title='Validation...'
           loading={uploading}

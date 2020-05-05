@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
 import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -13,23 +14,43 @@ import Feather from '@expo/vector-icons/Feather'
 import { mainStyle } from '../../styles'
 
 interface Props {
-
 }
 const FiltersModal: React.FC<Props> = (props) => {
   
+  const lang = useSelector(state => state.langReducer.lang)
+  const [address, setAddress] = React.useState({ formatted_address: "1 rue de l'Ermitage" })
+
+  const changeAddress = () => {
+    Modal.hide('filters')
+    Actions.addresses({ selected: address, onSelect: setAddress })
+  }
+
+  const onConfirm = () => {
+    Modal.hide('filters')
+  }
+
   return (
     <View style={{backgroundColor: mainStyle.themeColor}}>
       <View style={styles.header}>
-        <MyText style={styles.title}>Filtres</MyText>
+        <MyText type='bold' style={styles.title}>{lang.FILTERS_TITLE}</MyText>
       </View>
-      <View style={styles.center}>
-
+      <View style={styles.content}>
+        <View style={styles.group}>
+          <MyText style={styles.groupTitle}>{lang.FILTERS_AROUND}</MyText>
+          <TouchableOpacity style={styles.row} onPress={changeAddress}>
+            <MyText style={styles.rowTitle}>{address.formatted_address}</MyText>
+            <AntDesign name="right" color='#fff' />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.group}>
+          <MyText style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
+        </View>
       </View>
       <BottomButton
-        title='Confirmer'
+        title={lang.FILTERS_CONFIRM}
         titleColor={mainStyle.themeColor}
         backgroundColor={'#fff'}
-        onPress={() => Modal.hide('filters')}
+        onPress={onConfirm}
         />
     </View>
   );
@@ -45,34 +66,37 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   title: {
-    ...mainStyle.montBold,
     textAlign: 'center',
     fontSize: 15,
     color: '#fff',
     textTransform: 'uppercase',
   },
-  open: {
-    ...mainStyle.montLight,
-    textAlign: 'center',
-    marginTop: 6,
+  content: {
+    height: 300,
+  },
+  group: {
+
+  },
+  groupTitle: {
+    fontSize: 15,
     color: '#fff',
+    textTransform: 'uppercase',
+    paddingHorizontal: 16,
   },
-  center: {
-    height: 200,
-    alignItems: 'center',
+  row: {
+    marginVertical: 20,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    paddingHorizontal: 16,
+
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
   },
-  icon: {
-    ...mainStyle.circle(68),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  message: {
-    ...mainStyle.montLight,
-    textAlign: 'center',
-    marginTop: 32,
-    marginBottom: 60,
+  rowTitle: {
     color: '#fff',
-  },
+  }
 
 });
 

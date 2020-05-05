@@ -16,6 +16,12 @@ export default {
   HOME_EMPTY_MESSAGE: "Il semble que nous n'ayons aucun restaurant à proximité de votre localisation. Vous pouvez réessayer en utilisant une adresse différente",
   HOME_EMPTY_BTN: "Changer d'adresse",
 
+  // Filters
+  FILTERS_TITLE: 'Filtres',
+  FILTERS_AROUND: 'Rechercher autour de',
+  FILTERS_RANGE: 'Distance maximum',
+  FILTERS_CONFIRM: 'Confirmer',
+
   // Login
   LOGIN_TITLE: 'Connexion',
   LOGIN_REGISTER_TITLE: 'Inscription',

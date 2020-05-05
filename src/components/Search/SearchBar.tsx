@@ -15,7 +15,7 @@ interface Props {
   query: string;
 
   onChange: (query: string) => void;
-  onFilters: () => void;
+  onFilters?: () => void;
   onClear: () => void;
 }
 const SearchBar: React.FC<Props> = (props) => {
@@ -33,13 +33,14 @@ const SearchBar: React.FC<Props> = (props) => {
         <View style={styles.searchIcon}>
           <Icon name="search" color={mainStyle.themeColor} size={16} />
         </View>
-        {/*}
-        <TouchableOpacity style={styles.filtersIcon} onPress={() => props.onFilters()}>
-          <Icon name="cog" color={'#fff'} size={16} />
-        </TouchableOpacity>
-        */}
+        
+        { props.onFilters &&
+          <TouchableOpacity style={styles.filtersIcon} onPress={() => props.onFilters()}>
+            <Icon name="cog" color={'#fff'} size={16} />
+          </TouchableOpacity>
+        }
         { props.query.length > 0 &&
-          <TouchableOpacity style={styles.clearIcon} onPress={() => props.onClear()}>
+          <TouchableOpacity style={[styles.clearIcon, props.onFilters ? {right: barHeight + 2} : { right: 10 }]} onPress={() => props.onClear()}>
             <Icon name="close" color={mainStyle.lightColor} size={12} />
           </TouchableOpacity>
         }
@@ -97,7 +98,6 @@ const styles = StyleSheet.create({
   clearIcon: {
     position: 'absolute',
     top: 0,
-    right: 10,//barHeight + 2,
     bottom: 0,
 
     width: 20,

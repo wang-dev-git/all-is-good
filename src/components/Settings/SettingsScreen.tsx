@@ -75,7 +75,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
             </TouchableOpacity>
           ))}
         </View>
-        <MyText style={styles.groupTitle}>{lang.SETTINGS_LANG}</MyText>
+        <MyText style={styles.groupTitle}>{lang.SETTINGS_NOTIFS}</MyText>
         <View style={styles.group}>
           <TouchableOpacity style={styles.option} onPress={() => onChange('notifOrders', !info.notifOrders)}>
             <View style={styles.content}>
@@ -85,7 +85,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
                     <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                   }
                 </View>
-                <MyText style={styles.title}>Statut des commandes</MyText>
+                <MyText style={styles.title}>{lang.SETTINGS_NOTIFS_ORDERS}</MyText>
               </View>
             </View>
           </TouchableOpacity>
@@ -98,7 +98,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
                     <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                   }
                 </View>
-                <MyText style={styles.title}>News de All is Good</MyText>
+                <MyText style={styles.title}>{lang.SETTINGS_NOTIFS_AIG}</MyText>
               </View>
             </View>
           </TouchableOpacity>
@@ -116,8 +116,9 @@ const styles = StyleSheet.create({
   },
   groupTitle: {
     ...mainStyle.montBold,
+    color: mainStyle.themeColor,
     paddingLeft: 20,
-    paddingTop: 12,
+    paddingTop: 22,
     paddingBottom: 6,
     fontSize: 18
   },

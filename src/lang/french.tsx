@@ -12,6 +12,9 @@ export default {
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
+  HOME_EMPTY_TITLE: 'Désolé !\nNous ne sommes pas encore là...',
+  HOME_EMPTY_MESSAGE: "Il semble que nous n'ayons aucun restaurant à proximité de votre localisation. Vous pouvez réessayer en utilisant une adresse différente",
+  HOME_EMPTY_BTN: "Changer d'adresse",
 
   // Login
   LOGIN_TITLE: 'Connexion',
@@ -61,6 +64,9 @@ export default {
   // Settings
   SETTINGS_TITLE: "Réglages",
   SETTINGS_LANG: "Langues",
+  SETTINGS_NOTIFS: "Notifications",
+  SETTINGS_NOTIFS_ORDERS: "Status des commandes",
+  SETTINGS_NOTIFS_AIG: "News de All is Good",
 
   // Pro
   PRO_DESCRIPTION_TITLE: "Description",

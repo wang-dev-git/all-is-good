@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, MyText, ListEmpty, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
+import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
@@ -91,13 +91,11 @@ const SearchScreen: React.FC<Props> = (props) => {
             keyExtractor={(item, index) => index.toString()}
             />
         ) : loadingCategories ? (
-          <MyText>
-            Chargement en cours...
-          </MyText>
+          <MyText style={{color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
         ) : (
           <View>
             <FlatList
-              data={categories}
+              data={[]}
               numColumns={2}
               contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
               renderItem={(item: any) => 
@@ -108,9 +106,17 @@ const SearchScreen: React.FC<Props> = (props) => {
                   />
               }
               ListEmptyComponent={() => (
-                <ListEmpty
-                  text={loading ? lang.GLOBAL_LOADING : lang.GLOBAL_LOADING_ERROR}
-                  />
+                <View style={styles.empty}>
+                  <MyText type='bold' style={styles.emptyTitle}>{lang.HOME_EMPTY_TITLE}</MyText>
+                  <MyText style={styles.emptyMessage}>{lang.HOME_EMPTY_MESSAGE}</MyText>
+
+                  <SmallButton
+                    title={lang.HOME_EMPTY_BTN}
+                    onPress={showFilters}
+                    style={{backgroundColor: '#fff'}}
+                    textStyle={{color: mainStyle.themeColor}}
+                    />
+                </View>
               )}
               keyExtractor={(item, index) => index.toString()}
               />
@@ -131,6 +137,25 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
+  empty: {
+    alignItems: 'center',
+  },
+  emptyTitle: {
+    fontSize: 22,
+    color: '#fff',
+    textAlign: 'center',
+    lineHeight: 24,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  emptyMessage: {
+    fontSize: 13,
+    color: '#fff',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    lineHeight: 20,
+    marginBottom: 20,
+  }
 });
 
 export default SearchScreen

@@ -101,7 +101,11 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                         onPress={props.onRate}
                         />
                     ) : (
-                      <MyText>{order.rating} <AntDesign name="star" size={22} /></MyText>
+                      <View style={{flexDirection: 'row', justifyContent: 'center' }}>
+                        {Array(order.rating).fill(0).map((_, index) => (
+                          <MyText key={index}><AntDesign name="star" size={22} color={mainStyle.orangeColor} /></MyText>
+                        ))}
+                      </View>
                     )}
                   </View>
                 }

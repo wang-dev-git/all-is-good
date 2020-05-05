@@ -105,17 +105,15 @@ const SearchScreen: React.FC<Props> = (props) => {
                   />
               }
               ListEmptyComponent={() => (
-                <View style={styles.empty}>
-                  <MyText type='bold' style={styles.emptyTitle}>{lang.HOME_EMPTY_TITLE}</MyText>
-                  <MyText style={styles.emptyMessage}>{lang.HOME_EMPTY_MESSAGE}</MyText>
-
-                  <SmallButton
-                    title={lang.HOME_EMPTY_BTN}
-                    onPress={showFilters}
-                    style={{backgroundColor: '#fff'}}
-                    textStyle={{color: mainStyle.themeColor}}
-                    />
-                </View>
+                <ListEmpty
+                  text={lang.HOME_EMPTY_TITLE}
+                  subtext={lang.HOME_EMPTY_MESSAGE}
+                  wrapperStyle={{marginTop: 0}}
+                  imageSize={120}
+                  image={require('../../images/nocategories.png')}
+                  btnTxt={lang.HOME_EMPTY_BTN}
+                  onPressBtn={showFilters}
+                  />
               )}
               keyExtractor={(item, index) => index.toString()}
               />
@@ -136,25 +134,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  empty: {
-    alignItems: 'center',
-  },
-  emptyTitle: {
-    fontSize: 22,
-    color: '#fff',
-    textAlign: 'center',
-    lineHeight: 24,
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-  emptyMessage: {
-    fontSize: 13,
-    color: '#fff',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    lineHeight: 20,
-    marginBottom: 20,
-  }
 });
 
 export default SearchScreen

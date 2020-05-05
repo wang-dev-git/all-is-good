@@ -8,7 +8,9 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   text: string;
+  subtext?: string;
   image?: any;
+  imageSize?: number;
   textStyle?: any;
   wrapperStyle?: any;
 
@@ -18,12 +20,17 @@ interface Props {
 }
 
 const ListEmpty: React.FC<Props> = (props) => {
+  const size = props.imageSize || 160
   return (
     <View style={[styles.container, props.wrapperStyle || {}]}>
       { props.image &&
-        <AssetImage src={props.image} style={styles.picture} />
+        <AssetImage src={props.image} style={[styles.picture, { width: size, height: size }]} />
       }
-      <MyText style={[styles.text, props.textStyle || {}]}>{props.text}</MyText>
+      <MyText type='bold' style={[styles.text, props.textStyle || {}]}>{props.text}</MyText>
+      { props.subtext &&
+        <MyText type='bold' style={[styles.subtext, props.textStyle || {}]}>{props.subtext}</MyText>
+      }
+      
       { props.btnTxt !== undefined &&
         <TouchableOpacity style={[styles.btn, props.btnStyle || {}]} onPress={props.onPressBtn}>
           <MyText type='bold' style={styles.btnTxt}>{props.btnTxt}</MyText>
@@ -41,14 +48,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   picture: {
-    width: 160,
-    height: 160,
     marginBottom: 22,
   },
   text: {
+    fontSize: 22,
     color: '#fff',
     textAlign: 'center',
-    lineHeight: 28,
+    lineHeight: 24,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  subtext: {
+    fontSize: 13,
+    color: '#fff',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    lineHeight: 20,
     marginBottom: 20,
   },
   btn: {
@@ -60,7 +75,7 @@ const styles = StyleSheet.create({
   },
   btnTxt: {
     color: mainStyle.themeColor,
-  }
+  },
 });
 
 export default ListEmpty

@@ -206,11 +206,13 @@ const MapScreen: React.FC<Props> = (props) => {
               onFilters={showFilters}
               onClear={() => setAddress('')}
               />
-            <View style={styles.recenter}>
-              <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
-                <MaterialIcons name="place" color='#000' size={22} />
-              </TouchableOpacity>
-            </View>
+            { userLocation !== null &&
+              <View style={styles.recenter}>
+                <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
+                  <MaterialIcons name="place" color='#000' size={22} />
+                </TouchableOpacity>
+              </View>
+            }
             { addresses.length > 0 &&
               <View style={styles.content}>
                 { addresses.map((item, index) => (

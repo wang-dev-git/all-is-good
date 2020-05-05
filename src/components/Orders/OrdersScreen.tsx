@@ -32,6 +32,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
   const refresh = async () => {
     try {
       await dispatch(fetchOrders())
+      setShown(null)
     } catch (err) {
       console.log(err)
       Flash.error('Vérifiez votre connexion internet')
@@ -86,6 +87,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
         history: history
       })
       await refresh()
+      setShown(null)
       Flash.show('Commande annulée')
     } catch (err) {
 

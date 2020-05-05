@@ -70,6 +70,10 @@ export default {
   PRO_SOLD_OUT: "Victime de son succès",
 
   // Payment
+  PAYMENT_ALLERGENS: 'Allergènes',
+  PAYMENT_ALLERGENS_MSG: 'Veilliez à bien vérifier la liste des allergènes avant de commande',
+  PAYMENT_FOOD_SECURITY: 'Sécurité alimentaire',
+  PAYMENT_FOOD_SECURITY_MSG: 'Les invendus sont destinés à être consommés dans la journée, faites attention à ne pas attendre que les produits soient périmés',
   PAYMENT_CHOOSE_QUANTITY: 'Choisir la quantité',
   PAYMENT_QUANTITY_SUBTITLE: 'Attention les produits présents dans le panier peuvent légèrement varier en fonction des invendus',
   PAYMENT_QUANTITY: 'Quantité',

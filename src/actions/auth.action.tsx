@@ -17,6 +17,7 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
       email: email,
       first_name: saved ? saved.first_name : '',
       last_name: saved ? saved.last_name : '',
+      phone: saved ? saved.phone : '',
     }
     if (saved && saved.facebook && saved.pictureURL) {
       const url = await Fire.uploadFile('images/users/' + userId + '/profile_picture.png', saved.pictureURL)

@@ -38,6 +38,7 @@ class LoginScreen extends React.Component<Props, State>  {
       confirm: AppConfig.isProd() ? '' : 'coucou123',
       first_name: AppConfig.isProd() ? '' : 'Julien',
       last_name: AppConfig.isProd() ? '' : 'Brunet',
+      phone: AppConfig.isProd() ? '' : '0642986844',
     },
     checked: false,
     registering: true,
@@ -80,7 +81,7 @@ class LoginScreen extends React.Component<Props, State>  {
     this.setState({ loading: true })
     try {
       if (registering) {
-        this.props.saveName({ first_name: user.first_name, last_name: user.last_name })
+        this.props.saveName({ first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
         await Fire.auth().createUserWithEmailAndPassword(email, password)
       }
       else
@@ -179,6 +180,14 @@ class LoginScreen extends React.Component<Props, State>  {
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}
+                />
+              <TitledInput
+                title={lang.LOGIN_PHONE + ' (' + lang.GLOBAL_OPTIONAL + ')'}
+                value={user.phone}
+                placeholder='ex: 06 42 98 68 42'
+                autocorrect={false}
+
+                onChange={({ nativeEvent }) => this.onChange('phone', nativeEvent.text)}
                 />
 
               <CheckBox

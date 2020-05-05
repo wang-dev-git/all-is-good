@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   quantityTxt: {
     ...mainStyle.montBold,
     color: '#fff',
+    textTransform: 'uppercase'
   },
   name: {
     ...mainStyle.montBold,

@@ -154,7 +154,7 @@ const ProScreen: React.FC<Props> = (props) => {
         </View>
 
         <View style={styles.info}>
-          <View>
+          <View style={{flex: 0.8}}>
             <MyText style={styles.title}>{pro.name}</MyText>
 
             <View style={[styles.row, { marginBottom: 6 }]}>
@@ -176,12 +176,19 @@ const ProScreen: React.FC<Props> = (props) => {
                 )) }
               </View>
             }
+
+            <View style={{alignItems: 'flex-start'}}>
+              <View style={styles.quantity}>
+                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</MyText>
+              </View>
+            </View>
           </View>
 
-          <View>
+          <View style={{flex: 0.2, alignItems: 'flex-end'}}>
             <MyText style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</MyText>
             <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
           </View>
+
         </View>
 
         { hasDesc &&
@@ -279,7 +286,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   logoWrapper: {
-    marginTop: -50,
+    marginTop: -60,
     marginHorizontal: 15,
     flexDirection: 'row',
     justifyContent: 'space-between'
@@ -290,7 +297,22 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(70),
+    ...mainStyle.circle(84),
+  },
+
+  quantity: {
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: mainStyle.orangeColor,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginTop: 12,
+    marginBottom: 12,
+  },
+  quantityTxt: {
+    ...mainStyle.montBold,
+    color: '#fff',
+    textTransform: 'uppercase'
   },
 
   info: {
@@ -330,7 +352,7 @@ const styles = StyleSheet.create({
   descriptionWrapper: {
     ...mainStyle.montBold,
     marginHorizontal: 20,
-    marginVertical: 30,
+    marginVertical: 20,
   },
   descriptionTitle: {
     ...mainStyle.montBold,
@@ -433,8 +455,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   proIcon: {
-    width: 36,
-    height: 36,
+    width: 27,
+    height: 27,
     marginRight: 12,
     marginTop: 4,
     marginBottom: 4,

@@ -11,7 +11,7 @@ export const mainStyle = {
   darkColor: '#263238',
   redColor: '#E25464',
   greenColor: '#4BB543',
-  orangeColor: '#AA8312',
+  orangeColor: '#ffc54b',
 
   // Fonts
 

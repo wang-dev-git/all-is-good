@@ -67,7 +67,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
 
   const onRate = (order: any) => {
     Modal.show('rating', {
-      content: () => <RateModal />
+      content: () => <RateModal order={order} onRated={refresh} />
     })
   }
 

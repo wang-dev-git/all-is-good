@@ -3,6 +3,7 @@ export default {
   // Global
   GLOBAL_SEARCH_PLACEHOLDER: 'Rechercher...',
   GLOBAL_TODAY: "Aujourd'hui",
+  GLOBAL_SENDING: 'Envoie en cours...',
   GLOBAL_LOADING: 'Chargement...',
   GLOBAL_LOADING_ERROR: 'Erreur de chargement...',
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
@@ -69,6 +70,7 @@ export default {
   ORDER_CANCELLED: 'Annulé',
   ORDER_QUANTITY: 'Qté.',
   ORDER_RATE: 'Noter',
+  ORDER_CANCEL: "Annuler la commande",
 
   // Rating
   RATE_TITLE: 'Donnez votre avis',

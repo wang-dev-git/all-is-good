@@ -7,7 +7,7 @@ import { Fire, Flash, Time } from '../../services'
 
 import { switchTab } from '../../actions/tab.action'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
-import AntIcon from '@expo/vector-icons/AntDesign'
+import AntDesign from '@expo/vector-icons/AntDesign'
 
 import { Actions } from 'react-native-router-flux'
 
@@ -93,19 +93,25 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                 <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
                 <MyText style={styles.ref}>{ref}</MyText>
 
+                { props.past &&
+                  <View style={{alignItems: 'center', marginBottom: 12,}}>
+                    { order.rating === undefined ? (
+                      <SmallButton
+                        title={lang.ORDER_RATE}
+                        onPress={props.onRate}
+                        />
+                    ) : (
+                      <MyText>{order.rating} <AntDesign name="star" size={22} /></MyText>
+                    )}
+                  </View>
+                }
+
                 { last &&
                   <View style={styles.row}>
                     <MyText style={styles.statusTitle}>{getStatus(last)}</MyText>
                     <MyText style={styles.statusTime}>{getHour(last)}</MyText>
                   </View>
                 }
-
-                <View style={{alignItems: 'center'}}>
-                  <SmallButton
-                    title={lang.ORDER_RATE}
-                    onPress={props.onRate}
-                    />
-                </View>
 
                 <Collapsible collapsed={!props.expanded}>
                   { history.length > 1 && history.slice(1).reverse().map((item, index) => (
@@ -118,7 +124,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   { !props.past &&
                     <View style={{alignItems: 'center', marginTop: 6,}}>
                       <LinkButton
-                        title="Annuler la commande"
+                        title={lang.ORDER_CANCEL}
                         color={mainStyle.redColor}
                         textStyle={{fontSize: 16}}
 

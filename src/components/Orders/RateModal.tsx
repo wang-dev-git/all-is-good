@@ -15,6 +15,9 @@ import { mainStyle } from '../../styles'
 import { updateUser } from '../../actions/auth.action'
 
 interface Props {
+  order: any;
+
+  onRated: () => void;
 }
 const RateModal: React.FC<Props> = (props) => {
   
@@ -22,7 +25,16 @@ const RateModal: React.FC<Props> = (props) => {
   const [rating, setRating] = React.useState(0)
 
   const onConfirm = async () => {
-    Modal.hide('rating') 
+    Loader.show(lang.GLOBAL_SENDING)
+    try {
+      const orderRef = Fire.store().collection('orders').doc(props.order.id)
+      await orderRef.update({ rating: rating })
+      Modal.hide('rating')
+      props.onRated()
+    } catch (err) {
+
+    }
+    Loader.hide()
   }
 
   const onSelect = (n: number) => {

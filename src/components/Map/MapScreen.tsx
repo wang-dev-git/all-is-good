@@ -18,6 +18,7 @@ import { HeaderBar, FadeInView, MyText } from '../Reusable'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 import { Maps } from '../../services'
 import useAddresses from './addresses.hook'
@@ -143,6 +144,13 @@ const MapScreen: React.FC<Props> = (props) => {
     })
   }
 
+  const recenter = () => {
+    region.timing({
+      latitude: userLocation.coords.latitude,
+      longitude: userLocation.coords.longitude
+    }).start()
+  }
+
   const pos = region.__getValue()
   const currentPos = {lat: pos.latitude, lng: pos.longitude}
 
@@ -198,6 +206,11 @@ const MapScreen: React.FC<Props> = (props) => {
               onFilters={showFilters}
               onClear={() => setAddress('')}
               />
+            <View style={styles.recenter}>
+              <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
+                <MaterialIcons name="place" color='#000' size={22} />
+              </TouchableOpacity>
+            </View>
             { addresses.length > 0 &&
               <View style={styles.content}>
                 { addresses.map((item, index) => (
@@ -274,6 +287,23 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  recenter: {
+    position: 'absolute',
+    right: 8,
+    top: 40,
+    alignItems: 'flex-end',
+  },
+  recenterBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#eee',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    overflow: 'hidden',
   },
   addressWrapper: {
     flexDirection: 'row',

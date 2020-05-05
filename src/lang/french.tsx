@@ -104,6 +104,8 @@ export default {
   PAYMENT_CHOOSE_ADDRESS: 'Adresse de livraison',
   PAYMENT_CHOOSE_METHOD: 'Votre moyen de paiement',
   PAYMENT_METHOD: 'Moyen de paiement',
+  PAYMENT_GOT_IT: "J'ai compris !",
+  PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
 
   // Addresses

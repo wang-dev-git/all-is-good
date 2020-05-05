@@ -33,7 +33,7 @@ const BottomButton: React.FC<Props> = (props) => {
           startPos={{x: 0.2, y: 0}}
           endPos={{x: 1, y: 1}}
           />
-        <MyText style={[styles.title, props.titleColor ? {color: props.titleColor} : {}]}>{props.title.toUpperCase()}</MyText>
+        <MyText style={[styles.title, props.titleColor ? {color: props.titleColor} : {}]}>{props.title}</MyText>
       </View>
     </TouchableOpacity>
   );
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
 });
 

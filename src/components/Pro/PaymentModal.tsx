@@ -292,7 +292,7 @@ const PaymentModal: React.FC<Props> = (props) => {
       </View>
     */}
       <BottomButton
-        title={!showCards ? 'Continuer' : 'Payer ' + total + '$'}
+        title={!showQuantity ? lang.PAYMENT_GOT_IT : !showCards ? lang.PAYMENT_NEXT : lang.PAYMENT_CONFIRM + ' ' + total + '$'}
         backgroundColor={mainStyle.themeColor}
         onPress={nextStep}
         disabled={!canProceed}

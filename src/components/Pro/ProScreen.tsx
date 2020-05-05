@@ -244,6 +244,12 @@ const ProScreen: React.FC<Props> = (props) => {
               </MapView>
             </View>
           }
+
+          <View style={[styles.row, { marginBottom: 0, marginTop: 16, marginLeft: 16 }]}>
+            <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+            <MyText style={styles.open}>4km</MyText>
+          </View>
+
           <View style={styles.addr}>
             <MyText style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</MyText>
             <View style={styles.trip}>
@@ -381,7 +387,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     marginLeft: 20,
-    marginVertical: 20,
+    marginBottom: 20,
   },
   place: {
     ...mainStyle.montBold,
@@ -390,11 +396,8 @@ const styles = StyleSheet.create({
   },
   address: {
     flex: 1,
-    marginTop: 12,
-    marginBottom: 16,
     ...mainStyle.montLight,
     fontSize: 15,
-    lineHeight: 20,
     color: mainStyle.lightColor,
   },
   trip: {

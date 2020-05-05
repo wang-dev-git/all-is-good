@@ -292,8 +292,8 @@ const styles = StyleSheet.create({
   },
   recenter: {
     position: 'absolute',
-    right: 8,
-    top: 40,
+    right: 16,
+    top: 50,
     alignItems: 'flex-end',
   },
   recenterBtn: {

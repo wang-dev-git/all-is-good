@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, LinkButton, MyText } from '../Reusable'
+import { AssetImage, LinkButton, MyText, SmallButton } from '../Reusable'
 import { Fire, Flash, Time } from '../../services'
 
 import { switchTab } from '../../actions/tab.action'
@@ -18,12 +18,13 @@ import OrderStatus from '../../types/order_status'
 
 interface Props {
   order: any;
-  canCancel: boolean;
+  past: boolean;
   expanded: boolean;
   disabled: boolean;
 
   onPress?: () => void;
   onCancel?: () => void;
+  onRate?: () => void;
 }
 const OrderItem: React.FC<Props> = (props: Props) => {
   
@@ -99,6 +100,13 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                   </View>
                 }
 
+                <View style={{alignItems: 'center'}}>
+                  <SmallButton
+                    title={lang.ORDER_RATE}
+                    onPress={props.onRate}
+                    />
+                </View>
+
                 <Collapsible collapsed={!props.expanded}>
                   { history.length > 1 && history.slice(1).reverse().map((item, index) => (
                     <View key={index} style={styles.row}>
@@ -107,7 +115,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                     </View>
                   )) }
                   
-                  { props.canCancel &&
+                  { !props.past &&
                     <View style={{alignItems: 'center', marginTop: 6,}}>
                       <LinkButton
                         title="Annuler la commande"

@@ -7,13 +7,14 @@ import { HeaderBar, MyText, ListEmpty } from '../Reusable'
 import OrderItem from './OrderItem'
 
 import { Actions } from 'react-native-router-flux'
-import { Fire, Flash, Loader } from '../../services'
+import { Fire, Flash, Loader, Modal } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
 
 import { mainStyle } from '../../styles'
 
 import OrderStatus from '../../types/order_status'
+import RateModal from './RateModal'
 
 interface Props {
   user: any;
@@ -64,6 +65,12 @@ const OrdersScreen: React.FC<Props> = (props) => {
     );
   }
 
+  const onRate = (order: any) => {
+    Modal.show('rating', {
+      content: () => <RateModal />
+    })
+  }
+
   const cancel = async (order: any) => {
     Loader.show('Annulation...')
     try {
@@ -92,7 +99,8 @@ const OrdersScreen: React.FC<Props> = (props) => {
         order={order}
         expanded={shown && shown.id === order.id}
         disabled={shown && shown.id !== order.id}
-        canCancel={tab === 1}
+        past={tab === 0}
+        onRate={() => onRate(order)}
         onCancel={() => onCancel(order)}
         onPress={() => setShown(shown && shown.id === order.id ? null : order)}
         />

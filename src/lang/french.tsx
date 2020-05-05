@@ -68,6 +68,11 @@ export default {
   ORDER_DELIVERED: 'Réceptionné',
   ORDER_CANCELLED: 'Annulé',
   ORDER_QUANTITY: 'Qté.',
+  ORDER_RATE: 'Noter',
+
+  // Rating
+  RATE_TITLE: 'Donnez votre avis',
+  RATE_CONFIRM: 'Envoyer',
 
   // Settings
   SETTINGS_TITLE: "Réglages",

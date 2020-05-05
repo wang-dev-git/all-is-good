@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
-import { Fire, Modal, Tools } from '../../services'
+import { Fire, Modal, Tools, Maps } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
@@ -18,6 +18,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AntIcon from '@expo/vector-icons/AntDesign'
 
 import useAddresses from './addresses.hook'
+import useLocation from './location.hook'
 
 import { mainStyle } from '../../styles'
 
@@ -29,19 +30,42 @@ const AddressesScreen: React.FC<Props> = (props) => {
   
   const [search, setSearch] = React.useState(props.selected ? props.selected.formatted_address : '')
   const [selectedAddress, selectAddress] = React.useState(null)
+  const [currentAddress, setCurrentAddress] = React.useState(null)
   const { addresses, clearAddresses } = useAddresses(search)
-  
+
+  const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
+  const userLocation = useLocation(user)
+
+  React.useEffect(() => {
+    if (userLocation) {
+      const coords = userLocation.coords
+      const fetch = async () => {
+        const addr = await Maps.getAddress(coords.latitude, coords.longitude)
+        if (addr.length) {
+          addr[0].isCurrent = true
+          setCurrentAddress(addr[0])
+        }
+      }
+      fetch()
+    }
+  }, [userLocation])
 
   const renderAddress = (address: any) => {
     return (
       <TouchableOpacity style={styles.address} onPress={() => {props.onSelect(address); Actions.pop()}}>
         <MaterialIcons name="place" size={19} />
-        <MyText style={styles.addressTxt}>{address.formatted_address}</MyText>
+        <View style={{flex: 1}}>
+          { address.isCurrent &&
+            <MyText style={[styles.addressTxt, {marginBottom: 4}]}>{lang.ADDRESSES_CURRENT_LOCATION}</MyText>
+          }
+          <MyText style={[styles.addressTxt, address.isCurrent ? { color: mainStyle.lightColor } : {}]}>{address.formatted_address}</MyText>
+        </View>
       </TouchableOpacity>
     )
   }
 
+  const all = currentAddress ? [currentAddress].concat(addresses) : addresses
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -63,7 +87,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
       </View>
       <FlatList
         style={{flex: 1}}
-        data={addresses}
+        data={all}
         contentContainerStyle={{paddingBottom: 20, paddingTop: 0,}}
         renderItem={({ item }) => renderAddress(item)}
         ListEmptyComponent={() => (

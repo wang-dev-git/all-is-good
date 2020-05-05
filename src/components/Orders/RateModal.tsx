@@ -29,8 +29,8 @@ const RateModal: React.FC<Props> = (props) => {
     try {
       const orderRef = Fire.store().collection('orders').doc(props.order.id)
       await orderRef.update({ rating: rating })
-      Modal.hide('rating')
       props.onRated()
+      Modal.hide('rating')
     } catch (err) {
 
     }

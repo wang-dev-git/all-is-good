@@ -110,6 +110,7 @@ export default {
   ADDRESSES_TITLE: 'Adresse de livraison',
   ADDRESSES_PLACEHOLDER: 'Entrez votre adresse...',
   ADDRESSES_EMPTY: 'Aucune adresse\nne correspond',
+  ADDRESSES_CURRENT_LOCATION: 'Votre position actuelle',
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",

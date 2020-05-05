@@ -16,20 +16,35 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 
 import MenuLink from '../Profile/MenuLink'
 import { updateLang } from '../../actions/lang.action'
+import { updateUser } from '../../actions/auth.action'
 
 import { mainStyle } from '../../styles'
 
 type Props = {}
 const SettingsScreen: React.FC<Props> = (props) => {
   
+  const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const id = useSelector(state => state.langReducer.id)
+  const [info, setInfo] = React.useState(user)
   const dispatch = useDispatch()
 
   const opts = [
     {key: 'fr', name: 'Français'},
     {key: 'en', name: 'English'},
+    {key: 'es', name: 'Español'},
   ]
+
+  const onChange = async (key: string, value: any) => {
+    info[key] = value
+    setInfo({ ...info })
+
+    try {
+      await dispatch(updateUser(info))
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -59,6 +74,34 @@ const SettingsScreen: React.FC<Props> = (props) => {
               </View>
             </TouchableOpacity>
           ))}
+        </View>
+        <MyText style={styles.groupTitle}>{lang.SETTINGS_LANG}</MyText>
+        <View style={styles.group}>
+          <TouchableOpacity style={styles.option} onPress={() => onChange('notifOrders', !info.notifOrders)}>
+            <View style={styles.content}>
+              <View style={styles.row}>
+                <View style={styles.icon}>
+                  { info.notifOrders &&
+                    <Icon name={'check'} size={18} color={mainStyle.themeColor} />
+                  }
+                </View>
+                <MyText style={styles.title}>Statut des commandes</MyText>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.option} onPress={() => onChange('notifAIG', !info.notifAIG)}>
+            <View style={styles.content}>
+              <View style={styles.row}>
+                <View style={styles.icon}>
+                  { info.notifAIG &&
+                    <Icon name={'check'} size={18} color={mainStyle.themeColor} />
+                  }
+                </View>
+                <MyText style={styles.title}>News de All is Good</MyText>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
 
       </ScrollView>

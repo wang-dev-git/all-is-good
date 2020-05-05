@@ -1,5 +1,5 @@
 import ngeohash from 'ngeohash'
-import { Platform, NativeModules } from 'react-native'
+import * as Localization from 'expo-localization';
 
 export default class Tools {
   
@@ -33,19 +33,12 @@ export default class Tools {
   }
 
   static getDefaultLanguage() {
-    let locale = 'en'
-    if (Platform.OS === 'ios') {
-      locale = NativeModules.SettingsManager.settings.AppleLocale // "fr_FR"
-      console.log(" ==> Current settings: ", NativeModules.SettingsManager.settings)
-      if (locale === undefined) {
-        locale = NativeModules.SettingsManager.settings.AppleLanguages[0]
-        if (locale == undefined)
-          return "en"
-      }
-    } else {
-      locale = NativeModules.I18nManager.localeIdentifier;
-    }
-    return locale
+    const locale = Localization.locales[0]
+    if (locale === 'fr-FR')
+      return 'fr'
+    if (locale === 'es-US')
+      return 'es'
+    return 'en'
   }
 
 }

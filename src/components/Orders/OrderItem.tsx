@@ -20,6 +20,7 @@ interface Props {
   order: any;
   canCancel: boolean;
   expanded: boolean;
+  disabled: boolean;
 
   onPress?: () => void;
   onCancel?: () => void;
@@ -73,7 +74,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
   return (
     <TouchableOpacity onPress={props.onPress}>
-      <View style={styles.container}>
+      <View style={[styles.container, props.disabled ? {opacity: 0.2} : {}]}>
         <View style={[styles.shadow]}>
           <View style={styles.content}>
 

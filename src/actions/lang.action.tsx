@@ -9,8 +9,9 @@ import french from '../lang/french'
 import english from '../lang/english'
 
 const langs = {
-  fr: french,
   en: english,
+  fr: french,
+  es: english,
 }
 
 export const updateLang = createActionThunk('SET_LANG', (id: any) => {
@@ -22,8 +23,6 @@ export const updateLang = createActionThunk('SET_LANG', (id: any) => {
 export const clearLang = createActionThunk('CLEAR_LANG', () => void 0)
 
 const deviceLanguage = Tools.getDefaultLanguage()
-console.log('Device language: ' + deviceLanguage)
-
 const initialState = {
   id: deviceLanguage,
   lang: langs[deviceLanguage],

@@ -153,42 +153,44 @@ const ProScreen: React.FC<Props> = (props) => {
           </View>
         </View>
 
-        <View style={styles.info}>
-          <View style={{flex: 0.8}}>
-            <MyText style={styles.title}>{pro.name}</MyText>
+        <View style={styles.topWrapper}>
+          <View style={styles.info}>
+            <View style={{flex: 0.8}}>
+              <MyText style={styles.title}>{pro.name}</MyText>
 
-            <View style={[styles.row, { marginBottom: 6 }]}>
-              <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
-              <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
-            </View>
-
-            <View style={[styles.row, { marginBottom: 6 }]}>
-              <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-              <MyText style={styles.open}>4km</MyText>
-            </View>
-
-            { icons.length > 0 &&
-              <View style={styles.bigRow}>
-                { icons.map((iconId, index) => (
-                  <View key={index} style={styles.proIcon}>
-                    <AssetImage src={getIcon(iconId)} />
-                  </View>
-                )) }
+              <View style={[styles.row, { marginBottom: 6 }]}>
+                <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
+                <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
               </View>
-            }
 
-            <View style={{alignItems: 'flex-start'}}>
-              <View style={styles.quantity}>
-                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</MyText>
+              <View style={[styles.row, { marginBottom: 6 }]}>
+                <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+                <MyText style={styles.open}>4km</MyText>
               </View>
             </View>
+
+            <View style={{flex: 0.2, alignItems: 'flex-end'}}>
+              <MyText style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</MyText>
+              <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
+            </View>
+
           </View>
 
-          <View style={{flex: 0.2, alignItems: 'flex-end'}}>
-            <MyText style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</MyText>
-            <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
-          </View>
+          { icons.length > 0 &&
+            <View style={styles.bigRow}>
+              { icons.map((iconId, index) => (
+                <View key={index} style={styles.proIcon}>
+                  <AssetImage src={getIcon(iconId)} />
+                </View>
+              )) }
+            </View>
+          }
 
+          <View style={{alignItems: 'flex-start'}}>
+            <View style={styles.quantity}>
+              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</MyText>
+            </View>
+          </View>
         </View>
 
         { hasDesc &&
@@ -321,16 +323,18 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
 
+  topWrapper: {
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+    paddingHorizontal: 20,
+  },
+
   info: {
     flexDirection: 'row',
     justifyContent: 'space-between',
 
     marginTop: 12,
-    paddingHorizontal: 20,
-    paddingBottom: 10,
-
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
   },
 
   title: {

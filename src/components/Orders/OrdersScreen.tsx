@@ -91,6 +91,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
       <OrderItem
         order={order}
         expanded={shown && shown.id === order.id}
+        disabled={shown && shown.id !== order.id}
         canCancel={tab === 1}
         onCancel={() => onCancel(order)}
         onPress={() => setShown(shown && shown.id === order.id ? null : order)}
@@ -129,7 +130,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
           style={[styles.tab, tab === 0 ? styles.selected : {}]}
           onPress={() => setTab(0)}
           >
-          <MyText style={styles.tabTxt}>Passé</MyText>
+          <MyText style={styles.tabTxt}>Passées</MyText>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, tab === 1 ? styles.selected : {}]}

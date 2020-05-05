@@ -120,7 +120,7 @@ class ProfileScreen extends React.Component<Props, State>  {
           style: 'cancel',
         },
         {text: lang.PROFILE_HELP_BTN, onPress: () => {
-          Linking.openURL('https://allisgood-app.com/')
+          Linking.openURL('https://allisgood-app.com/contact-us/')
           //this.showMail()
         }},
       ],
@@ -142,7 +142,7 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   becomePro() {
-    Linking.openURL('https://allisgood-app.com')
+    Linking.openURL('https://allisgood-app.com/contact-us/')
   }
 
   render() {

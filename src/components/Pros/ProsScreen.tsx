@@ -126,7 +126,7 @@ class ProsScreen extends React.Component<Props, State>  {
           <SectionList
             ListHeaderComponent={() => (
               <View style={styles.mainHeader}>
-                <AssetImage style={styles.headerBackground} src={require('../../images/cooker.png')} resizeMode='cover' />
+                <AssetImage style={styles.headerBackground} src={require('../../images/corner.png')} resizeMode='cover' />
                 <VeilView abs start={mainStyle.themeColorAlpha(0.4)} end={mainStyle.themeColor} startPos={{x: 0, y: 0}} endPos={{x: 1, y: 0.8}} />
                 <MyText style={styles.mainHeaderTxt}>Faites vous plaisir{'\n'}en économisant !</MyText>
               </View>

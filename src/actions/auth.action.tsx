@@ -41,11 +41,14 @@ export const updateUser = createActionThunk('UPDATE_USER', async (info: any, { g
   }
 })
 
+export const updatePosition = createActionThunk('UPDATE_POSITION', (pos: any) => pos)
+
 const initialState = {
   fireUser: null,
   savedName: null,
 
   user: null,
+  position: null,
   updating: false,
 };
 
@@ -80,6 +83,12 @@ export const authReducer = handleActions(
     'SAVE_REGISTER_NAME_SUCCEEDED': (state: any, action: any) => ({
       ...state,
       savedName: action.payload,
+    }),
+
+
+    'UPDATE_POSITION_SUCCEEDED': (state: any, action: any) => ({
+      ...state,
+      position: action.payload,
     }),
   },
   initialState

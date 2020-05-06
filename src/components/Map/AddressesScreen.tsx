@@ -43,7 +43,6 @@ const AddressesScreen: React.FC<Props> = (props) => {
       const fetch = async () => {
         const addr = await Maps.getAddress(coords.latitude, coords.longitude)
         if (addr.length) {
-          addr[0].isCurrent = true
           setCurrentAddress(addr[0])
         }
       }
@@ -51,15 +50,34 @@ const AddressesScreen: React.FC<Props> = (props) => {
     }
   }, [userLocation])
 
+  const renderCurrent = () => {
+    return (
+      <TouchableOpacity
+        style={styles.address}
+        onPress={() => {
+          if (currentAddress) {
+            props.onSelect(currentAddress);
+            Actions.pop()
+          } else {
+            
+          }
+        }}
+        >
+        <MaterialIcons name="place" size={19} />
+        <View style={{flex: 1}}>
+          <MyText style={[styles.addressTxt, {marginBottom: 4}]}>{lang.ADDRESSES_CURRENT_LOCATION}</MyText>
+          <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{currentAddress ? currentAddress.formatted_address : lang.ADDRESSES_CLICK_FOR_SETTINGS}</MyText>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   const renderAddress = (address: any) => {
     return (
       <TouchableOpacity style={styles.address} onPress={() => {props.onSelect(address); Actions.pop()}}>
         <MaterialIcons name="place" size={19} />
         <View style={{flex: 1}}>
-          { address.isCurrent &&
-            <MyText style={[styles.addressTxt, {marginBottom: 4}]}>{lang.ADDRESSES_CURRENT_LOCATION}</MyText>
-          }
-          <MyText style={[styles.addressTxt, address.isCurrent ? { color: mainStyle.lightColor } : {}]}>{address.formatted_address}</MyText>
+          <MyText style={[styles.addressTxt]}>{address.formatted_address}</MyText>
         </View>
       </TouchableOpacity>
     )
@@ -85,9 +103,10 @@ const AddressesScreen: React.FC<Props> = (props) => {
           </TouchableOpacity>
         }
       </View>
+      { renderCurrent() }
       <FlatList
         style={{flex: 1}}
-        data={all}
+        data={addresses}
         contentContainerStyle={{paddingBottom: 20, paddingTop: 0,}}
         renderItem={({ item }) => renderAddress(item)}
         ListEmptyComponent={() => (

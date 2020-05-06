@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Keyboard, Text, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal } from '../../services'
@@ -28,6 +28,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const lang = useSelector(state => state.langReducer.lang)
   const searchable = useSelector(state => state.filtersReducer.searchable)
   const categories = useSelector(state => state.filtersReducer.categories)
+  const position = useSelector(state => state.authReducer.position)
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
   const dispatch = useDispatch()
 
@@ -69,7 +70,19 @@ const SearchScreen: React.FC<Props> = (props) => {
         onClear={() => setQuery('')}
         />
       <FadeInView style={styles.content}>
-        { query !== '' ? (
+        { !position ? (
+          <ScrollView contentContainerStyle={{paddingBottom: 20}}>
+            <ListEmpty
+              text={lang.HOME_NO_POS_TITLE}
+              subtext={lang.HOME_NO_POS_MESSAGE}
+              wrapperStyle={{marginTop: 40}}
+              imageSize={120}
+              image={require('../../images/nocategories.png')}
+              btnTxt={lang.HOME_NO_POS_BTN}
+              onPressBtn={showFilters}
+              />
+          </ScrollView>
+        ) : query !== '' ? (
           <FlatList
             data={pros}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
@@ -92,32 +105,30 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : loadingCategories ? (
           <MyText style={{color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
         ) : (
-          <View>
-            <FlatList
-              data={categories}
-              numColumns={2}
-              contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
-              renderItem={(item: any) => 
-                <CategoryItem
-                  index={item.index}
-                  category={item.item}
-                  onPress={() => setQuery(item.item.name)}
-                  />
-              }
-              ListEmptyComponent={() => (
-                <ListEmpty
-                  text={lang.HOME_EMPTY_TITLE}
-                  subtext={lang.HOME_EMPTY_MESSAGE}
-                  wrapperStyle={{marginTop: 0}}
-                  imageSize={120}
-                  image={require('../../images/nocategories.png')}
-                  btnTxt={lang.HOME_EMPTY_BTN}
-                  onPressBtn={showFilters}
-                  />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              />
-          </View>
+          <FlatList
+            data={categories}
+            numColumns={2}
+            contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
+            renderItem={(item: any) => 
+              <CategoryItem
+                index={item.index}
+                category={item.item}
+                onPress={() => setQuery(item.item.name)}
+                />
+            }
+            ListEmptyComponent={() => (
+              <ListEmpty
+                text={lang.HOME_EMPTY_TITLE}
+                subtext={lang.HOME_EMPTY_MESSAGE}
+                wrapperStyle={{marginTop: 0}}
+                imageSize={120}
+                image={require('../../images/nocategories.png')}
+                btnTxt={lang.HOME_EMPTY_BTN}
+                onPressBtn={showFilters}
+                />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            />
         )}
       </FadeInView>
     </View>

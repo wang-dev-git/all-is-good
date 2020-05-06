@@ -13,6 +13,9 @@ export default {
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
+  HOME_NO_POS_TITLE: 'Où êtes-vous ?',
+  HOME_NO_POS_MESSAGE: 'Afin de vous proposer les meilleurs résultats, veuillez activer votre géolocalisation ou sélectionner une adresse de référence',
+  HOME_NO_POS_BTN: 'Choisir une adresse',
   HOME_EMPTY_TITLE: 'Désolé !\nNous ne sommes pas encore là...',
   HOME_EMPTY_MESSAGE: "Il semble que nous n'ayons aucun restaurant à proximité de votre localisation. Vous pouvez réessayer en utilisant une adresse différente",
   HOME_EMPTY_BTN: "Changer d'adresse",
@@ -114,6 +117,7 @@ export default {
   ADDRESSES_PLACEHOLDER: 'Entrez votre adresse...',
   ADDRESSES_EMPTY: 'Aucune adresse\nne correspond',
   ADDRESSES_CURRENT_LOCATION: 'Votre position actuelle',
+  ADDRESSES_CLICK_FOR_SETTINGS: 'Cliquez pour activer votre géolocalisation',
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",

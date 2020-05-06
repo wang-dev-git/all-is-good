@@ -1,5 +1,8 @@
 import ngeohash from 'ngeohash'
 import * as Localization from 'expo-localization';
+import * as IntentLauncher from 'expo-intent-launcher';
+import Constants from "expo-constants";
+import { Platform, Linking } from 'react-native'
 
 export default class Tools {
   
@@ -39,6 +42,25 @@ export default class Tools {
     if (locale === 'es-US')
       return 'es'
     return 'en'
+  }
+
+  static async showSettings() {
+    if (Platform.OS === 'android') {
+      try {
+        const pkg = Constants.manifest.releaseChannel ? Constants.manifest.android.package : "host.exp.exponent";
+        await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS, { data: "package:" + pkg });
+      } catch (err) {
+        console.warn(err)
+        alert("Rendez-vous dans les réglages de votre téléphone pour activer les notifications")
+      }
+    } else {
+      const supported = await Linking.canOpenURL('app-settings:')
+      if (!supported) {
+        alert("Rendez-vous dans les réglages de votre téléphone pour activer les notifications")
+      } else {
+        Linking.openURL('app-settings:');
+      }
+    }
   }
 
 }

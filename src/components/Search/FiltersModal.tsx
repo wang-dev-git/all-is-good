@@ -60,7 +60,7 @@ const FiltersModal: React.FC<Props> = (props) => {
       </View>
       <View style={styles.content}>
         <View style={styles.group}>
-          <MyText style={styles.groupTitle}>{lang.FILTERS_AROUND}</MyText>
+          <MyText type='bold' style={styles.groupTitle}>{lang.FILTERS_AROUND}</MyText>
           <TouchableOpacity style={styles.row} onPress={changeAddress}>
             <MyText style={styles.rowTitle}>{position ? position.formatted_address : lang.FILTERS_NO_ADDRESS}</MyText>
             <AntDesign name="right" color='#fff' />
@@ -68,7 +68,7 @@ const FiltersModal: React.FC<Props> = (props) => {
         </View>
         <View style={styles.group}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <MyText style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
+            <MyText type='bold' style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
             <MyText type='bold' style={{ color: '#fff', marginRight: 16 }}>{Number(distance).toFixed(0)} km</MyText>
           </View>
           <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
@@ -125,11 +125,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   row: {
-    marginVertical: 20,
+    marginTop: 2,
+    marginBottom: 20,
     paddingVertical: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 16,
 
     borderBottomColor: '#ddd',

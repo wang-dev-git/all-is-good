@@ -94,7 +94,7 @@ export default class Routing extends React.Component<Props, State> {
     }
 
     return (
-      <View style={{flex: 1, backgroundColor: mainStyle.themeColor}}>
+      <View style={{flex: 1}}>
         { /** Routes **/ }
         <Router>
           <Modal>

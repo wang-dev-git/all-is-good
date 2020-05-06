@@ -12,6 +12,7 @@ import { saveName } from '../../actions/auth.action'
 import { mainStyle } from '../../styles'
 
 interface Props {
+  lang: any;
   saveName: (name: any) => void;
 }
 interface State {
@@ -65,6 +66,7 @@ class LandingScreen extends React.Component<Props, State>  {
   }
 
   render() {
+    const { lang } = this.props
     return (
       <View style={styles.container}>
         <StatusBar barStyle={'light-content'} />
@@ -79,7 +81,7 @@ class LandingScreen extends React.Component<Props, State>  {
 
         <View style={styles.floatingBottom}>
 
-          <MyText style={styles.introTxt}>Venez dégustez, venez manger écolo</MyText>
+          <MyText style={styles.introTxt}>{lang.LANDING_INTRO}</MyText>
 
           <View style={styles.introImg}>
             <AssetImage src={require('../../images/baigy.png')} resizeMode='contain' />
@@ -89,7 +91,7 @@ class LandingScreen extends React.Component<Props, State>  {
 
             <TouchableOpacity disabled={this.state.editing} onPress={() => this.login()}>
               <View style={[styles.btn, {backgroundColor: mainStyle.themeColor}]}>
-                <MyText style={styles.txt}>Se connecter</MyText>
+                <MyText style={styles.txt}>{lang.LANDING_CONNECT_EMAIL}</MyText>
               </View>
             </TouchableOpacity>
 
@@ -98,7 +100,7 @@ class LandingScreen extends React.Component<Props, State>  {
                 <View style={styles.floating}>
                   <Icon name='facebook' color={'#fff'} size={22} />  
                 </View>
-                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>Connexion Facebook</MyText>
+                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{lang.LANDING_CONNECT_FB}</MyText>
               </View>
             </TouchableOpacity>
 
@@ -107,12 +109,12 @@ class LandingScreen extends React.Component<Props, State>  {
                 <View style={styles.floating}>
                   <Icon name='google' color={'#fff'} size={14} />
                 </View>
-                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{'Connexion Google'}</MyText>
+                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{lang.LANDING_CONNECT_GOOGLE}</MyText>
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => this.openConditions()}>
-              <MyText style={styles.cgu}>En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente</MyText>
+              <MyText style={styles.cgu}>{lang.LANDING_CONDITIONS}</MyText>
             </TouchableOpacity>
           </View>
         </View>
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state: any) => ({
-
+  lang: state.langReducer.lang,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   saveName: (name: any) => dispatch(saveName(name)),

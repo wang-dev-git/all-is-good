@@ -11,6 +11,13 @@ export default {
   GLOBAL_OK: 'OK',
   GLOBAL_OPTIONAL: 'optionnel',
 
+  // Landing
+  LANDING_INTRO: 'Rejoignez le mouvement',
+  LANDING_CONNECT_EMAIL: "Se connecter",
+  LANDING_CONNECT_FB: "Connexion Facebook",
+  LANDING_CONNECT_GOOGLE: "Connexion Google",
+  LANDING_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente",
+
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
   HOME_NO_POS_TITLE: 'Où êtes-vous ?',

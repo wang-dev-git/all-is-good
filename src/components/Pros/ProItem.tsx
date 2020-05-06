@@ -3,7 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage, MyText } from '../Reusable'
-import { Fire, Flash, Time } from '../../services'
+import { Fire, Flash, Time, Tools } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 import { switchTab } from '../../actions/tab.action'
@@ -49,6 +49,8 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
   const opening = Time.getPickUpRange(pro)
   const lang = useSelector(state => state.langReducer.lang)
+  const position = useSelector(state => state.authReducer.position)
+  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -76,12 +78,15 @@ const ProItem: React.FC<Props> = (props: Props) => {
                     <MyText style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</MyText>
                   </View>
                 }
-                <View style={styles.row}>
-                  <View style={styles.icon}>
-                    <MaterialIcon size={18} name="map-marker" />  
+
+                { distance !== null &&
+                  <View style={styles.row}>
+                    <View style={styles.icon}>
+                      <MaterialIcon size={18} name="map-marker" />  
+                    </View>
+                    <MyText style={[styles.open]}>{distance} km</MyText>               
                   </View>
-                  <MyText style={[styles.open]}>4 km</MyText>               
-                </View>
+                }
               </View>
 
               <View style={styles.logoWrapper}>

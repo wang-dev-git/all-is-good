@@ -11,6 +11,10 @@ export default class Tools {
     return ngeohash.encode(pos.latitude, pos.longitude, level)
   }
 
+  static getRoundedDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
+    return Number(this.getDistance(lat1, lon1, lat2, lon2)).toFixed(0)
+  }
+
   // Get distance between two points
   static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))
@@ -28,7 +32,7 @@ export default class Tools {
     dist = dist * 60 * 1.1515;
     if (unit=="K") { dist = dist * 1.609344 }
     if (unit=="N") { dist = dist * 0.8684 }
-    return dist;
+    return dist; // Rounding because we don't care about meters
   }
 
   static getRegionZoom(pos) {

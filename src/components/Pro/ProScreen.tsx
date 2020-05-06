@@ -7,7 +7,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { HeaderBar, AssetImage, BottomButton, FloatingButton, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
-import { Fire, Flash, Modal, Time, Loader } from '../../services'
+import { Fire, Flash, Modal, Time, Loader, Tools } from '../../services'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
@@ -32,6 +32,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const langId = useSelector(state => state.langReducer.id)
+  const position = useSelector(state => state.authReducer.position)
   const pro = props.pro
   const dispatch = useDispatch()
 
@@ -117,6 +118,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const opening = Time.getPickUpRange(pro)
 
   const icons = pro.icons || []
+  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
   return (
     <View style={styles.container}>
@@ -163,10 +165,12 @@ const ProScreen: React.FC<Props> = (props) => {
                 <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
               </View>
 
-              <View style={[styles.row, { marginBottom: 6 }]}>
-                <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-                <MyText style={styles.open}>4km</MyText>
-              </View>
+              { distance !== null &&
+                <View style={[styles.row, { marginBottom: 6 }]}>
+                  <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+                  <MyText style={styles.open}>{distance} km</MyText>
+                </View>
+              }
             </View>
 
             <View style={{flex: 0.2, alignItems: 'flex-end'}}>
@@ -248,8 +252,12 @@ const ProScreen: React.FC<Props> = (props) => {
           }
 
           <View style={[styles.row, { marginBottom: 0, marginTop: 16, marginLeft: 16 }]}>
-            <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-            <MyText style={styles.open}>4km</MyText>
+            { distance !== null &&
+              <React.Fragment>
+                <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
+                <MyText style={styles.open}>{distance} km</MyText>
+              </React.Fragment>
+            }
           </View>
 
           <View style={styles.addr}>

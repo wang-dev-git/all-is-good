@@ -20,6 +20,7 @@ type Props = {
   user: any;
 
   addCard: (card: any) => void;
+  added?: (card: any) => void;
 }
 type State = {
   card: any;
@@ -45,10 +46,12 @@ class AddCardScreen extends React.Component<Props, State>  {
   async proceed() {
     this.setState({ loading: true })
     try {
-      await this.createNewCard()
+      const newCard = await this.createNewCard()
       this.setState({ loading: false })
       Actions.pop()
       Flash.show('Carte ajoutée !')
+      if (this.props.added)
+        this.props.added(newCard)
     } catch (err) {
       Flash.error('Erreur d\'ajout')
 
@@ -65,7 +68,7 @@ class AddCardScreen extends React.Component<Props, State>  {
     
     const token = await this.requestStripeToken(values)
     const cardId = await Fire.cloud('addCard', { token: token.id })
-    await addCard({
+    const newCards = await addCard({
       last4: values.number.substr(-4),
       expiry: values.expiry,
       cvc: values.cvc,
@@ -74,6 +77,8 @@ class AddCardScreen extends React.Component<Props, State>  {
     })
     console.log(cardId)
     console.log(values.type)
+    const lastAdded = newCards[newCards.length - 1]
+    return lastAdded
   }
 
   async requestStripeToken(card: any) {

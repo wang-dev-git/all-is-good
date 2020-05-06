@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
 import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -6,6 +7,7 @@ import { Actions } from 'react-native-router-flux'
 
 import AssetImage from './AssetImage'
 import BottomButton from './BottomButton'
+import SmallButton from './SmallButton'
 import MyText from './MyText'
 import { Fire, Flash, Modal } from '../../services'
 
@@ -14,6 +16,8 @@ import Feather from '@expo/vector-icons/Feather'
 
 import { mainStyle } from '../../styles'
 
+import { switchTab } from '../../actions/tab.action'
+
 interface Props {
   message: string;
   subtitle: string
@@ -21,7 +25,14 @@ interface Props {
 }
 
 const SuccessModal: React.FC<Props> = (props) => {
-  
+  const dispatch = useDispatch()
+
+  const viewOrder = () => {
+    Modal.hide('payment_success')
+    Actions.popTo('tabs')
+    dispatch(switchTab(1))
+  }
+
   return (
     <View>
       <View style={styles.header}>
@@ -33,6 +44,15 @@ const SuccessModal: React.FC<Props> = (props) => {
           <AntDesign name={props.success ? 'check' : 'close'} size={38} color='#fff' />
         </View>
         <MyText style={styles.message}>{props.message}</MyText>
+
+        <View style={{alignItems: 'center', marginBottom: 20,}}>
+          { props.success &&
+            <SmallButton
+              title="Voir ma commande"
+              onPress={viewOrder}
+              />
+          }
+        </View>
       </View>
     </View>
   );
@@ -69,7 +89,7 @@ const styles = StyleSheet.create({
     ...mainStyle.montLight,
     textAlign: 'center',
     marginTop: 32,
-    marginBottom: 60,
+    marginBottom: 40,
   },
 
 });

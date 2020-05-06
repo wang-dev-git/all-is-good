@@ -92,7 +92,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
     )})
   }
 
-  return cards.length ? (
+  return card ? (
     <TouchableOpacity style={styles.container} onPress={() => showCards()}>
       <View style={styles.cardChosen}>
         <View style={styles.cardContent}>
@@ -103,7 +103,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
       </View>
     </TouchableOpacity>
   ) : (
-    <TouchableOpacity style={styles.container} onPress={() => { Modal.hide('show_cards'); Actions.addCard() } }>
+    <TouchableOpacity style={styles.container} onPress={() => { Modal.hide('show_cards'); Actions.addCard({ added: (c) => setCard(c) }) } }>
       <View style={styles.cardChosen}>
         <View style={styles.cardContent}>
           <MyText style={styles.cardName}>Aucune carte enregistrée</MyText>

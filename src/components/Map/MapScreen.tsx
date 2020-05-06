@@ -203,7 +203,6 @@ const MapScreen: React.FC<Props> = (props) => {
             <SearchBar
               query={address}
               onChange={setAddress}
-              onFilters={showFilters}
               onClear={() => setAddress('')}
               />
             { userLocation !== null &&

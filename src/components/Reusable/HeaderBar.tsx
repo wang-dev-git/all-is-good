@@ -79,21 +79,20 @@ const HeaderBar: React.SFC<Props> = (props) => {
 
 const height = ifIphoneX({
   height: 50 + Constants.statusBarHeight,
-  paddingTop: 40,
 }, {
   height: 50 + Constants.statusBarHeight,
-  paddingTop: Constants.statusBarHeight,
 }).height
 const styles = StyleSheet.create({
   container: {
     height: height,
-    backgroundColor: mainStyle.themeColor
+    backgroundColor: mainStyle.themeColor,
+    paddingTop: Constants.statusBarHeight,
   },
 
   logo: {
-    marginTop: 16,
+    marginTop: Constants.statusBarHeight - 10,
     width: 200,
-    height: (height - Constants.statusBarHeight) * 0.94,
+    height: (height - Constants.statusBarHeight),
   },
 
   content: {

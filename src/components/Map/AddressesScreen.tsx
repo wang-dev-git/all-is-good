@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
+import { StyleSheet, Keyboard, AppState, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
 import { Fire, Modal, Tools, Maps } from '../../services'
 
@@ -12,6 +12,9 @@ import MapBubble from './MapBubble'
 import FiltersModal from '../Search/FiltersModal'
 
 import { HeaderBar, FadeInView, MyText } from '../Reusable'
+
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
@@ -29,6 +32,7 @@ interface Props {
 }
 const AddressesScreen: React.FC<Props> = (props) => {
   
+  const [appState, setAppState] = React.useState(AppState.currentState);
   const [search, setSearch] = React.useState(props.selected ? props.selected.formatted_address : '')
   const [selectedAddress, selectAddress] = React.useState(null)
   const [currentAddress, setCurrentAddress] = React.useState(null)
@@ -50,6 +54,29 @@ const AddressesScreen: React.FC<Props> = (props) => {
       fetch()
     }
   }, [userLocation])
+
+  React.useEffect(() => {
+    AppState.addEventListener("change", _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", _handleAppStateChange);
+    };
+  }, []);
+
+  const _handleAppStateChange = async nextAppState => {
+    if (appState.match(/inactive|background/) && nextAppState === "active") {
+      // Came to foreground
+      let { status } = await Permissions.getAsync(Permissions.LOCATION);
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({});
+        const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
+        if (addr.length) {
+          setCurrentAddress(addr[0])
+        }
+      }
+    }
+    setAppState(nextAppState);
+  };
 
   const renderCurrent = () => {
     return (

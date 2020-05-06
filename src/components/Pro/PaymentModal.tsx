@@ -254,7 +254,7 @@ const PaymentModal: React.FC<Props> = (props) => {
           </TouchableOpacity>
           <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
           <View style={{alignItems: 'center'}}>
-            <TouchableOpacity style={styles.addressContainer} onPress={() => Actions.addresses({ selected: address, onSelect: setAddress })}>
+            <TouchableOpacity style={styles.addressContainer} onPress={() => Actions.addresses({ title: lang.ADDRESSES_DELIVERY_TITLE, selected: address, onSelect: setAddress })}>
               <MyText style={styles.addressTxt} numberOfLines={1}>{address !== null ? address.formatted_address : 'Sélectionner une adresse'}</MyText>
               <AntDesign name="down" />
             </TouchableOpacity>

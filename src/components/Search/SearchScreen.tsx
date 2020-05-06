@@ -94,6 +94,7 @@ const SearchScreen: React.FC<Props> = (props) => {
           </ScrollView>
         ) : query !== '' ? (
           <FlatList
+            key="A"
             data={pros}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
@@ -116,6 +117,7 @@ const SearchScreen: React.FC<Props> = (props) => {
           <MyText style={{color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
         ) : (
           <FlatList
+            key="B"
             data={categories}
             numColumns={2}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}

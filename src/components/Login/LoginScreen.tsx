@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Linking, ScrollView, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
 import { Fire, Flash, AppConfig } from '../../services'
@@ -194,7 +194,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 active={this.state.checked}
                 title={lang.LOGIN_CONDITIONS}
                 onPress={() => this.setState({checked: !this.state.checked})}
-                onTapText={() => this.setState({checked: !this.state.checked})}
+                onTapText={() => Linking.openURL('https://allisgood-app.com/terms')}
                 />
              </View>
            }

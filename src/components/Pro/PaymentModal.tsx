@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, Text, Animated, View, Linking, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -281,7 +281,7 @@ const PaymentModal: React.FC<Props> = (props) => {
             active={confirmed}
             title={'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good'}
             onPress={() => setConfirmed(!confirmed)}
-            onTapText={() => setConfirmed(!confirmed)}
+            onTapText={() => Linking.openURL('https://allisgood-app.com/terms')}
             />
         </Animated.View>
 

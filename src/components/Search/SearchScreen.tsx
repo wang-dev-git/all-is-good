@@ -13,7 +13,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import ProItem from '../Pros/ProItem'
 import CategoryItem from './CategoryItem'
 import FiltersModal from './FiltersModal'
-import SearchBar from './SearchBar'
+import BackSearchBar from './BackSearchBar'
 
 import { mainStyle } from '../../styles'
 
@@ -73,7 +73,7 @@ const SearchScreen: React.FC<Props> = (props) => {
       <HeaderBar
         logo
         />
-      <SearchBar
+      <BackSearchBar
         query={query}
         onChange={setQuery}
         onFilters={showFilters}

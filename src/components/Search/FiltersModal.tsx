@@ -12,7 +12,7 @@ import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
 
 import { mainStyle } from '../../styles'
-import { updateUser } from '../../actions/auth.action'
+import { updateUser, updatePosition } from '../../actions/auth.action'
 
 const min = 5
 const max = 30
@@ -23,13 +23,19 @@ const FiltersModal: React.FC<Props> = (props) => {
   
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
-  const [address, setAddress] = React.useState({ formatted_address: "1 rue de l'Ermitage" })
+  const position = useSelector(state => state.authReducer.position)
   const [distance, setDistance] = React.useState(user && user.distance ? user.distance : max)
   const dispatch = useDispatch()
 
   const changeAddress = () => {
     Modal.hide('filters')
-    Actions.addresses({ selected: address, onSelect: setAddress })
+    Actions.addresses({
+      title: lang.ADDRESSES_TITLE,
+      selected: position,
+      onSelect: (pos) => {
+        dispatch(updatePosition(pos))
+     }
+   })
   }
 
   const onConfirm = async () => {
@@ -56,7 +62,7 @@ const FiltersModal: React.FC<Props> = (props) => {
         <View style={styles.group}>
           <MyText style={styles.groupTitle}>{lang.FILTERS_AROUND}</MyText>
           <TouchableOpacity style={styles.row} onPress={changeAddress}>
-            <MyText style={styles.rowTitle}>{address.formatted_address}</MyText>
+            <MyText style={styles.rowTitle}>{position ? position.formatted_address : lang.FILTERS_NO_ADDRESS}</MyText>
             <AntDesign name="right" color='#fff' />
           </TouchableOpacity>
         </View>

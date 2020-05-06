@@ -18,6 +18,7 @@ import SearchBar from './SearchBar'
 import { mainStyle } from '../../styles'
 
 import { searchByName, saveFilters } from '../../actions/filters.action'
+import { updatePosition } from '../../actions/auth.action'
 
 interface Props {}
 const SearchScreen: React.FC<Props> = (props) => {
@@ -58,6 +59,15 @@ const SearchScreen: React.FC<Props> = (props) => {
     })
   }
 
+  const showAddresses = () => {
+    Actions.addresses({
+      title: lang.ADDRESSES_TITLE,
+      onSelect: (pos) => {
+        dispatch(updatePosition(pos))
+      }
+    })
+  }
+
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -79,7 +89,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               imageSize={120}
               image={require('../../images/nocategories.png')}
               btnTxt={lang.HOME_NO_POS_BTN}
-              onPressBtn={showFilters}
+              onPressBtn={() => showAddresses()}
               />
           </ScrollView>
         ) : query !== '' ? (

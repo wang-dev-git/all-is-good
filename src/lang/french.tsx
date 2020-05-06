@@ -23,6 +23,7 @@ export default {
   // Filters
   FILTERS_TITLE: 'Filtres',
   FILTERS_AROUND: 'Rechercher autour de',
+  FILTERS_NO_ADDRESS: 'Aucune addresse sélectionnée',
   FILTERS_RANGE: 'Distance maximum',
   FILTERS_CONFIRM: 'Confirmer',
 
@@ -113,7 +114,8 @@ export default {
   PAYMENT_CONFIRM: 'Payer',
 
   // Addresses
-  ADDRESSES_TITLE: 'Adresse de livraison',
+  ADDRESSES_TITLE: 'Adresse de référence',
+  ADDRESSES_DELIVERY_TITLE: 'Adresse de livraison',
   ADDRESSES_PLACEHOLDER: 'Entrez votre adresse...',
   ADDRESSES_EMPTY: 'Aucune adresse\nne correspond',
   ADDRESSES_CURRENT_LOCATION: 'Votre position actuelle',

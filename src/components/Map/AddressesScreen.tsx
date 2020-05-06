@@ -23,6 +23,7 @@ import useLocation from './location.hook'
 import { mainStyle } from '../../styles'
 
 interface Props {
+  title: string;
   selected: any;
   onSelect: (address: any) => void;
 }
@@ -59,7 +60,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
             props.onSelect(currentAddress);
             Actions.pop()
           } else {
-            
+            Tools.showSettings()
           }
         }}
         >
@@ -87,7 +88,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
   return (
     <View style={styles.container}>
       <HeaderBar
-        title={lang.ADDRESSES_TITLE}
+        title={props.title}
         back
         />
       <View>
@@ -103,12 +104,12 @@ const AddressesScreen: React.FC<Props> = (props) => {
           </TouchableOpacity>
         }
       </View>
-      { renderCurrent() }
       <FlatList
         style={{flex: 1}}
         data={addresses}
         contentContainerStyle={{paddingBottom: 20, paddingTop: 0,}}
         renderItem={({ item }) => renderAddress(item)}
+        ListHeaderComponent={() => renderCurrent()}
         ListEmptyComponent={() => (
           <View style={styles.empty}>
             <MyText style={styles.emptyTxt}>{lang.ADDRESSES_EMPTY}</MyText>

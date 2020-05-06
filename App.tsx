@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import Routing from './src/Routing'
 
 import { Fire } from './src/services'
+import { mainStyle } from './src/styles'
 
 Fire.init()
 
@@ -18,7 +19,7 @@ YellowBox.ignoreWarnings(['componentWill'])
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={<View style={{flex: 1, backgroundColor: '#fff'}}></View>} persistor={persistor}>
+      <PersistGate loading={<View style={{flex: 1, backgroundColor: mainStyle.themeColor}}></View>} persistor={persistor}>
         <Routing />
       </PersistGate>
     </Provider>

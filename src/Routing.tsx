@@ -25,6 +25,7 @@ import ProScreen from './components/Pro/ProScreen'
 import MoreProsScreen from './components/Pros/MoreProsScreen'
 import LoaderWrapper from './components/Loader/LoaderWrapper'
 
+import { mainStyle } from './styles'
 
 import { Asset } from 'expo-asset'
 import { AppLoading } from 'expo';
@@ -93,7 +94,7 @@ export default class Routing extends React.Component<Props, State> {
     }
 
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: mainStyle.themeColor}}>
         { /** Routes **/ }
         <Router>
           <Modal>

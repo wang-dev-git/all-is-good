@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { StyleSheet, Text, StatusBar, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
 import ProsScreen from '../Pros/ProsScreen'
@@ -182,6 +182,7 @@ class TabsScreen extends React.Component<Props, State>  {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle='light-content' />
         {/* Content */}
         { (this.state.booted && this.props.user) &&
           <View style={styles.content}>
@@ -220,10 +221,10 @@ const barHeight = 68
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: mainStyle.themeColor,
   },
   content: {
     flex: 1,
-    backgroundColor: '#fff',
     ...ifIphoneX({
       marginBottom: barHeightX,
     }, {

@@ -64,15 +64,12 @@ const AddressesScreen: React.FC<Props> = (props) => {
   }, []);
 
   const _handleAppStateChange = async nextAppState => {
-    if (appState.match(/inactive|background/) && nextAppState === "active") {
-      // Came to foreground
-      let { status } = await Permissions.getAsync(Permissions.LOCATION);
-      if (status === 'granted') {
-        const location = await Location.getCurrentPositionAsync({});
-        const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
-        if (addr.length) {
-          setCurrentAddress(addr[0])
-        }
+    let { status } = await Permissions.getAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync({});
+      const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
+      if (addr.length) {
+        setCurrentAddress(addr[0])
       }
     }
     setAppState(nextAppState);

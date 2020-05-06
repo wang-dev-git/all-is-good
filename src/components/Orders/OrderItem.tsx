@@ -109,6 +109,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                     )}
                   </View>
                 }
+                <MyText style={styles.date}>{Time.date(order.createdAt)}</MyText>
 
                 { last &&
                   <View style={styles.row}>
@@ -177,6 +178,10 @@ const styles = StyleSheet.create({
   },
   picture: {
     height: 110,
+  },
+  date: {
+    textAlign: 'center',
+    marginBottom: 10,
   },
   logoWrapper: {
     shadowOffset: { width: 0, height: 2},

@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal } from '../../services'
+import { Fire, Modal, Maps } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import Icon from '@expo/vector-icons/FontAwesome'
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 import ProItem from '../Pros/ProItem'
 import CategoryItem from './CategoryItem'
@@ -51,6 +53,22 @@ const SearchScreen: React.FC<Props> = (props) => {
   React.useEffect(() => {
     refresh()
   }, [query])
+
+  React.useEffect(() => {
+    const fetch = async () => {
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({});
+        const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
+        if (addr.length) {
+          updatePosition(location)
+        }
+
+      }
+    }
+    if (!position)
+      fetch()
+  }, [])
 
   const showFilters = () => {
     Keyboard.dismiss()

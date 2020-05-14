@@ -7,9 +7,11 @@ export default {
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
 
   // Landing
-  LANDING_CONNECT_EMAIL: "Login with your email",
-  LANDING_CONNECT_FB: "Login using Facebook",
-  LANDING_CONNECT_GOOGLE: "Login using Google",
+  LANDING_INTRO: 'We have a great challenge to take on together!',
+  LANDING_CONNECT_EMAIL: "Login",
+  LANDING_CONNECT_FB: "Facebook login",
+  LANDING_CONNECT_GOOGLE: "Google login",
+  LANDING_CONDITIONS: "By registering, you accept our general terms and conditions of use and sale.",
 
   // Login
   LOGIN_TITLE: 'Connexion',
@@ -54,6 +56,24 @@ export default {
   PRO_PACKAGE_CONTENT_TITLE: "What you can have",
   PRO_BUY_BTN: "Order now",
   PRO_SOLD_OUT: "Sold out!",
+
+  // Payment
+  PAYMENT_ALLERGENS: 'Allergens',
+  PAYMENT_ALLERGENS_MSG: 'Be sure to check the list of allergens before ordering.',
+  PAYMENT_FOOD_SECURITY: 'Food safety',
+  PAYMENT_FOOD_SECURITY_MSG: 'Unsold products are intended to be consumed during the day, be careful not to wait until the products have expired.',
+  PAYMENT_CHOOSE_QUANTITY: 'Choose quantity',
+  PAYMENT_QUANTITY_SUBTITLE: 'Please note that the products in the basket may vary slightly depending on unsold items.',
+  PAYMENT_QUANTITY: 'Quantity',
+  PAYMENT_CHOOSE_MODE: 'Pick-up mode',
+  PAYMENT_PICK_UP: 'Pick-up at store',
+  PAYMENT_DELIVERY: 'Delivery',
+  PAYMENT_CHOOSE_ADDRESS: 'Devliery address',
+  PAYMENT_CHOOSE_METHOD: 'Payment method',
+  PAYMENT_METHOD: 'Payment method',
+  PAYMENT_GOT_IT: "I understand !",
+  PAYMENT_NEXT: 'Continue',
+  PAYMENT_CONFIRM: 'Confirm and pay',
 
   // Favorite
   FAVORITE_NONE: "You have no favorite yet",

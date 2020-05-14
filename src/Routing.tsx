@@ -59,6 +59,7 @@ export default class Routing extends React.Component<Props, State> {
       require('./images/noorder.png'),
       require('./images/noresult.png'),
       require('./images/baigy.png'),
+      require('./images/google.png'),
       require('./images/like.png'),
       require('./images/like_empty.png'),
       require('./images/logo.png'),

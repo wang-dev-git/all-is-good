@@ -48,7 +48,7 @@ const SuccessModal: React.FC<Props> = (props) => {
         <View style={{alignItems: 'center', marginBottom: 20,}}>
           { props.success &&
             <SmallButton
-              title="Voir ma commande"
+              title="Check my order"
               onPress={viewOrder}
               />
           }

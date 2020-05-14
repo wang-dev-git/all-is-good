@@ -62,7 +62,7 @@ class LandingScreen extends React.Component<Props, State>  {
   }
 
   openConditions() {
-    Linking.openURL('https://google.fr')
+    Linking.openURL('https://allisgood-app.com/terms')
   }
 
   render() {
@@ -105,11 +105,11 @@ class LandingScreen extends React.Component<Props, State>  {
             </TouchableOpacity>
 
             <TouchableOpacity disabled={this.state.editing} style={{marginTop: 6}}  onPress={() => this.googleLogin()}>
-              <View style={[styles.btn, {backgroundColor: '#d93025'}]}>
+              <View style={[styles.btn, {backgroundColor: '#fff', borderColor: '#d93025', borderWidth: 1}]}>
                 <View style={styles.floating}>
-                  <Icon name='google' color={'#fff'} size={14} />
+                  <AssetImage src={require('../../images/google.png')} resizeMode='contain' style={{width: 20}}/>
                 </View>
-                <MyText style={[styles.txt, {marginLeft: 20, color: '#fff'}]}>{lang.LANDING_CONNECT_GOOGLE}</MyText>
+                <MyText style={[styles.txt, {marginLeft: 20, color: '#222'}]}>{lang.LANDING_CONNECT_GOOGLE}</MyText>
               </View>
             </TouchableOpacity>
 
@@ -142,20 +142,20 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 260,
-    height: 120,
+    height: 100,
   },
 
   introTxt: {
     ...mainStyle.montBold,
     fontSize: 16,
-    paddingHorizontal: 12,
+    paddingHorizontal: 40,
     textAlign: 'center',
-    lineHeight: 22,
+    marginBottom: 10
   },
 
   introImg: {
-    width: Dimensions.get('window').width * 0.6,
-    height: Dimensions.get('window').width * 0.6,
+    width: Dimensions.get('window').width * 0.5,
+    height: Dimensions.get('window').width * 0.5,
     marginBottom: 20,
   },
 

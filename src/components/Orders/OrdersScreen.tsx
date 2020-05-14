@@ -141,13 +141,13 @@ const OrdersScreen: React.FC<Props> = (props) => {
           style={[styles.tab, tab === 0 ? styles.selected : {}]}
           onPress={() => setTab(0)}
           >
-          <MyText style={styles.tabTxt}>Passées</MyText>
+          <MyText style={styles.tabTxt}>Past</MyText>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, tab === 1 ? styles.selected : {}]}
           onPress={() => setTab(1)}
           >
-          <MyText style={styles.tabTxt}>En cours</MyText>
+          <MyText style={styles.tabTxt}>In progress</MyText>
         </TouchableOpacity>
       </View>
       <FlatList

@@ -61,7 +61,7 @@ const ProScreen: React.FC<Props> = (props) => {
         await dispatch(fetchOrders())
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
-          <SuccessModal success={true} message="Paiement validé !" subtitle={"Total " + price + "$"} />
+          <SuccessModal success={true} message="Payment confirmed !" subtitle={"Total " + price + "$"} />
         )})
       } else {
         let error = ''

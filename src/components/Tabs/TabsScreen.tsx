@@ -68,11 +68,11 @@ const routes = [
     component: OrdersScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Entypo name="shopping-cart" size={22} color={tabColor} />
+        <Entypo name="shopping-bag" size={22} color={tabColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Entypo name="shopping-cart" size={22} color={tabActiveColor} />
+        <Entypo name="shopping-bag" size={22} color={tabActiveColor} />
       </View>
     )
   },

@@ -43,9 +43,10 @@ export const updateUser = createActionThunk('UPDATE_USER', async (info: any, { g
   }
 })
 
-export const updatePosition = createActionThunk('UPDATE_POSITION', (pos: any, { dispatch }) => {
-  dispatch(loadSearchable())
-  return pos
+export const internalUpdatePosition = createActionThunk('UPDATE_POSITION', (pos: any) => pos)
+export const updatePosition = createActionThunk('UPDATE_POSITION_AND_REFRESH', async (pos: any, { dispatch }) => {
+  await dispatch(internalUpdatePosition(pos))
+  await dispatch(loadSearchable())
 })
 
 const initialState = {

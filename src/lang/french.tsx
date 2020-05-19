@@ -75,6 +75,9 @@ export default {
   USER_INFO_PHONE: 'Téléphone',
 
   // Orders
+  ORDERS_PAST: 'Passées',
+  ORDERS_PROGRESS: 'En cours',
+  ORDERS_CANCELLING: 'Annulation...',
   ORDERS_NONE: 'Aucune commande',
   ORDERS_NONE_BTN: "Découvrir nos restaurants",
   ORDER_WAITING: 'En attente',

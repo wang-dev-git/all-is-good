@@ -65,7 +65,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
   const getHour = (item: any) => {
     const date = Fire.getDateFor(item.date)
-    return Time.moment(date).format('HH:mm')
+    return Time.moment(date).format('h:mm A')
   }
 
   const quantity = order.quantity || 0

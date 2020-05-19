@@ -74,7 +74,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
   }
 
   const cancel = async (order: any) => {
-    Loader.show('Annulation...')
+    Loader.show(lang.ORDER_CANCELLING)
     try {
       const ref = Fire.store().collection('orders').doc(order.id)
       const history = order.history || []
@@ -89,7 +89,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
       })
       await refresh()
       setShown(null)
-      Flash.show('Commande annulée')
+      Flash.show(lang.ORDER_WAS_CANCELLED)
     } catch (err) {
 
     }
@@ -141,13 +141,13 @@ const OrdersScreen: React.FC<Props> = (props) => {
           style={[styles.tab, tab === 0 ? styles.selected : {}]}
           onPress={() => setTab(0)}
           >
-          <MyText style={styles.tabTxt}>Past</MyText>
+          <MyText style={styles.tabTxt}>{lang.ORDERS_PAST}</MyText>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, tab === 1 ? styles.selected : {}]}
           onPress={() => setTab(1)}
           >
-          <MyText style={styles.tabTxt}>In progress</MyText>
+          <MyText style={styles.tabTxt}>{lang.ORDERS_PROGRESS}</MyText>
         </TouchableOpacity>
       </View>
       <FlatList

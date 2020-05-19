@@ -63,7 +63,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
 
             { !props.isWish &&
               <View style={styles.quantity}>
-                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? lang.PRO_TO_SAVE.replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>
+                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>
               </View>
             }
 

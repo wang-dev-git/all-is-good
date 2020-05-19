@@ -2,6 +2,7 @@ import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
 
 import Fire from '../services/Fire.service'
+import Tools from '../services/Tools.service'
 import { clearPros } from './pros.action'
 
 export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
@@ -9,9 +10,17 @@ export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
   return await Fire.list(categoriesRef)
 })
 
-export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async () => {
-  const prosRef = Fire.store().collection('pros').where('active', '==', true)
-  return await Fire.list(prosRef)
+export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getState }) => {
+  const position = getState().authReducer.position
+  if (!position)
+    return []
+  const user = getState().authReducer.user
+  if (!user.distance)
+    return []
+  const hash = Tools.getGeohashForDistance(position.geometry.location, user.distance)
+  const prosRef = Fire.store().collection('pros').where('active', '==', true).where('geoHashes', 'array-contains', hash)
+  const pros = await Fire.list(prosRef)
+  return pros
 })
 
 export const searchByName = createActionThunk('SEARCH_BY_NAME', async (query: string, { getState }) => {

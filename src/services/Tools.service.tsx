@@ -11,6 +11,14 @@ export default class Tools {
     return ngeohash.encode(pos.latitude, pos.longitude, level)
   }
 
+  // Map distances range (kilometers) to geohash levels
+  static getGeohashForDistance(pos: any, distance: number) {
+    let level = 5
+    if (distance > 100)
+      level = 4
+    return ngeohash.encode(pos.lat, pos.lng, level)
+  }
+  
   static getRoundedDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     return Number(this.getDistance(lat1, lon1, lat2, lon2)).toFixed(0)
   }

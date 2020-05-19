@@ -186,8 +186,7 @@ const MapScreen: React.FC<Props> = (props) => {
             style={styles.map}
             initialRegion={region}
             onRegionChangeComplete={(r) => {
-              //alert(Tools.getRegionZoom(r) + ' -> ' + getGeoZoom(Tools.getRegionZoom(r)))
-              refresh()
+              
             }}
             onRegionChange={(r) => {
 

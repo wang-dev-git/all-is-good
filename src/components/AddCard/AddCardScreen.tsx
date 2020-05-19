@@ -18,6 +18,7 @@ import { mainStyle } from '../../styles'
 
 type Props = {
   user: any;
+  lang: any;
 
   addCard: (card: any) => void;
   added?: (card: any) => void;
@@ -99,10 +100,11 @@ class AddCardScreen extends React.Component<Props, State>  {
 
   render() {
     const { card, loading } = this.state
+    const { lang } = this.props
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Ajouter une carte'
+          title={lang.ADD_CARD_TITLE}
           back
           />
         <KeyboardScrollView contentContainerStyle={{paddingTop: 30, paddingBottom: 20}}>
@@ -117,18 +119,18 @@ class AddCardScreen extends React.Component<Props, State>  {
 
           <View style={{marginTop: 40, alignItems: 'center'}}>
           <SmallButton
-            title={'Valider'}
+            title={lang.ADD_CARD_CONFIRM}
             disabled={!card.valid}
 
             onPress={() => this.proceed()}
             />
           </View>
 
-          <MyText style={styles.noStoring}>Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good</MyText>
+          <MyText style={styles.noStoring}>{lang.ADD_CARD_LEGAL}</MyText>
         </KeyboardScrollView>
 
         <PageLoader
-          title={'Vérification...'}
+          title={lang.ADD_CARD_LOADING}
           loading={loading}
           />
       </View>
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
+  lang: state.langReducer.lang,
 })
 const mapDispatchToProps = (dispatch: any) => ({
   addCard: (card: any) => dispatch(addCard(card)),

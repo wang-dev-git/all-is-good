@@ -141,6 +141,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               <CategoryItem
                 index={item.index}
                 category={item.item}
+                pros={pros}
                 onPress={() => setQuery(item.item.name)}
                 />
             }

@@ -17,6 +17,7 @@ interface Props {
 const CategoryItem: React.FC<Props> = (props) => {
   const langId = useSelector(state => state.langReducer.id)
   const name = props.category.names ? props.category.names[langId] : ''
+
   return (
     <View style={styles.shadow}>
       <TouchableBounce width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>

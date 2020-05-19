@@ -50,7 +50,7 @@ const RateModal: React.FC<Props> = (props) => {
       <View style={styles.header}>
         <MyText type='bold' style={styles.title}>{lang.RATE_TITLE}</MyText>
       </View>
-      <MyText style={styles.subtitle}>{"Notez la prestation, choisissez votre nombre d'étoiles.\n\nVotre avis nous intéresse !"}</MyText>
+      <MyText style={styles.subtitle}>{lang.RATE_SUBTITLE}</MyText>
       <View style={styles.content}>
         <TouchableOpacity style={[styles.star, isSelected(1) ? styles.selected : {}]} onPress={() => onSelect(1)}>
           <AntDesign name="star" size={size} color={isSelected(1) ? mainStyle.orangeColor : '#fff'} />

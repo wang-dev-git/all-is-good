@@ -13,6 +13,7 @@ import Icon from '@expo/vector-icons/FontAwesome'
 import { mainStyle } from '../../styles'
 
 type Props = {
+  lang: any;
   cards: any;
 
   removeCard: (index: number) => void;
@@ -61,11 +62,11 @@ class CreditCardsScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { cards } = this.props
+    const { cards, lang } = this.props
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Vos moyens de paiement'
+          title={lang.CARDS_TITLE}
           back
           />
         <FlatList
@@ -74,16 +75,14 @@ class CreditCardsScreen extends React.Component<Props, State>  {
           renderItem={({ item, index }) => this.renderCard(item, index)}
           ListEmptyComponent={() => (
             <View style={styles.empty}>
-              <MyText style={styles.emptyTxt}>Vous n'avez enregistré{'\n'}aucune carte</MyText>
+              <MyText style={styles.emptyTxt}>{lang.CARDS_NONE}</MyText>
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
           />
         <View style={styles.floatingBottom}>
           <SmallButton
-            title={'Ajouter une carte'}
-            backgroundColor={mainStyle.themeColor}
-
+            title={lang.CARDS_ADD}
             onPress={Actions.addCard}
             />
         </View>
@@ -160,6 +159,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state: any) => ({
+  lang: state.langReducer.lang,
   cards: state.cardsReducer.list,
   toggle: state.cardsReducer.toggle,
 })

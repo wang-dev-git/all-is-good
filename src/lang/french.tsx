@@ -86,6 +86,7 @@ export default {
 
   // Rating
   RATE_TITLE: 'Donnez votre avis',
+  RATE_SUBTITLE: "Notez la prestation, choisissez votre nombre d'étoiles.\n\nVotre avis nous intéresse !",
   RATE_CONFIRM: 'Envoyer',
 
   // Settings
@@ -113,12 +114,27 @@ export default {
   PAYMENT_CHOOSE_MODE: 'Mode de récupération',
   PAYMENT_PICK_UP: 'à'.toUpperCase() + ' emporter',
   PAYMENT_DELIVERY: 'Livraison',
+  PAYMENT_DELIVERY_FEE: 'Les frais de livraison sont de %PRICE%$',
   PAYMENT_CHOOSE_ADDRESS: 'Adresse de livraison',
+  PAYMENT_PLEASE_CHOOSE_ADDRESS: 'Sélectionner une adresse',
+  PAYMENT_NO_ADDRESS: 'Aucune adresse',
   PAYMENT_CHOOSE_METHOD: 'Votre moyen de paiement',
   PAYMENT_METHOD: 'Moyen de paiement',
   PAYMENT_GOT_IT: "J'ai compris !",
+  PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good',
   PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
+
+  // List Cards
+  CARDS_TITLE: 'Vos moyens de paiement',
+  CARDS_NONE: "Vous n'avez enregistré\naucune carte",
+  CARDS_ADD: 'Ajouter une carte',
+
+  // Add Card
+  ADD_CARD_TITLE: 'Ajouter une carte',
+  ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good',
+  ADD_CARD_CONFIRM: 'Valider',
+  ADD_CARD_LOADING: 'Vérification...',
 
   // Addresses
   ADDRESSES_TITLE: 'Adresse de référence',

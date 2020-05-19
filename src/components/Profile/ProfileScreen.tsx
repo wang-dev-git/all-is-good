@@ -146,7 +146,7 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   becomePro() {
-    Linking.openURL('https://allisgood-app.com/contact-us/')
+    Linking.openURL('https://allisgood-app.com/become-partner/')
   }
 
   render() {

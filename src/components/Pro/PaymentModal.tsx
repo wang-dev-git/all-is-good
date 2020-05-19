@@ -240,7 +240,7 @@ const PaymentModal: React.FC<Props> = (props) => {
             <View style={{marginTop: 20,}}>
               <MyText style={styles.conditions}>{mode === 'delivery' ? deliveryOpening : pickUpOpening}</MyText>
               { mode === 'delivery' &&
-                <MyText style={styles.conditions}>Les frais de livraison sont de 3$</MyText>
+                <MyText style={styles.conditions}>{lang.PAYMENT_DELIVERY_FEE.replace('%PRICE%', pro.delivery_price || 0)}</MyText>
               }
             </View>
           }
@@ -255,7 +255,7 @@ const PaymentModal: React.FC<Props> = (props) => {
           <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity style={styles.addressContainer} onPress={() => Actions.addresses({ title: lang.ADDRESSES_DELIVERY_TITLE, selected: address, onSelect: setAddress })}>
-              <MyText style={styles.addressTxt} numberOfLines={1}>{address !== null ? address.formatted_address : 'Sélectionner une adresse'}</MyText>
+              <MyText style={styles.addressTxt} numberOfLines={1}>{address !== null ? address.formatted_address : lang.PAYMENT_PLEASE_CHOOSE_ADDRESS}</MyText>
               <AntDesign name="down" />
             </TouchableOpacity>
           </View>
@@ -266,7 +266,7 @@ const PaymentModal: React.FC<Props> = (props) => {
           { mode === 'delivery' ? (
             <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
               <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
-              <MyText style={styles.lineValue}>{address ? address.formatted_address : 'Aucune adresse'}</MyText>
+              <MyText style={styles.lineValue}>{address ? address.formatted_address : lang.PAYMENT_NO_ADDRESS}</MyText>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity style={styles.line} onPress={() => {setShowCards(false);}}>
@@ -279,7 +279,7 @@ const PaymentModal: React.FC<Props> = (props) => {
           
           <CheckBox
             active={confirmed}
-            title={'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good'}
+            title={lang.PAYMENT_LEGAL}
             onPress={() => setConfirmed(!confirmed)}
             onTapText={() => Linking.openURL('https://allisgood-app.com/terms')}
             />

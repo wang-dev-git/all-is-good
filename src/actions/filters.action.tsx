@@ -20,6 +20,7 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const hash = Tools.getGeohashForDistance(position.geometry.location, user.distance)
   const prosRef = Fire.store().collection('pros').where('active', '==', true).where('geoHashes', 'array-contains', hash)
   const pros = await Fire.list(prosRef)
+  console.log('Refreshed: ' + pros.length + ' pros loaded for [' + hash + ']')
   return pros
 })
 

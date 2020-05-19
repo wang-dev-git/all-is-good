@@ -76,7 +76,18 @@ const AddressesScreen: React.FC<Props> = (props) => {
   };
 
   const renderCurrent = () => {
+    const testAddr = {
+      geometry: {
+        location: {
+          lat: 48.819400,
+          lng: 2.211890
+        },
+      },
+      formatted_address: "1 rue de l'Ermitage Sèvres 92310"
+    }
+
     return (
+      <React.Fragment>
       <TouchableOpacity
         style={styles.address}
         onPress={() => {
@@ -94,6 +105,20 @@ const AddressesScreen: React.FC<Props> = (props) => {
           <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{currentAddress ? currentAddress.formatted_address : lang.ADDRESSES_CLICK_FOR_SETTINGS}</MyText>
         </View>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.address}
+        onPress={() => {
+          props.onSelect(testAddr);
+          Actions.pop()
+        }}
+        >
+        <MaterialIcons name="place" size={19} />
+        <View style={{flex: 1}}>
+          <MyText style={[styles.addressTxt, {marginBottom: 4}]}>TEST ADDRESS</MyText>
+          <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{testAddr.formatted_address}</MyText>
+        </View>
+      </TouchableOpacity>
+      </React.Fragment>
     )
   }
 

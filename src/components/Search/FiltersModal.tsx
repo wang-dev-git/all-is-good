@@ -15,7 +15,8 @@ import { mainStyle } from '../../styles'
 import { updateUser, updatePosition } from '../../actions/auth.action'
 
 const min = 5
-const max = 30
+const max = 50
+const step = 15
 
 interface Props {
 }
@@ -40,7 +41,7 @@ const FiltersModal: React.FC<Props> = (props) => {
 
   const onConfirm = async () => {
     if (user.distance !== distance) {
-      Loader.show('Chargement en cours...')
+      Loader.show(lang.GLOBAL_LOADING)
       try {
         await dispatch(updateUser({ distance: distance }))
         Modal.hide('filters')

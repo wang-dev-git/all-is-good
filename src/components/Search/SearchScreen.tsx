@@ -47,6 +47,7 @@ const SearchScreen: React.FC<Props> = (props) => {
     }
     if (!position)
       fetch()
+
   }, [])
 
   const showFilters = () => {
@@ -78,9 +79,6 @@ const SearchScreen: React.FC<Props> = (props) => {
     }
     return false
   })
-
-  console.log(filtered)
-  console.log(filtered.length)
 
   return (
     <View style={styles.container}>

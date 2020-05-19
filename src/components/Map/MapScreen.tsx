@@ -35,6 +35,7 @@ const MapScreen: React.FC<Props> = (props) => {
   
   const { user } = props
   
+  const mapRef = React.useRef<any>(null)
   const [region, setRegion] = React.useState({
     latitude: 48.8240021,
     longitude: 2.21,
@@ -105,7 +106,7 @@ const MapScreen: React.FC<Props> = (props) => {
     const level = Tools.getRegionZoom(pos)
     const zoom = getGeoZoom(level)
     const hash = Tools.getGeohash(pos, zoom)
-    console.log('Refresh')
+    console.log('Refresh on map')
     setLoading(true)
     try {
       const prosRef = Fire.store().collection('pros')
@@ -125,7 +126,8 @@ const MapScreen: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     const index = Math.round((scrollPos - 10) / 220)
-    selectPro(pros[index])
+    if (!selectedPro || selectedPro.id !== pros[index].id)
+      selectPro(pros[index])
   }, [scrollPos])
 
   React.useEffect(() => {
@@ -139,6 +141,12 @@ const MapScreen: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     if (selectedPro) {
+      let tempCoords = {
+        latitude: Number(selectedPro.lat),
+        longitude: Number(selectedPro.lng)
+      }
+      mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 200, zoom: 40}, 420)
+
       /*
       region.timing({
         latitude: selectedPro.lat,
@@ -173,6 +181,7 @@ const MapScreen: React.FC<Props> = (props) => {
           />
         <View style={styles.container}>
           <MapView
+            mapRef={(ref) => mapRef.current = ref}
             showsUserLocation
             style={styles.map}
             initialRegion={region}

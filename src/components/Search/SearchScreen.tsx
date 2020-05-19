@@ -28,6 +28,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const [loading, setLoading] = React.useState(false)
 
   const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
   const searchable = useSelector(state => state.filtersReducer.searchable)
   const categories = useSelector(state => state.filtersReducer.categories)
   const position = useSelector(state => state.authReducer.position)
@@ -77,6 +78,9 @@ const SearchScreen: React.FC<Props> = (props) => {
     }
     return false
   })
+
+  console.log(filtered)
+  console.log(filtered.length)
 
   return (
     <View style={styles.container}>
@@ -144,7 +148,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               <CategoryItem
                 index={item.index}
                 category={item.item}
-                onPress={() => setQuery(item.item.name)}
+                onPress={() => setQuery(item.item.names[langId])}
                 />
             }
             ListEmptyComponent={() => (

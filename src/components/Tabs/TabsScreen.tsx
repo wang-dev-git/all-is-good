@@ -16,6 +16,7 @@ import { Fire, Stripe, Modal, Flash } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
+import Entypo from '@expo/vector-icons/Entypo'
 import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
 import { switchTab } from '../../actions/tab.action'
@@ -67,11 +68,11 @@ const routes = [
     component: OrdersScreen,
     renderIcon: (active: boolean) => !active ? (
       <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={tabColor} />
+        <Entypo name="shopping-cart" size={22} color={tabColor} />
       </View>
     ) : (
       <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-        <Icon name="ticket" size={22} color={tabActiveColor} />
+        <Entypo name="shopping-cart" size={22} color={tabActiveColor} />
       </View>
     )
   },

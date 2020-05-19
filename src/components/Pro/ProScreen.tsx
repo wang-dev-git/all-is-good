@@ -63,7 +63,10 @@ const ProScreen: React.FC<Props> = (props) => {
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
           <SuccessModal success={true} message="Payment confirmed !" subtitle={"Total " + price + "$"} />
-        )})
+        ), onTerminate: () => {
+          Modal.terminate('payment')
+          Modal.terminate('payment_success')
+        }})
       } else {
         let error = ''
         switch (res.error) {
@@ -85,7 +88,10 @@ const ProScreen: React.FC<Props> = (props) => {
         }
         Modal.show('payment_failure', { local: true, content: () => (
           <SuccessModal success={false} message={error} subtitle='Echec de la commande' />
-        )})
+        ), onTerminate: () => {
+          Modal.terminate('payment')
+          Modal.terminate('payment_failure')
+        }})
       }
 
     } catch (err) {
@@ -96,7 +102,7 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const checkout = () => {
-    Modal.show('payment', { local: true, content: () => (
+    Modal.show('payment', { onTerminate: () => void 0, local: true, content: () => (
       <PaymentModal
         pro={pro}
         onPay={onPay}

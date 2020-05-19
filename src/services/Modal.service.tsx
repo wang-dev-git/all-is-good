@@ -6,6 +6,7 @@ type ModalData = {
   local?: boolean;
   content: any;
   onClose?: () => void;
+  onTerminate?: () => void;
 }
 
 // Service

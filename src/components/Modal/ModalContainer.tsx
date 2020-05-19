@@ -14,6 +14,7 @@ interface ModalProps {
   name: string;
   shown: boolean;
   onClose?: () => void;
+  onTerminate?: () => void;
   content: any;
 }
 const ModalInstance: React.FC<ModalProps> = (props) => {
@@ -34,8 +35,12 @@ const ModalInstance: React.FC<ModalProps> = (props) => {
       tension: 2,
       friction: 8,
     }).start(() => {
-      if (!props.shown)
-        Modal.terminate(props.name)
+      if (!props.shown) {
+        if (props.onTerminate)
+          props.onTerminate()
+        else
+          Modal.terminate(props.name)
+      }
     });
     
   }, [props.shown]);
@@ -78,6 +83,7 @@ const ModalContainer: React.FC<Props> = (props) => {
         shown={modal.shown}
         content={modal.content}
         onClose={modal.onClose}
+        onTerminate={modal.onTerminate}
       />
     )
   }

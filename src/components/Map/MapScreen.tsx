@@ -45,24 +45,6 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const userLocation = useLocation(user)
 
-  /*
-  React.useEffect(() => {
-    if (userLocation) {
-      const coords = userLocation.coords
-      const fetch = async () => {
-        const addr = await Maps.getAddress(coords.latitude, coords.longitude)
-        if (addr.length) {
-          setAddress(addr[0].formatted_address)
-          region.timing({
-            latitude: coords.latitude,
-            longitude: coords.longitude
-          }).start()
-        }
-      }
-      fetch()
-    }
-  }, [userLocation])*/
-
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
 
@@ -74,15 +56,20 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const { addresses, clearAddresses } = useAddresses(address)
   
+  const animateTo = (lat, lng) => {
+    if (!mapRef)
+      return;
+    const tempCoords = {
+      latitude: Number(lat),
+      longitude: Number(lng)
+    }
+    mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 2000, zoom: 40}, 420)
+  }
+
   const onAddressTap = (item) => {
     selectAddress(item)
     clearAddresses()
-    /*
-    region.timing({
-      latitude: item.geometry.location.lat,
-      longitude: item.geometry.location.lng
-    }).start()
-    */
+    animateTo(item.geometry.location.lat, item.geometry.location.lng)
   }
 
   const getGeoZoom = (zoom: number) => {
@@ -137,20 +124,8 @@ const MapScreen: React.FC<Props> = (props) => {
   }, [pros])
 
   React.useEffect(() => {
-    if (selectedPro) {
-      let tempCoords = {
-        latitude: Number(selectedPro.lat),
-        longitude: Number(selectedPro.lng)
-      }
-      mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 2000, zoom: 40}, 420)
-
-      /*
-      region.timing({
-        latitude: selectedPro.lat,
-        longitude: selectedPro.lng
-      }).start()
-      */
-    }
+    if (selectedPro)
+      animateTo(selectedPro.lat, selectedPro.lng)
   }, [selectedPro])
 
   const showFilters = () => {
@@ -162,8 +137,7 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const recenter = () => {
-
-    setRegion({...region})
+    animateTo(region.latitude, region.longitude)
   }
 
   return (

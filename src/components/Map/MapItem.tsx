@@ -14,15 +14,14 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   pro: any;
-  currentPos: any;
 
   onPress: () => void;
 }
 const MapItem: React.FC<Props> = (props: Props) => {
   
-  const { pro, currentPos, onPress } = props
+  const { pro, onPress } = props
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  const distance = Tools.getRoundedDistance(pro.lat, pro.lng, currentPos.lat, currentPos.lng)
+  const distance = pro.distance
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>

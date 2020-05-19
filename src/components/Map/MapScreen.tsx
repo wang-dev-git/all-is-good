@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
 import { Fire, Modal, Tools } from '../../services'
@@ -7,7 +7,8 @@ import { Notifications } from 'expo';
 
 import { Actions } from 'react-native-router-flux'
 
-const MapView = require('react-native-maps')
+import MapView from "react-native-map-clustering";
+const { Marker } = require('react-native-maps')
 
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
@@ -34,12 +35,12 @@ const MapScreen: React.FC<Props> = (props) => {
   
   const { user } = props
   
-  const [region, setRegion] = React.useState(new MapView.AnimatedRegion({
+  const [region, setRegion] = React.useState({
     latitude: 48.8240021,
     longitude: 2.21,
     latitudeDelta: 0.03358723958820065,
     longitudeDelta: 0.04250270688370961,
-  }))
+  })
 
   const userLocation = useLocation(user)
 
@@ -64,20 +65,23 @@ const MapScreen: React.FC<Props> = (props) => {
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
 
-  const [address, setAddress] = React.useState("1 rue de l'Ermitage Sèvres")
+  const [address, setAddress] = React.useState("")
   const [pros, setPros] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [scrollPos, setScrollPos] = React.useState(0)
+  const position = useSelector(state => state.authReducer.position)
 
   const { addresses, clearAddresses } = useAddresses(address)
   
   const onAddressTap = (item) => {
     selectAddress(item)
     clearAddresses()
+    /*
     region.timing({
       latitude: item.geometry.location.lat,
       longitude: item.geometry.location.lng
     }).start()
+    */
   }
 
   const getGeoZoom = (zoom: number) => {
@@ -97,16 +101,22 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const refresh = async () => {
-    const pos = region.__getValue()
+    const pos = region
     const level = Tools.getRegionZoom(pos)
     const zoom = getGeoZoom(level)
     const hash = Tools.getGeohash(pos, zoom)
     console.log('Refresh')
     setLoading(true)
     try {
-      const prosRef = Fire.store().collection('pros').where('geoHashes', 'array-contains', hash)
+      const prosRef = Fire.store().collection('pros')
       const pros = await Fire.list(prosRef)
-      setPros(pros.filter((item) => item.lat !== undefined))
+      for (const pro of pros) {
+        if (position)
+          pro.distance = Tools.getRoundedDistance(pro.lat, pro.lng, position.geometry.location.lat, position.geometry.location.lng)
+        else
+          pro.distance = 0
+      }
+      setPros(pros.filter((item) => item.lat !== undefined).sort((a, b) => a.distance - b.distance))
     } catch (err) {
       setPros([])
     }
@@ -129,29 +139,29 @@ const MapScreen: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     if (selectedPro) {
+      /*
       region.timing({
         latitude: selectedPro.lat,
         longitude: selectedPro.lng
       }).start()
+      */
     }
   }, [selectedPro])
 
   const showFilters = () => {
     Keyboard.dismiss()
     Modal.show('filters', {
-      component: <FiltersModal />,
+      content: () => <FiltersModal />,
       onClose: () => refresh()
     })
   }
 
   const recenter = () => {
-    region.timing({
-      latitude: userLocation.coords.latitude,
-      longitude: userLocation.coords.longitude
-    }).start()
+
+    setRegion({...region})
   }
 
-  const pos = region.__getValue()
+  const pos = region
   const currentPos = {lat: pos.latitude, lng: pos.longitude}
 
   return (
@@ -162,20 +172,20 @@ const MapScreen: React.FC<Props> = (props) => {
           logo
           />
         <View style={styles.container}>
-          <MapView.Animated
+          <MapView
             showsUserLocation
             style={styles.map}
-            region={region}
+            initialRegion={region}
             onRegionChangeComplete={(r) => {
               //alert(Tools.getRegionZoom(r) + ' -> ' + getGeoZoom(Tools.getRegionZoom(r)))
               refresh()
             }}
             onRegionChange={(r) => {
-              region.setValue(r)
+
             }}
           >
             { pros.map((item, index) => (
-              <MapView.Marker
+              <Marker
                 key={index}
                 onPress={() => selectPro(item)}
                 coordinate={{
@@ -187,17 +197,17 @@ const MapScreen: React.FC<Props> = (props) => {
                   selected={selectedPro && item.id == selectedPro.id}
                   color={mainStyle.themeColor}
                   />
-              </MapView.Marker>
+              </Marker>
             )) }
             {selectedAddress &&
-              <MapView.Marker
+              <Marker
                 coordinate={{
                   longitude: selectedAddress.geometry.location.lng,
                   latitude: selectedAddress.geometry.location.lat
                 }}
               />
             }
-          </MapView.Animated>
+          </MapView>
 
           <View style={styles.floatingTop}>
             <SearchBar
@@ -237,7 +247,6 @@ const MapScreen: React.FC<Props> = (props) => {
                 data={pros || []}
                 renderItem={({ item }) =>
                   <MapItem
-                    currentPos={currentPos}
                     pro={item}
                     onPress={() => Actions.pro({ pro: item })}
                     />

@@ -102,11 +102,6 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const refresh = async () => {
-    const pos = region
-    const level = Tools.getRegionZoom(pos)
-    const zoom = getGeoZoom(level)
-    const hash = Tools.getGeohash(pos, zoom)
-    console.log('Refresh on map')
     setLoading(true)
     try {
       const prosRef = Fire.store().collection('pros')

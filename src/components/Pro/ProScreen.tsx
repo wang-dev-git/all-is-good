@@ -192,7 +192,7 @@ const ProScreen: React.FC<Props> = (props) => {
 
           <View style={{alignItems: 'flex-start'}}>
             <View style={styles.quantity}>
-              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? pro.quantity + ' à sauver' : "0 aujourd'hui"}</MyText>
+              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? lang.PRO_TO_SAVE.replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>            
             </View>
           </View>
         </View>

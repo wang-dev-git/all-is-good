@@ -99,6 +99,8 @@ export default {
   SETTINGS_NOTIFS_AIG: "News de All is Good",
 
   // Pro
+  PRO_TO_SAVE: '%COUNT% à sauver',
+  PRO_NONE_TO_SAVE: "0 aujourd'hui",
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
   PRO_PACKAGE_ALLERGENS_TITLE: "Allergènes",

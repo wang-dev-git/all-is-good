@@ -1,4 +1,5 @@
 import { showMessage } from "react-native-flash-message";
+import { mainStyle } from '../styles'
 
 export default class Flash {
 
@@ -8,6 +9,8 @@ export default class Flash {
       description: message,
       type: type,
       onPress: onPress,
+      color: mainStyle.themeColor,
+      backgroundColor: '#fff',
     })
   }
 

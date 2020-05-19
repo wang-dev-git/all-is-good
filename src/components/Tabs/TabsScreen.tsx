@@ -12,7 +12,7 @@ import MapScreen from '../Map/MapScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
-import { Fire, Stripe, Modal } from '../../services'
+import { Fire, Stripe, Modal, Flash } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'

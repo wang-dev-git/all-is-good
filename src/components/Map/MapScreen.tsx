@@ -69,6 +69,7 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const onAddressTap = (item) => {
     selectAddress(item)
+    setAddress(item.formatted_address)
     clearAddresses()
     animateTo(item.geometry.location.lat, item.geometry.location.lng)
   }
@@ -190,20 +191,12 @@ const MapScreen: React.FC<Props> = (props) => {
                   />
               </Marker>
             ))}
-            {selectedAddress &&
-              <Marker
-                coordinate={{
-                  longitude: selectedAddress.geometry.location.lng,
-                  latitude: selectedAddress.geometry.location.lat
-                }}
-              />
-            }
           </MapView>
 
           <View style={styles.floatingTop}>
             <SearchBar
               query={address}
-              onChange={setAddress}
+              onChange={(addr) => {setAddress(addr); selectAddress(null)}}
               onClear={() => setAddress('')}
               />
             { userLocation !== null &&
@@ -213,7 +206,7 @@ const MapScreen: React.FC<Props> = (props) => {
                 </TouchableOpacity>
               </View>
             }
-            { addresses.length > 0 &&
+            { addresses.length > 0 && !selectedAddress &&
               <View style={styles.content}>
                 { addresses.map((item, index) => (
                   <TouchableOpacity

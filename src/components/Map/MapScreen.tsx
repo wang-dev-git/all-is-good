@@ -63,7 +63,7 @@ const MapScreen: React.FC<Props> = (props) => {
       latitude: Number(lat),
       longitude: Number(lng)
     }
-    mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 2000, zoom: 40}, 420)
+    mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 8000, zoom: 100}, 420)
   }
 
   const onAddressTap = (item) => {

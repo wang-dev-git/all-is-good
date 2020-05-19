@@ -241,7 +241,7 @@ const PaymentModal: React.FC<Props> = (props) => {
             <View style={{marginTop: 20,}}>
               <MyText style={styles.conditions}>{mode === 'delivery' ? deliveryOpening : pickUpOpening}</MyText>
               { mode === 'delivery' &&
-                <MyText style={styles.conditions}>{lang.PAYMENT_DELIVERY_FEE.replace('%PRICE%', pro.delivery_price || 0)}</MyText>
+                <MyText style={styles.conditions}>{(lang.PAYMENT_DELIVERY_FEE || '').replace('%PRICE%', pro.delivery_price || 0)}</MyText>
               }
             </View>
           }

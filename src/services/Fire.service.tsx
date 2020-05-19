@@ -5,13 +5,19 @@ import '@firebase/functions'
 import '@firebase/storage'
 
 import AppConfig from './AppConfig.service'
+import * as geofirex from 'geofirex';
 
 export default class Fire {
 
+  static geo: any = null
+
   // Initialize Firebase
   static init() {
-    if (!firebase.apps || !firebase.apps.length)
+    if (!firebase.apps || !firebase.apps.length) {
+
       firebase.initializeApp(AppConfig.get().firebaseOptions);
+      this.geo = geofirex.init(firebase);
+    }
   }
 
   // Retrieve base firestore

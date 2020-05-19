@@ -36,12 +36,13 @@ const MapScreen: React.FC<Props> = (props) => {
   const { user } = props
   
   const mapRef = React.useRef<any>(null)
-  const [region, setRegion] = React.useState({
-    latitude: 48.8240021,
-    longitude: 2.21,
+  const position = useSelector(state => state.authReducer.position)
+  const initialRegion = {
+    latitude: position ? position.geometry.location.lat : 48.8240021,
+    longitude: position ? position.geometry.location.lat : 2.21,
     latitudeDelta: 0.03358723958820065,
     longitudeDelta: 0.04250270688370961,
-  })
+  }
 
   const userLocation = useLocation(user)
 
@@ -53,7 +54,6 @@ const MapScreen: React.FC<Props> = (props) => {
   const [prosList, setProsList] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [scrollPos, setScrollPos] = React.useState(0)
-  const position = useSelector(state => state.authReducer.position)
 
   const { addresses, clearAddresses } = useAddresses(address)
   
@@ -139,7 +139,7 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const recenter = () => {
-    animateTo(region.latitude, region.longitude)
+    animateTo(position.geometry.location.lat, position.geometry.location.lng)
   }
 
   const renderMapItem = (item) => {
@@ -166,7 +166,7 @@ const MapScreen: React.FC<Props> = (props) => {
             mapRef={(ref) => mapRef.current = ref}
             showsUserLocation
             style={styles.map}
-            initialRegion={region}
+            initialRegion={initialRegion}
             onRegionChangeComplete={(r, markers) => {
               setProsList(markers)
               if (markers.length === 0)

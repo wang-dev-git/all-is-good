@@ -1,5 +1,6 @@
 import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
+import { get } from 'geofirex';
 
 import Fire from '../services/Fire.service'
 import Tools from '../services/Tools.service'
@@ -18,8 +19,15 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   if (!user.distance)
     return []
   const hash = Tools.getGeohashForDistance(position.geometry.location, user.distance)
-  const prosRef = Fire.store().collection('pros').where('active', '==', true).where('geoHashes', 'array-contains', hash)
-  const pros = await Fire.list(prosRef)
+    
+  const center = Fire.geo.point(position.geometry.location.lat, position.geometry.location.lng);
+  const radius = user.distance || 100;
+  const field = 'location';
+
+
+  const prosRef = Fire.store().collection('pros').where('active', '==', true)//.where('geoHashes', 'array-contains', hash)
+  const query = Fire.geo.query(prosRef).within(center, radius, field);
+  const pros = await get(query)
   return pros
 })
 

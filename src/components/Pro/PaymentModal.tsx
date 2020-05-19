@@ -251,7 +251,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         <Animated.View style={[styles.delivery, {transform: [{translateY: translateDelivery}]}]}>
           <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false);}}>
             <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</MyText>
-            <MyText style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +3$</MyText>
+            <MyText style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +{pro.delivery_price || 0}$</MyText>
           </TouchableOpacity>
           <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
           <View style={{alignItems: 'center'}}>

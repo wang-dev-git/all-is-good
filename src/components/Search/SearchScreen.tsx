@@ -134,14 +134,21 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <FlatList
             key="B"
-            data={categories}
+            data={categories.filter(item => {
+              for (const pro of pros) {
+                for (const cat of pro.categories) {
+                  if (cat.id === item.id)
+                    return true
+                }
+                return false
+              }
+            })}
             numColumns={2}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
             renderItem={(item: any) => 
               <CategoryItem
                 index={item.index}
                 category={item.item}
-                pros={pros}
                 onPress={() => setQuery(item.item.name)}
                 />
             }

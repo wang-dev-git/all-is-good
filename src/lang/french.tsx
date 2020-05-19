@@ -9,6 +9,7 @@ export default {
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
   GLOBAL_CANCEL: 'Annuler',
   GLOBAL_OK: 'OK',
+  GLOBAL_CONFIRM: 'Confirmation',
   GLOBAL_OPTIONAL: 'optionnel',
   GLOBAL_INTERNET: 'Veuillez vérifier votre connexion internet',
 
@@ -129,6 +130,11 @@ export default {
   PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good',
   PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
+
+  // Pick Card
+  PICK_CARD_NONE: 'Aucune carte enregistrée',
+  PICK_CARD_TITLE: 'Choisir une carte',
+  PICK_CARD_ADD: 'Ajouter une nouvelle carte',
 
   // List Cards
   CARDS_TITLE: 'Vos moyens de paiement',

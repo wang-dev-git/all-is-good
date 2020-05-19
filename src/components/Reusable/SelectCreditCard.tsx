@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -39,9 +39,11 @@ interface ListProps {
 }
 const ListCards: React.FC<ListProps> = (props) => {
   const { card, cards } = props
+  const lang = useSelector(state => state.langReducer.lang)
+
   return (
     <ScrollView style={{maxHeight: 500}}>
-      <MyText style={styles.title}>Choisir une carte</MyText>
+      <MyText style={styles.title}>{lang.PICK_CARD_TITLE}</MyText>
       {cards.map((c: any, index: number) => (
         <TouchableOpacity key={index} onPress={() => props.pick(c)}>
           <View style={[styles.cardRecap]}>
@@ -54,7 +56,7 @@ const ListCards: React.FC<ListProps> = (props) => {
         </TouchableOpacity>
       ))}
       <TouchableOpacity style={styles.addCardBtn} onPress={Actions.addCard}>
-        <MyText style={styles.addCardTxt}>Ajouter une carte</MyText>
+        <MyText style={styles.addCardTxt}>{lang.PICK_CARD_ADD}</MyText>
         <AntDesign name="right" size={18} color={mainStyle.themeColor} />
       </TouchableOpacity>
     </ScrollView>
@@ -70,6 +72,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
  
   const { cards, cardSelected } = props
   const [card, setCard] = React.useState(cards.length ? cards[0] : null)
+  const lang = useSelector(state => state.langReducer.lang)
 
   React.useEffect(() => {
     if (card)
@@ -106,7 +109,7 @@ const SelectCreditCard: React.FC<Props> = (props) => {
     <TouchableOpacity style={styles.container} onPress={() => { Modal.hide('show_cards'); Actions.addCard({ added: (c) => setCard(c) }) } }>
       <View style={styles.cardChosen}>
         <View style={styles.cardContent}>
-          <MyText style={styles.cardName}>Aucune carte enregistrée</MyText>
+          <MyText style={styles.cardName}>{lang.PICK_CARD_NONE}</MyText>
           <AntDesign name="down" size={18} color={mainStyle.lightColor} />
         </View>
       </View>

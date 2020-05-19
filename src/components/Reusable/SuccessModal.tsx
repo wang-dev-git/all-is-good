@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, Text, Animated, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -26,6 +26,7 @@ interface Props {
 
 const SuccessModal: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
+  const lang = useSelector(state => state.langReducer.lang)
 
   const viewOrder = () => {
     Modal.hide('payment_success')
@@ -36,7 +37,7 @@ const SuccessModal: React.FC<Props> = (props) => {
   return (
     <View>
       <View style={styles.header}>
-        <MyText style={styles.title}>Confirmation</MyText>
+        <MyText style={styles.title}>{lang.GLOBAL_CONFIRM}</MyText>
         <MyText style={styles.open}>{props.subtitle}</MyText>
       </View>
       <View style={styles.center}>

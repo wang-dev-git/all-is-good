@@ -50,6 +50,7 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const [address, setAddress] = React.useState("")
   const [pros, setPros] = React.useState([])
+  const [prosList, setProsList] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [scrollPos, setScrollPos] = React.useState(0)
   const position = useSelector(state => state.authReducer.position)
@@ -140,6 +141,16 @@ const MapScreen: React.FC<Props> = (props) => {
     animateTo(region.latitude, region.longitude)
   }
 
+  const renderMapItem = (item, index) => {
+    const pro = pros[item.properties.index]
+    return (
+      <MapItem
+        pro={pro}
+        onPress={() => Actions.pro({ pro: item })}
+        />
+    )
+  }
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -153,8 +164,8 @@ const MapScreen: React.FC<Props> = (props) => {
             showsUserLocation
             style={styles.map}
             initialRegion={region}
-            onRegionChangeComplete={(r) => {
-              
+            onRegionChangeComplete={(r, markers) => {
+              setProsList(markers)
             }}
             onRegionChange={(r) => {
 
@@ -174,7 +185,7 @@ const MapScreen: React.FC<Props> = (props) => {
                   color={mainStyle.themeColor}
                   />
               </Marker>
-            )) }
+            ))}
             {selectedAddress &&
               <Marker
                 coordinate={{
@@ -220,13 +231,8 @@ const MapScreen: React.FC<Props> = (props) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{paddingTop: 40}}
-                data={pros || []}
-                renderItem={({ item }) =>
-                  <MapItem
-                    pro={item}
-                    onPress={() => Actions.pro({ pro: item })}
-                    />
-                }
+                data={prosList || []}
+                renderItem={({ item }) => renderMapItem(item)}
                 keyExtractor={(item, index) => index.toString()}
                 />
               <View style={styles.listHeader}>

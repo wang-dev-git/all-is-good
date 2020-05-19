@@ -126,6 +126,8 @@ const MapScreen: React.FC<Props> = (props) => {
 
   React.useEffect(() => {
     const index = Math.round((scrollPos - 10) / 220)
+    if (index < 0 || index > pros.length - 1)
+      return;
     if (!selectedPro || selectedPro.id !== pros[index].id)
       selectPro(pros[index])
   }, [scrollPos])

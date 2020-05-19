@@ -61,6 +61,7 @@ class ProfileScreen extends React.Component<Props, State>  {
   }
 
   async editPicture() {
+    const { lang } = this.props
     const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
     if (status !== 'granted')
       await Permissions.askAsync(Permissions.CAMERA_ROLL)
@@ -83,15 +84,15 @@ class ProfileScreen extends React.Component<Props, State>  {
 
         try {
           await updateUser({pictures: [uploadedURL]})
-          Flash.show('Photo enregistrée !')
+          Flash.show(lang.PROFILE_PICTURE_SAVED)
         } catch (err) {
-          Flash.error('Une erreur est survenue')
+          Flash.error(lang.GLOBAL_INTERNET)
         }
         this.setState({ uploading: false })
       }
 
     } catch (err) {
-      Flash.error('Une erreur est survenue')
+      Flash.error(lang.GLOBAL_INTERNET)
       console.log(err)
     }
   }
@@ -125,24 +126,10 @@ class ProfileScreen extends React.Component<Props, State>  {
         },
         {text: lang.PROFILE_HELP_BTN, onPress: () => {
           Linking.openURL('https://allisgood-app.com/contact-us/')
-          //this.showMail()
         }},
       ],
       {cancelable: false},
     );
-  }
-
-  async showMail() {
-    try {
-      const res = await MailComposer.composeAsync({
-        recipients: ['contact@allisgood.fr'],
-        subject: "Demande d'assistance All Is Good",
-        body: '',
-        isHtml: false,
-      })
-    } catch (err) {
-      alert("Veuillez envoyer un mail à : contact@allisgood.fr")
-    }
   }
 
   becomePro() {
@@ -238,9 +225,6 @@ class ProfileScreen extends React.Component<Props, State>  {
 
            <View style={styles.join}>
              <MyText style={styles.joinTxt}>{lang.PROFILE_JOIN_AIG}</MyText>
-             {/*<TouchableOpacity onPress={() => this.becomePro()}>
-               <MyText style={styles.joinLink}>En savoir plus...</MyText>
-             </TouchableOpacity>*/}
              <View style={{alignItems: 'center', marginTop: 18,}}>
                <SmallButton
                  title={lang.PROFILE_JOIN_AIG_BTN}

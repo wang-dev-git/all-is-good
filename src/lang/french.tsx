@@ -10,6 +10,7 @@ export default {
   GLOBAL_CANCEL: 'Annuler',
   GLOBAL_OK: 'OK',
   GLOBAL_OPTIONAL: 'optionnel',
+  GLOBAL_INTERNET: 'Veuillez vérifier votre connexion internet',
 
   // Landing
   LANDING_INTRO: 'Rejoignez le mouvement',
@@ -52,6 +53,7 @@ export default {
   LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez les conditions d'utilisation",
 
   // Profile
+  PROFILE_PICTURE_SAVED: 'Photo enregistrée !',
   PROFILE_EDIT_BTN: "Modifier",
   PROFILE_INFO: "Mes informations",
   PROFILE_SETTINGS: "Réglages",
@@ -100,6 +102,7 @@ export default {
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
   PRO_PACKAGE_ALLERGENS_TITLE: "Allergènes",
+  PRO_GO_TO_BTN: "Itinéraire",
   PRO_BUY_BTN: "Commander",
   PRO_SOLD_OUT: "Victime de son succès",
 

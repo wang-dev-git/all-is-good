@@ -90,7 +90,7 @@ const ProScreen: React.FC<Props> = (props) => {
     } catch (err) {
       Loader.hide()
       console.log(err)
-      Flash.error('Vérifiez votre connexion internet')
+      Flash.error(lang.GLOBAL_INTERNET)
     }
   }
 
@@ -264,7 +264,7 @@ const ProScreen: React.FC<Props> = (props) => {
             <MyText style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</MyText>
             <View style={styles.trip}>
               <TouchableOpacity>
-                <MyText style={styles.tripTxt}>Itinéraire</MyText>
+                <MyText style={styles.tripTxt}>{lang.PRO_GO_TO_BTN}</MyText>
               </TouchableOpacity>
             </View>
           </View>

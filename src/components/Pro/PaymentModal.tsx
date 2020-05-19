@@ -285,12 +285,8 @@ const PaymentModal: React.FC<Props> = (props) => {
             />
         </Animated.View>
 
-    </View>
-      {/*}
-      <View style={{backgroundColor: '#fff'}}>
-        <MyText style={styles.conditions}>En réservant ce panier, tu acceptes les Conditions Générales d’utilisation de All is Good</MyText>
       </View>
-    */}
+
       <BottomButton
         title={!showQuantity ? lang.PAYMENT_GOT_IT : !showCards ? lang.PAYMENT_NEXT : lang.PAYMENT_CONFIRM + ' ' + total + '$'}
         backgroundColor={mainStyle.themeColor}

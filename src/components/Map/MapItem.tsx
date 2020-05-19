@@ -22,7 +22,7 @@ const MapItem: React.FC<Props> = (props: Props) => {
   
   const { pro, currentPos, onPress } = props
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  const distance = Tools.getDistance(pro.lat, pro.lng, currentPos.lat, currentPos.lng)
+  const distance = Tools.getRoundedDistance(pro.lat, pro.lng, currentPos.lat, currentPos.lng)
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>

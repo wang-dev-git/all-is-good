@@ -3,6 +3,8 @@ import { handleActions } from 'redux-actions';
 
 import Fire from '../services/Fire.service'
 
+import { loadSearchable } from './filters.action'
+
 export const autologin = createActionThunk('AUTOLOGIN', (user: any) => user)
 export const saveName = createActionThunk('SAVE_REGISTER_NAME', (name: any) => name)
 export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getState }) => {
@@ -41,7 +43,10 @@ export const updateUser = createActionThunk('UPDATE_USER', async (info: any, { g
   }
 })
 
-export const updatePosition = createActionThunk('UPDATE_POSITION', (pos: any) => pos)
+export const updatePosition = createActionThunk('UPDATE_POSITION', (pos: any, { dispatch }) => {
+  dispatch(loadSearchable())
+  return pos
+})
 
 const initialState = {
   fireUser: null,

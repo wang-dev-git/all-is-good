@@ -33,7 +33,7 @@ interface Props {
 const AddressesScreen: React.FC<Props> = (props) => {
   
   const [appState, setAppState] = React.useState(AppState.currentState);
-  const [search, setSearch] = React.useState(props.selected ? props.selected.formatted_address : '')
+  const [search, setSearch] = React.useState('')
   const [selectedAddress, selectAddress] = React.useState(null)
   const [currentAddress, setCurrentAddress] = React.useState(null)
   const { addresses, clearAddresses } = useAddresses(search)
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
   },
   search: {
     paddingHorizontal: 14,
+    paddingRight: 32,
     paddingVertical: 14,
     borderBottomColor: '#ddd',
     borderBottomWidth: 1,

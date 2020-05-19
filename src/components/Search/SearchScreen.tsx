@@ -26,7 +26,6 @@ interface Props {}
 const SearchScreen: React.FC<Props> = (props) => {
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
-  const [pros, setPros] = React.useState([])
 
   const lang = useSelector(state => state.langReducer.lang)
   const searchable = useSelector(state => state.filtersReducer.searchable)
@@ -34,27 +33,6 @@ const SearchScreen: React.FC<Props> = (props) => {
   const position = useSelector(state => state.authReducer.position)
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
   const dispatch = useDispatch()
-
-  const refresh = async () => {
-    const filtered = searchable.filter((item) => {
-      const nameMatches = item.name && item.name.toLowerCase().includes(query.toLowerCase())
-      if (nameMatches)
-        return true
-      for (const cat of (item.categories || [])) {
-        for (const langId in (cat.names || {})) {
-          const name = cat.names[langId]
-          if (name.toLowerCase().includes(query.toLowerCase()))
-            return true
-        }
-      }
-      return false
-    })
-    setPros(filtered)
-  }
-
-  React.useEffect(() => {
-    refresh()
-  }, [query])
 
   React.useEffect(() => {
     const fetch = async () => {
@@ -86,6 +64,20 @@ const SearchScreen: React.FC<Props> = (props) => {
     })
   }
 
+  const filtered = searchable.filter((item) => {
+    const nameMatches = item.name && item.name.toLowerCase().includes(query.toLowerCase())
+    if (nameMatches)
+      return true
+    for (const cat of (item.categories || [])) {
+      for (const langId in (cat.names || {})) {
+        const name = cat.names[langId]
+        if (name.toLowerCase().includes(query.toLowerCase()))
+          return true
+      }
+    }
+    return false
+  })
+
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -113,7 +105,7 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : query !== '' ? (
           <FlatList
             key="A"
-            data={pros}
+            data={filtered}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
               <ProItem
@@ -136,8 +128,9 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <FlatList
             key="B"
+            extraData={{ filtered: filtered }}
             data={categories.filter(item => {
-              for (const pro of pros) {
+              for (const pro of filtered) {
                 for (const cat of pro.categories) {
                   if (cat.id === item.id)
                     return true

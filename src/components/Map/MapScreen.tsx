@@ -141,8 +141,10 @@ const MapScreen: React.FC<Props> = (props) => {
     animateTo(region.latitude, region.longitude)
   }
 
-  const renderMapItem = (item, index) => {
+  const renderMapItem = (item) => {
     const pro = pros[item.properties.index]
+    if (!pro)
+      return (null)
     return (
       <MapItem
         pro={pro}
@@ -166,6 +168,8 @@ const MapScreen: React.FC<Props> = (props) => {
             initialRegion={region}
             onRegionChangeComplete={(r, markers) => {
               setProsList(markers)
+              if (markers.length === 0)
+                selectPro(null)
             }}
             onRegionChange={(r) => {
 

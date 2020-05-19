@@ -145,7 +145,7 @@ const MapScreen: React.FC<Props> = (props) => {
         latitude: Number(selectedPro.lat),
         longitude: Number(selectedPro.lng)
       }
-      mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 200, zoom: 40}, 420)
+      mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 2000, zoom: 40}, 420)
 
       /*
       region.timing({

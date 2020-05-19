@@ -166,9 +166,6 @@ const MapScreen: React.FC<Props> = (props) => {
     setRegion({...region})
   }
 
-  const pos = region
-  const currentPos = {lat: pos.latitude, lng: pos.longitude}
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>

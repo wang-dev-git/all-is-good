@@ -32,7 +32,7 @@ const WishItem: React.FC<Props> = (props: Props) => {
     const { addWish, removeWish, pro, isInWishes } = props
     const onPress = () => {
       props.switchTab(3)
-      Actions.reset('root')
+      Actions.popTo('tabs')
     }
     
     if (isInWishes(pro)) {

@@ -40,7 +40,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const toggleWish = () => {
     const onPress = () => {
       dispatch(switchTab(3))
-      Actions.reset('root')
+      Actions.popTo('tabs')
     }
 
     if (dispatch(isInWishes(pro))) {

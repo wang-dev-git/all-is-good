@@ -31,7 +31,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
   const { order, onPress } = props
 
   const lang = useSelector(state => state.langReducer.lang)
-  const langId = useSelector(state => state.langReducer.langId)
+  const langId = useSelector(state => state.langReducer.id)
   const pro = order.pro || {}
   const name = pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
 
@@ -65,6 +65,9 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
   const getHour = (item: any) => {
     const date = Fire.getDateFor(item.date)
+    if (langId === 'fr') {
+      return Time.moment(date).format('HH:mm')
+    }
     return Time.moment(date).format('h:mm A')
   }
 

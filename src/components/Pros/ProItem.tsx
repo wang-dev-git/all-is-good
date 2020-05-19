@@ -28,6 +28,7 @@ interface Props {
 }
 const ProItem: React.FC<Props> = (props: Props) => {
   
+  const lang = useSelector(state => state.langReducer.lang)
   const toggleWish = () => {
     const { addWish, removeWish, pro, isInWishes } = props
     const onPress = () => {
@@ -37,18 +38,18 @@ const ProItem: React.FC<Props> = (props: Props) => {
 
     if (isInWishes(pro)) {
       removeWish(pro)
-      Flash.show('Supprimé des favoris !')
+      Flash.show(lang.FAVORITE_REMOVED)
     } else {
       addWish(pro)
-      Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
+      Flash.show(lang.FAVORITE_ADDED, lang.FAVORITE_ADDED_SUBTITLE, onPress)
     }
   }
 
   const { pro, index, onPress, isInWishes } = props
   const inWishes = isInWishes(pro)
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  const opening = Time.getPickUpRange(pro)
-  const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
+  const opening = Time.getPickUpRange(pro, langId)
   const position = useSelector(state => state.authReducer.position)
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   return (

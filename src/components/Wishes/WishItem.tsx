@@ -27,19 +27,20 @@ interface Props {
 }
 const WishItem: React.FC<Props> = (props: Props) => {
   
+  const lang = useSelector(state => state.langReducer.lang)
   const toggleWish = () => {
     const { addWish, removeWish, pro, isInWishes } = props
     const onPress = () => {
       props.switchTab(3)
       Actions.reset('root')
     }
-
+    
     if (isInWishes(pro)) {
       removeWish(pro)
-      Flash.show('Supprimé des favoris !')
+      Flash.show(lang.FAVORITE_REMOVED)
     } else {
       addWish(pro)
-      Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
+      Flash.show(lang.FAVORITE_ADDED, lang.FAVORITE_ADDED_SUBTITLE, onPress)
     }
   }
 

@@ -32,6 +32,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const langId = useSelector(state => state.langReducer.id)
+  const wishesToggle = useSelector(state => state.wishesReducer.toggle)
   const position = useSelector(state => state.authReducer.position)
   const pro = props.pro
   const dispatch = useDispatch()
@@ -44,10 +45,10 @@ const ProScreen: React.FC<Props> = (props) => {
 
     if (dispatch(isInWishes(pro))) {
       dispatch(removeWish(pro))
-      Flash.show('Supprimé des favoris !')
+      Flash.show(lang.FAVORITE_REMOVED)
     } else {
       dispatch(addWish(pro))
-      Flash.show('Ajouté aux favoris !', 'Cliquez pour voir vos favoris', onPress)
+      Flash.show(lang.FAVORITE_ADDED, lang.FAVORITE_ADDED_SUBTITLE, onPress)
     }
   }
 
@@ -115,7 +116,7 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const soldOut = !pro.quantity || pro.quantity < 0
-  const opening = Time.getPickUpRange(pro)
+  const opening = Time.getPickUpRange(pro, langId)
 
   const icons = pro.icons || []
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null

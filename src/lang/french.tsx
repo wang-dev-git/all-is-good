@@ -77,7 +77,6 @@ export default {
   // Orders
   ORDERS_PAST: 'Passées',
   ORDERS_PROGRESS: 'En cours',
-  ORDERS_CANCELLING: 'Annulation...',
   ORDERS_NONE: 'Aucune commande',
   ORDERS_NONE_BTN: "Découvrir nos restaurants",
   ORDER_WAITING: 'En attente',
@@ -89,6 +88,8 @@ export default {
   ORDER_QUANTITY: 'Qté.',
   ORDER_RATE: 'Noter',
   ORDER_CANCEL: "Annuler la commande",
+  ORDER_CANCELLING: 'Annulation...',
+  ORDER_WAS_CANCELLED: 'Commande annulée',
 
   // Rating
   RATE_TITLE: 'Donnez votre avis',
@@ -161,4 +162,7 @@ export default {
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",
   FAVORITE_DISCOVER: "Découvrez des restaurants",
+  FAVORITE_ADDED: "Ajouté aux favoris !",
+  FAVORITE_ADDED_SUBTITLE: 'Cliquez pour voir vos favoris',
+  FAVORITE_REMOVED: 'Supprimé des favoris !',
 }

@@ -155,8 +155,9 @@ const PaymentModal: React.FC<Props> = (props) => {
     outputRange: [0, 400],
   })
   
-  const opening = Time.getPickUpRange(props.pro)
   const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
+  const opening = Time.getPickUpRange(props.pro, langId)
 
   const checkCanProceed = () => {
     if (!showQuantity)

@@ -22,7 +22,7 @@ import Entypo from '@expo/vector-icons/Entypo'
 import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
 import OrderStatus from '../../types/order_status'
-import { switchTab } from '../../actions/tab.action'
+import { switchTab, switchOrderTab } from '../../actions/tab.action'
 import { updateLang } from '../../actions/lang.action'
 import { fetchOrders } from '../../actions/orders.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
@@ -42,6 +42,7 @@ interface Props {
 
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
+  switchOrderTab: (idx: number) => void;
   finishLogin: () => void;
   fetchOrders: () => void;
   loadSearchable: () => void;
@@ -321,6 +322,7 @@ const mapStateToProps = (state: any) => ({
 })
 const mapDispatchToProps = (dispatch: any) => ({
   switchTab: (tab: number) => dispatch(switchTab(tab)),
+  switchOrderTab: (tab: number) => dispatch(switchOrderTab(tab)),
   autologin: (user: any) => dispatch(autologin(user)),
   finishLogin: () => dispatch(finishLogin()),
   loadWishes: () => dispatch(loadWishes()),

@@ -16,7 +16,7 @@ import Feather from '@expo/vector-icons/Feather'
 
 import { mainStyle } from '../../styles'
 
-import { switchTab } from '../../actions/tab.action'
+import { switchTab, switchOrderTab } from '../../actions/tab.action'
 
 interface Props {
   message: string;
@@ -32,6 +32,7 @@ const SuccessModal: React.FC<Props> = (props) => {
     Modal.hide('payment_success')
     Actions.popTo('tabs')
     dispatch(switchTab(1))
+    dispatch(switchOrderTab(1))
   }
 
   return (

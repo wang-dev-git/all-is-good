@@ -122,7 +122,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                 }
 
                 <Collapsible collapsed={!props.expanded}>
-                  { history.length > 1 && history.slice(1).reverse().map((item, index) => (
+                  { history.length > 1 && history.reverse().slice(1).map((item, index) => (
                     <View key={index} style={styles.row}>
                       <MyText style={styles.statusTitle}>{getStatus(item)}</MyText>
                       <MyText style={styles.statusTime}>{getHour(item)}</MyText>

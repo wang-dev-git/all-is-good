@@ -24,6 +24,7 @@ import Material from '@expo/vector-icons/MaterialCommunityIcons'
 import OrderStatus from '../../types/order_status'
 import { switchTab } from '../../actions/tab.action'
 import { updateLang } from '../../actions/lang.action'
+import { fetchOrders } from '../../actions/orders.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable } from '../../actions/filters.action'
@@ -42,6 +43,7 @@ interface Props {
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
   finishLogin: () => void;
+  fetchOrders: () => void;
   loadSearchable: () => void;
   loadCategories: () => void;
   loadWishes: () => void;
@@ -191,6 +193,7 @@ class TabsScreen extends React.Component<Props, State>  {
       if (order) {
         Actions.popTo('tabs')
         this.props.switchTab(1)
+        this.props.fetchOrders()
         if (order.status === OrderStatus.ORDER_DELIVERED ||
           order.status === OrderStatus.ORDER_CANCELED_BY_USER ||
           order.status === OrderStatus.ORDER_CANCELED_BY_PRO) {
@@ -323,6 +326,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   loadWishes: () => dispatch(loadWishes()),
   loadCategories: () => dispatch(loadCategories()),
   loadSearchable: () => dispatch(loadSearchable()),
+  fetchOrders: () => dispatch(fetchOrders()),
   refreshWishes: () => dispatch(refreshWishes()),
   updateLang: (id: string) => dispatch(updateLang(id)),
 })

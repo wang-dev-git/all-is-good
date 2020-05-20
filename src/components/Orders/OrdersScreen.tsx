@@ -10,7 +10,7 @@ import { Actions } from 'react-native-router-flux'
 import { Fire, Flash, Loader, Modal } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
-import { switchTab } from '../../actions/tab.action'
+import { switchTab, switchOrderTab } from '../../actions/tab.action'
 
 import { mainStyle } from '../../styles'
 
@@ -22,7 +22,7 @@ interface Props {
 }
 const OrdersScreen: React.FC<Props> = (props) => {
   
-  const [tab, setTab] = React.useState(1)
+  const tab = useSelector(state => state.tabReducer.orderTab)
   const lang = useSelector(state => state.langReducer.lang)
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
@@ -139,13 +139,13 @@ const OrdersScreen: React.FC<Props> = (props) => {
       <View style={styles.tabs}>
         <TouchableOpacity
           style={[styles.tab, tab === 0 ? styles.selected : {}]}
-          onPress={() => setTab(0)}
+          onPress={() => dispatch(switchOrderTab(0))}
           >
           <MyText style={styles.tabTxt}>{lang.ORDERS_PAST}</MyText>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.tab, tab === 1 ? styles.selected : {}]}
-          onPress={() => setTab(1)}
+          onPress={() => dispatch(switchOrderTab(1))}
           >
           <MyText style={styles.tabTxt}>{lang.ORDERS_PROGRESS}</MyText>
         </TouchableOpacity>

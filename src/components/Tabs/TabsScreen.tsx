@@ -21,6 +21,7 @@ import AntIcon from '@expo/vector-icons/AntDesign'
 import Entypo from '@expo/vector-icons/Entypo'
 import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
+import OrderStatus from '../../types/order_status'
 import { switchTab } from '../../actions/tab.action'
 import { updateLang } from '../../actions/lang.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
@@ -184,6 +185,23 @@ class TabsScreen extends React.Component<Props, State>  {
       const pro = await Fire.get(ref)
       if (pro)
         Actions.pro({ pro: pro })
+    } else if (data.orderId) {
+      const ref = Fire.store().collection('orders').doc(data.orderId)
+      const order = await Fire.get(ref)
+      if (order) {
+        Actions.popTo('tabs')
+        this.props.switchTab(1)
+        if (order.status === OrderStatus.ORDER_DELIVERED ||
+          order.status === OrderStatus.ORDER_CANCELED_BY_USER ||
+          order.status === OrderStatus.ORDER_CANCELED_BY_PRO) {
+          // Go to PAST
+          this.props.switchOrderTab(0)
+        } else {
+          // Go to CURRENT
+          this.props.switchOrderTab(1)
+        }
+
+      }
     }
   };
 

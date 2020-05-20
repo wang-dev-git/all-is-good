@@ -132,11 +132,13 @@ class TabsScreen extends React.Component<Props, State>  {
           Actions.popTo('tabs')
         this.props.autologin(user)
 
+
         await this.props.finishLogin()
         await this.props.loadWishes()
         await this.props.refreshWishes()
         await this.props.loadCategories()
         this.props.loadSearchable()
+        this.savePushToken(user.uid)
        
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
@@ -150,6 +152,18 @@ class TabsScreen extends React.Component<Props, State>  {
     });
 
      this.notifListener = Notifications.addListener(this.receivedNotif);
+  }
+
+  savePushToken = async (userId: string) => {
+    try {
+      const token = await Notifications.getExpoPushTokenAsync();
+      await Fire.store().collection('tokens').doc(userId).set({
+        token: token,
+        createdAt: new Date()
+      })
+    } catch (err) {
+      //Flash.error(err)
+    }
   }
 
   receivedNotif = async (notification) => {

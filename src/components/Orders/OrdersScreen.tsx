@@ -23,6 +23,7 @@ interface Props {
 const OrdersScreen: React.FC<Props> = (props) => {
   
   const tab = useSelector(state => state.tabReducer.orderTab)
+  const tabRefresh = useSelector(state => state.tabReducer.orderTabRefresh)
   const lang = useSelector(state => state.langReducer.lang)
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
@@ -48,7 +49,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
     setShown(null)
     if (current.length)
       listRef.current.scrollToIndex({ index: 0 })
-  }, [tab])
+  }, [tab, tabRefresh])
 
   const onCancel = (order: any) => {
     Alert.alert(

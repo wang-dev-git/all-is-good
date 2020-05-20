@@ -131,22 +131,22 @@ class TabsScreen extends React.Component<Props, State>  {
 
     this.props.updateLang(this.props.langId)
 
-
     Fire.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
         if (this.state.booted)
           Actions.popTo('tabs')
         this.props.autologin(user)
 
-
         await this.props.finishLogin()
         await this.props.loadWishes()
         await this.props.refreshWishes()
         await this.props.loadCategories()
-        this.props.loadSearchable()
+        await this.props.loadSearchable()
 
-        this.savePushToken(user.uid)
-       
+        await this.savePushToken(user.uid)
+        
+        alert("all good")
+
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
       else {
@@ -232,7 +232,7 @@ class TabsScreen extends React.Component<Props, State>  {
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
         {/* Content */}
-        { (this.state.booted && this.props.user) &&
+        {(this.state.booted && this.props.user) &&
           <View style={styles.content}>
             {routes.map((item, index) => this.renderRoute(item, index))}
           </View>

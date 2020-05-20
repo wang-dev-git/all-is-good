@@ -17,7 +17,7 @@ import { mainStyle } from '../../styles'
 
 interface Props {
   pro: any;
-  onPay: (counter: number, card: string) => void;
+  onPay: (counter: number, card: string, address?: any) => void;
 }
 
 const PaymentModal: React.FC<Props> = (props) => {
@@ -35,7 +35,8 @@ const PaymentModal: React.FC<Props> = (props) => {
   const [address, setAddress] = React.useState<any>(null)
   const [mode, setMode] = React.useState('')
 
-  const total = Number(counter * price).toFixed(2)
+  const delivery_price = showDelivery ? (pro.delivery_price || 0) : 0
+  const total = Number(counter * price + delivery_price).toFixed(2)
 
   const quantityAnimation = React.useRef(new Animated.Value(1)).current
   const modesAnimation = React.useRef(new Animated.Value(1)).current
@@ -134,7 +135,7 @@ const PaymentModal: React.FC<Props> = (props) => {
     } else if (!showCards) {
       setShowCards(true)
     } else {
-      props.onPay(counter, card)
+      props.onPay(counter, card, address)
     }
   }
 
@@ -211,7 +212,7 @@ const PaymentModal: React.FC<Props> = (props) => {
 
           <MyText style={[styles.subtitle, {marginTop: 10, fontSize: 17}]}>
             Total: {Number(total).toFixed(2)}$
-            (<MyText style={{textDecorationLine: 'line-through'}}>{Number(Number(price * counter) * 1.7).toFixed(2)}$</MyText>)
+            {pro.initial_price !== undefined && <MyText> (<MyText style={{textDecorationLine: 'line-through'}}>{Number(pro.initial_price).toFixed(2)}$</MyText>)</MyText>}
           </MyText>
         </Animated.View>
 

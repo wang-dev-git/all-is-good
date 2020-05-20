@@ -158,6 +158,9 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   savePushToken = async (userId: string) => {
+    if (this.props.user && this.props.user.lang !== this.props.langId)
+      await Fire.store().collection('users').doc(userId).update({ lang: this.props.langId })
+
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 
     if (status !== 'granted')

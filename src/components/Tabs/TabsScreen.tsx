@@ -14,6 +14,8 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 import { Fire, Stripe, Modal, Flash } from '../../services'
 
+import * as Permissions from 'expo-permissions'
+
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
 import Entypo from '@expo/vector-icons/Entypo'
@@ -138,6 +140,7 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.refreshWishes()
         await this.props.loadCategories()
         this.props.loadSearchable()
+
         this.savePushToken(user.uid)
        
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
@@ -155,6 +158,11 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   savePushToken = async (userId: string) => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+
+    if (status !== 'granted')
+      await Permissions.askAsync(Permissions.NOTIFICATIONS);
+
     try {
       const token = await Notifications.getExpoPushTokenAsync();
       await Fire.store().collection('tokens').doc(userId).set({

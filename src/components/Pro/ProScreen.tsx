@@ -37,6 +37,8 @@ const ProScreen: React.FC<Props> = (props) => {
   const pro = props.pro
   const dispatch = useDispatch()
 
+  console.log(props.pro)
+
   const toggleWish = () => {
     const onPress = () => {
       dispatch(switchTab(3))
@@ -212,7 +214,9 @@ const ProScreen: React.FC<Props> = (props) => {
             </View>
 
             <View style={{flex: 0.2, alignItems: 'flex-end'}}>
-              <MyText style={[styles.oldPrice]}>{Number(Number(pro.price) * 1.7).toFixed(2)}$</MyText>
+              { pro.initial_price !== undefined &&
+                <MyText style={[styles.oldPrice]}>{Number(pro.initial_price).toFixed(2)}$</MyText>
+              }
               <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
             </View>
 

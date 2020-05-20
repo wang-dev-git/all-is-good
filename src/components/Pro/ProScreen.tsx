@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Alert, ScrollView, Platform, Linking, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import MapView, { Marker } from 'react-native-maps'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -55,14 +55,14 @@ const ProScreen: React.FC<Props> = (props) => {
   const onPay = async (counter: number, card: string) => {
     const price = Number(pro.price * counter).toFixed(2)
     try {
-      Loader.show('Commande en cours...')
+      Loader.show(lang.PAYMENT_PROCEEDING)
       const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card })
       Loader.hide()
       if (res.status === 'success') {
         await dispatch(fetchOrders())
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
-          <SuccessModal success={true} message="Payment confirmed !" subtitle={"Total " + price + "$"} />
+          <SuccessModal success={true} message={lang.PAYMENT_SUCCESS} subtitle={"Total " + price + "$"} />
         ), onTerminate: () => {
           Modal.terminate('payment')
           Modal.terminate('payment_success')
@@ -70,24 +70,28 @@ const ProScreen: React.FC<Props> = (props) => {
       } else {
         let error = ''
         switch (res.error) {
+          case "sold_out":
+            error = lang.PAYMENT_SOLD_OUT
+            break;
+
           case "currently_unavailable":
-            error = "Cet établissement est actuellement indisponible."
+            error = lang.PAYMENT_FAIL_UNAVAILABLE
             break;
 
           case "internal_error":
-            error = "Une erreur est survenue, veuillez contacter l'assistance"
+            error = lang.PAYMENT_FAIL_INTERNAL
             break;
 
           case "payment_declined":
-            error = "Vorte commande n'a pas pu aboutir, veuillez ré-essayer ultérieurement ou en saisissant une nouvelle carte."
+            error = lang.PAYMENT_DECLINE
             break;
           
-          default: 
-            error = "Erreur est survenue, veuillez contacter l'assistance"
+          default:
+            error = lang.PAYMENT_FAIL_INTERNAL
             break;
         }
         Modal.show('payment_failure', { local: true, content: () => (
-          <SuccessModal success={false} message={error} subtitle='Echec de la commande' />
+          <SuccessModal success={false} message={error} subtitle={lang.PAYMENT_ERROR} />
         ), onTerminate: () => {
           Modal.terminate('payment')
           Modal.terminate('payment_failure')
@@ -108,6 +112,33 @@ const ProScreen: React.FC<Props> = (props) => {
         onPay={onPay}
         />
     )})
+  }
+
+  const showOptions = () => {
+    Alert.alert(
+      'Ouvrir Maps',
+      'Souhaitez-vous ouvrir Maps ?',
+      [
+        {
+          text: 'Annuler',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => showMaps()},
+      ],
+      {cancelable: true},
+    );
+  }
+
+  const showMaps = () => {
+    const { address, postal_code, city } = pro
+
+    const daddr = encodeURIComponent(`${address} ${postal_code}, ${city}`);
+    if (Platform.OS === 'ios') {
+      Linking.openURL(`http://maps.apple.com/?daddr=${daddr}`);
+    } else {
+      Linking.openURL(`http://maps.google.com/?daddr=${daddr}`);
+    }
   }
 
   const inWishes = dispatch(isInWishes(pro))
@@ -270,7 +301,7 @@ const ProScreen: React.FC<Props> = (props) => {
           <View style={styles.addr}>
             <MyText style={styles.address}>{pro.address + ', ' + pro.postal_code + ' ' + pro.city}</MyText>
             <View style={styles.trip}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={showOptions}>
                 <MyText style={styles.tripTxt}>{lang.PRO_GO_TO_BTN}</MyText>
               </TouchableOpacity>
             </View>
@@ -422,7 +453,8 @@ const styles = StyleSheet.create({
   trip: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingRight: 20,
   },
   tripTxt: {
     ...mainStyle.montText,

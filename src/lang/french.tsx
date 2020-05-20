@@ -134,6 +134,12 @@ export default {
   PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good',
   PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
+  PAYMENT_VIEW_ORDER: 'Voir ma commande',
+  PAYMENT_SUCCESS: 'Paiment validé',
+  PAYMENT_FAIL_UNAVAILABLE: 'Cet établissement est actuellement indisponible.',
+  PAYMENT_FAIL_INTERNAL: "Une erreur est survenue, veuillez contacter l'assistance",
+  PAYMENT_FAIL_DECLINE: "Votre commande n'a pas pu aboutir, veuillez ré-essayer ultérieurement ou en saisissant une nouvelle carte.",
+  PAYMENT_FAIL_SOLD_OUT: "La commande n'a pas pu aboutir car il l'élement n'est plus disponible. Réessayez plus tard",
 
   // Pick Card
   PICK_CARD_NONE: 'Aucune carte enregistrée',

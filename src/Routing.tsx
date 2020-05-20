@@ -89,7 +89,7 @@ export default class Routing extends React.Component<Props, State> {
         <AppLoading
           startAsync={this.loadPictures}
           onFinish={() => this.setState({loaded: true})}
-          onError={() => alert('Veuillez vous connecter à internet')}
+          onError={() => alert('Erreur de lancement')}
           />
       )
     }

@@ -122,12 +122,12 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                 }
 
                 <Collapsible collapsed={!props.expanded}>
-                  { history.length > 1 && history.reverse().slice(1).map((item, index) => (
+                  { history.length > 1 && history.slice(0).reverse().map((item, index) => index !== 0 ? (
                     <View key={index} style={styles.row}>
                       <MyText style={styles.statusTitle}>{getStatus(item)}</MyText>
                       <MyText style={styles.statusTime}>{getHour(item)}</MyText>
                     </View>
-                  )) }
+                  ) : null) }
                   
                   { !props.past &&
                     <View style={{alignItems: 'center', marginTop: 6,}}>

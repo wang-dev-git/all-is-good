@@ -112,6 +112,8 @@ export default {
   PRO_GO_TO_BTN: "Itinéraire",
   PRO_BUY_BTN: "Commander",
   PRO_SOLD_OUT: "Victime de son succès",
+  PRO_OPEN_MAPS_TITLE: 'Voir dans Maps',
+  PRO_OPEN_MAPS_SUBTITLE: 'Souhaitez-vous ouvrir Maps ?',
 
   // Payment
   PAYMENT_ALLERGENS: 'Allergènes',
@@ -135,7 +137,9 @@ export default {
   PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
   PAYMENT_VIEW_ORDER: 'Voir ma commande',
+  PAYMENT_PROCEEDING: 'Commande en cours...',
   PAYMENT_SUCCESS: 'Paiment validé',
+  PAYMENT_ERROR: 'Echec de la commande',
   PAYMENT_FAIL_UNAVAILABLE: 'Cet établissement est actuellement indisponible.',
   PAYMENT_FAIL_INTERNAL: "Une erreur est survenue, veuillez contacter l'assistance",
   PAYMENT_FAIL_DECLINE: "Votre commande n'a pas pu aboutir, veuillez ré-essayer ultérieurement ou en saisissant une nouvelle carte.",

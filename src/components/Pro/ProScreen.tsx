@@ -116,11 +116,11 @@ const ProScreen: React.FC<Props> = (props) => {
 
   const showOptions = () => {
     Alert.alert(
-      'Ouvrir Maps',
-      'Souhaitez-vous ouvrir Maps ?',
+      lang.PRO_OPEN_MAPS_TITLE,
+      lang.PRO_OPEN_MAPS_SUBTITLE,
       [
         {
-          text: 'Annuler',
+          text: lang.GLOBAL_CANCEL,
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },

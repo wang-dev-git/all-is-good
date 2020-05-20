@@ -149,7 +149,7 @@ const MapScreen: React.FC<Props> = (props) => {
     return (
       <MapItem
         pro={pro}
-        onPress={() => Actions.pro({ pro: item })}
+        onPress={() => Actions.pro({ pro: pro })}
         />
     )
   }

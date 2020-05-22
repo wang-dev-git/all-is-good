@@ -142,9 +142,9 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const inWishes = dispatch(isInWishes(pro))
-  const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined
-  const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined
-  const hasAllergens = pro.allergens != undefined && pro.allergens[langId] != undefined
+  const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined && pro.descriptions[langId].length
+  const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined && pro.offers[langId].length
+  const hasAllergens = pro.allergens != undefined && pro.allergens[langId] != undefined && pro.allergens[langId].length
   const seller = pro.seller
 
   const pics: any = []
@@ -157,6 +157,17 @@ const ProScreen: React.FC<Props> = (props) => {
 
   const icons = pro.icons || []
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+
+  const has = (key: string) => {
+    if (!pro[key] || !pro[key][langId] || !pro[key][langId].length)
+      return false
+    return true
+  }
+  const get = (key: string) => {
+    if (!has(key))
+      return;
+    return pro[key][langId]
+  }
 
   return (
     <View style={styles.container}>
@@ -237,24 +248,24 @@ const ProScreen: React.FC<Props> = (props) => {
           }
         </View>
 
-        { hasDesc &&
+        { has('descriptions') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</MyText>
-            <MyText style={styles.description}>{pro.descriptions[langId]}</MyText>
+            <MyText style={styles.description}>{get('descriptions')}</MyText>
           </View>
         }
 
-        { hasOffer &&
+        { has('offers') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</MyText>
-            <MyText style={styles.description}>{pro.offers[langId]}</MyText>
+            <MyText style={styles.description}>{get('offers')}</MyText>
           </View>
         }
 
-        { hasAllergens &&
+        { has('allergens') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</MyText>
-            <MyText style={styles.description}>{pro.allergens[langId]}</MyText>
+            <MyText style={styles.description}>{get('allergens')}</MyText>
           </View>
         }
         

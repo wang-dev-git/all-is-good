@@ -156,7 +156,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const opening = Time.getPickUpRange(pro, langId)
 
   const icons = pro.icons || []
-  const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
   const has = (key: string) => {
     if (!pro[key] || !pro[key][langId] || !pro[key][langId].length)

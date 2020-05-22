@@ -20,7 +20,7 @@ export default class Tools {
   }
   
   static getRoundedDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
-    return Number(this.getDistance(lat1, lon1, lat2, lon2)).toFixed(0)
+    return Number(this.getDistance(lat1, lon1, lat2, lon2, unit)).toFixed(0)
   }
 
   // Get distance between two points

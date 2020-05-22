@@ -49,11 +49,14 @@ const MapScreen: React.FC<Props> = (props) => {
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
 
+  const listRef = React.useRef<FlatList<any[]>>()
+  const [center, setCenter] = React.useState(position)
   const [address, setAddress] = React.useState("")
   const [pros, setPros] = React.useState([])
   const [prosList, setProsList] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [scrollPos, setScrollPos] = React.useState(0)
+  const [cancelScrollingListening, setCancelScrollingListening] = React.useState(false)
 
   const { addresses, clearAddresses } = useAddresses(address)
   
@@ -69,9 +72,11 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const onAddressTap = (item) => {
     selectAddress(item)
+    setCenter(item)
     setAddress(item.formatted_address)
     clearAddresses()
     animateTo(item.geometry.location.lat, item.geometry.location.lng)
+    Keyboard.dismiss()
   }
 
   const getGeoZoom = (zoom: number) => {
@@ -95,40 +100,43 @@ const MapScreen: React.FC<Props> = (props) => {
     try {
       const prosRef = Fire.store().collection('pros')
       const pros = await Fire.list(prosRef)
-      for (const pro of pros) {
-        if (position)
-          pro.distance = Tools.getRoundedDistance(pro.lat, pro.lng, position.geometry.location.lat, position.geometry.location.lng)
+      const ordered = pros.filter((item) => item.lat !== undefined).sort((a, b) => a.distance - b.distance)
+      for (const pro of ordered) {
+        if (center)
+          pro.distance = Tools.getRoundedDistance(pro.lat, pro.lng, center.geometry.location.lat, center.geometry.location.lng)
         else
           pro.distance = 0
       }
-      setPros(pros.filter((item) => item.lat !== undefined).sort((a, b) => a.distance - b.distance))
+      setPros(ordered)
+      if (ordered.length)
+        selectPro(ordered[0])
     } catch (err) {
       setPros([])
     }
     setLoading(false)
   }
 
+  const redirectToPro = (pro: any) => {
+    selectPro(pro)
+    animateTo(pro.lat, pro.lng)
+  }
+
   React.useEffect(() => {
-    const index = Math.round((scrollPos - 10) / 220)
-    if (index < 0 || index > pros.length - 1)
+    if (center)
+      refresh()
+  }, [center])
+
+  React.useEffect(() => {
+    if (cancelScrollingListening)
       return;
-    if (!selectedPro || selectedPro.id !== pros[index].id)
-      selectPro(pros[index])
-  }, [scrollPos])
+    const index = Math.round((scrollPos - 10) / 220)
+    if (index < 0 || index > prosList.length - 1)
+      return;
+    if (!selectedPro || selectedPro.id !== pros[prosList[index].properties.index].id) {
+      redirectToPro(pros[prosList[index].properties.index])
+    }
+  }, [scrollPos, cancelScrollingListening])
 
-  React.useEffect(() => {
-    refresh()
-  }, [address])
-
-  React.useEffect(() => {
-    if (pros.length)
-      selectPro(pros[0])
-  }, [pros])
-
-  React.useEffect(() => {
-    if (selectedPro)
-      animateTo(selectedPro.lat, selectedPro.lng)
-  }, [selectedPro])
 
   const showFilters = () => {
     Keyboard.dismiss()
@@ -169,8 +177,6 @@ const MapScreen: React.FC<Props> = (props) => {
             initialRegion={initialRegion}
             onRegionChangeComplete={(r, markers) => {
               setProsList(markers)
-              if (markers.length === 0)
-                selectPro(null)
             }}
             onRegionChange={(r) => {
 
@@ -179,7 +185,23 @@ const MapScreen: React.FC<Props> = (props) => {
             { pros.map((item, index) => (
               <Marker
                 key={index}
-                onPress={() => selectPro(item)}
+                onPress={() => {
+                  selectPro(item)
+
+                  for (let index = 0; index < prosList.length; ++index) {
+                    const pro = pros[prosList[index].properties.index]
+                    if (pro.id === item.id) {
+                      if (listRef && listRef.current) {
+                        setCancelScrollingListening(true)
+                        listRef.current.scrollToIndex({ index: index })
+                        setTimeout(() => {
+                          setCancelScrollingListening(false)
+                        }, 600)
+                      }
+                      break
+                    }
+                  }
+                }}
                 coordinate={{
                   longitude: item.lng,
                   latitude: item.lat,
@@ -223,6 +245,7 @@ const MapScreen: React.FC<Props> = (props) => {
           { selectedPro &&
             <FadeInView style={styles.floatingBottom}>
               <FlatList
+                ref={listRef}
                 scrollEventThrottle={0.16}
                 onScroll={(evt) => setScrollPos(evt.nativeEvent.contentOffset.x)}
                 horizontal={true}

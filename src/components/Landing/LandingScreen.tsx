@@ -73,11 +73,12 @@ class LandingScreen extends React.Component<Props, State>  {
         {/*<AssetImage style={styles.background} src={require('../../images/bg-landing.jpg')} resizeMode='cover' />*/}
         {/*<VeilView abs start={'rgba(0, 165, 235, 0.34)'} end={'rgba(220, 2, 250, 0.34)'} />*/}
 
+        {/*}
         <View style={styles.logoWrapper}>
           <View style={styles.logo}>
             <AssetImage src={require('../../images/logo.png')} resizeMode='contain' />
           </View>
-        </View>
+        </View>*/}
 
         <View style={styles.floatingBottom}>
 
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
 
   introTxt: {
     ...mainStyle.montBold,
-    fontSize: 16,
+    fontSize: 23,
     paddingHorizontal: 40,
     textAlign: 'center',
     marginBottom: 10

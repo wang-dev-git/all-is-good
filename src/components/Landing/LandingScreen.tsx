@@ -163,9 +163,10 @@ const styles = StyleSheet.create({
 
   introTxt: {
     ...mainStyle.montBold,
-    fontSize: 28,
+    fontSize: 24,
     paddingHorizontal: 30,
     textAlign: 'center',
+    color: mainStyle.themeColor
   },
 
   introImg: {

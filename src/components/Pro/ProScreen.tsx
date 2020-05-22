@@ -215,7 +215,7 @@ const ProScreen: React.FC<Props> = (props) => {
             <View style={{flex: 0.8}}>
               <MyText style={styles.title}>{pro.name}</MyText>
               
-              <Rating pro={pro} />
+              <Rating pro={pro} style={{marginBottom: 8}} />
 
               <View style={[styles.row, { marginBottom: 6 }]}>
                 <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
   title: {
     ...mainStyle.montBold,
     fontSize: 20,
-    marginBottom: 9,
+    marginBottom: 4,
   },
   price: {
     ...mainStyle.montBold,

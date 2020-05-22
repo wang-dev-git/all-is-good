@@ -71,7 +71,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <MyText numberOfLines={2} style={styles.name}>{name}</MyText>
-                <Rating pro={pro} />
+                <Rating pro={pro} style={{marginLeft: 6}} />
                 {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>

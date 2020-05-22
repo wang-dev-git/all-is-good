@@ -8,6 +8,7 @@ import MyText from './MyText'
 
 interface Props {
   pro: any;
+  style?: any;
 
   onPress?: () => void;
 }
@@ -16,21 +17,23 @@ const Rating: React.FC<Props> = (props) => {
   if (!pro.rating)
     return (null)
   return (
-    <View style={styles.container}>
-      <Icon name="star" size={16} />
-      <MyText style={styles.rating}>{pro.rating}</MyText>
+    <View style={[styles.container, props.style || {}]}>
+      <Icon name="star" size={16} color='orange' />
+      <MyText style={styles.rating}>{Number(pro.rating / pro.nb_ratings).toFixed(1)}</MyText>
     </View>
   );
 } 
 
 const styles = StyleSheet.create({
   container: {
-
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   rating: {
     ...mainStyle.montText,
     fontSize: 13,
-    color: '#0d7de9',
+    color: '#000',
+    marginLeft: 4,
   },
 });
 

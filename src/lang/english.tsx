@@ -14,7 +14,7 @@ export default {
   GLOBAL_INTERNET: 'Please check your internet connection',
 
   // Landing
-  LANDING_INTRO: 'Join the move',
+  LANDING_INTRO: 'Join the fight against food waste',
   LANDING_CONNECT_EMAIL: "Email login",
   LANDING_CONNECT_FB: "Connect with Facebook",
   LANDING_CONNECT_GOOGLE: "Connect with Google",

@@ -69,7 +69,7 @@ class LandingScreen extends React.Component<Props, State>  {
     const { lang } = this.props
     return (
       <View style={styles.container}>
-        <StatusBar barStyle={'light-content'} />
+        <StatusBar barStyle={'dark-content'} />
         {/*<AssetImage style={styles.background} src={require('../../images/bg-landing.jpg')} resizeMode='cover' />*/}
         {/*<VeilView abs start={'rgba(0, 165, 235, 0.34)'} end={'rgba(220, 2, 250, 0.34)'} />*/}
 
@@ -80,13 +80,15 @@ class LandingScreen extends React.Component<Props, State>  {
           </View>
         </View>*/}
 
-        <View style={styles.floatingBottom}>
-
+        <View style={styles.top}>
           <MyText style={styles.introTxt}>{lang.LANDING_INTRO}</MyText>
 
           <View style={styles.introImg}>
             <AssetImage src={require('../../images/baigy.png')} resizeMode='contain' />
           </View>
+        </View>
+
+        <View style={styles.floatingBottom}>
 
           <View style={styles.btns}>
 
@@ -133,6 +135,19 @@ const styles = StyleSheet.create({
   background: {
     position: 'absolute', left: 0, right: 0, top: 0, bottom: 0,
   },
+  top: {
+    flex: 1,
+
+    paddingTop: 40,
+    ...ifIphoneX({
+      marginBottom: 300,
+    }, {
+      marginBottom: 240,
+    }),
+
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
   logoWrapper: {
     ...ifIphoneX({
       marginTop: 100,
@@ -148,16 +163,14 @@ const styles = StyleSheet.create({
 
   introTxt: {
     ...mainStyle.montBold,
-    fontSize: 23,
-    paddingHorizontal: 40,
+    fontSize: 28,
+    paddingHorizontal: 30,
     textAlign: 'center',
-    marginBottom: 10
   },
 
   introImg: {
-    width: Dimensions.get('window').width * 0.5,
-    height: Dimensions.get('window').width * 0.5,
-    marginBottom: 20,
+    width: Dimensions.get('window').width * 0.64,
+    height: Dimensions.get('window').width * 0.64,
   },
 
   floatingBottom: {

@@ -7,7 +7,7 @@ import { HeaderBar, MyText, ListEmpty } from '../Reusable'
 import OrderItem from './OrderItem'
 
 import { Actions } from 'react-native-router-flux'
-import { Fire, Flash, Loader, Modal } from '../../services'
+import { Fire, Flash, Loader, Modal, Time } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
 import { switchTab, switchOrderTab } from '../../actions/tab.action'
@@ -25,6 +25,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
   const tab = useSelector(state => state.tabReducer.orderTab)
   const tabRefresh = useSelector(state => state.tabReducer.orderTabRefresh)
   const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
   const orders = useSelector(state => state.ordersReducer.list)
   const loading = useSelector(state => state.ordersReducer.loading)
   const dispatch = useDispatch()
@@ -52,9 +53,13 @@ const OrdersScreen: React.FC<Props> = (props) => {
   }, [tab, tabRefresh])
 
   const onCancel = (order: any) => {
+    const startSeconds = order.pro.pick_up_start_second || 0
+    const dateStart = Time.moment(new Date()).startOf('day').seconds(startSeconds)
+    const deliveryTime = Time.addAMIfNeeded(dateStart, langId)
+
     Alert.alert(
-      'Annuler',
-      'Souhaitez-vous vraiment annuler cette commande ? Vous ne serez pas remboursé',
+      lang.ORDER_CANCEL,
+      order.delivery ? (lang.ORDER_CANCEL_MSG_DELIVERY || '').replace('%TIME%', deliveryTime) : lang.ORDER_CANCEL_MSG_PICK_UP,
       [
         {
           text: 'Non',

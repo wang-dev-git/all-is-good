@@ -21,7 +21,7 @@ const Rating: React.FC<Props> = (props) => {
   return (
     <View style={[styles.container, props.style || {}]}>
       { arr.map((item, index) => (
-        <View style={styles.icon}>
+        <View key={index} style={styles.icon}>
           <Icon name="star" size={16} color='orange' />
         </View>
       ))}

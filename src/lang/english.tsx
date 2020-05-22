@@ -58,7 +58,7 @@ export default {
   PROFILE_EDIT_BTN: "Save",
   PROFILE_INFO: "My information",
   PROFILE_SETTINGS: "Settings",
-  PROFILE_CARDS: "Credit cards",
+  PROFILE_CARDS: "Payment methods",
   PROFILE_RATING: "Rate the app",
   PROFILE_HELP: "Get help",
   PROFILE_HELP_MSG: "You can send a mail to the following email address:\ncontact@allisgood-app.com\nor check our web site",
@@ -88,6 +88,8 @@ export default {
   ORDER_QUANTITY: 'Qté.',
   ORDER_RATE: 'Rate',
   ORDER_CANCEL: "Cancel order",
+  ORDER_CANCEL_MSG_DELIVERY: "You will not be charged if you cancel before %TIME%",
+  ORDER_CANCEL_MSG_PICK_UP: "You will not be charged for your order",
   ORDER_CANCELLING: 'Cancelling...',
   ORDER_WAS_CANCELLED: 'Order cancelled',
 

@@ -6,7 +6,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, FloatingButton, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
+import { HeaderBar, AssetImage, BottomButton, Rating, FloatingButton, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
 import { Fire, Flash, Modal, Time, Loader, Tools } from '../../services'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -214,6 +214,8 @@ const ProScreen: React.FC<Props> = (props) => {
           <View style={styles.info}>
             <View style={{flex: 0.8}}>
               <MyText style={styles.title}>{pro.name}</MyText>
+              
+              <Rating pro={pro} />
 
               <View style={[styles.row, { marginBottom: 6 }]}>
                 <View style={styles.icon}><AntDesign size={14} name="clockcircle" /></View>

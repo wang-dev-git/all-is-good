@@ -17,6 +17,7 @@ import SmallButton from './SmallButton'
 import CheckBox from './CheckBox'
 import TouchableBounce from './TouchableBounce'
 import KeyboardScrollView from './KeyboardScrollView'
+import Rating from './Rating'
 
 export {
   AssetImage,
@@ -37,5 +38,6 @@ export {
   SmallButton,
   KeyboardScrollView,
   TouchableBounce,
-  MyText
+  MyText,
+  Rating
 }

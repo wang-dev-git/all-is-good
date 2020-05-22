@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, MyText } from '../Reusable'
+import { AssetImage, MyText, Rating } from '../Reusable'
 import { Fire, Flash, Time, Tools } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
@@ -71,6 +71,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <MyText numberOfLines={2} style={styles.name}>{name}</MyText>
+                <Rating pro={pro} />
                 {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>

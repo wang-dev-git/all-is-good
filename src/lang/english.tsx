@@ -88,6 +88,7 @@ export default {
   ORDER_QUANTITY: 'Qté.',
   ORDER_RATE: 'Rate',
   ORDER_CANCEL: "Cancel order",
+  ORDER_CANCEL_MSG_DELIVERY_TOO_LATE: "You will still be charged of the amount of the order (%AMOUNT%$)",
   ORDER_CANCEL_MSG_DELIVERY: "You will not be charged if you cancel before %TIME%",
   ORDER_CANCEL_MSG_PICK_UP: "You will not be charged for your order",
   ORDER_CANCELLING: 'Cancelling...',

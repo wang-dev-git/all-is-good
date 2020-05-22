@@ -37,8 +37,6 @@ const ProScreen: React.FC<Props> = (props) => {
   const pro = props.pro
   const dispatch = useDispatch()
 
-  console.log(props.pro)
-
   const toggleWish = () => {
     const onPress = () => {
       dispatch(switchTab(3))
@@ -185,6 +183,12 @@ const ProScreen: React.FC<Props> = (props) => {
           <TouchableOpacity style={styles.backBtn} onPress={Actions.pop}>
             <AntDesign name="arrowleft" size={23} color='#fff' />
           </TouchableOpacity>
+
+          <View style={{alignItems: 'flex-end', position: 'absolute', bottom: 0, right: 14}}>
+            <View style={styles.quantity}>
+              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>            
+            </View>
+          </View>
         </View>
 
         <View style={styles.logoWrapper}>
@@ -231,12 +235,6 @@ const ProScreen: React.FC<Props> = (props) => {
               )) }
             </View>
           }
-
-          <View style={{alignItems: 'flex-start'}}>
-            <View style={styles.quantity}>
-              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>            
-            </View>
-          </View>
         </View>
 
         { hasDesc &&

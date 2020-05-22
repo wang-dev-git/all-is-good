@@ -145,8 +145,6 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.savePushToken(user.uid)
         
-        alert("all good")
-
         //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
       else {

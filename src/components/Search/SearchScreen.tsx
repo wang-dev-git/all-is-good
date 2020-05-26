@@ -126,7 +126,7 @@ const SearchScreen: React.FC<Props> = (props) => {
             keyExtractor={(item, index) => index.toString()}
             />
         ) : loadingCategories ? (
-          <MyText style={{color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
+          <MyText style={{marginTop: 60, textAlign: 'center', color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
         ) : (
           <FlatList
             key="B"

@@ -39,7 +39,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const position = useSelector(state => state.authReducer.position)
   const initialRegion = {
     latitude: position ? position.geometry.location.lat : 48.8240021,
-    longitude: position ? position.geometry.location.lat : 2.21,
+    longitude: position ? position.geometry.location.lng : 2.21,
     latitudeDelta: 0.03358723958820065,
     longitudeDelta: 0.04250270688370961,
   }
@@ -67,7 +67,7 @@ const MapScreen: React.FC<Props> = (props) => {
       latitude: Number(lat),
       longitude: Number(lng)
     }
-    mapRef.current.animateCamera({center: tempCoords, pitch: 2, heading: 20, altitude: 8000, zoom: 100}, 420)
+    mapRef.current.animateCamera({center: tempCoords, pitch: 0, heading: 0, altitude: 8000, zoom: 100}, 420)
   }
 
   const onAddressTap = (item) => {
@@ -125,6 +125,11 @@ const MapScreen: React.FC<Props> = (props) => {
     if (center)
       refresh()
   }, [center])
+
+  React.useEffect(() => {
+    alert(JSON.stringify(position))
+
+  }, [])
 
   React.useEffect(() => {
     if (cancelScrollingListening)
@@ -221,7 +226,7 @@ const MapScreen: React.FC<Props> = (props) => {
               onChange={(addr) => {setAddress(addr); selectAddress(null)}}
               onClear={() => setAddress('')}
               />
-            { userLocation !== null &&
+            { position !== null &&
               <View style={styles.recenter}>
                 <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
                   <MaterialIcons name="place" color='#000' size={22} />

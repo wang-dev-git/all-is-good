@@ -67,9 +67,6 @@ const SearchScreen: React.FC<Props> = (props) => {
   }
 
   const filtered = searchable.filter((item) => {
-    const nameMatches = item.name && item.name.toLowerCase().includes(query.toLowerCase())
-    if (nameMatches)
-      return true
     for (const cat of (item.categories || [])) {
       for (const langId in (cat.names || {})) {
         const name = cat.names[langId]
@@ -146,7 +143,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               <CategoryItem
                 index={item.index}
                 category={item.item}
-                onPress={() => setQuery(item.item.names[langId])}
+                onPress={() => setQuery(item.item.names[langId] || '')}
                 />
             }
             ListEmptyComponent={() => (

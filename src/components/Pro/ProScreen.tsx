@@ -53,7 +53,8 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const onPay = async (counter: number, card: string, address?: any) => {
-    const price = Number(pro.price * counter).toFixed(2)
+    const deliveryPrice = address ? (pro.delivery_price || 0) : 0
+    const price = Number(pro.price * counter + deliveryPrice).toFixed(2)
     try {
       Loader.show(lang.PAYMENT_PROCEEDING)
       const res = await Fire.cloud('proceedOrder', { proId: pro.id, quantity: counter, card: card, address: address })

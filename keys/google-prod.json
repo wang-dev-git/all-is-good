@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "467075255307",
-    "firebase_url": "https://all-is-good-dev.firebaseio.com",
-    "project_id": "all-is-good-dev",
-    "storage_bucket": "all-is-good-dev.appspot.com"
+    "project_number": "1039569656278",
+    "firebase_url": "https://all-is-good-prod.firebaseio.com",
+    "project_id": "all-is-good-prod",
+    "storage_bucket": "all-is-good-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:467075255307:android:6793894593cc7115460b0e",
+        "mobilesdk_app_id": "1:1039569656278:android:d437c0ba01bbb33042ac77",
         "android_client_info": {
           "package_name": "com.allisgood.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "467075255307-92cm77kp9a4k8e5eq4tr3vs1ju4ddc64.apps.googleusercontent.com",
+          "client_id": "1039569656278-lc5k0gmsht9j671tch14t9guj632qo1k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD_32QSgfwr-0fgj7XgZtIzatDyTQa1bZs"
+          "current_key": "AIzaSyBtVC8gPjYbNCv6xUv4Z_TrzSNYiSyVNn8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "467075255307-92cm77kp9a4k8e5eq4tr3vs1ju4ddc64.apps.googleusercontent.com",
+              "client_id": "1039569656278-lc5k0gmsht9j671tch14t9guj632qo1k.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4.apps.googleusercontent.com",
+              "client_id": "1039569656278-jhc5iqcvlisu3k5i0jodogq0pb8juft1.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.allisgood.com"
+                "bundle_id": "com.allisgood.app"
               }
             }
           ]

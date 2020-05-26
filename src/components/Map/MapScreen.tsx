@@ -56,6 +56,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const [loading, setLoading] = React.useState(false)
   const [scrollPos, setScrollPos] = React.useState(0)
   const [cancelScrollingListening, setCancelScrollingListening] = React.useState(false)
+  const [showOverlay, setShowOverlay] = React.useState(false)
 
   const { addresses, clearAddresses } = useAddresses(address)
   
@@ -68,6 +69,25 @@ const MapScreen: React.FC<Props> = (props) => {
     }
     mapRef.current.animateCamera({center: tempCoords, pitch: 0, heading: 0, altitude: 8000, zoom: 100}, 420)
   }
+
+  React.useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setShowOverlay(true)
+  };
+
+  const _keyboardDidHide = () => {
+    setShowOverlay(false)
+  };
 
   const onAddressTap = (item) => {
     selectAddress(item)
@@ -166,108 +186,112 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.container}>
+      <HeaderBar
+        title="Autour de vous"
+        logo
+        />
       <View style={styles.container}>
-        <HeaderBar
-          title="Autour de vous"
-          logo
-          />
-        <View style={styles.container}>
-          <MapView
-            mapRef={(ref) => mapRef.current = ref}
-            showsUserLocation
-            style={styles.map}
-            initialRegion={initialRegion}
-            onRegionChangeComplete={(r, markers) => {
-              setProsList(markers)
-            }}
-            onRegionChange={(r) => {
+        <MapView
+          mapRef={(ref) => mapRef.current = ref}
+          showsUserLocation
+          style={styles.map}
+          initialRegion={initialRegion}
+          onRegionChangeComplete={(r, markers) => {
+            setProsList(markers)
+          }}
+          onRegionChange={(r) => {
 
-            }}
-          >
-            { pros.map((item, index) => (
-              <Marker
-                key={index}
-                onPress={() => {
-                  selectPro(item)
+          }}
+        >
+          { pros.map((item, index) => (
+            <Marker
+              key={index}
+              onPress={() => {
+                selectPro(item)
 
-                  for (let index = 0; index < prosList.length; ++index) {
-                    const pro = pros[prosList[index].properties.index]
-                    if (pro.id === item.id) {
-                      if (listRef && listRef.current) {
-                        setCancelScrollingListening(true)
-                        listRef.current.scrollToIndex({ index: index })
-                        setTimeout(() => {
-                          setCancelScrollingListening(false)
-                        }, 600)
-                      }
-                      break
+                for (let index = 0; index < prosList.length; ++index) {
+                  const pro = pros[prosList[index].properties.index]
+                  if (pro.id === item.id) {
+                    if (listRef && listRef.current) {
+                      setCancelScrollingListening(true)
+                      listRef.current.scrollToIndex({ index: index })
+                      setTimeout(() => {
+                        setCancelScrollingListening(false)
+                      }, 600)
                     }
+                    break
                   }
-                }}
-                coordinate={{
-                  longitude: item.lng,
-                  latitude: item.lat,
-                }}
-              >
-                <MapBubble
-                  selected={selectedPro && item.id == selectedPro.id}
-                  color={mainStyle.themeColor}
-                  />
-              </Marker>
-            ))}
-          </MapView>
-
-          <View style={styles.floatingTop}>
-            <SearchBar
-              query={address}
-              onChange={(addr) => {setAddress(addr); selectAddress(null)}}
-              onClear={() => setAddress('')}
-              />
-            { position !== null &&
-              <View style={styles.recenter}>
-                <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
-                  <MaterialIcons name="place" color='#000' size={22} />
-                </TouchableOpacity>
-              </View>
-            }
-            { addresses.length > 0 && !selectedAddress &&
-              <View style={styles.content}>
-                { addresses.map((item, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => onAddressTap(item)}
-                    style={styles.addressWrapper}
-                    >
-                    <MyText>{item.formatted_address}</MyText>
-                  </TouchableOpacity>
-                )) }
-              </View>
-            }
-          </View>
-          { selectedPro &&
-            <FadeInView style={styles.floatingBottom}>
-              <FlatList
-                ref={listRef}
-                scrollEventThrottle={0.16}
-                onScroll={(evt) => setScrollPos(evt.nativeEvent.contentOffset.x)}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{paddingTop: 40}}
-                data={prosList || []}
-                renderItem={({ item }) => renderMapItem(item)}
-                keyExtractor={(item, index) => index.toString()}
+                }
+              }}
+              coordinate={{
+                longitude: item.lng,
+                latitude: item.lat,
+              }}
+            >
+              <MapBubble
+                selected={selectedPro && item.id == selectedPro.id}
+                color={mainStyle.themeColor}
                 />
-              <View style={styles.listHeader}>
-                <TouchableOpacity style={styles.listClose} onPress={() => selectPro(null)}>
-                  <AntIcon name="close" size={22} color='#fff' />
+            </Marker>
+          ))}
+        </MapView>
+
+        <View style={styles.floatingTop}>
+          <SearchBar
+            query={address}
+            onChange={(addr) => {setAddress(addr); selectAddress(null)}}
+            onClear={() => setAddress('')}
+            />
+          { position !== null &&
+            <View style={styles.recenter}>
+              <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
+                <MaterialIcons name="place" color='#000' size={22} />
+              </TouchableOpacity>
+            </View>
+          }
+          { addresses.length > 0 && !selectedAddress &&
+            <View style={styles.content}>
+              { addresses.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => onAddressTap(item)}
+                  style={styles.addressWrapper}
+                  >
+                  <MyText>{item.formatted_address}</MyText>
                 </TouchableOpacity>
-              </View>
-            </FadeInView>
+              )) }
+            </View>
           }
         </View>
+        { selectedPro &&
+          <FadeInView style={styles.floatingBottom}>
+            <FlatList
+              ref={listRef}
+              scrollEventThrottle={0.16}
+              onScroll={(evt) => setScrollPos(evt.nativeEvent.contentOffset.x)}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{paddingTop: 40}}
+              data={prosList || []}
+              renderItem={({ item }) => renderMapItem(item)}
+              keyExtractor={(item, index) => index.toString()}
+              />
+            <View style={styles.listHeader}>
+              <TouchableOpacity style={styles.listClose} onPress={() => selectPro(null)}>
+                <AntIcon name="close" size={22} color='#fff' />
+              </TouchableOpacity>
+            </View>
+          </FadeInView>
+        }
       </View>
-    </TouchableWithoutFeedback>
+
+      { showOverlay &&
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.overlay}></View>
+        </TouchableWithoutFeedback>
+      }
+    </View>
   );
 }
 
@@ -290,6 +314,14 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+  },
+  overlay: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
   },
   floatingTop: {
     position: 'absolute',

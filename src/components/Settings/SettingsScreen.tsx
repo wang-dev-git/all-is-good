@@ -33,6 +33,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
     {key: 'fr', name: 'Français'},
     {key: 'en', name: 'English'},
     {key: 'es', name: 'Español'},
+    {key: 'pt', name: 'Português'},
   ]
 
   const onChange = async (key: string, value: any) => {

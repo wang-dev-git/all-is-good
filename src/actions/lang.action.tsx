@@ -7,11 +7,14 @@ import Tools from '../services/Tools.service'
 
 import french from '../lang/french'
 import english from '../lang/english'
+import spanish from '../lang/spanish'
+import portuguese from '../lang/portuguese'
 
 const langs = {
   en: english,
   fr: french,
-  es: english,
+  es: spanish,
+  pt: portuguese,
 }
 
 export const updateLang = createActionThunk('SET_LANG', (id: any) => {

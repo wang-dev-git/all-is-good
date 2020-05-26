@@ -36,6 +36,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const { user } = props
   
   const mapRef = React.useRef<any>(null)
+  const userLocation = useLocation(user)
   const position = useSelector(state => state.authReducer.position)
   const initialRegion = {
     latitude: position ? position.geometry.location.lat : 48.8240021,
@@ -43,8 +44,6 @@ const MapScreen: React.FC<Props> = (props) => {
     latitudeDelta: 0.03358723958820065,
     longitudeDelta: 0.04250270688370961,
   }
-
-  const userLocation = useLocation(user)
 
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
@@ -127,11 +126,6 @@ const MapScreen: React.FC<Props> = (props) => {
   }, [center])
 
   React.useEffect(() => {
-    alert(JSON.stringify(position))
-
-  }, [])
-
-  React.useEffect(() => {
     if (cancelScrollingListening)
       return;
     const index = Math.round((scrollPos - 10) / 220)
@@ -152,7 +146,11 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const recenter = () => {
-    animateTo(position.geometry.location.lat, position.geometry.location.lng)
+    if (userLocation) {
+      animateTo(userLocation.coords.latitude, userLocation.coords.longitude)
+    } else {
+      animateTo(position.geometry.location.lat, position.geometry.location.lng)
+    }
   }
 
   const renderMapItem = (item) => {

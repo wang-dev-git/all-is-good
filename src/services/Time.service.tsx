@@ -5,8 +5,8 @@ import 'moment/locale/fr'
 
 export default class Time {
 
-  static moment(val: any) {
-    return moment(val)
+  static moment(val: any, opts?: any) {
+    return moment(val, opts)
   }
 
   static date(input: any) {

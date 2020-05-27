@@ -289,8 +289,8 @@ const ProScreen: React.FC<Props> = (props) => {
                     onPress={() => void 0}
                     coordinate={{latitude: pro.lat, longitude: pro.lng}}
                   >
-                    <View style={{...mainStyle.circle(60), padding: 6, backgroundColor: '#fff'}}>
-                      <AssetImage resizeMode='cover' src={require('../../images/logo.png')} />
+                    <View style={{...mainStyle.circle(60), backgroundColor: mainStyle.themeColor, padding: 6,}}>
+                      <AssetImage resizeMode='cover' src={require('../../images/logo_green.png')} />
                     </View>
                   </Marker>
                 ) : (

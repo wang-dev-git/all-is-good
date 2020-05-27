@@ -65,7 +65,7 @@ export default {
   PROFILE_HELP_BTN: "View website",
   PROFILE_LOGOUT: "Logout",
   PROFILE_LOGOUT_CONFIRM: 'Are you sure you want to log out?',
-  PROFILE_JOIN_AIG: 'Restaurant owner ? Join All is Good and help fighting food waste',
+  PROFILE_JOIN_AIG: 'Restaurant owner ?\nJoin All is Good and help fighting food waste',
   PROFILE_JOIN_AIG_BTN: 'Join All is Good',
 
   USER_INFO_TITLE: 'My information',

@@ -55,7 +55,7 @@ export default {
 
   // Profile
   PROFILE_PICTURE_SAVED: 'Photo saved!',
-  PROFILE_EDIT_BTN: "Save",
+  PROFILE_EDIT_BTN: "Edit",
   PROFILE_INFO: "My information",
   PROFILE_SETTINGS: "Settings",
   PROFILE_CARDS: "Payment methods",
@@ -65,7 +65,7 @@ export default {
   PROFILE_HELP_BTN: "View website",
   PROFILE_LOGOUT: "Logout",
   PROFILE_LOGOUT_CONFIRM: 'Are you sure you want to log out?',
-  PROFILE_JOIN_AIG: 'Restaurant owner ?\nJoin All is Good and help fighting food waste',
+  PROFILE_JOIN_AIG: 'Shop owner ?\nJoin All is Good and help fighting food waste',
   PROFILE_JOIN_AIG_BTN: 'Join All is Good',
 
   USER_INFO_TITLE: 'My information',
@@ -73,6 +73,7 @@ export default {
   USER_INFO_FIRST_NAME: 'First name',
   USER_INFO_LAST_NAME: 'Last name',
   USER_INFO_PHONE: 'Phone number',
+  USER_INFO_BTN: 'Save',
 
   // Orders
   ORDERS_PAST: 'Past',

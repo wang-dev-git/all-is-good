@@ -73,6 +73,7 @@ export default {
   USER_INFO_FIRST_NAME: 'Prénom',
   USER_INFO_LAST_NAME: 'Nom',
   USER_INFO_PHONE: 'Téléphone',
+  USER_INFO_BTN: 'Enregistrer',
 
   // Orders
   ORDERS_PAST: 'Passées',

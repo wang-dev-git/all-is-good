@@ -64,7 +64,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
     return (
       <View style={styles.container}>
         <HeaderBar
-          title='Mes Coordonnées'
+          title={lang.USER_INFO_TITLE}
           back
           />
         <KeyboardAwareScrollView>

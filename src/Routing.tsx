@@ -69,6 +69,29 @@ export default class Routing extends React.Component<Props, State> {
       require('./images/insta_logo.png'),
       require('./images/twitter_logo.png'),
       require('./images/corner.png'),
+
+      // Pro Icons
+      require('./images/icons/bread.png'),
+      require('./images/icons/burger.png'),
+      require('./images/icons/cake.png'),
+      require('./images/icons/chicken.png'),
+      require('./images/icons/food.png'),
+      require('./images/icons/fridge.png'),
+      require('./images/icons/fries.png'),
+      require('./images/icons/hotdog.png'),
+      require('./images/icons/lobster.png'),
+      require('./images/icons/macaroon.png'),
+      require('./images/icons/mini-donut.png'),
+      require('./images/icons/motorcycle.png'),
+      require('./images/icons/pasta.png'),
+      require('./images/icons/sandwich.png'),
+      require('./images/icons/shrimp.png'),
+      require('./images/icons/skewer.png'),
+      require('./images/icons/summer.png'),
+      require('./images/icons/sushi.png'),
+      require('./images/icons/tacos.png'),
+      require('./images/icons/toast.png'),
+      require('./images/icons/wrap.png'),
     ])
 
     const fontAssets = cacheFonts([

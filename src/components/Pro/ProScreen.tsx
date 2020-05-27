@@ -170,6 +170,17 @@ const ProScreen: React.FC<Props> = (props) => {
     return pro[key][langId]
   }
 
+  const renderIcon = (iconId: string, index: number) => {
+    const icon = getIcon(iconId)
+    if (!icon)
+      return (null)
+    return (
+      <View key={index} style={styles.proIcon}>
+        <AssetImage src={icon} />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle='light-content' />
@@ -240,11 +251,7 @@ const ProScreen: React.FC<Props> = (props) => {
 
           { icons.length > 0 &&
             <View style={styles.bigRow}>
-              { icons.map((iconId, index) => (
-                <View key={index} style={styles.proIcon}>
-                  <AssetImage src={getIcon(iconId)} />
-                </View>
-              )) }
+              { icons.map(renderIcon) }
             </View>
           }
         </View>

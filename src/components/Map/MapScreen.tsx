@@ -13,6 +13,7 @@ const { Marker } = require('react-native-maps')
 import SearchBar from '../Search/SearchBar'
 import MapItem from './MapItem'
 import MapBubble from './MapBubble'
+import MapMarker from './MapMarker'
 import FiltersModal from '../Search/FiltersModal'
 
 import { HeaderBar, FadeInView, MyText } from '../Reusable'
@@ -41,8 +42,8 @@ const MapScreen: React.FC<Props> = (props) => {
   const initialRegion = {
     latitude: position ? position.geometry.location.lat : 48.8240021,
     longitude: position ? position.geometry.location.lng : 2.21,
-    latitudeDelta: 0.03358723958820065,
-    longitudeDelta: 0.04250270688370961,
+    latitudeDelta: 0.3358723958820065,
+    longitudeDelta: 0.4250270688370961,
   }
 
   const [selectedAddress, selectAddress] = React.useState(null)
@@ -185,6 +186,24 @@ const MapScreen: React.FC<Props> = (props) => {
     )
   }
 
+
+  const renderCluster = (data) => {
+    const coords = data.geometry.coordinates
+    const count = data.properties.point_count
+    return (
+      <Marker
+        key={data.id}
+        coordinate={{
+          latitude: coords[1],
+          longitude: coords[0],
+        }}
+        onPress={data.onPress}
+      >
+        <MapMarker selected={false} count={count} />
+      </Marker>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <HeaderBar
@@ -203,6 +222,7 @@ const MapScreen: React.FC<Props> = (props) => {
           onRegionChange={(r) => {
 
           }}
+          renderCluster={renderCluster}
         >
           { pros.map((item, index) => (
             <Marker
@@ -229,7 +249,7 @@ const MapScreen: React.FC<Props> = (props) => {
                 latitude: item.lat,
               }}
             >
-              <MapBubble
+              <MapMarker
                 selected={selectedPro && item.id == selectedPro.id}
                 color={mainStyle.themeColor}
                 />

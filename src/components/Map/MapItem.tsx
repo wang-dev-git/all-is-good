@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   },
   shadow: {
     width: width,
-    marginVertical: 12,
-    marginHorizontal: 10,
+    marginVertical: 6,
+    marginHorizontal: 6,
 
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
@@ -72,10 +72,11 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
   },
   picture: {
-    height: 100,
+    height: 84,
   },
   info: {
-    padding: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
     backgroundColor: mainStyle.themeColor,
   },
   name: {

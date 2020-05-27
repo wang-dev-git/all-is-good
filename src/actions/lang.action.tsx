@@ -13,8 +13,8 @@ import portuguese from '../lang/portuguese'
 const langs = {
   en: english,
   fr: french,
-  es: spanish,
-  pt: portuguese,
+  es: english,
+  pt: english,
 }
 
 export const updateLang = createActionThunk('SET_LANG', (id: any) => {

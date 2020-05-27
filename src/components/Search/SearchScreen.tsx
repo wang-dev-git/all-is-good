@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Text, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Keyboard, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal, Maps } from '../../services'
@@ -19,7 +19,7 @@ import BackSearchBar from './BackSearchBar'
 
 import { mainStyle } from '../../styles'
 
-import { searchByName, saveFilters } from '../../actions/filters.action'
+import { searchByName, saveFilters, loadSearchable, loadCategories } from '../../actions/filters.action'
 import { updatePosition } from '../../actions/auth.action'
 
 interface Props {}
@@ -66,6 +66,11 @@ const SearchScreen: React.FC<Props> = (props) => {
     })
   }
 
+  const refresh = () => {
+    dispatch(loadCategories())
+    dispatch(loadSearchable())
+  }
+
   const filtered = searchable.filter((item) => {
     for (const cat of (item.categories || [])) {
       for (const langId in (cat.names || {})) {
@@ -105,6 +110,13 @@ const SearchScreen: React.FC<Props> = (props) => {
           <FlatList
             key="A"
             data={filtered}
+            refreshControl={
+              <RefreshControl
+                tintColor='#fff'
+                refreshing={loading}
+                onRefresh={refresh}
+              />
+            }
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
             renderItem={({ item }) =>
               <ProItem
@@ -137,6 +149,13 @@ const SearchScreen: React.FC<Props> = (props) => {
                 return false
               }
             })}
+            refreshControl={
+              <RefreshControl
+                tintColor='#fff'
+                refreshing={loading}
+                onRefresh={refresh}
+              />
+            }
             numColumns={2}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
             renderItem={(item: any) => 

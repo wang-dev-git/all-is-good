@@ -174,8 +174,18 @@ const PaymentModal: React.FC<Props> = (props) => {
   }
 
   const canProceed = checkCanProceed()
-  const deliveryOpening = 'Nous pourrons livrer votre commande\nentre ' + pro.delivery_start + ' et ' + pro.delivery_end
-  const pickUpOpening = 'Vous pourrez venir récupérer votre commande\nentre ' + pro.pick_up_start + ' et ' + pro.pick_up_end
+
+  const getTime = (data) => {
+    return data
+  }
+
+  const deliveryStartTime = getTime(pro.delivery_start)
+  const deliveryEndTime = getTime(pro.delivery_end)
+  const deliveryOpening = (lang.PAYMENT_DELIVERY_OPENING || '').replace('%START%', deliveryStartTime).replace('%END%', deliveryEndTime) 
+  
+  const pickUpStartTime = getTime(pro.pick_up_start)
+  const pickUpEndTime = getTime(pro.pick_up_end)
+  const pickUpOpening = (lang.PAYMENT_PICK_UP_OPENING || '').replace('%START%', pickUpStartTime).replace('%END%', pickUpEndTime) 
 
   return (
     <View>

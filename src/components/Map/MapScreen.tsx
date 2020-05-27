@@ -342,9 +342,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   recenterBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 40 / 2,
+    width: 44,
+    height: 44,
+    borderRadius: 44 / 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: mainStyle.themeColor,

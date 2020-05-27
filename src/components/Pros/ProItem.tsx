@@ -63,8 +63,8 @@ const ProItem: React.FC<Props> = (props: Props) => {
             </View>
 
             { !props.isWish &&
-              <View style={styles.quantity}>
-                <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>
+              <View style={styles.quantityWrapper}>
+                <ProQuantity pro={pro} />
               </View>
             }
 
@@ -158,21 +158,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginRight: 62,
   },
-  quantity: {
+  quantityWrapper: {
     position: 'absolute',
     top: 12,
     left: 12,
-    borderRadius: 12,
-    overflow: 'hidden',
-    backgroundColor: mainStyle.orangeColor,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
   },
-  quantityTxt: {
-    ...mainStyle.montBold,
-    color: '#fff',
-    textTransform: 'uppercase'
-  },
+
   name: {
     ...mainStyle.montBold,
     fontSize: 20,

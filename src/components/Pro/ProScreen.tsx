@@ -6,7 +6,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, Rating, FloatingButton, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
+import { HeaderBar, AssetImage, BottomButton, Rating, FloatingButton, ProQuantity, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
 import { Fire, Flash, Modal, Time, Loader, Tools } from '../../services'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -197,9 +197,7 @@ const ProScreen: React.FC<Props> = (props) => {
           </TouchableOpacity>
 
           <View style={{alignItems: 'flex-end', position: 'absolute', bottom: 0, right: 14}}>
-            <View style={styles.quantity}>
-              <MyText style={styles.quantityTxt}>{pro.quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', pro.quantity) : lang.PRO_NONE_TO_SAVE}</MyText>            
-            </View>
+            <ProQuantity pro={pro} />
           </View>
         </View>
 
@@ -368,21 +366,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     ...mainStyle.circle(84),
-  },
-
-  quantity: {
-    borderRadius: 12,
-    overflow: 'hidden',
-    backgroundColor: mainStyle.orangeColor,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  quantityTxt: {
-    ...mainStyle.montBold,
-    color: '#fff',
-    textTransform: 'uppercase'
   },
 
   topWrapper: {

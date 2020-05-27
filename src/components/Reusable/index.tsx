@@ -18,6 +18,7 @@ import CheckBox from './CheckBox'
 import TouchableBounce from './TouchableBounce'
 import KeyboardScrollView from './KeyboardScrollView'
 import Rating from './Rating'
+import ProQuantity from './ProQuantity'
 
 export {
   AssetImage,
@@ -39,5 +40,6 @@ export {
   KeyboardScrollView,
   TouchableBounce,
   MyText,
+  ProQuantity,
   Rating
 }

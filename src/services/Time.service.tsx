@@ -16,7 +16,7 @@ export default class Time {
 
   static fullDate(input: any) {
     const date = Fire.getDateFor(input)
-    return moment(date).format('dddd, DD MMMM à HH:mm')
+    return moment(date).format('dddd, DD MMMM YYYY à HH:mm')
   }
 
   static addAMIfNeeded(date, langId) {

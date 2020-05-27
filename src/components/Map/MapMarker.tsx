@@ -22,16 +22,16 @@ const MapMarker: React.FC<Props> = (props) => {
       </View>
       { !!props.count &&
         <View style={styles.count}>
-          <MyText style={{fontSize: 14}}>{props.count}</MyText>
+          <MyText style={styles.countTxt}>{props.count}</MyText>
         </View>
       }
     </View>
   )  
 }
 
-const smallSize = 24
-const bigSize = 36
-const veryBigSize = 42
+const smallSize = 32
+const bigSize = 42
+const veryBigSize = 52
 const styles = StyleSheet.create({
   container: {
     ...mainStyle.circle(smallSize),
@@ -48,13 +48,18 @@ const styles = StyleSheet.create({
   },
   count: {
     position: 'absolute',
-    top: -8,
-    right: -8,
+    top: -6,
+    right: -6,
     ...mainStyle.circle(23),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
+  countTxt: {
+    ...mainStyle.montBold,
+    fontSize: 14, 
+    color: mainStyle.themeColor
+  }
 });
 
 export default MapMarker

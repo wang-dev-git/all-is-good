@@ -194,6 +194,11 @@ const PaymentModal: React.FC<Props> = (props) => {
 
         {/* QUANTITY STEP */}
         <Animated.View style={[styles.quantity, {transform: [{translateY: translateQuantity}]}]}>
+          <View style={{alignItems: 'center', marginTop: 20}}>
+            <View style={{width: 68, height: 68}}>
+              <AssetImage src={require('../../images/baigy.png')} />
+            </View>
+          </View>
           <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_QUANTITY}</MyText>
           <View style={styles.quantityBtns}>
             <TouchableOpacity onPress={() => updateCounter(-1)}>
@@ -354,7 +359,7 @@ const styles = StyleSheet.create({
     ...mainStyle.montBold,
     textAlign: 'center',
     fontSize: 17,
-    marginTop: 32,
+    marginTop: 22,
     marginBottom: 12,
   },
   quantityBtns: {

@@ -312,15 +312,14 @@ const styles = StyleSheet.create({
   },
   container: {
 
-    height: 340,
+    height: 360,
 
-    paddingVertical: 20,
     justifyContent: 'center',
     borderTopColor: '#ddd',
     borderTopWidth: 1,
     //borderBottomColor: '#ddd',
     //borderBottomWidth: 1,
-    marginBottom: 20,
+    //marginBottom: 20,
   },
   title: {
     ...mainStyle.montBold,

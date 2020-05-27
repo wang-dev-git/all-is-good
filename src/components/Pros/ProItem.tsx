@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, MyText, Rating } from '../Reusable'
+import { AssetImage, MyText, Rating, ProQuantity } from '../Reusable'
 import { Fire, Flash, Time, Tools } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'

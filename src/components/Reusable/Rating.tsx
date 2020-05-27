@@ -25,6 +25,7 @@ const Rating: React.FC<Props> = (props) => {
           <Icon name="star" size={16} color='orange' />
         </View>
       ))}
+      <MyText style={{fontSize: 12, marginLeft: 4}}>({pro.nb_ratings})</MyText>
     </View>
   );
 } 

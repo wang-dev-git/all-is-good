@@ -26,7 +26,7 @@ export default {
   HOME_NO_POS_MESSAGE: 'Afin de vous proposer les meilleurs résultats, veuillez activer votre géolocalisation ou sélectionner une adresse de référence',
   HOME_NO_POS_BTN: 'Choisir une adresse',
   HOME_EMPTY_TITLE: 'Désolé !\nNous ne sommes pas encore là...',
-  HOME_EMPTY_MESSAGE: "Il semble que nous n'ayons aucun restaurant à proximité de votre localisation. Vous pouvez réessayer en utilisant une adresse différente",
+  HOME_EMPTY_MESSAGE: "Il semble que nous n'ayons aucun magasin à proximité de votre localisation. Vous pouvez réessayer en utilisant une adresse différente",
   HOME_EMPTY_BTN: "Changer d'adresse",
 
   // Filters
@@ -79,7 +79,7 @@ export default {
   ORDERS_PAST: 'Passées',
   ORDERS_PROGRESS: 'En cours',
   ORDERS_NONE: 'Aucune commande',
-  ORDERS_NONE_BTN: "Découvrir nos restaurants",
+  ORDERS_NONE_BTN: "Découvrir nos partenaires",
   ORDER_WAITING: 'En attente',
   ORDER_PREPARING: 'Préparation en cours',
   ORDER_PICK_UP_READY: 'Prêt à récupérer',
@@ -175,7 +175,7 @@ export default {
 
   // Favorite
   FAVORITE_NONE: "Vous n'avez aucun favoris",
-  FAVORITE_DISCOVER: "Découvrez des restaurants",
+  FAVORITE_DISCOVER: "Découvrez nos partenaires",
   FAVORITE_ADDED: "Ajouté aux favoris !",
   FAVORITE_ADDED_SUBTITLE: 'Cliquez pour voir vos favoris',
   FAVORITE_REMOVED: 'Supprimé des favoris !',

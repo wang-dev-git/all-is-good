@@ -26,7 +26,7 @@ export default {
   HOME_NO_POS_MESSAGE: 'For the best results, please activate your geolocalisation or select an referal address',
   HOME_NO_POS_BTN: 'Pick an address',
   HOME_EMPTY_TITLE: 'Sorry!\nWe\'re not there yet...',
-  HOME_EMPTY_MESSAGE: "It seems there are no restaurants around you! You can still try with another address",
+  HOME_EMPTY_MESSAGE: "It seems there are no shops around you! You can still try with another address",
   HOME_EMPTY_BTN: "Switch address",
 
   // Filters
@@ -79,7 +79,7 @@ export default {
   ORDERS_PAST: 'Past',
   ORDERS_PROGRESS: 'Processing',
   ORDERS_NONE: 'No order',
-  ORDERS_NONE_BTN: "Discover our restaurants",
+  ORDERS_NONE_BTN: "Discover our partners",
   ORDER_WAITING: 'Pending',
   ORDER_PREPARING: 'Preparing your order',
   ORDER_PICK_UP_READY: 'Ready to pick up',
@@ -144,7 +144,7 @@ export default {
   PAYMENT_PROCEEDING: 'Ordering...',
   PAYMENT_SUCCESS: 'Order validated',
   PAYMENT_ERROR: 'Order failed',
-  PAYMENT_FAIL_UNAVAILABLE: 'This restaurant is currently unavailable',
+  PAYMENT_FAIL_UNAVAILABLE: 'This partner is currently unavailable',
   PAYMENT_FAIL_INTERNAL: "An error happened, please contact assistance",
   PAYMENT_FAIL_DECLINE: "Your order could not succeed, please try again later or use a different payment method",
   PAYMENT_FAIL_SOLD_OUT: "Your order could not finish because the requested item is not available any more",

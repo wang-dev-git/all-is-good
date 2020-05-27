@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
   },
   title: {
     ...mainStyle.montBold,
-    fontSize: 14,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    fontSize: 17,
     color: '#fff',
     textTransform: 'uppercase',
   }

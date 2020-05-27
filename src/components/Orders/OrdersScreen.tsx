@@ -126,8 +126,8 @@ const OrdersScreen: React.FC<Props> = (props) => {
         />
     )
   }
-
-  const current = orders.filter(item => {
+  const current = []
+  const currentOld = orders.filter(item => {
 
     if (tab === 1 && (
       !item.status ||

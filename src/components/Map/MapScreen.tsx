@@ -246,7 +246,7 @@ const MapScreen: React.FC<Props> = (props) => {
           { position !== null &&
             <View style={styles.recenter}>
               <TouchableOpacity style={styles.recenterBtn} onPress={recenter}>
-                <MaterialIcons name="place" color='#000' size={22} />
+                <MaterialIcons name="place" color='#fff' size={22} />
               </TouchableOpacity>
             </View>
           }
@@ -347,9 +347,7 @@ const styles = StyleSheet.create({
     borderRadius: 40 / 2,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eee',
-    borderWidth: 1,
-    borderColor: '#ddd',
+    backgroundColor: mainStyle.themeColor,
     overflow: 'hidden',
   },
   addressWrapper: {

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, MyText } from '../Reusable'
+import { AssetImage, MyText, Rating } from '../Reusable'
 import { Fire, Flash, Tools } from '../../services'
 
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
@@ -35,12 +35,15 @@ const MapItem: React.FC<Props> = (props: Props) => {
             <View style={styles.info}>
               <View style={[]}>
                 <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
-                <View style={styles.row}>
-                  <View style={styles.icon}>
-                    <MaterialIcon size={18} color='#fff' name="map-marker" />  
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <View style={styles.row}>
+                    <View style={styles.icon}>
+                      <MaterialIcon size={18} color='#fff' name="map-marker" />  
+                    </View>
+                    <MyText style={[styles.open]}>{distance} km</MyText> 
                   </View>
-                  <MyText style={[styles.open]}>{distance} km</MyText> 
-                </View> 
+                  <Rating pro={pro} textStyle={{color: '#fff'}} />
+                </View>
               </View>
             </View>
           </View>

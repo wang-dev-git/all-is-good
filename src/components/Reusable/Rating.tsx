@@ -9,6 +9,7 @@ import MyText from './MyText'
 interface Props {
   pro: any;
   style?: any;
+  textStyle?: any;
 
   onPress?: () => void;
 }
@@ -25,7 +26,7 @@ const Rating: React.FC<Props> = (props) => {
           <Icon name="star" size={16} color='orange' />
         </View>
       ))}
-      <MyText style={{fontSize: 12, marginLeft: 4}}>({pro.nb_ratings})</MyText>
+      <MyText style={[styles.rating, props.textStyle || {}]}>({pro.nb_ratings})</MyText>
     </View>
   );
 } 
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   rating: {
-    ...mainStyle.montText,
+    ...mainStyle.montBold,
     fontSize: 13,
     color: '#000',
     marginLeft: 4,

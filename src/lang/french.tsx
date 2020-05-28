@@ -9,6 +9,8 @@ export default {
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
   GLOBAL_CANCEL: 'Annuler',
   GLOBAL_OK: 'OK',
+  GLOBAL_SAVE: 'Enregistrer',
+  GLOBAL_SAVING: 'Enregistrement...',
   GLOBAL_CONFIRM: 'Confirmation',
   GLOBAL_OPTIONAL: 'optionnel',
   GLOBAL_INTERNET: 'Veuillez vérifier votre connexion internet',

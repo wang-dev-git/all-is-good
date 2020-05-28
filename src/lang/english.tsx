@@ -9,6 +9,8 @@ export default {
   GLOBAL_NO_RESULT: 'No result for this search',
   GLOBAL_CANCEL: 'Cancel',
   GLOBAL_OK: 'OK',
+  GLOBAL_SAVE: 'Save',
+  GLOBAL_SAVING: 'Saving...',
   GLOBAL_CONFIRM: 'Confirmation',
   GLOBAL_OPTIONAL: 'optional',
   GLOBAL_INTERNET: 'Please check your internet connection',

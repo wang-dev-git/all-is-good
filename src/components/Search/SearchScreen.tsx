@@ -162,7 +162,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               <CategoryItem
                 index={item.index}
                 category={item.item}
-                onPress={() => setQuery(item.item.names[langId] || '')}
+                onPress={() => setQuery(Tools.getLang(item.item.names, langId))}
                 />
             }
             ListEmptyComponent={() => (

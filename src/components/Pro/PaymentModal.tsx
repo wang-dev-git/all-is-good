@@ -176,7 +176,6 @@ const PaymentModal: React.FC<Props> = (props) => {
   const canProceed = checkCanProceed()
 
   const getTime = (str: string) => {
-    console.log(str)
     const time = Time.moment(str, 'HH:mm')
     return Time.addAMIfNeeded(time, langId)
   }

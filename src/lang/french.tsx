@@ -150,6 +150,7 @@ export default {
   PAYMENT_FAIL_INTERNAL: "Une erreur est survenue, veuillez contacter l'assistance",
   PAYMENT_FAIL_DECLINE: "Votre commande n'a pas pu aboutir, veuillez ré-essayer ultérieurement ou en saisissant une nouvelle carte.",
   PAYMENT_FAIL_SOLD_OUT: "La commande n'a pas pu aboutir car il l'élement n'est plus disponible. Réessayez plus tard",
+  PAYMENT_FAIL_CITY: "Cet établissement n'est pas encore prêt à recevoir de commandes (ville non associée)",
 
   // Pick Card
   PICK_CARD_NONE: 'Aucune carte enregistrée',

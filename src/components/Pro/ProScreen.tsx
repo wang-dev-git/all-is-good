@@ -84,7 +84,11 @@ const ProScreen: React.FC<Props> = (props) => {
             break;
 
           case "payment_declined":
-            error = lang.PAYMENT_DECLINE
+            error = lang.PAYMENT_FAIL_DECLINE
+            break;
+
+          case "no_attached_city":
+            error = lang.PAYMENT_FAIL_CITY
             break;
           
           default:

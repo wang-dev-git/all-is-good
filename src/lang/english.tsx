@@ -150,6 +150,7 @@ export default {
   PAYMENT_FAIL_INTERNAL: "An error happened, please contact assistance",
   PAYMENT_FAIL_DECLINE: "Your order could not succeed, please try again later or use a different payment method",
   PAYMENT_FAIL_SOLD_OUT: "Your order could not finish because the requested item is not available any more",
+  PAYMENT_FAIL_CITY: "This partner is not set up quite yet (unattached city)",
 
   // Pick Card
   PICK_CARD_NONE: 'No card saved',

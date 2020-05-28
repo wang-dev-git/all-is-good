@@ -54,7 +54,7 @@ class UserInfoScreen extends React.Component<Props, State>  {
       await updateUser(info)
       Actions.pop()
     } catch (err) {
-      Flash.error('Une erreur est survenue')
+      Flash.error(lang.GLOBAL_INTERNET)
       console.log(err)
     }
     Loader.hide()

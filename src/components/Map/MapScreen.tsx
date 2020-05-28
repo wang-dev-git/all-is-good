@@ -39,6 +39,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const mapRef = React.useRef<any>(null)
   const userLocation = useLocation(user)
   const position = useSelector(state => state.authReducer.position)
+  const mapPros = useSelector(state => state.filtersReducer.mapPros)
   const initialRegion = {
     latitude: position ? position.geometry.location.lat : 48.8240021,
     longitude: position ? position.geometry.location.lng : 2.21,
@@ -118,18 +119,15 @@ const MapScreen: React.FC<Props> = (props) => {
   const refresh = async () => {
     setLoading(true)
     try {
-      const prosRef = Fire.store().collection('pros')
-      const pros = await Fire.list(prosRef)
-      const ordered = pros.filter((item) => item.lat !== undefined).sort((a, b) => a.distance - b.distance)
-      for (const pro of ordered) {
+      for (const pro of mapPros) {
         if (center)
           pro.distance = Tools.getRoundedDistance(pro.lat, pro.lng, center.geometry.location.lat, center.geometry.location.lng)
         else
           pro.distance = 0
       }
-      setPros(ordered)
-      if (ordered.length)
-        selectPro(ordered[0])
+      setPros(mapPros.sort((a, b) => a.distance - b.distance))
+      if (mapPros.length)
+        selectPro(mapPros[0])
     } catch (err) {
       setPros([])
     }
@@ -140,6 +138,10 @@ const MapScreen: React.FC<Props> = (props) => {
     selectPro(pro)
     animateTo(pro.lat, pro.lng)
   }
+
+  React.useEffect(() => {
+    refresh()
+  }, [mapPros])
 
   React.useEffect(() => {
     if (center)
@@ -185,7 +187,6 @@ const MapScreen: React.FC<Props> = (props) => {
         />
     )
   }
-
 
   const renderCluster = (data) => {
     const coords = data.geometry.coordinates

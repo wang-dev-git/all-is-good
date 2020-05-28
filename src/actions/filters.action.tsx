@@ -41,6 +41,12 @@ export const searchByName = createActionThunk('SEARCH_BY_NAME', async (query: st
   return filtered
 })
 
+export const loadMap = createActionThunk('LOAD_MAP', async () => {
+  const prosRef = Fire.store().collection('pros')
+  const pros = await Fire.list(prosRef)
+  return pros.filter((item) => item.lat !== undefined)
+})
+
 export const saveFilters = createActionThunk('SAVE_FILTERS', async (filters, { dispatch }) => {
   await dispatch(clearPros())
   return filters
@@ -53,6 +59,8 @@ const initialState = {
   categories: [],
   loadingCategories: [],
   toggle: false,
+  mapPros: [],
+  loadingMap: false,
 };
 
 // Reducer
@@ -91,6 +99,21 @@ export const filtersReducer = handleActions(
       ...state,
       categories: action.payload,
       loadingCategories: false,
+    }),
+
+
+    'LOAD_MAP_STARTED': (state: any, action: any) => ({
+      ...state,
+      loadingMap: true,
+    }),
+    'LOAD_MAP_FAILED': (state: any, action: any) => ({
+      ...state,
+      loadingMap: false,
+    }),
+    'LOAD_MAP_SUCCEEDED': (state: any, action: any) => ({
+      ...state,
+      mapPros: action.payload,
+      loadingMap: false,
     }),
   },
   initialState

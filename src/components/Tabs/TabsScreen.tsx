@@ -27,7 +27,7 @@ import { updateLang } from '../../actions/lang.action'
 import { fetchOrders } from '../../actions/orders.action'
 import { autologin, finishLogin } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
-import { loadCategories, loadSearchable } from '../../actions/filters.action'
+import { loadCategories, loadSearchable, loadMap } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
 import { NotifBubble } from '../Reusable'
@@ -45,6 +45,7 @@ interface Props {
   switchOrderTab: (idx: number) => void;
   finishLogin: () => void;
   fetchOrders: () => void;
+  loadMap: () => void;
   loadSearchable: () => void;
   loadCategories: () => void;
   loadWishes: () => void;
@@ -142,6 +143,7 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.refreshWishes()
         await this.props.loadCategories()
         await this.props.loadSearchable()
+        //await this.props.loadMap()
 
         await this.savePushToken(user.uid)
         
@@ -208,6 +210,9 @@ class TabsScreen extends React.Component<Props, State>  {
   };
 
   selectTab(index: number) {
+    if (index === 2) {
+      this.props.loadMap()
+    }
     this.props.switchTab(index)
   }
 
@@ -323,6 +328,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   switchOrderTab: (tab: number) => dispatch(switchOrderTab(tab)),
   autologin: (user: any) => dispatch(autologin(user)),
   finishLogin: () => dispatch(finishLogin()),
+  loadMap: () => dispatch(loadMap()),
   loadWishes: () => dispatch(loadWishes()),
   loadCategories: () => dispatch(loadCategories()),
   loadSearchable: () => dispatch(loadSearchable()),

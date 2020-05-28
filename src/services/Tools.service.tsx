@@ -76,7 +76,7 @@ export default class Tools {
   }
 
   // Try to retrieve language but fallback to other if not available
-  static async getLang(langObj: any, langId: string) {
+  static getLang(langObj: any, langId: string) {
     if (langObj) {
       if (langObj[langId])
         return langObj[langId]

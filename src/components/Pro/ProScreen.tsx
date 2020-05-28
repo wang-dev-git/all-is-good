@@ -141,9 +141,6 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const inWishes = dispatch(isInWishes(pro))
-  const hasDesc = pro.descriptions != undefined && pro.descriptions[langId] != undefined && pro.descriptions[langId].length
-  const hasOffer = pro.offers != undefined && pro.offers[langId] != undefined && pro.offers[langId].length
-  const hasAllergens = pro.allergens != undefined && pro.allergens[langId] != undefined && pro.allergens[langId].length
   const seller = pro.seller
 
   const pics: any = []
@@ -158,14 +155,9 @@ const ProScreen: React.FC<Props> = (props) => {
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
   const has = (key: string) => {
-    if (!pro[key] || !pro[key][langId] || !pro[key][langId].length)
+    if (!pro[key])
       return false
     return true
-  }
-  const get = (key: string) => {
-    if (!has(key))
-      return;
-    return pro[key][langId]
   }
 
   const renderIcon = (iconId: string, index: number) => {
@@ -257,21 +249,21 @@ const ProScreen: React.FC<Props> = (props) => {
         { has('descriptions') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</MyText>
-            <MyText style={styles.description}>{get('descriptions')}</MyText>
+            <MyText style={styles.description}>{Tools.getLang(pro.descriptions, langId)}</MyText>
           </View>
         }
 
         { has('offers') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</MyText>
-            <MyText style={styles.description}>{get('offers')}</MyText>
+            <MyText style={styles.description}>{Tools.getLang(pro.offers, langId)}</MyText>
           </View>
         }
 
         { has('allergens') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</MyText>
-            <MyText style={styles.description}>{get('allergens')}</MyText>
+            <MyText style={styles.description}>{Tools.getLang(pro.allergens, langId)}</MyText>
           </View>
         }
         

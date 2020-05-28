@@ -35,7 +35,7 @@ class LandingScreen extends React.Component<Props, State>  {
       const res = await Google.login()
       const user = res.user
       const pictureURL = null
-      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.firstName, last_name: user.lastName })
+      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.firstName, last_name: user.lastName, email: user.email })
       await Fire.signInGoogle(res.token)
     } catch (err) {
       Flash.error('Connexion impossible: ' + JSON.stringify(err))
@@ -49,7 +49,7 @@ class LandingScreen extends React.Component<Props, State>  {
       const res = await Facebook.login()
       const user = res.user
       const pictureURL = user.picture && user.picture.data ? user.picture.data.url : null
-      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.first_name, last_name: user.last_name })
+      this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.first_name, last_name: user.last_name, email: user.email })
       await Fire.signInFacebook(res.token)
     } catch (err) {
       Flash.error('Connexion impossible: ' + JSON.stringify(err))

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, F
 
 import Icon from '@expo/vector-icons/FontAwesome'
 
+import { Tools } from '../../services'
 import { TouchableBounce, MyText } from '../Reusable'
 
 import { mainStyle } from '../../styles'
@@ -16,7 +17,7 @@ interface Props {
 }
 const CategoryItem: React.FC<Props> = (props) => {
   const langId = useSelector(state => state.langReducer.id)
-  const name = props.category.names ? props.category.names[langId] : ''
+  const name = Tools.getLang(props.category.names, langId)
 
   return (
     <View style={styles.shadow}>

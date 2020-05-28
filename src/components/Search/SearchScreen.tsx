@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal, Maps } from '../../services'
+import { Fire, Modal, Maps, Tools } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -74,7 +74,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const filtered = searchable.filter((item) => {
     for (const cat of (item.categories || [])) {
       for (const langId in (cat.names || {})) {
-        const name = cat.names[langId]
+        const name = Tools.getLang(cat.names, langId)
         if (name.toLowerCase().includes(query.toLowerCase()))
           return true
       }

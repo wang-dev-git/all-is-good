@@ -13,7 +13,7 @@ interface Props {
 const ProQuantity: React.FC<Props> = (props) => {
   const lang = useSelector(state => state.langReducer.lang)
   const pro = props.pro
-  const quantity = 0//pro.quantity || 0
+  const quantity = pro.quantity || 0
   return (
     <View style={[styles.quantity]}>
       {quantity === 0 &&

@@ -75,4 +75,19 @@ export default class Tools {
     }
   }
 
+  // Try to retrieve language but fallback to other if not available
+  static async getLang(langObj: any, langId: string) {
+    if (langObj) {
+      if (langObj[langId])
+        return langObj[langId]
+      // Fallback to english if possible
+      if (langObj.en)
+        return langObj.en
+      // Fallback to first language available
+      for (const id in langObj)
+        return langObj[id]
+    }
+    return 'No language available'
+  }
+
 }

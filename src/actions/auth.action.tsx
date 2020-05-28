@@ -16,10 +16,14 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
   if (!res.exists) {
     const u: any = {
       id: userId,
-      email: email,
       ...(saved || {}),
-      createdAt: new Date()
+      createdAt: new Date(),
+      distance: 50,
+      notifAIG: true,
+      notifOrders: true,
     }
+    if (!saved)
+      u.email = email
     if (saved && saved.facebook && saved.pictureURL) {
       const url = await Fire.uploadFile('images/users/' + userId + '/profile_picture.png', saved.pictureURL)
       u.pictures = [url]

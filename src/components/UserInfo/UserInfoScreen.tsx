@@ -13,9 +13,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 import { updateUser} from '../../actions/auth.action'
 import { mainStyle } from '../../styles'
 
-const maxTitle = 60
-const maxDescription = 255
-
 type Props = {
   user: any;
   lang: any;
@@ -74,7 +71,6 @@ class UserInfoScreen extends React.Component<Props, State>  {
             title={lang.USER_INFO_EMAIL}
             value={info.email}
             placeholder={lang.LOGIN_EMAIL_PLACEHOLDER}
-            maxLength={maxTitle}
             autocorrect={false}
 
             editable={false}
@@ -85,7 +81,6 @@ class UserInfoScreen extends React.Component<Props, State>  {
             title={lang.USER_INFO_FIRST_NAME}
             value={info.first_name}
             placeholder={lang.LOGIN_FIRST_NAME_PLACEHOLDER}
-            maxLength={maxTitle}
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
@@ -94,7 +89,6 @@ class UserInfoScreen extends React.Component<Props, State>  {
             title={lang.USER_INFO_LAST_NAME}
             value={info.last_name}
             placeholder={lang.LOGIN_LAST_NAME_PLACEHOLDER}
-            maxLength={maxTitle}
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}

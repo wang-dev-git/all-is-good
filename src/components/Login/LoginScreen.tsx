@@ -13,9 +13,6 @@ import { saveName } from '../../actions/auth.action'
 import { mainStyle } from '../../styles'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
 
-const maxTitle = 60
-const maxDescription = 255
-
 interface Props {
   lang: any;
 
@@ -135,7 +132,6 @@ class LoginScreen extends React.Component<Props, State>  {
             title={lang.LOGIN_EMAIL}
             value={user.email}
             placeholder={lang.LOGIN_EMAIL_PLACEHODLER}
-            maxLength={maxTitle}
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('email', nativeEvent.text)}
@@ -146,7 +142,6 @@ class LoginScreen extends React.Component<Props, State>  {
             title={lang.LOGIN_PASSWORD}
             value={user.password}
             placeholder='**********'
-            maxLength={maxTitle}
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
@@ -159,7 +154,6 @@ class LoginScreen extends React.Component<Props, State>  {
                 title={lang.LOGIN_CONFIRM_PASSWORD}
                 value={user.confirm}
                 placeholder='**********'
-                maxLength={maxTitle}
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('confirm', nativeEvent.text)}
@@ -168,7 +162,6 @@ class LoginScreen extends React.Component<Props, State>  {
                 title={lang.LOGIN_FIRST_NAME}
                 value={user.first_name}
                 placeholder={lang.LOGIN_FIRST_NAME_PLACEHOLDER}
-                maxLength={maxTitle}
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
@@ -177,7 +170,6 @@ class LoginScreen extends React.Component<Props, State>  {
                 title={lang.LOGIN_LAST_NAME}
                 value={user.last_name}
                 placeholder={lang.LOGIN_LAST_NAME_PLACEHOLDER}
-                maxLength={maxTitle}
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}

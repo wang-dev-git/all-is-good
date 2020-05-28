@@ -211,7 +211,7 @@ const ProScreen: React.FC<Props> = (props) => {
             <AntDesign name="arrowleft" size={23} color='#fff' />
           </TouchableOpacity>
 
-          <View style={{alignItems: 'flex-end', position: 'absolute', bottom: 0, right: 14}}>
+          <View style={{alignItems: 'flex-end', position: 'absolute', bottom: 12, right: 14}}>
             <ProQuantity pro={pro} />
           </View>
         </View>

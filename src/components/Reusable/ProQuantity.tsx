@@ -27,8 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: mainStyle.orangeColor,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    marginTop: 12,
-    marginBottom: 12,
   },
   quantityTxt: {
     ...mainStyle.montBold,

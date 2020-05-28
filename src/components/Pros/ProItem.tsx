@@ -62,16 +62,29 @@ const ProItem: React.FC<Props> = (props: Props) => {
               <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/noimage.png')} resizeMode='cover' />
             </View>
 
-            { !props.isWish &&
-              <View style={styles.quantityWrapper}>
-                <ProQuantity pro={pro} />
-              </View>
-            }
+            <View style={styles.topWrapper}>
+              { !props.isWish &&
+                <View style={styles.quantityWrapper}>
+                  <ProQuantity pro={pro} />
+                </View>
+              }
+
+              <TouchableOpacity
+                style={styles.wishBtn}
+                onPress={() => toggleWish()}>
+                { inWishes ? (
+                  <AssetImage src={require('../../images/like.png')} />
+                ) : (
+                  <AssetImage src={require('../../images/like_empty.png')} />
+                )}
+              </TouchableOpacity>
+            </View>
 
             <View style={styles.infoWrapper}>
               <View style={styles.info}>
                 <MyText numberOfLines={2} style={styles.name}>{name}</MyText>
-                <Rating pro={pro} style={{marginLeft: 6}} />
+                <Rating pro={pro} style={{marginLeft: 6, marginBottom: 4}} />
+                
                 {!props.isWish && opening !== null &&
                   <View style={styles.row}>
                     <View style={styles.icon}>
@@ -97,16 +110,6 @@ const ProItem: React.FC<Props> = (props: Props) => {
                 </View>
               </View>
             </View>
-
-            <TouchableOpacity
-              style={styles.wishBtn}
-              onPress={() => toggleWish()}>
-              { inWishes ? (
-                <AssetImage src={require('../../images/like.png')} />
-              ) : (
-                <AssetImage src={require('../../images/like_empty.png')} />
-              )}
-            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -139,14 +142,14 @@ const styles = StyleSheet.create({
   },
   logoWrapper: {
     position: 'absolute',
-    top: 12,
-    right: 6,
+    top: -32,
+    right: 8,
     shadowOffset: { width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
   logo: {
-    ...mainStyle.circle(52),
+    ...mainStyle.circle(72),
     borderWidth: 1,
     borderColor: '#ddd',
   },
@@ -154,21 +157,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   info: {
-    paddingLeft: 10,
-    paddingVertical: 10,
-    marginRight: 62,
+    paddingLeft: 6,
+    paddingVertical: 6,
+    marginRight: 82,
   },
-  quantityWrapper: {
+
+  topWrapper: {
     position: 'absolute',
     top: 12,
     left: 12,
+    right: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  quantityWrapper: {
+  },
+  wishBtn: {
+    width: 28,
+    height: 28,
+    padding: 3,
   },
 
   name: {
     ...mainStyle.montBold,
     fontSize: 20,
     marginLeft: 6,
-    marginBottom: 4,
+    marginBottom: 2,
     color: mainStyle.darkColor
   },
   open: {
@@ -185,15 +199,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 30,
-  },
-
-  wishBtn: {
-    ...mainStyle.abs,
-    bottom: undefined, left: undefined,
-    top: 4, right: 4,
-    width: 28,
-    height: 28,
-    padding: 3,
   },
 });
 

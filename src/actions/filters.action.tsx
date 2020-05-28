@@ -4,7 +4,6 @@ import { get } from 'geofirex';
 
 import Fire from '../services/Fire.service'
 import Tools from '../services/Tools.service'
-import { clearPros } from './pros.action'
 
 export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
   const categoriesRef = Fire.store().collection('categories').where('active', '==', true)
@@ -24,32 +23,16 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const radius = user.distance || 100;
   const field = 'location';
 
-
-  const prosRef = Fire.store().collection('pros').where('active', '==', true).orderBy('quantity', 'desc')
+  const prosRef = Fire.store().collection('pros').where('active', '==', true)
   const query = Fire.geo.query(prosRef).within(center, radius, field);
   const pros = await get(query)
-  return pros
-})
-
-export const searchByName = createActionThunk('SEARCH_BY_NAME', async (query: string, { getState }) => {
-  const searchable = getState().filtersReducer.searchable
-  const filtered: any[] = []
-  for (const item of searchable) {
-    if (item.name.includes(query))
-      filtered.push(item)
-  }
-  return filtered
+  return pros.filter(item => item.quantity !== undefined).sort((a, b) => b.quantity - a.quantity)
 })
 
 export const loadMap = createActionThunk('LOAD_MAP', async () => {
   const prosRef = Fire.store().collection('pros')
   const pros = await Fire.list(prosRef)
   return pros.filter((item) => item.lat !== undefined)
-})
-
-export const saveFilters = createActionThunk('SAVE_FILTERS', async (filters, { dispatch }) => {
-  await dispatch(clearPros())
-  return filters
 })
 
 const initialState = {

@@ -19,7 +19,7 @@ import BackSearchBar from './BackSearchBar'
 
 import { mainStyle } from '../../styles'
 
-import { searchByName, saveFilters, loadSearchable, loadCategories } from '../../actions/filters.action'
+import { loadSearchable, loadCategories } from '../../actions/filters.action'
 import { updatePosition } from '../../actions/auth.action'
 
 interface Props {}
@@ -74,7 +74,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const filtered = searchable.filter((item) => {
     for (const cat of (item.categories || [])) {
       for (const langId in (cat.names || {})) {
-        const name = Tools.getLang(cat.names, langId)
+        const name = cat.names[langId]
         if (name.toLowerCase().includes(query.toLowerCase()))
           return true
       }
@@ -103,7 +103,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               imageSize={120}
               image={require('../../images/nocategories.png')}
               btnTxt={lang.HOME_NO_POS_BTN}
-              onPressBtn={() => showAddresses()}
+              onPressBtn={showAddresses}
               />
           </ScrollView>
         ) : query !== '' ? (

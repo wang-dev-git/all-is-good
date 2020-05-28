@@ -213,7 +213,7 @@ class LoginScreen extends React.Component<Props, State>  {
               </TouchableOpacity>
             }
             <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
-              <MyText style={styles.switcherTxt}>{registering ? lang.LOGIN_ALREADY_REGISTERED : lang.LOGIN_ALREADY_REGISTERED}</MyText>
+              <MyText style={styles.switcherTxt}>{registering ? lang.LOGIN_ALREADY_REGISTERED : lang.LOGIN_NOT_REGISTERED}</MyText>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>

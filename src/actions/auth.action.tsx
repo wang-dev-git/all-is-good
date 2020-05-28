@@ -17,9 +17,7 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
     const u: any = {
       id: userId,
       email: email,
-      first_name: saved ? saved.first_name : '',
-      last_name: saved ? saved.last_name : '',
-      phone: saved ? saved.phone : '',
+      ...(saved || {}),
       createdAt: new Date()
     }
     if (saved && saved.facebook && saved.pictureURL) {

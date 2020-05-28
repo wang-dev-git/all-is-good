@@ -25,7 +25,7 @@ import OrderStatus from '../../types/order_status'
 import { switchTab, switchOrderTab } from '../../actions/tab.action'
 import { updateLang } from '../../actions/lang.action'
 import { fetchOrders } from '../../actions/orders.action'
-import { autologin, finishLogin } from '../../actions/auth.action'
+import { autologin, finishLogin, updatePosition } from '../../actions/auth.action'
 import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable, loadMap } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
@@ -50,6 +50,7 @@ interface Props {
   loadCategories: () => void;
   loadWishes: () => void;
   updateLang: (id: string) => void;
+  updatePosition: (pos: any) => void;
   refreshWishes: () => void;
 }
 interface State {
@@ -144,6 +145,8 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.props.loadCategories()
         await this.props.loadSearchable()
         //await this.props.loadMap()
+
+        this.props.updatePosition(null)
 
         await this.savePushToken(user.uid)
         
@@ -335,6 +338,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   fetchOrders: () => dispatch(fetchOrders()),
   refreshWishes: () => dispatch(refreshWishes()),
   updateLang: (id: string) => dispatch(updateLang(id)),
+  updatePosition: (pos: any) => dispatch(updatePosition(pos)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabsScreen)

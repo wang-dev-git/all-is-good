@@ -32,14 +32,14 @@ const getImageForType = (cardType: string) => {
 
 interface ListProps {
   card: any;
-  cards: any[];
-  cardsToggle: boolean;
 
   pick: (card: any) => void;
 }
 const ListCards: React.FC<ListProps> = (props) => {
-  const { card, cards } = props
+  const { card } = props
   const lang = useSelector(state => state.langReducer.lang)
+  const cards = useSelector(state => state.cardsReducer.list)
+  const cardsToggle = useSelector(state => state.cardsReducer.toggle)
 
   return (
     <ScrollView style={{maxHeight: 500}}>
@@ -64,13 +64,12 @@ const ListCards: React.FC<ListProps> = (props) => {
 }
 
 interface Props {
-  cards: any[];
-  cardsToggle: boolean;
   cardSelected: (cardId: string) => void;
 }
 const SelectCreditCard: React.FC<Props> = (props) => {
  
-  const { cards, cardSelected } = props
+  const cards = useSelector(state => state.cardsReducer.list)
+  const { cardSelected } = props
   const [card, setCard] = React.useState(cards.length ? cards[0] : null)
   const lang = useSelector(state => state.langReducer.lang)
 
@@ -85,10 +84,8 @@ const SelectCreditCard: React.FC<Props> = (props) => {
   }
 
   const showCards = () => {
-    Modal.show('show_cards', { content: () => (
+    Modal.show('show_cards', { local: true, content: () => (
       <ListCards
-        cardsToggle={props.cardsToggle}
-        cards={cards}
         card={card}
         pick={(card) => pickCard(card)}
         />
@@ -193,11 +190,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: any) => ({
-  cards: state.cardsReducer.list,
-  cardsToggle: state.cardsReducer.toggle,
-})
-const mapDispatchToProps = (dispatch: any) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SelectCreditCard)
+export default SelectCreditCard

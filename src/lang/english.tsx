@@ -53,6 +53,14 @@ export default {
   LOGIN_FORGOT_PASSWORD: 'Forgotten password?',
   LOGIN_CONDITIONS: "By registering, you are accepting the conditions of use of All is Good",
 
+  // Forgot password
+  FORGOT_TITLE: 'Forgot password',
+  FORGOT_MAIL_SENT: 'Mail sent to %EMAIL%',
+  FORGOT_MAIL_ERROR: 'Incorrect email',
+  FORGOT_EMAIL: 'Your email',
+  FORGOT_EMAIL_PLACEHOLDER: 'youremail@allisgood.com',
+  FORGOT_CHANGE_BTN: 'Update your password',
+
   // Profile
   PROFILE_PICTURE_SAVED: 'Photo saved!',
   PROFILE_EDIT_BTN: "Edit",

@@ -1,9 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { HeaderBar, TitledInput, BottomButton, SmallButton, CheckBox } from '../Reusable'
+import { Fire, Flash, Loader } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 import Icon from '@expo/vector-icons/FontAwesome'
@@ -20,30 +20,31 @@ const ForgotScreen: React.FC<Props> = (props) => {
   
   const [email, setEmail] = React.useState('')
   const [loading, setLoading] = React.useState('')
+  const lang = useSelector(state => state.langReducer.lang)
 
   const forgotPassword = async () => {
-    setLoading(true)
+    Loader.show(lang.GLOBAL_SENDING)
     try {
       await Fire.auth().sendPasswordResetEmail(email)
-      Flash.show('Mail envoyé à ' + email)
+      Flash.show((lang.FORGOT_MAIL_SENT || '').replace('%EMAIL%', email))
       Actions.pop()
     } catch (err) {
-      Flash.error('Mail entré incorrect')
+      Flash.error(lang.FORGOT_MAIL_ERROR)
     }
-    setLoading(false)
+    Loader.hide()
   }
 
   return (
     <View style={styles.container}>
       <HeaderBar
-        title={'Mot de passe oublié'}
+        title={lang.FORGOT_TITLE}
         back
         />
       <KeyboardAwareScrollView>
         <TitledInput
-          title={'Entrez votre email'}
+          title={lang.FORGOT_EMAIL}
           value={email}
-          placeholder='exemple@allisgood.fr'
+          placeholder={lang.FORGOT_EMAIL_PLACEHOLDER}
           maxLength={maxTitle}
           autocorrect={false}
 
@@ -52,16 +53,11 @@ const ForgotScreen: React.FC<Props> = (props) => {
 
         <View style={{paddingTop: 20, paddingBottom: 22, alignItems: 'center'}}>
           <SmallButton
-            title={'Changer mon mot de passe'}
+            title={lang.FORGOT_CHANGE_BTN}
             onPress={forgotPassword}
             />
         </View>
       </KeyboardAwareScrollView>
-
-      <PageLoader
-        title={'Vérification...'}
-        loading={loading}
-        />
     </View>
   );
 }

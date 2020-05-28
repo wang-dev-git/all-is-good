@@ -53,6 +53,14 @@ export default {
   LOGIN_FORGOT_PASSWORD: 'Mot de passe oublié ?',
   LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez les conditions d'utilisation",
 
+  // Forgot password
+  FORGOT_TITLE: 'Mot de passe oublié',
+  FORGOT_MAIL_SENT: 'Mail envoyé à %EMAIL%',
+  FORGOT_MAIL_ERROR: 'Mail entré incorrect',
+  FORGOT_EMAIL: 'Entrez votre email',
+  FORGOT_EMAIL_PLACEHOLDER: 'votre.email@allisgood.com',
+  FORGOT_CHANGE_BTN: 'Changer mon mot de passe',
+
   // Profile
   PROFILE_PICTURE_SAVED: 'Photo enregistrée !',
   PROFILE_EDIT_BTN: "Modifier",

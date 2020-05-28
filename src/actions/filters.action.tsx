@@ -25,7 +25,7 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const field = 'location';
 
 
-  const prosRef = Fire.store().collection('pros').where('active', '==', true)//.where('geoHashes', 'array-contains', hash)
+  const prosRef = Fire.store().collection('pros').where('active', '==', true).orderBy('quantity', 'desc')
   const query = Fire.geo.query(prosRef).within(center, radius, field);
   const pros = await get(query)
   return pros

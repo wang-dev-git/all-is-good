@@ -53,24 +53,25 @@ class LoginScreen extends React.Component<Props, State>  {
   }
 
   async proceed() {
+    const { lang } = this.props
     const { user, registering, checked } = this.state
 
     if (user.email === '' ||
       user.password === '') {
-      Flash.error('Veuillez remplir tous les champs SVP')
+      Flash.error(lang.LOGIN_ERR_ALL_FIELDS)
       return;
     }
     if (registering) {
       if (user.first_name === '' || user.last_name === '') {
-        Flash.error('Veuillez remplir tous les champs SVP')
+        Flash.error(lang.LOGIN_ERR_ALL_FIELDS)
         return;
       }
       if (user.password !== user.confirm) {
-        Flash.error('Les mots de passes ne correspondent pas')
+        Flash.error(lang.LOGIN_ERR_CONFIRM_PASSWORD)
         return;
       }
       if (!checked) {
-        Flash.error("Vous devez lire et accepter nos conditoins d'utilisation")
+        Flash.error(lang.LOGIN_ERR_CONDITIONS)
         return;
       }
     }
@@ -90,27 +91,27 @@ class LoginScreen extends React.Component<Props, State>  {
     } catch (err) {
       switch (err.code) {
         case "auth/invalid-email":
-          Flash.error('Le mail entré est invalide')
+          Flash.error(lang.LOGIN_ERR_INVALID_EMAIL)
           break;
 
         case "auth/user-not-found":
-          Flash.error("Cet utilisateur n'existe pas")
+          Flash.error(lang.LOGIN_ERR_USER_NOT_FOUND)
           break;
         
         case "auth/wrong-password":
-          Flash.error('Mot de passe incorrect')
+          Flash.error(lang.LOGIN_ERR_WRONG_PASSWORD)
           break;
 
         case "auth/email-already-in-use":
-          Flash.error('Le mail entré est déjà utilisé')
+          Flash.error(lang.LOGIN_ERR_ALREADY_REGISTERED)
           break;
 
         case "auth/weak-password":
-          Flash.error('Le mot de passe est trop faible (6 minimum)')
+          Flash.error(lang.LOGIN_ERR_WEAK_PASSWORD)
           break;
 
         default:
-          Flash.error('Vérifiez votre connexion internet')
+          Flash.error(lang.GLOBAL_INTERNET)
           break;
       }
     }
@@ -133,7 +134,7 @@ class LoginScreen extends React.Component<Props, State>  {
           <TitledInput
             title={lang.LOGIN_EMAIL}
             value={user.email}
-            placeholder='exemple@allisgood.fr'
+            placeholder={lang.LOGIN_EMAIL_PLACEHODLER}
             maxLength={maxTitle}
             autocorrect={false}
 
@@ -166,7 +167,7 @@ class LoginScreen extends React.Component<Props, State>  {
               <TitledInput
                 title={lang.LOGIN_FIRST_NAME}
                 value={user.first_name}
-                placeholder='ex: Marie'
+                placeholder={lang.LOGIN_FIRST_NAME_PLACEHOLDER}
                 maxLength={maxTitle}
                 autocorrect={false}
 
@@ -175,7 +176,7 @@ class LoginScreen extends React.Component<Props, State>  {
               <TitledInput
                 title={lang.LOGIN_LAST_NAME}
                 value={user.last_name}
-                placeholder='ex: Dupont'
+                placeholder={lang.LOGIN_LAST_NAME_PLACEHOLDER}
                 maxLength={maxTitle}
                 autocorrect={false}
 
@@ -184,7 +185,7 @@ class LoginScreen extends React.Component<Props, State>  {
               <TitledInput
                 title={lang.LOGIN_PHONE + ' (' + lang.GLOBAL_OPTIONAL + ')'}
                 value={user.phone}
-                placeholder='ex: 06 42 98 68 42'
+                placeholder={lang.LOGIN_PHONE_PLACEHOLDER}
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('phone', nativeEvent.text)}

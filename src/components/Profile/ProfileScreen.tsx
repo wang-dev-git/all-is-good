@@ -14,8 +14,7 @@ import * as MailComposer from 'expo-mail-composer';
 import Icon from '@expo/vector-icons/Entypo'
 
 import MenuLink from './MenuLink'
-import { updateUser } from '../../actions/auth.action'
-import { clearCards } from '../../actions/cards.action'
+import { updateUser, logout } from '../../actions/auth.action'
 
 import { mainStyle } from '../../styles'
 
@@ -24,7 +23,7 @@ type Props = {
   lang: any;
 
   updateUser: (info: any) => void;
-  clearCards: () => void;
+  logout: () => void;
 }
 type State = {
   uploading: boolean;
@@ -52,9 +51,8 @@ class ProfileScreen extends React.Component<Props, State>  {
           style: 'cancel',
         },
         {text: lang.GLOBAL_OK, onPress: () => {
-          this.props.clearCards()
+          this.props.logout()
           Actions.pop()
-          Fire.auth().signOut()
         }},
       ],
     );
@@ -354,7 +352,7 @@ const mapStateToProps = (state: any) => ({
 })
 const mapDispatchToProps = (dispatch: any) => ({
   updateUser: (info: any) => dispatch(updateUser(info)),
-  clearCards: () => dispatch(clearCards()),
+  logout: () => dispatch(logout()),
 })
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
 

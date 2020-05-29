@@ -159,11 +159,12 @@ class TabsScreen extends React.Component<Props, State>  {
 
   connect = async () => {
     try {
-      //await this.props.finishLogin()
-      //await this.props.loadWishes()
-      //await this.props.refreshWishes()
-      //await this.props.loadCategories()
-      //await this.props.loadSearchable()
+      throw 'err'
+      await this.props.finishLogin()
+      await this.props.loadWishes()
+      await this.props.refreshWishes()
+      await this.props.loadCategories()
+      await this.props.loadSearchable()
 
       this.setState({ error: false })
     } catch (err) {
@@ -289,7 +290,7 @@ class TabsScreen extends React.Component<Props, State>  {
     //if (index == 3)
       //count = wishes ? wishes.length : 0
     return (
-      <TouchableWithoutFeedback key={index} disabled={!this.props.user} onPress={() => this.selectTab(index)}>
+      <TouchableWithoutFeedback key={index} onPress={() => this.selectTab(index)}>
         <View style={[styles.tab, isSelected ? {} : {}]}>
           {item.renderIcon(isSelected)}
           <NotifBubble count={count} backgroundColor={index == 4 ? undefined : mainStyle.themeColor} />

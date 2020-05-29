@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 import Fire from '../services/Fire.service'
 
 import { loadSearchable } from './filters.action'
+import { clearCards } from './cards.action'
 
 export const autologin = createActionThunk('AUTOLOGIN', (user: any) => user)
 export const saveName = createActionThunk('SAVE_REGISTER_NAME', (name: any) => name)
@@ -44,6 +45,11 @@ export const updateUser = createActionThunk('UPDATE_USER', async (info: any, { g
     ...user,
     ...info
   }
+})
+
+export const logout = createActionThunk('LOGOUT', ({ dispatch }) => { 
+  dispatch(clearCards())
+  Fire.auth().signOut()
 })
 
 export const internalUpdatePosition = createActionThunk('UPDATE_POSITION', (pos: any) => pos)
@@ -93,11 +99,12 @@ export const authReducer = handleActions(
       savedName: action.payload,
     }),
 
-
     'UPDATE_POSITION_SUCCEEDED': (state: any, action: any) => ({
       ...state,
       position: action.payload,
     }),
+
+    'LOGOUT_SUCCEEDED': (state: any, action: any) => (initialState),
   },
   initialState
 );

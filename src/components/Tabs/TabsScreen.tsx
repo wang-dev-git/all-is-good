@@ -12,7 +12,7 @@ import MapScreen from '../Map/MapScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
-import { Fire, Stripe, Modal, Flash } from '../../services'
+import { Fire, Stripe, Modal, Maps, Flash } from '../../services'
 
 import * as Permissions from 'expo-permissions'
 
@@ -104,6 +104,7 @@ interface Props {
   wishes: any;
   lang: any;
   langId: string;
+  position: any;
 
   autologin: (user: any) => void;
   switchTab: (idx: number) => void;
@@ -143,6 +144,7 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.connect()
         await this.savePushToken(user.uid)
+        await this.askGeoloc()
       }
       else {
         this.props.autologin(null)
@@ -191,6 +193,20 @@ class TabsScreen extends React.Component<Props, State>  {
       })
     } catch (err) {
       //Flash.error(err)
+    }
+  }
+
+  askGeoloc = async () => {
+    if (this.props.position)
+      return;
+
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync({});
+      const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
+      if (addr.length) {
+        dispatch(this.props.updatePosition(addr[0]))
+      }
     }
   }
 
@@ -349,6 +365,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
+  position: state.authReducer.position,
   tab: state.tabReducer.tab,
   lang: state.langReducer.lang,
   langId: state.langReducer.id,

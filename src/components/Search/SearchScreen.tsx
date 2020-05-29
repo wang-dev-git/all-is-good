@@ -59,7 +59,6 @@ const SearchScreen: React.FC<Props> = (props) => {
       const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
       if (addr.length) {
         dispatch(updatePosition(addr[0]))
-        return;
       }
     }
 
@@ -67,8 +66,11 @@ const SearchScreen: React.FC<Props> = (props) => {
   }
 
   React.useEffect(() => {
-    askGeoloc()
-  }, [])
+    if (!position)
+      askGeoloc()
+    else
+      savePushToken()
+  }, [position])
 
   const showFilters = () => {
     Keyboard.dismiss()

@@ -15,6 +15,7 @@ import { Actions } from 'react-native-router-flux'
 import { Fire, Stripe, Modal, Maps, Flash } from '../../services'
 
 import * as Permissions from 'expo-permissions'
+import * as Location from 'expo-location';
 
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
@@ -171,7 +172,7 @@ class TabsScreen extends React.Component<Props, State>  {
       this.setState({ error: true, loading: false })
     }
 
-    this.props.updatePosition(null)
+    //this.props.updatePosition(null)
     
     //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }
@@ -205,7 +206,7 @@ class TabsScreen extends React.Component<Props, State>  {
       const location = await Location.getCurrentPositionAsync({});
       const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
       if (addr.length) {
-        dispatch(this.props.updatePosition(addr[0]))
+        this.props.updatePosition(addr[0])
       }
     }
   }

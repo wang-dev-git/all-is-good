@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { StyleSheet, Animated, View, Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, Platform, StatusBar } from 'react-native';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -64,34 +64,21 @@ const ModalInstance: React.FC<ModalProps> = (props) => {
 }
 
 interface Props {
-  modals: any;
-  generic?: boolean;
+  id: string;
 }
 const ModalContainer: React.FC<Props> = (props) => {
-  let modals = Object.values(props.modals)
-  if (props.generic)
-    modals = modals.filter((item: any) => !item.local)
-  else
-    modals = modals.filter((item: any) => item.local)
-
-  const renderModal = (modal, index) => {
-    return (
-      <ModalInstance
-        key={index}
-        local={modal.local}
-        name={modal.key}
-        shown={modal.shown}
-        content={modal.content}
-        onClose={modal.onClose}
-        onTerminate={modal.onTerminate}
-      />
-    )
-  }
-
+  const modals = useSelector(state => state.modalReducer.modals)
+  const toggle = useSelector(state => state.modalReducer.toggle)
+  const modal = modals[props.id]
+  if (!modal) return (null)
   return (
-    <React.Fragment>
-      {modals.map((item: any, index) => renderModal(item, index))}
-    </React.Fragment>
+    <ModalInstance
+      name={modal.key}
+      shown={modal.shown}
+      content={modal.content}
+      onClose={modal.onClose}
+      onTerminate={modal.onTerminate}
+    />
   )
 }
 
@@ -123,9 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state: any) => ({
-  modals: state.modalReducer.modals,
-  toggle: state.modalReducer.toggle,
-})
-
-export default connect(mapStateToProps)(ModalContainer)
+export default (ModalContainer)

@@ -169,7 +169,7 @@ class TabsScreen extends React.Component<Props, State>  {
       this.setState({ error: true, loading: false })
     }
 
-    this.props.updatePosition(null)
+    //this.props.updatePosition(null)
     
     //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }

@@ -92,7 +92,7 @@ const ProScreen: React.FC<Props> = (props) => {
             error = lang.PAYMENT_FAIL_INTERNAL
             break;
         }
-        Modal.show('payment_failure', { local: true, content: () => (
+        Modal.show('payment_success', { local: true, content: () => (
           <SuccessModal success={false} message={error} subtitle={lang.PAYMENT_ERROR} />
         )})
       }
@@ -329,7 +329,9 @@ const ProScreen: React.FC<Props> = (props) => {
         onPress={checkout}
         />
 
-      <ModalContainer />
+      <ModalContainer id='payment' />
+      <ModalContainer id='show_cards' />
+      <ModalContainer id='payment_success' />
     </View>
   );
 }

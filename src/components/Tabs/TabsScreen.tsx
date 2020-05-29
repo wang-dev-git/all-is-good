@@ -147,9 +147,9 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.saveLanguage()
         await this.askGeoloc()
         
-        setTimeout(() => {
+        /*setTimeout(() => {
           this.savePushToken(user.uid)
-        }, 1000)
+        }, 1000)*/
       }
       else {
         this.props.autologin(null)

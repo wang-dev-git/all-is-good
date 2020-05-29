@@ -26,38 +26,12 @@ import { switchTab, switchOrderTab } from '../../actions/tab.action'
 import { updateLang } from '../../actions/lang.action'
 import { fetchOrders } from '../../actions/orders.action'
 import { autologin, finishLogin, updatePosition } from '../../actions/auth.action'
-import { loadWishes, refreshWishes } from '../../actions/wishes.action'
+import { refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable, loadMap } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
 import { NotifBubble, ListEmpty, AssetImage } from '../Reusable'
-
 import { mainStyle } from '../../styles'
-
-interface Props {
-  user: any;
-  tab: number;
-  wishes: any;
-  lang: any;
-  langId: string;
-
-  autologin: (user: any) => void;
-  switchTab: (idx: number) => void;
-  switchOrderTab: (idx: number) => void;
-  finishLogin: () => void;
-  fetchOrders: () => void;
-  loadMap: () => void;
-  loadSearchable: () => void;
-  loadCategories: () => void;
-  loadWishes: () => void;
-  updateLang: (id: string) => void;
-  updatePosition: (pos: any) => void;
-  refreshWishes: () => void;
-}
-interface State {
-  booted: boolean;
-  error: boolean;
-}
 
 const tabColor = '#fff'
 const tabActiveColor = mainStyle.themeColor
@@ -124,11 +98,36 @@ const routes = [
   },
 ]
 
+interface Props {
+  user: any;
+  tab: number;
+  wishes: any;
+  lang: any;
+  langId: string;
+
+  autologin: (user: any) => void;
+  switchTab: (idx: number) => void;
+  switchOrderTab: (idx: number) => void;
+  finishLogin: () => void;
+  fetchOrders: () => void;
+  loadMap: () => void;
+  loadSearchable: () => void;
+  loadCategories: () => void;
+  updateLang: (id: string) => void;
+  updatePosition: (pos: any) => void;
+  refreshWishes: () => void;
+}
+interface State {
+  booted: boolean;
+  error: boolean;
+  loading: boolean;
+}
 class TabsScreen extends React.Component<Props, State>  {
  
   state = {
     booted: false,
-    error: false
+    error: false,
+    loading: false,
   }
 
   notifListener: any = null
@@ -158,16 +157,16 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   connect = async () => {
+    this.setState({ loading: true })
     try {
       await this.props.finishLogin()
-      await this.props.loadWishes()
       await this.props.refreshWishes()
       await this.props.loadCategories()
       await this.props.loadSearchable()
 
-      this.setState({ error: false })
+      this.setState({ error: false, loading: false })
     } catch (err) {
-      this.setState({ error: true })
+      this.setState({ error: true, loading: false })
     }
 
     this.props.updatePosition(null)
@@ -246,7 +245,7 @@ class TabsScreen extends React.Component<Props, State>  {
 
   render() {
     const { user, lang } = this.props
-    const { error, booted } = this.state
+    const { error, booted, loading } = this.state
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
@@ -255,7 +254,11 @@ class TabsScreen extends React.Component<Props, State>  {
           <View style={styles.content}>
             {routes.map((item, index) => this.renderRoute(item, index))}
           </View>
-        ) : booted && error ? (
+        ) : loading ? (
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <AssetImage style={{width: 40, height: 40}} src={require('../../images/loader.gif')} />
+          </View>
+        ) : error === true ? (
           <ScrollView scrollEnabled={false} contentContainerStyle={{ paddingTop: 80 }}>
             <ListEmpty
               text={lang.NO_INTERNET_TITLE}
@@ -267,11 +270,7 @@ class TabsScreen extends React.Component<Props, State>  {
               onPressBtn={connect}
               />
           </ScrollView>
-        ) : (
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <AssetImage style={{width: 40, height: 40}} src={require('../../images/loader.gif')} />
-          </View>
-        )}
+        ) : (null)}
 
         {/* TabBar */}
         <View style={styles.tabs}>
@@ -362,7 +361,6 @@ const mapDispatchToProps = (dispatch: any) => ({
   autologin: (user: any) => dispatch(autologin(user)),
   finishLogin: () => dispatch(finishLogin()),
   loadMap: () => dispatch(loadMap()),
-  loadWishes: () => dispatch(loadWishes()),
   loadCategories: () => dispatch(loadCategories()),
   loadSearchable: () => dispatch(loadSearchable()),
   fetchOrders: () => dispatch(fetchOrders()),

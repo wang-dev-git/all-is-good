@@ -159,7 +159,6 @@ class TabsScreen extends React.Component<Props, State>  {
 
   connect = async () => {
     try {
-      throw 'err'
       await this.props.finishLogin()
       await this.props.loadWishes()
       await this.props.refreshWishes()
@@ -263,7 +262,7 @@ class TabsScreen extends React.Component<Props, State>  {
               subtext={lang.NO_INTERNET_MSG}
               wrapperStyle={{marginTop: 40}}
               imageSize={120}
-              image={require('../../images/nocategories.png')}
+              image={require('../../images/noconnection.png')}
               btnTxt={lang.NO_INTERNET_BTN}
               onPressBtn={connect}
               />

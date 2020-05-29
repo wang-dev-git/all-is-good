@@ -1,5 +1,10 @@
 // French
 export default {
+  // NO INTERNET
+  NO_INTERNET_TITLE: 'Erreur de chargement',
+  NO_INTERNET_MSG: 'Veuillez vérifier votre connexion et ré-essayer',
+  NO_INTERNET_BTN: 'Ré-essayer',
+
   // Global
   GLOBAL_SEARCH_PLACEHOLDER: 'Rechercher...',
   GLOBAL_TODAY: "Aujourd'hui",

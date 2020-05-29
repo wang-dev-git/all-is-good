@@ -5,18 +5,6 @@ import { AsyncStorage } from 'react-native'
 import Fire from '../services/Fire.service'
 import Cache from '../services/Cache.service'
 
-const saveWishes = async (wishes: any[]) => {
-  await AsyncStorage.setItem('@wishes', JSON.stringify(wishes))
-  return wishes
-}
-
-export const loadWishes = createActionThunk('LOAD_WISHES', async () => {
-  const res = await AsyncStorage.getItem('@wishes')
-  if (!res)
-    return []
-  return JSON.parse(res) || []
-})
-
 export const isInWishes = createActionThunk('IS_IN_WISHES', (pro: any, { getState }) => {
   const wishes = getState().wishesReducer.list
   if (!wishes)
@@ -32,7 +20,7 @@ export const addWish = createActionThunk('ADD_WISH', async (pro: any, { getState
   const wishes = getState().wishesReducer.list
   wishes.push(pro)
   //Fire.cloud('addFavorite', { proId: pro.id })
-  return await saveWishes(wishes)
+  return wishes
 })
 
 export const removeWish = createActionThunk('REMOVE_WISH', async (pro: any, { getState }) => {
@@ -43,14 +31,14 @@ export const removeWish = createActionThunk('REMOVE_WISH', async (pro: any, { ge
     const wish = wishes[i]
     if (wish.id == pro.id) {
       wishes.splice(i, 1)
-      return await saveWishes(wishes)
+      return wishes
     }
   }
   return wishes
 })
 
 export const clearWishes = createActionThunk('CLEAR_WISHES', async () => {
-  return await saveWishes([])
+  return []
 })
 
 export const refreshWishes = createActionThunk('REFRESH_WISHES', async ({ getState }) => {
@@ -61,11 +49,11 @@ export const refreshWishes = createActionThunk('REFRESH_WISHES', async ({ getSta
     const ref = Fire.store().collection('pros').doc(wish.id)
     const res = await Fire.get(ref)
     if (res) {
-      res.pictures = await Cache.save(res.pictures)
+      //res.pictures = await Cache.save(res.pictures)
       newWishes.push(res)
     }
   }
-  return await saveWishes(newWishes)
+  return newWishes
 })
 
 const initialState = {

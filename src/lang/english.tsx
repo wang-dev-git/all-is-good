@@ -1,5 +1,10 @@
 // French
 export default {
+  // NO INTERNET
+  NO_INTERNET_TITLE: 'Check your connection',
+  NO_INTERNET_MSG: 'We could not load your page!',
+  NO_INTERNET_BTN: 'Retry',
+
   // Global
   GLOBAL_SEARCH_PLACEHOLDER: 'Search...',
   GLOBAL_TODAY: "Today",

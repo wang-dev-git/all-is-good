@@ -86,7 +86,6 @@ export const authReducer = handleActions(
     'AUTOLOGIN_SUCCEEDED': (state: any, action: any) => ({
       ...state,
       fireUser: action.payload,
-      user: null,
     }),
 
     'SAVE_REGISTER_NAME_SUCCEEDED': (state: any, action: any) => ({

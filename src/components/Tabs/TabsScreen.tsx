@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, StatusBar, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import { StyleSheet, Text, StatusBar, ScrollView, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
 import ProsScreen from '../Pros/ProsScreen'
@@ -30,7 +30,7 @@ import { loadWishes, refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable, loadMap } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
-import { NotifBubble } from '../Reusable'
+import { NotifBubble, ListEmpty, AssetImage } from '../Reusable'
 
 import { mainStyle } from '../../styles'
 
@@ -38,6 +38,7 @@ interface Props {
   user: any;
   tab: number;
   wishes: any;
+  lang: any;
   langId: string;
 
   autologin: (user: any) => void;
@@ -55,6 +56,7 @@ interface Props {
 }
 interface State {
   booted: boolean;
+  error: boolean;
 }
 
 const tabColor = '#fff'
@@ -126,6 +128,7 @@ class TabsScreen extends React.Component<Props, State>  {
  
   state = {
     booted: false,
+    error: false
   }
 
   notifListener: any = null
@@ -139,18 +142,8 @@ class TabsScreen extends React.Component<Props, State>  {
           Actions.popTo('tabs')
         this.props.autologin(user)
 
-        await this.props.finishLogin()
-        await this.props.loadWishes()
-        await this.props.refreshWishes()
-        await this.props.loadCategories()
-        await this.props.loadSearchable()
-        //await this.props.loadMap()
-
-        this.props.updatePosition(null)
-
+        await this.connect()
         await this.savePushToken(user.uid)
-        
-        //setTimeout(() => Actions.userBank({optionals: false}), 200)
       }
       else {
         this.props.autologin(null)
@@ -162,6 +155,24 @@ class TabsScreen extends React.Component<Props, State>  {
     });
 
      this.notifListener = Notifications.addListener(this.receivedNotif);
+  }
+
+  connect = async () => {
+    try {
+      //await this.props.finishLogin()
+      //await this.props.loadWishes()
+      //await this.props.refreshWishes()
+      //await this.props.loadCategories()
+      //await this.props.loadSearchable()
+
+      this.setState({ error: false })
+    } catch (err) {
+      this.setState({ error: true })
+    }
+
+    this.props.updatePosition(null)
+    
+    //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }
 
   savePushToken = async (userId: string) => {
@@ -234,15 +245,33 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   render() {
+    const { user, lang } = this.props
+    const { error, booted } = this.state
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
         {/* Content */}
-        {(this.state.booted && this.props.user) &&
+        { (user && booted) ? (
           <View style={styles.content}>
             {routes.map((item, index) => this.renderRoute(item, index))}
           </View>
-        }
+        ) : booted && error ? (
+          <ScrollView scrollEnabled={false} contentContainerStyle={{ paddingTop: 80 }}>
+            <ListEmpty
+              text={lang.NO_INTERNET_TITLE}
+              subtext={lang.NO_INTERNET_MSG}
+              wrapperStyle={{marginTop: 40}}
+              imageSize={120}
+              image={require('../../images/nocategories.png')}
+              btnTxt={lang.NO_INTERNET_BTN}
+              onPressBtn={connect}
+              />
+          </ScrollView>
+        ) : (
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <AssetImage style={{width: 40, height: 40}} src={require('../../images/loader.gif')} />
+          </View>
+        )}
 
         {/* TabBar */}
         <View style={styles.tabs}>
@@ -322,6 +351,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => ({
   user: state.authReducer.user,
   tab: state.tabReducer.tab,
+  lang: state.langReducer.lang,
   langId: state.langReducer.id,
   wishes: state.wishesReducer.list,
   toggleWishes: state.wishesReducer.toggle,

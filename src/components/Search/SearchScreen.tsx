@@ -42,7 +42,7 @@ const SearchScreen: React.FC<Props> = (props) => {
         const location = await Location.getCurrentPositionAsync({});
         const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
         if (addr.length) {
-          alert("ok")
+          //alert("ok")
           console.log(addr[0])
           dispatch(updatePosition(addr[0]))
         }

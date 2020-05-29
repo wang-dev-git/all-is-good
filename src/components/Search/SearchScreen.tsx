@@ -35,25 +35,6 @@ const SearchScreen: React.FC<Props> = (props) => {
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
   const dispatch = useDispatch()
 
-  React.useEffect(() => {
-    const fetch = async () => {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-      alert(status)
-      if (status === 'granted') {
-        const location = await Location.getCurrentPositionAsync({});
-        const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
-        if (addr.length) {
-          alert("ok")
-          console.log(addr[0])
-          dispatch(updatePosition(addr[0]))
-        }
-      }
-    }
-    if (!position)
-      fetch()
-
-  }, [])
-
   const showFilters = () => {
     Keyboard.dismiss()
     Modal.show('filters', {

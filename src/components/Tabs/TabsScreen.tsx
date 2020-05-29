@@ -144,6 +144,7 @@ class TabsScreen extends React.Component<Props, State>  {
         this.props.autologin(user)
 
         await this.connect()
+        await this.saveLanguage()
         await this.savePushToken(user.uid)
         await this.askGeoloc()
       }
@@ -177,24 +178,25 @@ class TabsScreen extends React.Component<Props, State>  {
     //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }
 
+  saveLanguage = async () => {
+    const { user, langId } = this.props
+    if (user && user.lang !== langId)
+      await Fire.store().collection('users').doc(user.id).update({ lang: langId })
+  }
+
   savePushToken = async (userId: string) => {
-    if (this.props.user && this.props.user.lang !== this.props.langId)
-      await Fire.store().collection('users').doc(userId).update({ lang: this.props.langId })
-
-    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-
-    if (status !== 'granted')
-      await Permissions.askAsync(Permissions.NOTIFICATIONS);
-
-    try {
-      const token = await Notifications.getExpoPushTokenAsync();
-      await Fire.store().collection('tokens').doc(userId).set({
-        token: token,
-        createdAt: new Date()
-      })
-    } catch (err) {
-      //Flash.error(err)
-    }
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (status === 'granted') {
+      try {
+        const token = await Notifications.getExpoPushTokenAsync();
+        await Fire.store().collection('tokens').doc(userId).set({
+          token: token,
+          createdAt: new Date()
+        })
+      } catch (err) {
+        //Flash.error(err)
+      }
+    } 
   }
 
   askGeoloc = async () => {

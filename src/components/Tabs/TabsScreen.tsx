@@ -145,7 +145,6 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.connect()
         await this.saveLanguage()
-        await this.askGeoloc()
         
         /*setTimeout(() => {
           this.savePushToken(user.uid)
@@ -185,35 +184,6 @@ class TabsScreen extends React.Component<Props, State>  {
     const { user, langId } = this.props
     if (user && user.lang !== langId)
       await Fire.store().collection('users').doc(user.id).update({ lang: langId })
-  }
-
-  savePushToken = async (userId: string) => {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-    if (status === 'granted') {
-      try {
-        const token = await Notifications.getExpoPushTokenAsync();
-        await Fire.store().collection('tokens').doc(userId).set({
-          token: token,
-          createdAt: new Date()
-        })
-      } catch (err) {
-        //Flash.error(err)
-      }
-    } 
-  }
-
-  askGeoloc = async () => {
-    if (this.props.position)
-      return;
-
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status === 'granted') {
-      const location = await Location.getCurrentPositionAsync({});
-      const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
-      if (addr.length) {
-        this.props.updatePosition(addr[0])
-      }
-    }
   }
 
   receivedNotif = async (notification) => {

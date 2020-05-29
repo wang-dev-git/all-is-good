@@ -11,6 +11,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import Icon from '@expo/vector-icons/FontAwesome'
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo'
 
 import ProItem from '../Pros/ProItem'
 import CategoryItem from './CategoryItem'
@@ -27,6 +28,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
 
+  const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const langId = useSelector(state => state.langReducer.id)
   const searchable = useSelector(state => state.filtersReducer.searchable)
@@ -34,6 +36,39 @@ const SearchScreen: React.FC<Props> = (props) => {
   const position = useSelector(state => state.authReducer.position)
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
   const dispatch = useDispatch()
+
+  const savePushToken = async () => {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (status === 'granted') {
+      try {
+        const token = await Notifications.getExpoPushTokenAsync();
+        await Fire.store().collection('tokens').doc(user.id).set({
+          token: token,
+          createdAt: new Date()
+        })
+      } catch (err) {
+        //Flash.error(err)
+      }
+    } 
+  }
+
+  const askGeoloc = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync({});
+      const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
+      if (addr.length) {
+        dispatch(updatePosition(addr[0]))
+        return;
+      }
+    }
+
+    savePushToken()
+  }
+
+  React.useEffect(() => {
+    askGeoloc()
+  }, [])
 
   const showFilters = () => {
     Keyboard.dismiss()

@@ -164,6 +164,7 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   connect = async () => {
+    this.props.updatePosition(null)
     this.setState({ loading: true })
     try {
       await this.props.finishLogin()
@@ -176,7 +177,6 @@ class TabsScreen extends React.Component<Props, State>  {
       this.setState({ error: true, loading: false })
     }
 
-    //this.props.updatePosition(null)
     
     //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }

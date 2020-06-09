@@ -20,7 +20,9 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const hash = Tools.getGeohashForDistance(position.geometry.location, user.distance)
     
   const center = Fire.geo.point(position.geometry.location.lat, position.geometry.location.lng);
-  const radius = user.distance || 100;
+  const langId = getState().langReducer.id
+  const userRadius = user.distance || 50
+  const radius = langId === 'fr' ? userRadius : Tools.milesToKm(userRadius)
   const field = 'location';
 
   const prosRef = Fire.store().collection('pros').where('active', '==', true)

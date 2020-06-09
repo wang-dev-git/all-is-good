@@ -48,6 +48,10 @@ export default class Tools {
      return 0.62137 * km
   }
 
+  static milesToKm(miles: number) {
+     return miles / 0.62137
+  }
+
   // Get distance between two points
   static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))

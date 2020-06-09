@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { AssetImage, MyText, Rating, ProQuantity } from '../Reusable'
+import { AssetImage, MyText, Rating, VeilView, ProQuantity } from '../Reusable'
 import { Fire, Flash, Time, Tools } from '../../services'
 
 import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
@@ -54,7 +54,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <View style={[styles.shadow]}>
           <View style={styles.content}>
 
@@ -110,6 +110,9 @@ const ProItem: React.FC<Props> = (props: Props) => {
                 </View>
               </View>
             </View>
+            {!pro.quantity &&
+              <VeilView abs start='rgba(0,0,0,0.3)' end='rgba(0,0,0,0.3)' />
+            } 
           </View>
         </View>
       </View>
@@ -134,7 +137,6 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     borderRadius: 6,
-    borderWidth: 1,
     borderColor: '#ddd',
   },
   picture: {

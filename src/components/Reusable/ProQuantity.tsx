@@ -16,9 +16,6 @@ const ProQuantity: React.FC<Props> = (props) => {
   const quantity = pro.quantity || 0
   return (
     <View style={[styles.quantity]}>
-      {quantity === 0 &&
-        <VeilView abs start='rgba(0,0,0,0.3)' end='rgba(0,0,0,0.3)' />
-      } 
       <MyText style={styles.quantityTxt}>{quantity > 0 ? (lang.PRO_TO_SAVE || '').replace('%COUNT%', quantity) : lang.PRO_NONE_TO_SAVE}</MyText>            
     </View>
   );

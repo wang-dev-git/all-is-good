@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { StyleSheet, Keyboard, Text, Image, AppState, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
 import { Fire, Modal, Tools } from '../../services'
 import { Notifications } from 'expo';
@@ -21,6 +21,7 @@ import { HeaderBar, FadeInView, MyText } from '../Reusable'
 import Icon from '@expo/vector-icons/FontAwesome'
 import AntIcon from '@expo/vector-icons/AntDesign'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import { loadMap } from '../../actions/filters.action'
 
 import { Maps } from '../../services'
 import useAddresses from './addresses.hook'
@@ -36,6 +37,7 @@ const MapScreen: React.FC<Props> = (props) => {
   
   const { user } = props
   
+  const [appState, setAppState] = React.useState(AppState.currentState);
   const mapRef = React.useRef<any>(null)
   const userLocation = useLocation(user)
   const position = useSelector(state => state.authReducer.position)
@@ -59,6 +61,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const [scrollPos, setScrollPos] = React.useState(0)
   const [cancelScrollingListening, setCancelScrollingListening] = React.useState(false)
   const [showOverlay, setShowOverlay] = React.useState(false)
+  const dispatch = useDispatch()
 
   const { addresses, clearAddresses } = useAddresses(address)
   
@@ -75,11 +78,13 @@ const MapScreen: React.FC<Props> = (props) => {
   React.useEffect(() => {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+    AppState.addEventListener("change", _handleAppStateChange);
 
     // cleanup function
     return () => {
       Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
       Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+      AppState.removeEventListener("change", _handleAppStateChange);
     };
   }, []);
 
@@ -89,6 +94,13 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const _keyboardDidHide = () => {
     setShowOverlay(false)
+  };
+
+  const _handleAppStateChange = async nextAppState => {
+    if (nextAppState === 'active') {
+      dispatch(loadMap())
+    }
+    setAppState(nextAppState);
   };
 
   const onAddressTap = (item) => {

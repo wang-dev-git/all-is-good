@@ -25,7 +25,7 @@ export default class Tools {
 
   static showDistance(km: number, langId: string, prec: number = 1) {
     const dist = langId === 'fr' ? km : this.kmToMiles(km)
-    this.showBrutDistance(dist, langId, prec)
+    return this.showBrutDistance(dist, langId, prec)
   }
 
   static showBrutDistance(distance: number, langId, prec: number = 1) {

@@ -23,6 +23,26 @@ export default class Tools {
     return Number(this.getDistance(lat1, lon1, lat2, lon2, unit)).toFixed(1)
   }
 
+  static showDistance(km: number, langId: string) {
+    const precision = (n: number, precision: number) => {
+      return Number(n).toFixed(precision)
+    }
+
+    switch (langId) {
+      case "fr":
+        return precision(km, 1) + " km"
+        break;
+      
+      default:
+        return precision(this.kmToMiles(km), 1) + " mi"
+        break;
+    }
+  }
+
+  static kmToMiles(km: number) {
+     return 0.62137 * km
+  }
+
   // Get distance between two points
   static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))

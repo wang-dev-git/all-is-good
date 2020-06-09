@@ -173,7 +173,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const opening = Time.getPickUpRange(pro, langId)
 
   const icons = pro.icons || []
-  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+  const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
   const has = (key: string) => {
     return Tools.getLang(pro[key], langId) !== null
@@ -244,7 +244,7 @@ const ProScreen: React.FC<Props> = (props) => {
               { distance !== null &&
                 <View style={[styles.row, { marginBottom: 6 }]}>
                   <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-                  <MyText style={styles.open}>{distance} km</MyText>
+                  <MyText style={styles.open}>{Tools.showDistance(distance, langId)}</MyText>
                 </View>
               }
             </View>
@@ -323,7 +323,7 @@ const ProScreen: React.FC<Props> = (props) => {
             { distance !== null &&
               <React.Fragment>
                 <View style={styles.icon}><MaterialIcon size={22} name="map-marker" /></View>
-                <MyText style={styles.open}>{distance} km</MyText>
+                <MyText style={styles.open}>{Tools.showDistance(distance, langId)}</MyText>
               </React.Fragment>
             }
           </View>

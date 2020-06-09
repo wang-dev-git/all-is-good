@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import { AssetImage, MyText, Rating } from '../Reusable'
@@ -20,8 +20,8 @@ interface Props {
 const MapItem: React.FC<Props> = (props: Props) => {
   
   const { pro, onPress } = props
+  const langId = useSelector(state => state.langReducer.id)
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
-  const distance = pro.distance
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -50,7 +50,7 @@ const MapItem: React.FC<Props> = (props: Props) => {
                     <View style={styles.icon}>
                       <MaterialIcon size={18} color='#fff' name="map-marker" />  
                     </View>
-                    <MyText style={[styles.open]}>{distance} km</MyText> 
+                    <MyText style={[styles.open]}>{Tools.showDistance(pro.distance, langId)}</MyText> 
                   </View>
                   <Rating pro={pro} textStyle={{color: '#fff'}} />
                 </View>

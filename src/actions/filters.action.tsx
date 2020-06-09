@@ -32,7 +32,7 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
 })
 
 export const loadMap = createActionThunk('LOAD_MAP', async () => {
-  const prosRef = Fire.store().collection('pros')
+  const prosRef = Fire.store().collection('pros').where('active', '==', true)
   const pros = await Fire.list(prosRef)
   return pros.filter((item) => item.lat !== undefined)
 })

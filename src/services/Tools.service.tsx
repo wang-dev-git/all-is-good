@@ -23,18 +23,23 @@ export default class Tools {
     return Number(this.getDistance(lat1, lon1, lat2, lon2, unit)).toFixed(1)
   }
 
-  static showDistance(km: number, langId: string) {
+  static showDistance(km: number, langId: string, prec: number = 1) {
+    const dist = langId === 'fr' ? km : this.kmToMiles(km)
+    this.showBrutDistance(dist, langId, prec)
+  }
+
+  static showBrutDistance(distance: number, langId, prec: number = 1) {
     const precision = (n: number, precision: number) => {
       return Number(n).toFixed(precision)
     }
 
     switch (langId) {
       case "fr":
-        return precision(km, 1) + " km"
+        return precision(distance, prec) + " km"
         break;
       
       default:
-        return precision(this.kmToMiles(km), 1) + " mi"
+        return precision(distance, prec) + " mi"
         break;
     }
   }

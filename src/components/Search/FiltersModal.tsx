@@ -6,7 +6,7 @@ import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
 import { AssetImage, BottomButton, SelectCreditCard, MyText } from '../Reusable'
-import { Fire, Flash, Modal, Loader } from '../../services'
+import { Fire, Flash, Modal, Loader, Tools } from '../../services'
 
 import AntDesign from '@expo/vector-icons/AntDesign'
 import Feather from '@expo/vector-icons/Feather'
@@ -24,6 +24,7 @@ const FiltersModal: React.FC<Props> = (props) => {
   
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
   const position = useSelector(state => state.authReducer.position)
   const [distance, setDistance] = React.useState(user && user.distance ? user.distance : max)
   const dispatch = useDispatch()
@@ -70,7 +71,7 @@ const FiltersModal: React.FC<Props> = (props) => {
         <View style={styles.group}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <MyText type='bold' style={styles.groupTitle}>{lang.FILTERS_RANGE}</MyText>
-            <MyText type='bold' style={{ color: '#fff', marginRight: 16 }}>{Number(distance).toFixed(0)} km</MyText>
+            <MyText type='bold' style={{ color: '#fff', marginRight: 16 }}>{Tools.showBrutDistance(distance, langId, 0)}</MyText>
           </View>
           <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
             <Slider
@@ -82,8 +83,8 @@ const FiltersModal: React.FC<Props> = (props) => {
               onValueChange={setDistance}
               />
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <MyText style={{ color: '#fff' }}>{min} km</MyText>
-              <MyText style={{ color: '#fff' }}>{max} km</MyText>
+              <MyText style={{ color: '#fff' }}>{Tools.showBrutDistance(min, langId, 0)}</MyText>
+              <MyText style={{ color: '#fff' }}>{Tools.showBrutDistance(max, langId, 0)}</MyText>
             </View>
           </View>
         </View>

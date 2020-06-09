@@ -28,6 +28,7 @@ interface Props {
 const WishItem: React.FC<Props> = (props: Props) => {
   
   const lang = useSelector(state => state.langReducer.lang)
+  const langId = useSelector(state => state.langReducer.id)
   const toggleWish = () => {
     const { addWish, removeWish, pro, isInWishes } = props
     const onPress = () => {
@@ -48,7 +49,7 @@ const WishItem: React.FC<Props> = (props: Props) => {
   const inWishes = isInWishes(pro)
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
   const position = useSelector(state => state.authReducer.position)
-  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+  const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -67,7 +68,7 @@ const WishItem: React.FC<Props> = (props: Props) => {
                   <View style={styles.icon}>
                     <MaterialIcon size={18} name="map-marker" />  
                   </View>
-                  <MyText style={[styles.open]}>{distance} km</MyText>               
+                  <MyText style={[styles.open]}>{Tools.showDistance(distance, langId)}</MyText>               
                 </View>
               }
             </View>

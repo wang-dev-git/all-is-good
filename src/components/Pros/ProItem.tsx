@@ -51,7 +51,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const langId = useSelector(state => state.langReducer.id)
   const opening = Time.getPickUpRange(pro, langId)
   const position = useSelector(state => state.authReducer.position)
-  const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+  const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.container]}>
@@ -101,7 +101,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
                         <View style={styles.icon}>
                           <MaterialIcon size={18} name="map-marker" />  
                         </View>
-                        <MyText style={[styles.open]}>{distance} km</MyText>               
+                        <MyText style={[styles.open]}>{Tools.showDistance(distance, langId)}</MyText>               
                       </View>
                     }
                   </View>

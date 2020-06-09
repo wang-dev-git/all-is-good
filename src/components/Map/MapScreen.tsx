@@ -39,7 +39,6 @@ const MapScreen: React.FC<Props> = (props) => {
   
   const [appState, setAppState] = React.useState(AppState.currentState);
   const mapRef = React.useRef<any>(null)
-  const userLocation = useLocation(user)
   const position = useSelector(state => state.authReducer.position)
   const mapPros = useSelector(state => state.filtersReducer.mapPros)
   const initialRegion = {
@@ -189,9 +188,7 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const recenter = () => {
-    if (userLocation) {
-      animateTo(userLocation.coords.latitude, userLocation.coords.longitude)
-    } else {
+    if (position) {
       animateTo(position.geometry.location.lat, position.geometry.location.lng)
     }
   }
@@ -228,7 +225,7 @@ const MapScreen: React.FC<Props> = (props) => {
   return (
     <View style={styles.container}>
       <HeaderBar
-        title="Autour de vous"
+        title=""
         logo
         />
       <View style={styles.container}>

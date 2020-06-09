@@ -41,8 +41,8 @@ const MapScreen: React.FC<Props> = (props) => {
   const position = useSelector(state => state.authReducer.position)
   const mapPros = useSelector(state => state.filtersReducer.mapPros)
   const initialRegion = {
-    latitude: position ? position.geometry.location.lat : 48.8240021,
-    longitude: position ? position.geometry.location.lng : 2.21,
+    latitude: position ? position.geometry.location.lat : 25.761681,
+    longitude: position ? position.geometry.location.lng : -80.191788,
     latitudeDelta: 0.3358723958820065,
     longitudeDelta: 0.4250270688370961,
   }

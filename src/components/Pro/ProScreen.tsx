@@ -6,7 +6,7 @@ import MapView, { Marker } from 'react-native-maps'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, AssetImage, BottomButton, Rating, FloatingButton, ProQuantity, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
+import { HeaderBar, AssetImage, BottomButton, Rating, EmailVerifModal, SmallButton, FloatingButton, ProQuantity, MyText, LinkButton, ImageSlider, VeilView, SuccessModal } from '../Reusable'
 import { Fire, Flash, Modal, Time, Loader, Tools } from '../../services'
 import MaterialIcon from '@expo/vector-icons/MaterialCommunityIcons'
 import AntDesign from '@expo/vector-icons/AntDesign'
@@ -52,7 +52,28 @@ const ProScreen: React.FC<Props> = (props) => {
     }
   }
 
+  const onCheckout = async () => {
+
+    if (!Fire.isUserVerified()) {
+      Loader.show(lang.GLOBAL_LOADING)
+
+      const allowed = await Fire.confirmedEmail()
+      if (allowed)
+        checkout()
+      else {
+        Modal.show('email_validation', { local: true, content: () => (
+          <EmailVerifModal />
+        )})
+      }
+      Loader.hide()
+    } else {
+      checkout()
+    }
+  }
+
   const onPay = async (counter: number, card: string, address?: any) => {
+
+
     const deliveryPrice = address ? (pro.delivery_price || 0) : 0
     const price = Number(pro.price * counter + deliveryPrice).toFixed(2)
     try {
@@ -324,12 +345,13 @@ const ProScreen: React.FC<Props> = (props) => {
         title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
         disabled={soldOut}
         backgroundColor={mainStyle.themeColor}
-        onPress={checkout}
+        onPress={onCheckout}
         />
 
       <ModalContainer id='payment' />
       <ModalContainer id='show_cards' />
       <ModalContainer id='payment_success' />
+      <ModalContainer id='email_validation' />
     </View>
   );
 }

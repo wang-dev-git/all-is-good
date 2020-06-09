@@ -148,6 +148,10 @@ export default {
   PRO_SOLD_OUT: "Victime de son succès",
   PRO_OPEN_MAPS_TITLE: 'Voir dans Maps',
   PRO_OPEN_MAPS_SUBTITLE: 'Souhaitez-vous ouvrir Maps ?',
+  PRO_EMAIL_VERIF_TITLE: 'Une dernière étape',
+  PRO_EMAIL_VERIF_SUBTITLE: 'Vérifiez votre email',
+  PRO_EMAIL_VERIF_MSG: 'Vous devez valider votre compte en cliquant sur le mail que nous vous avons envoyé (%EMAIL%)',
+  PRO_EMAIL_VERIF_RESEND: 'Renvoyer',
 
   // Payment
   PAYMENT_ALLERGENS: 'Allergènes et ingrédients',

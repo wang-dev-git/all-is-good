@@ -146,7 +146,10 @@ export default {
   PRO_SOLD_OUT: "Sold out",
   PRO_OPEN_MAPS_TITLE: 'View in Maps',
   PRO_OPEN_MAPS_SUBTITLE: 'Would you like to open Maps ?',
-
+  PRO_EMAIL_VERIF_TITLE: 'One last step',
+  PRO_EMAIL_VERIF_SUBTITLE: 'Email verification',
+  PRO_EMAIL_VERIF_MSG: 'You have to confirm your account by clicking the link sent via email (%EMAIL%)',
+  PRO_EMAIL_VERIF_RESEND: 'Resend',
   // Payment
   PAYMENT_ALLERGENS: 'Allergens',
   PAYMENT_ALLERGENS_MSG: 'Please check all the allergens before ordering',

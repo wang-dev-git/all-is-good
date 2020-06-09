@@ -13,6 +13,7 @@ import FadeInView from './FadeInView'
 import SelectCreditCard from './SelectCreditCard'
 import LinkButton from './LinkButton'
 import SuccessModal from './SuccessModal'
+import EmailVerifModal from './EmailVerifModal'
 import SmallButton from './SmallButton'
 import CheckBox from './CheckBox'
 import TouchableBounce from './TouchableBounce'
@@ -34,6 +35,7 @@ export {
   FadeInView,
   LinkButton,
   SuccessModal,
+  EmailVerifModal,
   SelectCreditCard,
   CheckBox,
   SmallButton,

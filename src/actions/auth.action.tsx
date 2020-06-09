@@ -30,6 +30,7 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
       u.pictures = [url]
     }
     await Fire.set('users', userId, u)
+    Fire.resendMail()
     return u
   }
   const user = {

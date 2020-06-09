@@ -19,41 +19,41 @@ import { mainStyle } from '../../styles'
 import { switchTab, switchOrderTab } from '../../actions/tab.action'
 
 interface Props {
-  message: string;
-  subtitle: string
-  success: boolean;
+
 }
 
-const SuccessModal: React.FC<Props> = (props) => {
-  const dispatch = useDispatch()
+const EmailVerifModal: React.FC<Props> = (props) => {
+  const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
 
-  const viewOrder = () => {
-    Modal.hide('payment_success')
-    Actions.popTo('tabs')
-    dispatch(switchTab(1))
-    dispatch(switchOrderTab(1))
+  const resend = async () => {
+    try {
+      await Fire.resendMail()
+      Flash.show((lang.FORGOT_MAIL_SENT || '').replace('%EMAIL%', user.email))
+      Modal.hide('email_validation')
+    } catch (err) {
+
+    }
+              
   }
 
   return (
     <View>
       <View style={styles.header}>
-        <MyText style={styles.title}>{lang.GLOBAL_CONFIRM}</MyText>
-        <MyText style={styles.open}>{props.subtitle}</MyText>
+        <MyText style={styles.title}>{lang.PRO_EMAIL_VERIF_TITLE}</MyText>
+        <MyText style={styles.open}>{lang.PRO_EMAIL_VERIF_SUBTITLE}</MyText>
       </View>
       <View style={styles.center}>
         <View style={[styles.icon, {backgroundColor: props.success ? mainStyle.themeColor : mainStyle.redColor}]}>
           <AntDesign name={props.success ? 'check' : 'close'} size={38} color='#fff' />
         </View>
-        <MyText style={styles.message}>{props.message}</MyText>
+        <MyText style={styles.message}>{(lang.PRO_EMAIL_VERIF_MSG || '').replace('%EMAIL%', user.email)}</MyText>
 
         <View style={{alignItems: 'center', marginBottom: 20,}}>
-          { props.success &&
-            <SmallButton
-              title={lang.PAYMENT_VIEW_ORDER}
-              onPress={viewOrder}
-              />
-          }
+          <SmallButton
+            title={lang.PRO_EMAIL_VERIF_RESEND}
+            onPress={resend}
+            />
         </View>
       </View>
     </View>
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SuccessModal
+export default EmailVerifModal

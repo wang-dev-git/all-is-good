@@ -29,7 +29,41 @@ export default class Fire {
   static auth() {
     return firebase.auth()
   }
+
+  // Is verified
+  static isUserVerified() {
+    const user = Fire.auth().currentUser
+    if (!user)
+      return false
+    console.log(user.emailVerified)
+    return !(user.providerData &&
+      user.providerData.length > 0 &&
+      user.providerData[0].providerId === 'password' &&
+      !user.emailVerified)
+  }
+
+  static async confirmedEmail() {
+    try {
+      const user = Fire.auth().currentUser
+      await user.reload()
+      const reloaded = Fire.auth().currentUser
+      if (reloaded.emailVerified)
+        return true
+    } catch (err) {
+      console.log(err)
+    }
+    return false
+  }
   
+  static async resendMail() {
+    const user = Fire.auth().currentUser
+    if (!user || this.isUserVerified())
+      return false
+    await user.sendEmailVerification().catch((err) => console.log(err))
+    return true
+  }
+  
+
   // Sign in using facebook token
   static signInFacebook(token: any) {
     const credential = firebase.auth.FacebookAuthProvider.credential(token);

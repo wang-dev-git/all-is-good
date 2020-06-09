@@ -190,7 +190,7 @@ export default {
 
   // Add Card
   ADD_CARD_TITLE: 'Add a credit card',
-  ADD_CARD_LEGAL: 'Your financial information are never stored or used by All Is Good',
+  ADD_CARD_LEGAL: 'Your financial information are never stored or used by All is Good',
   ADD_CARD_CONFIRM: 'Confirm',
   ADD_CARD_LOADING: 'Verification...',
 

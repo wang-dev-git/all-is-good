@@ -191,7 +191,7 @@ export default {
 
   // Add Card
   ADD_CARD_TITLE: 'Ajouter une carte',
-  ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par All Is Good',
+  ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par All is Good',
   ADD_CARD_CONFIRM: 'Valider',
   ADD_CARD_LOADING: 'Vérification...',
 

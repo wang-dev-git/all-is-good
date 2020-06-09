@@ -79,7 +79,7 @@ class LoginScreen extends React.Component<Props, State>  {
     this.setState({ loading: true })
     try {
       if (registering) {
-        this.props.saveName({ first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
+        this.props.saveName({ email: user.email, first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
         await Fire.auth().createUserWithEmailAndPassword(email, password)
       }
       else

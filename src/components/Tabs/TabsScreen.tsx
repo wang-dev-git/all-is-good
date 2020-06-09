@@ -135,7 +135,7 @@ class TabsScreen extends React.Component<Props, State>  {
   notifListener: any = null
   async componentDidMount() {
 
-    //this.props.updateLang(this.props.langId)
+    this.props.updateLang(this.props.langId)
 
     Fire.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
@@ -163,7 +163,7 @@ class TabsScreen extends React.Component<Props, State>  {
   }
 
   connect = async () => {
-    this.props.updatePosition(null)
+    //this.props.updatePosition(null)
     this.setState({ loading: true })
     try {
       await this.props.finishLogin()

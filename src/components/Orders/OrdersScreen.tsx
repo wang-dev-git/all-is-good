@@ -73,10 +73,10 @@ const OrdersScreen: React.FC<Props> = (props) => {
       msg,
       [
         {
-          text: 'Non',
+          text: lang.GLOBAL_NO,
           style: 'cancel',
         },
-        {text: 'Oui, annuler', style: 'destructive', onPress: () => {
+        {text: lang.ORDER_CONFIRM_CANCEL, style: 'destructive', onPress: () => {
           cancel(order)
         }},
       ],

@@ -45,16 +45,17 @@ class AddCardScreen extends React.Component<Props, State>  {
   }
 
   async proceed() {
+    const { lang } = this.props
     this.setState({ loading: true })
     try {
       const newCard = await this.createNewCard()
       this.setState({ loading: false })
       Actions.pop()
-      Flash.show('Carte ajoutée !')
+      Flash.show(lang.ADD_CARD_ADDED)
       if (this.props.added)
         this.props.added(newCard)
     } catch (err) {
-      Flash.error('Erreur d\'ajout')
+      Flash.error(lang.ADD_CARD_ERROR)
 
       console.warn(err)
       this.setState({ loading: false })

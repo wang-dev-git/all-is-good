@@ -24,15 +24,16 @@ type State = {
 class CreditCardsScreen extends React.Component<Props, State>  {
   
   remove(card: any, index: number) {
+    const { lang } = this.props
     Alert.alert(
-      'Supprimer',
-      'Souhaitez-vous vraiment supprimer cette carte ?',
+      lang.CARDS_REMOVE_TITLE,
+      lang.CARDS_REMOVE_MSG,
       [
         {
-          text: 'Annuler',
+          text: lang.GLOBAL_CANCEL,
           style: 'cancel',
         },
-        {text: 'Supprimer', style: 'destructive', onPress: () => {
+        {text: lang.GLOBAL_REMOVE, style: 'destructive', onPress: () => {
           const { removeCard } = this.props
           removeCard(index)
         }},

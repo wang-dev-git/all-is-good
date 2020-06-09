@@ -189,12 +189,16 @@ export default {
   CARDS_TITLE: 'Payment methods',
   CARDS_NONE: "You have currently\nno payment method",
   CARDS_ADD: 'Add a payment method',
+  CARDS_REMOVE_TITLE: 'Remove this card',
+  CARDS_REMOVE_MSG: 'Do you really want to remove this card?',
 
   // Add Card
   ADD_CARD_TITLE: 'Add a credit card',
   ADD_CARD_LEGAL: 'Your financial information are never stored or used by All is Good',
   ADD_CARD_CONFIRM: 'Confirm',
   ADD_CARD_LOADING: 'Verification...',
+  ADD_CARD_ADDED: 'Card successfully added!',
+  ADD_CARD_ERROR: 'Try again or enter another card',
 
   // Addresses
   ADDRESSES_TITLE: 'Referal address',

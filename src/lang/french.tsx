@@ -13,6 +13,7 @@ export default {
   GLOBAL_LOADING_ERROR: 'Erreur de chargement...',
   GLOBAL_NO_RESULT: 'Aucun résultat pour cette recherche',
   GLOBAL_CANCEL: 'Annuler',
+  GLOBAL_REMOVE: 'Supprimer',
   GLOBAL_OK: 'OK',
   GLOBAL_NO: 'Non',
   GLOBAL_SAVE: 'Enregistrer',
@@ -190,12 +191,16 @@ export default {
   CARDS_TITLE: 'Vos moyens de paiement',
   CARDS_NONE: "Vous n'avez enregistré\naucune carte",
   CARDS_ADD: 'Ajouter une carte',
+  CARDS_REMOVE_TITLE: 'Supprimer votre carte',
+  CARDS_REMOVE_MSG: 'Souhaitez-vous vraiment supprimer cette carte ?',
 
   // Add Card
   ADD_CARD_TITLE: 'Ajouter une carte',
   ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par All is Good',
   ADD_CARD_CONFIRM: 'Valider',
   ADD_CARD_LOADING: 'Vérification...',
+  ADD_CARD_ADDED: 'Carte ajoutée!',
+  ADD_CARD_ERROR: 'Veuillez réessayer ou saisissez une autre carte',
 
   // Addresses
   ADDRESSES_TITLE: 'Adresse de référence',

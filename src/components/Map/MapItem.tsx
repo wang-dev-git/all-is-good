@@ -30,6 +30,16 @@ const MapItem: React.FC<Props> = (props: Props) => {
 
             <View style={styles.picture}>
               <AssetImage src={pro.picture ? {uri: pro.picture} : require('../../images/noimage.png')} resizeMode='cover' />
+
+              <View style={{position: 'absolute', bottom: 8, right: 8, alignItems: 'flex-end',}}>
+                
+                <MyText style={styles.price}>
+                  {Number(pro.price).toFixed(2)}$
+                  { pro.initial_price !== undefined &&
+                    <MyText style={[styles.oldPrice]}> ({Number(pro.initial_price).toFixed(2)}$)</MyText>
+                  }
+                </MyText>
+              </View>
             </View>
 
             <View style={styles.info}>
@@ -91,6 +101,23 @@ const styles = StyleSheet.create({
     ...mainStyle.montText,
     fontSize: 13,
     color: '#fff',
+  },
+  price: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    backgroundColor: '#fff',
+
+    height: 30,
+    lineHeight: 30,
+    borderRadius: 30 / 2,
+    overflow: 'hidden',
+    paddingHorizontal: 12,
+  },
+  oldPrice: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    color: '#aaa',
+    textDecorationLine: 'line-through'
   },
   row: {
     marginTop: 3,

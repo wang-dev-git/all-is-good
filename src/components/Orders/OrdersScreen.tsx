@@ -93,22 +93,12 @@ const OrdersScreen: React.FC<Props> = (props) => {
   const cancel = async (order: any) => {
     Loader.show(lang.ORDER_CANCELLING)
     try {
-      const ref = Fire.store().collection('orders').doc(order.id)
-      const history = order.history || []
-      history.push({
-        status: OrderStatus.ORDER_CANCELED_BY_USER,
-        date: new Date()
-      })
-      await ref.update({
-        cancelledAt: new Date(),
-        status: OrderStatus.ORDER_CANCELED_BY_USER,
-        history: history
-      })
+      await Fire.cloud('cancelOrder', { orderId: order.id })
       await refresh()
       setShown(null)
       Flash.show(lang.ORDER_WAS_CANCELLED)
     } catch (err) {
-
+      console.log(err)
     }
     Loader.hide()
   }

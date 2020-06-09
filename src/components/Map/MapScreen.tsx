@@ -69,7 +69,7 @@ const MapScreen: React.FC<Props> = (props) => {
       latitude: Number(lat),
       longitude: Number(lng)
     }
-    mapRef.current.animateCamera({center: tempCoords, pitch: 0, heading: 0, altitude: 8000, zoom: 100}, 420)
+    mapRef.current.animateCamera({center: tempCoords, pitch: 0, heading: 0, altitude: 2000, zoom: 100}, 420)
   }
 
   React.useEffect(() => {
@@ -154,8 +154,16 @@ const MapScreen: React.FC<Props> = (props) => {
     const index = Math.round((scrollPos - 10) / 220)
     if (index < 0 || index > prosList.length - 1)
       return;
-    if (!selectedPro || selectedPro.id !== pros[prosList[index].properties.index].id) {
-      redirectToPro(pros[prosList[index].properties.index])
+    if (index >= prosList.length)
+      return;
+    const proIndex = prosList[index].properties.index
+    if (proIndex >= pros.length)
+      return;
+    const p = pros[proIndex]
+    if (!p)
+      return;
+    if (!selectedPro || (selectedPro.id !== p.id)) {
+      redirectToPro(p)
     }
   }, [scrollPos, cancelScrollingListening])
 
@@ -232,7 +240,12 @@ const MapScreen: React.FC<Props> = (props) => {
                 selectPro(item)
 
                 for (let index = 0; index < prosList.length; ++index) {
-                  const pro = pros[prosList[index].properties.index]
+                  const proIndex = prosList[index].properties.index
+                  if (proIndex >= pros.length)
+                    return;
+                  const pro = pros[proIndex]
+                  if (!pro)
+                    return;
                   if (pro.id === item.id) {
                     if (listRef && listRef.current) {
                       setCancelScrollingListening(true)

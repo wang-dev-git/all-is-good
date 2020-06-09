@@ -36,7 +36,7 @@ export default class AppConfig {
     dev: {
       searchId: 'AKIAVF7FTF2SA4RZ726I',
       searchSecret: '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',
-      stripeAPIKey: 'pk_test_ZqfQqyALkPrkNMasg3kwvFE5',
+      stripeAPIKey: 'pk_test_yh5IzAEMtyw6mdm2Bzzh5VRV00zvoP4wsq',
       firebaseOptions: {
         apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",
         authDomain: "all-is-good-dev.firebaseapp.com",
@@ -52,7 +52,7 @@ export default class AppConfig {
     prod: {
       searchId: '',
       searchSecret: '',
-      stripeAPIKey: 'pk_test_ZqfQqyALkPrkNMasg3kwvFE5',
+      stripeAPIKey: 'pk_test_yh5IzAEMtyw6mdm2Bzzh5VRV00zvoP4wsq',
       firebaseOptions: {
         apiKey: "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds",
         authDomain: "all-is-good-prod.firebaseapp.com",

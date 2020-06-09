@@ -85,23 +85,33 @@ const ProItem: React.FC<Props> = (props: Props) => {
                 <MyText numberOfLines={2} style={styles.name}>{name}</MyText>
                 <Rating pro={pro} style={{marginLeft: 6, marginBottom: 4}} />
                 
-                {!props.isWish && opening !== null &&
-                  <View style={styles.row}>
-                    <View style={styles.icon}>
-                      <AntIcon size={14} name="clockcircle" />
-                    </View>
-                    <MyText style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</MyText>
-                  </View>
-                }
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <View>
+                    {!props.isWish && opening !== null &&
+                      <View style={styles.row}>
+                        <View style={styles.icon}>
+                          <AntIcon size={14} name="clockcircle" />
+                        </View>
+                        <MyText style={[styles.open]}> {lang.GLOBAL_TODAY} {opening}</MyText>
+                      </View>
+                    }
 
-                { distance !== null &&
-                  <View style={styles.row}>
-                    <View style={styles.icon}>
-                      <MaterialIcon size={18} name="map-marker" />  
-                    </View>
-                    <MyText style={[styles.open]}>{distance} km</MyText>               
+                    { distance !== null &&
+                      <View style={styles.row}>
+                        <View style={styles.icon}>
+                          <MaterialIcon size={18} name="map-marker" />  
+                        </View>
+                        <MyText style={[styles.open]}>{distance} km</MyText>               
+                      </View>
+                    }
                   </View>
-                }
+                  <View style={{alignItems: 'flex-end', paddingRight: 10,}}>
+                    { pro.initial_price !== undefined &&
+                      <MyText style={[styles.oldPrice]}>{Number(pro.initial_price).toFixed(2)}$</MyText>
+                    }
+                    <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
+                  </View>
+                </View>
               </View>
 
               <View style={styles.logoWrapper}>
@@ -161,7 +171,6 @@ const styles = StyleSheet.create({
   info: {
     paddingLeft: 6,
     paddingVertical: 6,
-    marginRight: 82,
   },
 
   topWrapper: {
@@ -180,10 +189,22 @@ const styles = StyleSheet.create({
     padding: 3,
   },
 
+  price: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    height: 26,
+  },
+  oldPrice: {
+    ...mainStyle.montBold,
+    fontSize: 15,
+    color: '#aaa',
+    textDecorationLine: 'line-through'
+  },
   name: {
     ...mainStyle.montBold,
     fontSize: 20,
     marginLeft: 6,
+    marginRight: 82,
     marginBottom: 2,
     color: mainStyle.darkColor
   },

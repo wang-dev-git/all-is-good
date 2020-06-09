@@ -139,7 +139,7 @@ export default {
   PRO_NONE_TO_SAVE: "0 aujourd'hui",
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "Ce que tu peux avoir",
-  PRO_PACKAGE_ALLERGENS_TITLE: "Allergènes",
+  PRO_PACKAGE_ALLERGENS_TITLE: "Allergènes et ingrédients",
   PRO_GO_TO_BTN: "Itinéraire",
   PRO_BUY_BTN: "Commander",
   PRO_SOLD_OUT: "Victime de son succès",
@@ -147,7 +147,7 @@ export default {
   PRO_OPEN_MAPS_SUBTITLE: 'Souhaitez-vous ouvrir Maps ?',
 
   // Payment
-  PAYMENT_ALLERGENS: 'Allergènes',
+  PAYMENT_ALLERGENS: 'Allergènes et ingrédients',
   PAYMENT_ALLERGENS_MSG: 'Veilliez à bien vérifier la liste des allergènes avant de commander',
   PAYMENT_FOOD_SECURITY: 'Sécurité alimentaire',
   PAYMENT_FOOD_SECURITY_MSG: 'Les invendus sont destinés à être consommés dans la journée, faites attention à ne pas attendre que les produits soient périmés',

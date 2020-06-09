@@ -155,9 +155,7 @@ const ProScreen: React.FC<Props> = (props) => {
   const distance = position ? Tools.getRoundedDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
   const has = (key: string) => {
-    if (!pro[key])
-      return false
-    return true
+    return Tools.getLang(pro[key], langId) !== null
   }
 
   const renderIcon = (iconId: string, index: number) => {

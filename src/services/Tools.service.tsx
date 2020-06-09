@@ -89,7 +89,7 @@ export default class Tools {
           return langObj[id]
       }
     }
-    return 'No language available'
+    return null
   }
 
 }

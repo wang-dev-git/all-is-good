@@ -57,6 +57,19 @@ export const internalUpdatePosition = createActionThunk('UPDATE_POSITION', (pos:
 export const updatePosition = createActionThunk('UPDATE_POSITION_AND_REFRESH', async (pos: any, { dispatch }) => {
   await dispatch(internalUpdatePosition(pos))
   await dispatch(loadSearchable())
+
+  if (pos.address_components) {
+    for (const comp of pos.address_components) {
+       for (const type of comp.types) {
+         if (type === 'postal_code') {
+           const postal_code = comp.long_name
+           await dispatch(updateUser({ postal_code: postal_code }))
+           return;
+         }
+
+       } 
+    }
+  }
 })
 
 const initialState = {

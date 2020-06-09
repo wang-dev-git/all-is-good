@@ -8,8 +8,14 @@ const useAddresses = (input: string) => {
     if (input.length === 0)
       setAddresses([])
     else if (input.length >= 4) {
+      const arr: any[] = []
       const res = await Maps.getAddresses(input)
-      setAddresses(res)
+      for (const addr of res) {
+        const full_addr = await Maps.getAddress(addr.geometry.location.lat, addr.geometry.location.lng)
+        if (full_addr.length)
+          arr.push(full_addr[0])
+      }
+      setAddresses(arr)
     }
   }
   useEffect(() => {

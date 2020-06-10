@@ -9,7 +9,6 @@ const icons = [
   { id: 'fries', img: require('../images/icons/fries.png') },
   { id: 'hotdog', img: require('../images/icons/hotdog.png') },
   { id: 'lobster', img: require('../images/icons/lobster.png') },
-  { id: 'macaroon', img: require('../images/icons/macaroon.png') },
   { id: 'mini-donut', img: require('../images/icons/mini-donut.png') },
   { id: 'motorcycle', img: require('../images/icons/motorcycle.png') },
   { id: 'pasta', img: require('../images/icons/pasta.png') },

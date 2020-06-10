@@ -2,6 +2,7 @@ const icons = [
   { id: 'bread', img: require('../images/icons/bread.png') },
   { id: 'burger', img: require('../images/icons/burger.png') },
   { id: 'cake', img: require('../images/icons/cake.png') },
+  { id: 'pizza', img: require('../images/icons/pizza.png') },
   { id: 'chicken', img: require('../images/icons/chicken.png') },
   { id: 'food', img: require('../images/icons/food.png') },
   { id: 'fridge', img: require('../images/icons/fridge.png') },

@@ -50,6 +50,7 @@ export const updateUser = createActionThunk('UPDATE_USER', async (info: any, { g
 
 export const logout = createActionThunk('LOGOUT', ({ dispatch }) => { 
   dispatch(clearCards())
+  dispatch(updatePosition(null))
   Fire.auth().signOut()
 })
 

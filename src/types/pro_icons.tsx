@@ -20,6 +20,10 @@ const icons = [
   { id: 'tacos', img: require('../images/icons/tacos.png') },
   { id: 'toast', img: require('../images/icons/toast.png') },
   { id: 'wrap', img: require('../images/icons/wrap.png') },
+  { id: 'fruits', img: require('../images/icons/fruits.png') },  
+  { id: 'fish', img: require('../images/icons/fish.png') },  
+  { id: 'milk', img: require('../images/icons/milk.png') },  
+  { id: 'meat', img: require('../images/icons/meat.png') }, 
 ]
 
 export const getIcon = (id) => {

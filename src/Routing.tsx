@@ -94,6 +94,10 @@ export default class Routing extends React.Component<Props, State> {
       require('./images/icons/tacos.png'),
       require('./images/icons/toast.png'),
       require('./images/icons/wrap.png'),
+      require('./images/icons/fruits.png'),
+      require('./images/icons/fish.png'),
+      require('./images/icons/milk.png'),
+      require('./images/icons/meat.png'),
     ])
 
     const fontAssets = cacheFonts([

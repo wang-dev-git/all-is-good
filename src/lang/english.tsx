@@ -140,7 +140,7 @@ export default {
   PRO_NONE_TO_SAVE: "0 today",
   PRO_DESCRIPTION_TITLE: "Description",
   PRO_PACKAGE_CONTENT_TITLE: "What you can have",
-  PRO_PACKAGE_ALLERGENS_TITLE: "Allergens",
+  PRO_PACKAGE_ALLERGENS_TITLE: "Allergens & ingredients",
   PRO_GO_TO_BTN: "Go to",
   PRO_BUY_BTN: "Order",
   PRO_SOLD_OUT: "Sold out",
@@ -151,7 +151,7 @@ export default {
   PRO_EMAIL_VERIF_MSG: 'You have to confirm your account by clicking the link sent via email (%EMAIL%)',
   PRO_EMAIL_VERIF_RESEND: 'Resend',
   // Payment
-  PAYMENT_ALLERGENS: 'Allergens',
+  PAYMENT_ALLERGENS: 'Allergens & ingredients',
   PAYMENT_ALLERGENS_MSG: 'Please check all the allergens before ordering',
   PAYMENT_FOOD_SECURITY: 'Food security',
   PAYMENT_FOOD_SECURITY_MSG: 'Unsold items are meant to be eaten during the day following the purchase, do not wait for them to be out of date',

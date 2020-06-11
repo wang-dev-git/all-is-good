@@ -155,7 +155,7 @@ export default {
 
   // Payment
   PAYMENT_ALLERGENS: 'Allergènes et ingrédients',
-  PAYMENT_ALLERGENS_MSG: 'Veilliez à bien vérifier la liste des allergènes avant de commander',
+  PAYMENT_ALLERGENS_MSG: 'Veillez à bien vérifier la liste des allergènes avant de commander',
   PAYMENT_FOOD_SECURITY: 'Sécurité alimentaire',
   PAYMENT_FOOD_SECURITY_MSG: 'Les invendus sont destinés à être consommés dans la journée, faites attention à ne pas attendre que les produits soient périmés',
   PAYMENT_CHOOSE_QUANTITY: 'Choisir la quantité',

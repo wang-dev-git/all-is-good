@@ -155,6 +155,10 @@ const MapScreen: React.FC<Props> = (props) => {
   }, [mapPros])
 
   React.useEffect(() => {
+    recenter()
+  }, [position])
+
+  React.useEffect(() => {
     if (center)
       refresh()
   }, [center])

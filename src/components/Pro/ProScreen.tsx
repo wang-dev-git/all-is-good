@@ -19,6 +19,8 @@ import { addWish, removeWish, isInWishes } from '../../actions/wishes.action'
 import ModalContainer from '../Modal/ModalContainer'
 import PaymentModal from './PaymentModal'
 
+import HyperLink from 'react-native-hyperlink'
+
 import { mainStyle } from '../../styles'
 
 import { getIcon } from '../../types/pro_icons'
@@ -268,21 +270,27 @@ const ProScreen: React.FC<Props> = (props) => {
         { has('descriptions') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_DESCRIPTION_TITLE}</MyText>
-            <MyText style={styles.description}>{Tools.getLang(pro.descriptions, langId)}</MyText>
+            <HyperLink linkDefault linkStyle={{ color: '#2980b9'}}>
+              <MyText style={styles.description}>{Tools.getLang(pro.descriptions, langId)}</MyText>
+            </HyperLink>
           </View>
         }
 
         { has('offers') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_CONTENT_TITLE}</MyText>
-            <MyText style={styles.description}>{Tools.getLang(pro.offers, langId)}</MyText>
+            <HyperLink linkDefault linkStyle={{ color: '#2980b9'}}>
+              <MyText style={styles.description}>{Tools.getLang(pro.offers, langId)}</MyText>
+            </HyperLink>
           </View>
         }
 
         { has('allergens') &&
           <View style={styles.descriptionWrapper}>
             <MyText style={styles.descriptionTitle}>{lang.PRO_PACKAGE_ALLERGENS_TITLE}</MyText>
-            <MyText style={styles.description}>{Tools.getLang(pro.allergens, langId)}</MyText>
+            <HyperLink linkDefault linkStyle={{ color: '#2980b9'}}>
+              <MyText style={styles.description}>{Tools.getLang(pro.allergens, langId)}</MyText>
+            </HyperLink>
           </View>
         }
         

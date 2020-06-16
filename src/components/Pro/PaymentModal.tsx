@@ -135,6 +135,14 @@ const PaymentModal: React.FC<Props> = (props) => {
     } else if (!showCards) {
       setShowCards(true)
     } else {
+      if (card === '') {
+        Flash.show(lang.PAYMENT_METHOD_REQUIRED)
+        return;
+      }
+      if (!confirmed) {
+        Flash.show(lang.PAYMENT_CONDITIONS_REQUIRED)
+        return;
+      }
       props.onPay(counter, card, address)
     }
   }
@@ -170,7 +178,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         return address !== null
       return mode !== ''
     }
-    return confirmed && card !== ''
+    return true // Weirdly, customer want the button to be clickable, but normally: (confirmed && card !== '')
   }
 
   const canProceed = checkCanProceed()

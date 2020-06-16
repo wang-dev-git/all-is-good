@@ -169,6 +169,8 @@ export default {
   PAYMENT_NO_ADDRESS: 'No address',
   PAYMENT_CHOOSE_METHOD: 'Your payment methods',
   PAYMENT_METHOD: 'Payment method',
+  PAYMENT_METHOD_REQUIRED: 'You must choose a payment method',
+  PAYMENT_CONDITIONS_REQUIRED: 'You must accept our conditions by checking the box',
   PAYMENT_GOT_IT: "I got it!",
   PAYMENT_LEGAL: 'By ordering this bucket you confirm you have checked the allergens and accepted the conditions of use of All is Good',
   PAYMENT_NEXT: 'Next',

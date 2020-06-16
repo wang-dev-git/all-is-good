@@ -172,6 +172,8 @@ export default {
   PAYMENT_NO_ADDRESS: 'Aucune adresse',
   PAYMENT_CHOOSE_METHOD: 'Votre moyen de paiement',
   PAYMENT_METHOD: 'Moyen de paiement',
+  PAYMENT_METHOD_REQUIRED: 'Vous devez sélectionner un moyen de paiement',
+  PAYMENT_CONDITIONS_REQUIRED: 'Vous devez accepter les conditions de commande en cochant la case',
   PAYMENT_GOT_IT: "J'ai compris !",
   PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good',
   PAYMENT_NEXT: 'Continuer',

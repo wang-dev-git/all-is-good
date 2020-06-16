@@ -112,7 +112,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                     )}
                   </View>
                 }
-                <MyText style={styles.date}>{Time.date(order.createdAt)}</MyText>
+                <MyText style={styles.date}>{Time.date(order.createdAt, langId)}</MyText>
 
                 { last &&
                   <View style={styles.row}>

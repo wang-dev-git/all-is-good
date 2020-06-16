@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     ...mainStyle.montBold,
     fontSize: 16,
     marginLeft: 60,
+    minHeight: 38,
     color: mainStyle.darkColor
   },
   open: {

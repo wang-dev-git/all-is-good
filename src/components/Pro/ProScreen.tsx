@@ -92,7 +92,7 @@ const ProScreen: React.FC<Props> = (props) => {
         let error = ''
         switch (res.error) {
           case "sold_out":
-            error = lang.PAYMENT_SOLD_OUT
+            error = lang.PAYMENT_FAIL_SOLD_OUT
             break;
 
           case "currently_unavailable":

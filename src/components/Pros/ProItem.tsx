@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     marginRight: 82,
     marginBottom: 2,
+    minHeight: 38,
     color: mainStyle.darkColor
   },
   open: {

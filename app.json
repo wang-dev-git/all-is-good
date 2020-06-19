@@ -24,7 +24,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.allisgood.app",
-      "googleServicesFile": "./keys/GoogleService-dev.plist",
+      "googleServicesFile": "./keys/GoogleService-prod.plist",
       "infoPlist": {
         "CFBundleURLTypes": {
           "CFBundleURLSchemes": [
@@ -42,21 +42,21 @@
       },
       "config": {
         "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4"
+          "reservedClientId": "com.googleusercontent.apps.1039569656278-jhc5iqcvlisu3k5i0jodogq0pb8juft1"
         }
       }
     },
     "android": {
       "package": "com.allisgood.app",
-      "googleServicesFile": "./keys/google-dev.json",
+      "googleServicesFile": "./keys/google-prod.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds"
         }
       },
-      "versionCode": 115
+      "versionCode": 116
     },
-    "version": "1.1.5",
+    "version": "1.1.6",
     "facebookAppId": "2609459805809503",
     "facebookScheme": "fb2609459805809503",
     "facebookDisplayName": "All is Good"

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native
 
 import { HeaderBar, FadeInView, AssetImage, MyText, ListEmpty } from '../Reusable'
 
-import ProItem from '../Pros/ProItem'
+import ProItem from '../Pro/ProItem'
 
 import { Actions } from 'react-native-router-flux'
 import { Fire } from '../../services'

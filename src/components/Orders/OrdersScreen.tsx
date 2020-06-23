@@ -38,7 +38,7 @@ const OrdersScreen: React.FC<Props> = (props) => {
       setShown(null)
     } catch (err) {
       console.log(err)
-      Flash.error('Vérifiez votre connexion internet')
+      Flash.error(lang.GLOBAL_INTERNET)
     }
   }
 

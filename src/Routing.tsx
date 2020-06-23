@@ -22,7 +22,6 @@ import CreditCardsScreen from './components/CreditCards/CreditCardsScreen'
 import AddCardScreen from './components/AddCard/AddCardScreen'
 
 import ProScreen from './components/Pro/ProScreen'
-import MoreProsScreen from './components/Pros/MoreProsScreen'
 import LoaderWrapper from './components/Loader/LoaderWrapper'
 
 import { mainStyle } from './styles'
@@ -134,8 +133,6 @@ export default class Routing extends React.Component<Props, State> {
           <Modal>
             <Stack key="root" hideNavBar>
               <Scene key="tabs" component={TabsScreen} />
-
-              <Scene key="more" component={MoreProsScreen} />
 
               <Scene key="profile" component={ProfileScreen} />
               <Scene key="pro" component={ProScreen} />

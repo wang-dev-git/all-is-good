@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, StatusBar, ScrollView, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
-import ProsScreen from '../Pros/ProsScreen'
 import SearchScreen from '../Search/SearchScreen'
 import OrdersScreen from '../Orders/OrdersScreen'
 import ProfileScreen from '../Profile/ProfileScreen'

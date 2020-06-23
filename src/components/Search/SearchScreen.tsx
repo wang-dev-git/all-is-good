@@ -13,7 +13,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import { Notifications } from 'expo'
 
-import ProItem from '../Pros/ProItem'
+import ProItem from '../Pro/ProItem'
 import CategoryItem from './CategoryItem'
 import FiltersModal from './FiltersModal'
 import BackSearchBar from './BackSearchBar'

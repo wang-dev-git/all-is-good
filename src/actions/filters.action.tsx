@@ -5,9 +5,18 @@ import { get } from 'geofirex';
 import Fire from '../services/Fire.service'
 import Tools from '../services/Tools.service'
 
-export const loadCategories = createActionThunk('LOAD_CATEGORIES', async () => {
+export const loadCategories = createActionThunk('LOAD_CATEGORIES', async ({ getState }) => {
+  const langId = getState().langReducer.id
   const categoriesRef = Fire.store().collection('categories').where('active', '==', true)
-  return await Fire.list(categoriesRef)
+  const categories = await Fire.list(categoriesRef)
+  categories.sort((a, b) => {
+    const nameA = Tools.getLang(a.names, langId).toLowerCase()
+    const nameB = Tools.getLang(b.names, langId).toLowerCase()
+    if (nameA < nameB) { return -1; }
+    if (nameA > nameB) { return 1; }
+    return 0;
+  })
+  return categories
 })
 
 export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getState }) => {

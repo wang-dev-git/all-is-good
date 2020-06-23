@@ -49,7 +49,7 @@ export default class AppConfig {
     prod: {
       searchId: '',
       searchSecret: '',
-      stripeAPIKey: 'pk_test_yh5IzAEMtyw6mdm2Bzzh5VRV00zvoP4wsq',
+      stripeAPIKey: 'pk_live_47m8CICYtroXZAGB3M2nZHYj00BVpO9G9r',
       firebaseOptions: {
         apiKey: "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds",
         authDomain: "all-is-good-prod.firebaseapp.com",

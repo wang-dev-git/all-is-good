@@ -30,7 +30,7 @@ class LoginScreen extends React.Component<Props, State>  {
   
   state = {
     user: {
-      email: AppConfig.isProd() ? '' : 'julien@brunet.fr',
+      email: AppConfig.isProd() ? '' : 'julien.brunet.92@gmail.com',
       password: AppConfig.isProd() ? '' : 'coucou123',
       confirm: AppConfig.isProd() ? '' : 'coucou123',
       first_name: AppConfig.isProd() ? '' : 'Julien',

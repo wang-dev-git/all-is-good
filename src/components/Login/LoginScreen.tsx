@@ -212,7 +212,7 @@ class LoginScreen extends React.Component<Props, State>  {
         </KeyboardAwareScrollView>
 
         <PageLoader
-          title={registering ? 'Validation...' : 'Vérification...'}
+          title={lang.GLOBAL_LOADING}
           loading={loading || this.state.sending}
           />
       </View>

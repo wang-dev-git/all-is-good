@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, AppState, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
-import { Fire, Modal, Tools, Maps } from '../../services'
+import { Fire, Modal, Tools, Maps, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
@@ -105,19 +105,21 @@ const AddressesScreen: React.FC<Props> = (props) => {
           <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{currentAddress ? currentAddress.formatted_address : lang.ADDRESSES_CLICK_FOR_SETTINGS}</MyText>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.address}
-        onPress={() => {
-          props.onSelect(testAddr);
-          Actions.pop()
-        }}
-        >
-        <MaterialIcons name="place" size={19} />
-        <View style={{flex: 1}}>
-          <MyText style={[styles.addressTxt, {marginBottom: 4}]}>TEST ADDRESS</MyText>
-          <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{testAddr.formatted_address}</MyText>
-        </View>
-      </TouchableOpacity>
+      { !AppConfig.isProd() &&
+        <TouchableOpacity
+          style={styles.address}
+          onPress={() => {
+            props.onSelect(testAddr);
+            Actions.pop()
+          }}
+          >
+          <MaterialIcons name="place" size={19} />
+          <View style={{flex: 1}}>
+            <MyText style={[styles.addressTxt, {marginBottom: 4}]}>TEST ADDRESS</MyText>
+            <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{testAddr.formatted_address}</MyText>
+          </View>
+        </TouchableOpacity>
+      }
       </React.Fragment>
     )
   }

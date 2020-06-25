@@ -14,13 +14,13 @@ const TouchableBounce: React.FC<Props> = (props) => {
 
   const onStart = (e) => {
 
-    const x = e.nativeEvent.locationY
-    const y = e.nativeEvent.locationX
+    const x = e.nativeEvent.locationX
+    const y = e.nativeEvent.locationY
     setStartPos({ x, y })
 
     Animated.timing(bounce, {
       toValue: 1.124,
-      duration: 420,
+      duration: 210,
     }).start(() => {
 
     })
@@ -29,13 +29,14 @@ const TouchableBounce: React.FC<Props> = (props) => {
   }
   const onEnd = (e) => {
     
-    const x = e.nativeEvent.locationY
-    const y = e.nativeEvent.locationX
+    const x = e.nativeEvent.locationX
+    const y = e.nativeEvent.locationY
 
     const dist1 = Math.abs(x - startPos.x)
     const dist2 = Math.abs(y - startPos.y)
 
     const dist = Math.max(dist1, dist2)
+    //alert("X: " + x + "\nY: " + y + "\nDist: " + dist)
 
     Animated.timing(bounce, {
       toValue: 1,
@@ -44,7 +45,7 @@ const TouchableBounce: React.FC<Props> = (props) => {
       const padding = 10
       if (x > padding && x < (props.width - padding) &&
         y > padding && y < (props.height - padding)) {
-        if (dist < 6)
+        if (dist < 12)
           props.onPress()
       }
     })

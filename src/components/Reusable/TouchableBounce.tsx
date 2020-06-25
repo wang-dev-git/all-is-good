@@ -10,8 +10,14 @@ interface Props {
 
 const TouchableBounce: React.FC<Props> = (props) => {
   const bounce = React.useRef(new Animated.Value(1)).current
+  const [startPos, setStartPos] = React.useState({ x: 0, y: 0 })
 
   const onStart = (e) => {
+
+    const x = e.nativeEvent.locationY
+    const y = e.nativeEvent.locationX
+    setStartPos({ x, y })
+
     Animated.timing(bounce, {
       toValue: 1.124,
       duration: 420,
@@ -26,6 +32,11 @@ const TouchableBounce: React.FC<Props> = (props) => {
     const x = e.nativeEvent.locationY
     const y = e.nativeEvent.locationX
 
+    const dist1 = Math.abs(x - startPos.x)
+    const dist2 = Math.abs(y - startPos.y)
+
+    const dist = Math.max(dist1, dist2)
+
     Animated.timing(bounce, {
       toValue: 1,
       duration: 200,
@@ -33,7 +44,8 @@ const TouchableBounce: React.FC<Props> = (props) => {
 
       if (x > 0 && x < props.width &&
         y > 0 && y < props.height) {
-        props.onPress()
+        if (dist < 10)
+          props.onPress()
       }
     })
    }

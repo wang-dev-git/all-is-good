@@ -41,10 +41,10 @@ const TouchableBounce: React.FC<Props> = (props) => {
       toValue: 1,
       duration: 200,
     }).start(() => {
-
-      if (x > 0 && x < props.width &&
-        y > 0 && y < props.height) {
-        if (dist < 10)
+      const padding = 10
+      if (x > padding && x < (props.width - padding) &&
+        y > padding && y < (props.height - padding)) {
+        if (dist < 6)
           props.onPress()
       }
     })

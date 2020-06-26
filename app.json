@@ -26,7 +26,7 @@
       "bundleIdentifier": "com.allisgood.app",
       "googleServicesFile": "./keys/GoogleService-prod.plist",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Trouvez les restaurants autour de vous !",
+        "NSLocationWhenInUseUsageDescription": "Find restaurants around you",
         "NSPhotoLibraryUsageDescription": "Add a profile picture to your account",
         "NSCameraUsageDescription": "Take a picture to add to your profile",
         "CFBundleURLTypes": {

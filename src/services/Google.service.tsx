@@ -1,11 +1,9 @@
 import * as GoogleSignIn from 'expo-google-sign-in'
 
-import AppConfig from './AppConfig.service'
-
 export default class Google {
 
   static async init() {
-    return await GoogleSignIn.initAsync({ clientId: AppConfig.get().googleClientID });
+    return await GoogleSignIn.initAsync();
   }
 
   static async login() {

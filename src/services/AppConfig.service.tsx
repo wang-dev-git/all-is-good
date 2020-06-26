@@ -5,7 +5,6 @@ type Environment = {
   searchSecret: string;
   stripeAPIKey: string;
   firebaseOptions: any;
-  googleClientID: string;
 }
 
 type Environments = {
@@ -35,7 +34,6 @@ export default class AppConfig {
       searchId: 'AKIAVF7FTF2SA4RZ726I',
       searchSecret: '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',
       stripeAPIKey: 'pk_test_yh5IzAEMtyw6mdm2Bzzh5VRV00zvoP4wsq',
-      googleClientID: '467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4.apps.googleusercontent.com',
       firebaseOptions: {
         apiKey: "AIzaSyBXkiqx8Q3OgS1HlGYMfknFcZj8y8topKU",
         authDomain: "all-is-good-dev.firebaseapp.com",
@@ -52,7 +50,6 @@ export default class AppConfig {
       searchId: '',
       searchSecret: '',
       stripeAPIKey: 'pk_live_47m8CICYtroXZAGB3M2nZHYj00BVpO9G9r',
-      googleClientID: '1039569656278-jhc5iqcvlisu3k5i0jodogq0pb8juft1.apps.googleusercontent.com',
       firebaseOptions: {
         apiKey: "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds",
         authDomain: "all-is-good-prod.firebaseapp.com",

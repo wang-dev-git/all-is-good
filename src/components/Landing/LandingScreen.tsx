@@ -38,7 +38,8 @@ class LandingScreen extends React.Component<Props, State>  {
       this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.firstName, last_name: user.lastName, email: user.email })
       await Fire.signInGoogle(res.token)
     } catch (err) {
-      Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
+      alert(err.message)
+      //Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
     }
     this.setState({ editing: false })
   }

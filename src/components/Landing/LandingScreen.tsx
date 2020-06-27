@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux'
 import { saveName } from '../../actions/auth.action'
 
 import { mainStyle } from '../../styles'
+import * as AppleAuthentication from 'expo-apple-authentication';
 
 interface Props {
   lang: any;
@@ -38,8 +39,7 @@ class LandingScreen extends React.Component<Props, State>  {
       this.props.saveName({ facebook: true, pictureURL: pictureURL, first_name: user.firstName, last_name: user.lastName, email: user.email })
       await Fire.signInGoogle(res.token)
     } catch (err) {
-      alert(err.message)
-      //Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
+      Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
     }
     this.setState({ editing: false })
   }
@@ -54,6 +54,30 @@ class LandingScreen extends React.Component<Props, State>  {
       await Fire.signInFacebook(res.token)
     } catch (err) {
       Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
+    }
+    this.setState({ editing: false })
+  }
+
+  async signInApple() {
+    this.setState({ editing: true })
+    try {
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      const token = credential.identityToken
+      await Fire.signInApple(token)
+      // signed in
+    } catch (e) {
+      if (e.code === 'ERR_CANCELED') {
+        // handle that the user canceled the sign-in flow
+      } else {
+        // handle other errors
+        Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
+      }
     }
     this.setState({ editing: false })
   }
@@ -116,6 +140,15 @@ class LandingScreen extends React.Component<Props, State>  {
                 <MyText style={[styles.txt, {marginLeft: 20, color: '#222'}]}>{lang.LANDING_CONNECT_GOOGLE}</MyText>
               </View>
             </TouchableOpacity>
+            <View style={{marginTop: 10}}>
+              <AppleAuthentication.AppleAuthenticationButton
+                buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+                cornerRadius={44 / 2}
+                style={styles.btn}
+                onPress={() => this.signInApple()}
+              />
+            </View>
 
             <TouchableOpacity onPress={() => this.openConditions()}>
               <MyText style={styles.cgu}>{lang.LANDING_CONDITIONS}</MyText>

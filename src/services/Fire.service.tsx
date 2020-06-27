@@ -63,6 +63,15 @@ export default class Fire {
     return true
   }
   
+  // Sign in using apple token
+  static signInApple(data: any) {
+    const provider = new firebase.auth.OAuthProvider("apple.com");
+    const credential = provider.credential({
+      idToken: data,
+      rawNonce: ''//nonce // nonce value from above
+    });
+    return firebase.auth().signInWithCredential(credential)
+  }
 
   // Sign in using facebook token
   static signInFacebook(token: any) {

@@ -131,7 +131,11 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : query !== '' ? (
           <FlatList
             key="A"
-            data={filtered}
+            data={filtered.filter(item => item.quantity !== undefined).sort((a, b) => {
+              if (a.quantity < b.quantity) return 1
+              else if (a.quantity > b.quantity) return -1
+              return 0
+            })}
             refreshControl={
               <RefreshControl
                 tintColor='#fff'

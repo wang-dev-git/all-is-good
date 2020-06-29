@@ -37,7 +37,7 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const prosRef = Fire.store().collection('pros').where('active', '==', true)
   const query = Fire.geo.query(prosRef).within(center, radius, field);
   const pros = await get(query)
-  return pros.filter(item => item.quantity !== undefined).sort((a, b) => b.quantity < a.quantity ? 1 : -1)
+  return pros
 })
 
 export const loadMap = createActionThunk('LOAD_MAP', async () => {

@@ -58,7 +58,7 @@ class LandingScreen extends React.Component<Props, State>  {
     this.setState({ editing: false })
   }
 
-  async signInApple() {
+  async appleLogin() {
     this.setState({ editing: true })
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -69,12 +69,15 @@ class LandingScreen extends React.Component<Props, State>  {
       });
 
       const token = credential.identityToken
+      this.props.saveName({ facebook: true, first_name: '', last_name: '', email: credential.email || '' })
       await Fire.signInApple(token)
       // signed in
     } catch (e) {
       if (e.code === 'ERR_CANCELED') {
         // handle that the user canceled the sign-in flow
       } else {
+        alert(JSON.stringify(e))
+        console.log(e)
         // handle other errors
         Flash.error(this.props.lang.GLOBAL_LOADING_ERROR)
       }
@@ -146,7 +149,7 @@ class LandingScreen extends React.Component<Props, State>  {
                 buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
                 cornerRadius={44 / 2}
                 style={styles.btn}
-                onPress={() => this.signInApple()}
+                onPress={() => this.appleLogin()}
               />
             </View>
 

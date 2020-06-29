@@ -7,6 +7,8 @@ import '@firebase/storage'
 import AppConfig from './AppConfig.service'
 import * as geofirex from 'geofirex';
 
+import * as Crypto from 'expo-crypto';
+
 export default class Fire {
 
   static geo: any = null
@@ -64,11 +66,15 @@ export default class Fire {
   }
   
   // Sign in using apple token
-  static signInApple(data: any) {
+  static async signInApple(token: string) {
+    const nonce = Math.random().toString(36).substring(2, 10);
+    const hashedNonce = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256, nonce);
+
     const provider = new firebase.auth.OAuthProvider("apple.com");
     const credential = provider.credential({
-      idToken: data,
-      rawNonce: ''//nonce // nonce value from above
+      idToken: token,
+      rawNonce: hashedNonce
     });
     return firebase.auth().signInWithCredential(credential)
   }

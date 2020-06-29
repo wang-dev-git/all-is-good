@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
   logo: {
     ...mainStyle.circle(72),
     borderWidth: 1,
+    backgroundColor: '#fff',
     borderColor: '#ddd',
   },
   infoWrapper: {

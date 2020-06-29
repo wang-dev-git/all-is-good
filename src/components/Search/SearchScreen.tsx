@@ -168,13 +168,12 @@ const SearchScreen: React.FC<Props> = (props) => {
             extraData={{ filtered: filtered }}
             data={categories.filter(item => {
               for (const pro of filtered) {
-                console.log(pro.id)
                 for (const cat of pro.categories) {
                   if (cat.id === item.id)
                     return true
                 }
-                return false
               }
+              return false
             })}
             refreshControl={
               <RefreshControl

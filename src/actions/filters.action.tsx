@@ -33,16 +33,11 @@ export const loadSearchable = createActionThunk('LOAD_SEARCHABLE', async ({ getS
   const userRadius = user.distance || 50
   const radius = langId === 'fr' ? userRadius : Tools.milesToKm(userRadius)
   const field = 'location';
-  try {
-    const prosRef = Fire.store().collection('pros').where('active', '==', true)
-    const query = Fire.geo.query(prosRef).within(center, radius, field);
-    const pros = await get(query)
-    return pros
 
-  } catch (err) {
-    console.log(err)
-  }
-  return []
+  const prosRef = Fire.store().collection('pros').where('active', '==', true)
+  const query = Fire.geo.query(prosRef).within(center, radius, field);
+  const pros = await get(query)
+  return pros.filter(item => item.quantity !== undefined).sort((a, b) => b.quantity < a.quantity ? 1 : -1)
 })
 
 export const loadMap = createActionThunk('LOAD_MAP', async () => {

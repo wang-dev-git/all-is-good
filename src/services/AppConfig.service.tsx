@@ -70,7 +70,6 @@ export default class AppConfig {
   }
 
   static get(): Environment {
-    return this.envs.prod
     return this.isProd() ? this.envs.prod : this.envs.dev
   }
 }

@@ -70,13 +70,15 @@ class AddCardScreen extends React.Component<Props, State>  {
     
     const token = await this.requestStripeToken(values)
     const cardId = await Fire.cloud('addCard', { token: token.id })
-    const newCards: any[] = addCard({
+    const newCards = await addCard({
       last4: values.number.substr(-4),
       expiry: values.expiry,
       cvc: values.cvc,
       type: values.type,
       cardId: cardId,
     })
+    console.log(cardId)
+    console.log(values.type)
     const lastAdded = newCards[newCards.length - 1]
     return lastAdded
   }

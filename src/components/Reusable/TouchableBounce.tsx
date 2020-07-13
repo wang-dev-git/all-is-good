@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Animated } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Animated, Platform } from 'react-native';
 
 interface Props {
   width: number;
@@ -55,6 +55,16 @@ const TouchableBounce: React.FC<Props> = (props) => {
       }
     })
    }
+
+  if (Platform.OS === 'android') {
+    return (
+      <TouchableOpacity
+        style={[props.style]}
+        onPress={props.onPress}>
+        {props.children}
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <Animated.View

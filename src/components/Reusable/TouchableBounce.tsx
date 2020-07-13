@@ -5,7 +5,9 @@ interface Props {
   width: number;
   height: number;
   style: any;
+
   onPress: () => void;
+  onAnimating: (animating: boolean) => void;
 }
 
 const TouchableBounce: React.FC<Props> = (props) => {
@@ -18,6 +20,7 @@ const TouchableBounce: React.FC<Props> = (props) => {
     const y = e.nativeEvent.locationY
     setStartPos({ x, y })
 
+    props.onAnimating(true)
     Animated.timing(bounce, {
       toValue: 1.124,
       duration: 210,
@@ -28,6 +31,8 @@ const TouchableBounce: React.FC<Props> = (props) => {
   const onMove = (e) => {
   }
   const onEnd = (e) => {
+
+    props.onAnimating(false)
     
     const x = e.nativeEvent.locationX
     const y = e.nativeEvent.locationY

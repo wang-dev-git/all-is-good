@@ -14,6 +14,7 @@ interface Props {
   index: number;
 
   onPress?: () => void;
+  onAnimating: (anim: boolean) => void;
 }
 const CategoryItem: React.FC<Props> = (props) => {
   const langId = useSelector(state => state.langReducer.id)
@@ -21,7 +22,7 @@ const CategoryItem: React.FC<Props> = (props) => {
 
   return (
     <View style={styles.shadow}>
-      <TouchableBounce width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
+      <TouchableBounce onAnimating={props.onAnimating} width={width} height={width} onPress={props.onPress} style={[styles.container, props.index % 2 == 0 ? {marginLeft: margin, marginRight: margin / 2} : {marginLeft: margin / 2}]}>
         <ImageBackground style={{flex: 1, borderRadius: 2, overflow: 'hidden'}} source={{uri: props.category.picture}}>
           <View style={styles.veil}>
             <MyText style={styles.title}>{name}</MyText>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     overflow: 'hidden',
     marginBottom: marginBottom,
-    backgroundColor: 'red',
+    backgroundColor: mainStyle.themeColor,
   },
   veil: {
     flex: 1,

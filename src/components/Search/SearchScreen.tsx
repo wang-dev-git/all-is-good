@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Keyboard, Platform, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
 import { Fire, Modal, Maps, Tools } from '../../services'
@@ -27,6 +27,7 @@ interface Props {}
 const SearchScreen: React.FC<Props> = (props) => {
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
+  const [animating, setAnimating] = React.useState(false)
 
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
@@ -165,6 +166,7 @@ const SearchScreen: React.FC<Props> = (props) => {
         ) : (
           <FlatList
             key="B"
+            scrollEnabled={Platform.OS === 'ios' || !animating}
             extraData={{ filtered: filtered }}
             data={categories.filter(item => {
               for (const pro of filtered) {
@@ -175,7 +177,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               }
               return false
             })}
-            refreshControl={
+            refreshControl={Platform.OS === 'android' && animating ? (null) : 
               <RefreshControl
                 tintColor='#fff'
                 refreshing={loading}
@@ -186,6 +188,7 @@ const SearchScreen: React.FC<Props> = (props) => {
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
             renderItem={(item: any) => 
               <CategoryItem
+                onAnimating={setAnimating}
                 index={item.index}
                 category={item.item}
                 onPress={() => setQuery(Tools.getLang(item.item.names, langId))}

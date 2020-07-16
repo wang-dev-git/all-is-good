@@ -33,7 +33,7 @@ const RateModal: React.FC<Props> = (props) => {
       props.onRated()
       Modal.hide('rating')
     } catch (err) {
-
+      console.log(err)
     }
     Loader.hide()
   }

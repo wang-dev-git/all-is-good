@@ -9,7 +9,6 @@ export const fetchOrders = createActionThunk('FETCH_ORDERS', async ({ getState }
   const ref = Fire.store().collection('orders')
     .where('userId', '==', userId)
     .orderBy('createdAt', 'desc')
-    .limit(20)
   return await Fire.list(ref)
 })
 

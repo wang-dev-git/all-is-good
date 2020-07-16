@@ -53,7 +53,9 @@ class LoginScreen extends React.Component<Props, State>  {
     const { lang } = this.props
     const { user, registering, checked } = this.state
 
-    if (user.email === '' ||
+    const email = user.email.trim()
+
+    if (email === '' ||
       user.password === '') {
       Flash.error(lang.LOGIN_ERR_ALL_FIELDS)
       return;
@@ -73,13 +75,12 @@ class LoginScreen extends React.Component<Props, State>  {
       }
     }
 
-    const email = user.email
     const password = user.password
 
     this.setState({ loading: true })
     try {
       if (registering) {
-        this.props.saveName({ email: user.email, first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
+        this.props.saveName({ email: email, first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
         await Fire.auth().createUserWithEmailAndPassword(email, password)
       }
       else

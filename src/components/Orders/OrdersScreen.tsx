@@ -126,8 +126,11 @@ const OrdersScreen: React.FC<Props> = (props) => {
       item.status === OrderStatus.ORDER_DELIVERING
     ))
       return true
+    
     if (tab === 0 && (
-      item.status === OrderStatus.ORDER_DELIVERED
+      item.status === OrderStatus.ORDER_DELIVERED ||
+      item.status === OrderStatus.ORDER_CANCELED_BY_PRO ||
+      item.status === OrderStatus.ORDER_CANCELED_BY_USER
     ))
       return true
 

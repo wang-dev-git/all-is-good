@@ -13,6 +13,7 @@ export default {
   GLOBAL_LOADING_ERROR: 'Loading error...',
   GLOBAL_NO_RESULT: 'No result for this search',
   GLOBAL_CANCEL: 'Cancel',
+  GLOBAL_REMOVE: 'Remove',
   GLOBAL_OK: 'OK',
   GLOBAL_NO: 'No',
   GLOBAL_SAVE: 'Save',

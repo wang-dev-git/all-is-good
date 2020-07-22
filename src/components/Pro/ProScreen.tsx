@@ -172,7 +172,7 @@ const ProScreen: React.FC<Props> = (props) => {
   }
 
   const soldOut = !pro.quantity || pro.quantity < 0
-  const opening = Time.getPickUpRange(pro, langId)
+  const opening = Time.getOpenRange(pro, langId)
 
   const icons = pro.icons || []
   const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null

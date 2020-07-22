@@ -50,4 +50,18 @@ export default class Time {
     return null
   }
 
+  static getOpenRange(pro, langId) {
+    const startSeconds = pro.open_start_second || 0
+    const dateStart = this.moment(new Date()).startOf('day').seconds(startSeconds)
+    const start = this.addAMIfNeeded(dateStart, langId)
+    
+    const endSeconds = pro.open_end_second || 0
+    const dateEnd = this.moment(new Date()).startOf('day').seconds(endSeconds)
+    const end = this.addAMIfNeeded(dateEnd, langId)
+
+    if (pro.open_start_second !== undefined) {
+      return start + ' - ' + end
+    }
+    return null
+  }
 }

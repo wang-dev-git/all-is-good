@@ -53,19 +53,12 @@ const OrdersScreen: React.FC<Props> = (props) => {
   }, [tab, tabRefresh])
 
   const onCancel = (order: any) => {
-    let msg = lang.ORDER_CANCEL_MSG_PICK_UP
+    let msg = ''
 
-    if (order.delivery) {
-      const startSeconds = order.pro.pick_up_start_second || 0
-      const now = Time.moment(new Date())
-      const dateStart = Time.moment(new Date()).startOf('day').seconds(startSeconds)
-      const diff = now.diff(dateStart, 'seconds')
-      if (diff > 0) {
-        msg = (lang.ORDER_CANCEL_MSG_DELIVERY_TOO_LATE || '').replace('%AMOUNT%', order.price)
-      } else {
-        const deliveryTime = Time.addAMIfNeeded(dateStart, langId)
-        msg = (lang.ORDER_CANCEL_MSG_DELIVERY || '').replace('%TIME%', deliveryTime)
-      }
+    if (Tools.shouldOrderBePaid(order)) {
+      msg = (lang.ORDER_CANCEL_MSG_DELIVERY_TOO_LATE || '')
+    } else {
+      msg = (lang.ORDER_CANCEL_MSG_DELIVERY || '')
     }
 
     Alert.alert(

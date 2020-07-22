@@ -104,7 +104,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
                 <MyText numberOfLines={1} style={styles.name}>{name}</MyText>
                 <MyText style={styles.ref}>{ref}</MyText>
 
-                { (props.past && !order.cancelledAt) &&
+                { (props.past && !order.cancelledAt && !order.unavailableAt) &&
                   <View style={{alignItems: 'center', marginBottom: 12,}}>
                     { order.rating === undefined ? (
                       <SmallButton

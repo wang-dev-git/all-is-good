@@ -3,9 +3,21 @@ import * as Localization from 'expo-localization';
 import * as IntentLauncher from 'expo-intent-launcher';
 import Constants from "expo-constants";
 import { Platform, Linking } from 'react-native'
+import Fire from './Fire.service'
 
 export default class Tools {
   
+  static shouldOrderBePaid(order: any) {
+    const referenceDate = Fire.getDateFor(order.createdAt)
+    const start = order.delivery ? order.pro.delivery_start : order.pro.pick_up_start
+    const info = start.split(':')
+    referenceDate.setHours(Number(info[0]))
+    referenceDate.setMinutes(Number(info[1]))
+    referenceDate.setSeconds(0)
+    const now = new Date()
+    return referenceDate.getTime() < now.getTime() 
+  }
+
   // Get geohash for given position-level pair
   static getGeohash(pos: any, level: number) {
     return ngeohash.encode(pos.latitude, pos.longitude, level)

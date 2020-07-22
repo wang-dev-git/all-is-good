@@ -7,7 +7,7 @@ import { HeaderBar, MyText, ListEmpty } from '../Reusable'
 import OrderItem from './OrderItem'
 
 import { Actions } from 'react-native-router-flux'
-import { Fire, Flash, Loader, Modal, Time } from '../../services'
+import { Fire, Flash, Loader, Modal, Time, Tools } from '../../services'
 
 import { fetchOrders } from '../../actions/orders.action'
 import { switchTab, switchOrderTab } from '../../actions/tab.action'

@@ -52,6 +52,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const opening = Time.getPickUpRange(pro, langId)
   const position = useSelector(state => state.authReducer.position)
   const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
+  const closed = Tools.isClosed(pro)
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.container]}>
@@ -120,7 +121,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
                 </View>
               </View>
             </View>
-            {!pro.quantity &&
+            {(!pro.quantity || closed) &&
               <VeilView abs start='rgba(0,0,0,0.3)' end='rgba(0,0,0,0.3)' />
             } 
           </View>

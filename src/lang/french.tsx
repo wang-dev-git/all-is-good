@@ -147,6 +147,7 @@ export default {
   PRO_GO_TO_BTN: "Itinéraire",
   PRO_BUY_BTN: "Commander",
   PRO_SOLD_OUT: "Victime de son succès",
+  PRO_CLOSED: "Fermé actuellement",
   PRO_OPEN_MAPS_TITLE: 'Voir dans Maps',
   PRO_OPEN_MAPS_SUBTITLE: 'Souhaitez-vous ouvrir Maps ?',
   PRO_EMAIL_VERIF_TITLE: 'Une dernière étape',

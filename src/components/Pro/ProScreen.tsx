@@ -177,6 +177,8 @@ const ProScreen: React.FC<Props> = (props) => {
   const icons = pro.icons || []
   const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
 
+  const closed = Tools.isClosed(pro)
+  
   const has = (key: string) => {
     return Tools.getLang(pro[key], langId) !== null
   }
@@ -350,8 +352,8 @@ const ProScreen: React.FC<Props> = (props) => {
 
       <BottomButton
         abs
-        title={soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
-        disabled={soldOut}
+        title={closed ? lang.PRO_CLOSED : soldOut ? lang.PRO_SOLD_OUT : lang.PRO_BUY_BTN}
+        disabled={closed || soldOut}
         backgroundColor={mainStyle.themeColor}
         onPress={onCheckout}
         />

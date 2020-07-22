@@ -146,6 +146,7 @@ export default {
   PRO_GO_TO_BTN: "Go to",
   PRO_BUY_BTN: "Order",
   PRO_SOLD_OUT: "Sold out",
+  PRO_CLOSED: "Currently closed",
   PRO_OPEN_MAPS_TITLE: 'View in Maps',
   PRO_OPEN_MAPS_SUBTITLE: 'Would you like to open Maps ?',
   PRO_EMAIL_VERIF_TITLE: 'One last step',

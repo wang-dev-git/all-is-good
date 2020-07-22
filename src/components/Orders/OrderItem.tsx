@@ -64,6 +64,10 @@ const OrderItem: React.FC<Props> = (props: Props) => {
       case OrderStatus.ORDER_CANCELED_BY_USER:
         return lang.ORDER_CANCELLED
         break;
+
+      case OrderStatus.ORDER_USER_UNAVAILABLE:
+        return lang.ORDER_USER_UNAVAILABLE
+        break;
     }
   }
 

@@ -124,6 +124,7 @@ export default {
   ORDER_CANCEL_MSG_PICK_UP: "Vous ne serez pas débité pour votre commande",
   ORDER_CANCELLING: 'Annulation...',
   ORDER_WAS_CANCELLED: 'Commande annulée',
+  ORDER_USER_UNAVAILABLE: 'Client indisponible',
 
   // Rating
   RATE_TITLE: 'Donnez votre avis',

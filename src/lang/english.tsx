@@ -123,6 +123,7 @@ export default {
   ORDER_CANCEL_MSG_PICK_UP: "You will not be charged for your order",
   ORDER_CANCELLING: 'Cancelling...',
   ORDER_WAS_CANCELLED: 'Order cancelled',
+  ORDER_USER_UNAVAILABLE: 'Customer was unavailable',
 
   // Rating
   RATE_TITLE: 'Your opinion matters',

@@ -201,7 +201,8 @@ class TabsScreen extends React.Component<Props, State>  {
         this.props.fetchOrders()
         if (order.status === OrderStatus.ORDER_DELIVERED ||
           order.status === OrderStatus.ORDER_CANCELED_BY_USER ||
-          order.status === OrderStatus.ORDER_CANCELED_BY_PRO) {
+          order.status === OrderStatus.ORDER_CANCELED_BY_PRO ||
+          order.status === OrderStatus.ORDER_USER_UNAVAILABLE) {
           // Go to PAST
           this.props.switchOrderTab(0)
         } else {

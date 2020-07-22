@@ -13,6 +13,7 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
   const userId = reducer.fireUser.uid
   const saved = reducer.savedName
   const email = reducer.fireUser.email
+  const langId = getState().langReducer.id
   const res = await Fire.store().collection('users').doc(userId).get()
   if (!res.exists) {
     const u: any = {
@@ -22,6 +23,7 @@ export const finishLogin = createActionThunk('FINISH_REGISTER', async ({ getStat
       distance: 50,
       notifAIG: true,
       notifOrders: true,
+      lang: langId,
     }
     if (!saved)
       u.email = email

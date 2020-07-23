@@ -52,29 +52,42 @@ const OrdersScreen: React.FC<Props> = (props) => {
       listRef.current.scrollToIndex({ index: 0 })
   }, [tab, tabRefresh])
 
-  const onCancel = (order: any) => {
+  const onCancel = async (order: any) => {
     let msg = ''
 
-    if (Tools.shouldOrderBePaid(order)) {
-      msg = (lang.ORDER_CANCEL_MSG_DELIVERY_TOO_LATE || '')
-    } else {
-      msg = (lang.ORDER_CANCEL_MSG_DELIVERY || '')
+    Loader.show()
+
+    try {
+      const shouldBePaid = await Fire.cloud('shouldOrderBePaid', { orderId: order.id })
+      if (shouldBePaid) {
+        msg = (lang.ORDER_CANCEL_MSG_DELIVERY_TOO_LATE || '')
+      } else {
+        msg = (lang.ORDER_CANCEL_MSG_DELIVERY || '')
+      }
+    } catch (err) {
+
     }
 
-    Alert.alert(
-      lang.ORDER_CANCEL,
-      msg,
-      [
-        {
-          text: lang.GLOBAL_NO,
-          style: 'cancel',
-        },
-        {text: lang.ORDER_CONFIRM_CANCEL, style: 'destructive', onPress: () => {
-          cancel(order)
-        }},
-      ],
-      {cancelable: false},
-    );
+    Loader.hide()
+
+    setTimeout(() => {
+
+      Alert.alert(
+        lang.ORDER_CANCEL,
+        msg,
+        [
+          {
+            text: lang.GLOBAL_NO,
+            style: 'cancel',
+          },
+          {text: lang.ORDER_CONFIRM_CANCEL, style: 'destructive', onPress: () => {
+            cancel(order)
+          }},
+        ],
+        {cancelable: false},
+      );
+    }, 400)
+
   }
 
   const onRate = (order: any) => {

@@ -49,7 +49,7 @@ const ProItem: React.FC<Props> = (props: Props) => {
   const inWishes = isInWishes(pro)
   const name = pro.name && pro.name.length > 22 ? (pro.name.substr(0, 18) + '...') : pro.name
   const langId = useSelector(state => state.langReducer.id)
-  const opening = Time.getOpenRange(pro, langId)
+  const opening = Time.getPickUpRange(pro, langId)
   const position = useSelector(state => state.authReducer.position)
   const distance = position ? Tools.getDistance(position.geometry.location.lat, position.geometry.location.lng, pro.lat, pro.lng) : null
   const closed = Tools.isClosed(pro)

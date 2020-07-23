@@ -134,27 +134,11 @@ export default class Tools {
   }
 
   static isClosed(pro: any) {
-    const startDate = new Date()
-    const endDate = new Date()
-
-    if (!pro.open_start || !pro.open_end)
-      return true
-
-    const start = pro.open_start
-    const startInfo = start.split(':')
-    startDate.setHours(Number(startInfo[0]))
-    startDate.setMinutes(Number(startInfo[1]))
-    startDate.setSeconds(0)
-
-    const end = pro.open_end
-    const endInfo = end.split(':')
-    endDate.setHours(Number(endInfo[0]))
-    endDate.setMinutes(Number(endInfo[1]))
-    endDate.setSeconds(0)
-
     const now = new Date()
-    return (now.getTime() > endDate.getTime() || 
-      now.getTime() < startDate.getTime())
+    const day = now.getDay()
+    const shifted = day === 0 ? 6 : day - 1
+    const days = pro.open_days || []
+    return !days.includes(shifted)
   }
 
 }

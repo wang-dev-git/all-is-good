@@ -138,7 +138,8 @@ export default class Tools {
     const day = now.getDay()
     const shifted = day === 0 ? 6 : day - 1
     const days = pro.open_days || []
-    return !days.includes(shifted)
+    const closed = !days.includes(shifted)
+    return closed
   }
 
 }

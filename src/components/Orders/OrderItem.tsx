@@ -124,7 +124,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
 
                 { last &&
                   <View style={styles.row}>
-                    <MyText style={styles.statusTitle}>{getStatus(last)}</MyText>
+                    <MyText style={[styles.statusTitle, last.cancelledAt !== undefined ? {color: '#d47'} : {}]}>{getStatus(last)}</MyText>
                     <MyText style={styles.statusTime}>{getHour(last)}</MyText>
                   </View>
                 }

@@ -116,7 +116,7 @@ export default {
   ORDER_DELIVERED: 'Delivered',
   ORDER_CANCELLED: 'Cancelled',
   ORDER_CONFIRM_CANCEL: 'Yes, cancel',
-  ORDER_QUANTITY: 'Qté.',
+  ORDER_QUANTITY: 'Qty.',
   ORDER_RATE: 'Rate',
   ORDER_CANCEL: "Cancel order",
   ORDER_CANCEL_MSG_DELIVERY_TOO_LATE: "You will still be charged of the amount of the order",

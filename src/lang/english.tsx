@@ -23,7 +23,7 @@ export default {
   GLOBAL_INTERNET: 'Please check your internet connection',
 
   // Landing
-  LANDING_INTRO: 'We have a great challenge\nto take on together',
+  LANDING_INTRO: 'We have a great challenge\nto take on together!',
   LANDING_CONNECT_EMAIL: "Email login",
   LANDING_CONNECT_FB: "Connect with Facebook",
   LANDING_CONNECT_GOOGLE: "Connect with Google",

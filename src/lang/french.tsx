@@ -23,7 +23,7 @@ export default {
   GLOBAL_INTERNET: 'Veuillez vérifier votre connexion internet',
 
   // Landing
-  LANDING_INTRO: 'Rejoignez le combat contre le gachis de nourriture',
+  LANDING_INTRO: 'Rejoignez la lutte contre le gachis de nourriture !',
   LANDING_CONNECT_EMAIL: "Se connecter",
   LANDING_CONNECT_FB: "Connexion Facebook",
   LANDING_CONNECT_GOOGLE: "Connexion Google",

@@ -16,6 +16,7 @@ import { mainStyle } from '../../styles'
 type Props = {
   user: any;
   lang: any;
+  forced?: boolean;
 
   updateUser: (info: any) => void;
 }
@@ -46,6 +47,13 @@ class UserInfoScreen extends React.Component<Props, State>  {
     const { updateUser } = this.props
     const { info } = this.state
 
+    if (!info.first_name || info.first_name === '' ||
+      !info.last_name || info.last_name === '' ||
+      !info.phone || info.phone === '') {
+      alert(lang.USER_INFO_ALL_FIELDS)
+      return;
+    }
+
     Loader.show(lang.GLOBAL_SAVING)
     try {
       await updateUser(info)
@@ -58,13 +66,13 @@ class UserInfoScreen extends React.Component<Props, State>  {
   }
 
   render() {
-    const { user, lang } = this.props
+    const { user, lang, forced } = this.props
     const { info } = this.state
     return (
       <View style={styles.container}>
         <HeaderBar
           title={lang.USER_INFO_TITLE}
-          back
+          back={!forced}
           />
         <KeyboardAwareScrollView>
           <TitledInput

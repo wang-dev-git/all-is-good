@@ -145,6 +145,13 @@ class TabsScreen extends React.Component<Props, State>  {
         await this.connect()
         await this.saveLanguage()
         
+        const logged = this.props.user
+        if (!logged.first_name || logged.first_name === '' ||
+          !logged.last_name || logged.last_name === '' ||
+          !logged.phone || logged.phone === '') {
+          Actions.userInfo({ forced: true })
+        }
+
         /*setTimeout(() => {
           this.savePushToken(user.uid)
         }, 1000)*/

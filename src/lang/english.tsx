@@ -102,6 +102,7 @@ export default {
   USER_INFO_LAST_NAME: 'Last name',
   USER_INFO_PHONE: 'Phone number',
   USER_INFO_BTN: 'Save',
+  USER_INFO_ALL_FIELDS: 'Please complete your profile',
 
   // Orders
   ORDERS_PAST: 'Past',

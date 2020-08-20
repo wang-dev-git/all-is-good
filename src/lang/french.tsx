@@ -96,13 +96,14 @@ export default {
   PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
   PROFILE_JOIN_AIG: 'Vous possédez un magasin ?\nRejoignez All is Good et aidez à éviter le gaspillage',
   PROFILE_JOIN_AIG_BTN: 'Rejoindre All is Good',
-
+  
   USER_INFO_TITLE: 'Mes coordonnées',
   USER_INFO_EMAIL: 'Email',
   USER_INFO_FIRST_NAME: 'Prénom',
   USER_INFO_LAST_NAME: 'Nom',
   USER_INFO_PHONE: 'Téléphone',
   USER_INFO_BTN: 'Enregistrer',
+  USER_INFO_ALL_FIELDS: 'Veuillez remplir toutes vos informations SVP',
 
   // Orders
   ORDERS_PAST: 'Passées',

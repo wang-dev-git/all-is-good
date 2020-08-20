@@ -28,6 +28,7 @@ const PaymentModal: React.FC<Props> = (props) => {
   const [counter, setCounter] = React.useState(1)
   const [confirmed, setConfirmed] = React.useState(false)
   const [showQuantity, setShowQuantity] = React.useState(false)
+  const [showAllergens, setShowAllergens] = React.useState(false)
   const [showCards, setShowCards] = React.useState(false)
   const [showModes, setShowModes] = React.useState(false)
   const [showDelivery, setShowDelivery] = React.useState(false)
@@ -38,10 +39,29 @@ const PaymentModal: React.FC<Props> = (props) => {
   const delivery_price = showDelivery ? (pro.delivery_price || 0) : 0
   const total = Number(counter * price + delivery_price).toFixed(2)
 
+  const allergensAnimation = React.useRef(new Animated.Value(1)).current
   const quantityAnimation = React.useRef(new Animated.Value(1)).current
   const modesAnimation = React.useRef(new Animated.Value(1)).current
   const deliveryAnimation = React.useRef(new Animated.Value(1)).current
   const cardsAnimation = React.useRef(new Animated.Value(1)).current
+
+  React.useEffect(() => {
+    if (showAllergens) {
+      Animated.spring(allergensAnimation, {
+        toValue: 0,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    } else {
+      Animated.spring(allergensAnimation, {
+        toValue: 1,
+        velocity: 3,
+        tension: 2,
+        friction: 8,
+      }).start();
+    }
+  }, [showAllergens])
 
   React.useEffect(() => {
     if (showQuantity) {
@@ -126,7 +146,9 @@ const PaymentModal: React.FC<Props> = (props) => {
   }
 
   const nextStep = () => {
-    if (!showQuantity) {
+    if (!showAllergens) {
+      setShowAllergens(true)
+    } else if (!showQuantity) {
       setShowQuantity(true)
     } else  if (!showModes) {
       setShowModes(true)
@@ -147,6 +169,10 @@ const PaymentModal: React.FC<Props> = (props) => {
     }
   }
 
+  const translateAllergens = allergensAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 400],
+  })
   const translateQuantity = quantityAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 400],
@@ -203,13 +229,19 @@ const PaymentModal: React.FC<Props> = (props) => {
         <MyText style={styles.open}>{lang.GLOBAL_TODAY} {opening}</MyText>
       </View>
       <View style={styles.container}>
-        {/* WARNING STEP */}
+        {/* First warning STEP */}
         <View>
+          <MyText style={styles.subtitle}>{lang.PAYMENT_CONTENT}</MyText>
+          <MyText style={styles.surprise}>{lang.PAYMENT_CONTENT_MSG}</MyText>
+        </View>
+
+        {/* WARNING STEP */}
+        <Animated.View style={[styles.quantity, {transform: [{translateY: translateAllergens}]}]}>
           <MyText style={styles.subtitle}>{lang.PAYMENT_ALLERGENS}</MyText>
           <MyText style={styles.surprise}>{lang.PAYMENT_ALLERGENS_MSG}</MyText>
           <MyText style={styles.subtitle}>{lang.PAYMENT_FOOD_SECURITY}</MyText>
           <MyText style={styles.surprise}>{lang.PAYMENT_FOOD_SECURITY_MSG}</MyText>
-        </View>
+        </Animated.View>
 
         {/* QUANTITY STEP */}
         <Animated.View style={[styles.quantity, {transform: [{translateY: translateQuantity}]}]}>

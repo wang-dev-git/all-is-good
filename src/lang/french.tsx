@@ -155,6 +155,8 @@ export default {
   PRO_EMAIL_VERIF_RESEND: 'Renvoyer',
 
   // Payment
+  PAYMENT_CONTENT: 'Panier surprise',
+  PAYMENT_CONTENT_MSG: "Les paniers suprises sont composés des invendus du jour, et le contenu peut donc varier.",
   PAYMENT_ALLERGENS: 'Allergènes et ingrédients',
   PAYMENT_ALLERGENS_MSG: 'Veillez à bien vérifier la liste des allergènes avant de commander',
   PAYMENT_FOOD_SECURITY: 'Sécurité alimentaire',

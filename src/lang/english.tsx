@@ -93,8 +93,8 @@ export default {
   PROFILE_HELP_BTN: "View website",
   PROFILE_LOGOUT: "Logout",
   PROFILE_LOGOUT_CONFIRM: 'Are you sure you want to log out?',
-  PROFILE_JOIN_AIG: 'Shop owner ?\nJoin All is Good and help fighting food waste',
-  PROFILE_JOIN_AIG_BTN: 'Join All is Good',
+  PROFILE_JOIN_AIG: 'Shop owner?\nJoin All is Good to reduce food waste',
+  PROFILE_JOIN_AIG_BTN: 'Become partner',
 
   USER_INFO_TITLE: 'My information',
   USER_INFO_EMAIL: 'Email',

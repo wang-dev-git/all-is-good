@@ -94,8 +94,8 @@ export default {
   PROFILE_HELP_BTN: "Voir le site",
   PROFILE_LOGOUT: "Déconnexion",
   PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
-  PROFILE_JOIN_AIG: 'Vous possédez un magasin ?\nRejoignez All is Good et aidez à éviter le gaspillage',
-  PROFILE_JOIN_AIG_BTN: 'Rejoindre All is Good',
+  PROFILE_JOIN_AIG: 'Vous possédez un magasin ?\nRejoignez-nous pour réduire le gaspillage',
+  PROFILE_JOIN_AIG_BTN: 'Devenir partenaire',
   
   USER_INFO_TITLE: 'Mes coordonnées',
   USER_INFO_EMAIL: 'Email',

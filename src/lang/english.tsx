@@ -27,7 +27,7 @@ export default {
   LANDING_CONNECT_EMAIL: "Email login",
   LANDING_CONNECT_FB: "Connect with Facebook",
   LANDING_CONNECT_GOOGLE: "Connect with Google",
-  LANDING_CONDITIONS: "By registering, you accept the conditions of use of All is Good",
+  LANDING_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of All is Good.",
 
   // Home
   HOME_SEARCH_AGAIN: 'New search',
@@ -63,7 +63,7 @@ export default {
   LOGIN_ALREADY_REGISTERED: 'Already registered?',
   LOGIN_NOT_REGISTERED: 'Create an account',
   LOGIN_FORGOT_PASSWORD: 'Forgotten password?',
-  LOGIN_CONDITIONS: "By registering, you are accepting the conditions of use of All is Good",
+  LOGIN_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of All is Good.",
   LOGIN_ERR_CONDITIONS: "You must first accept our conditons of use",
   LOGIN_ERR_ALL_FIELDS: 'Please fill-in all the fields',
   LOGIN_ERR_CONFIRM_PASSWORD: "Passwords do not match",

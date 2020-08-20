@@ -27,7 +27,7 @@ export default {
   LANDING_CONNECT_EMAIL: "Se connecter",
   LANDING_CONNECT_FB: "Connexion Facebook",
   LANDING_CONNECT_GOOGLE: "Connexion Google",
-  LANDING_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente",
+  LANDING_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de All is Good",
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
@@ -64,7 +64,7 @@ export default {
   LOGIN_ALREADY_REGISTERED: 'Vous avez déjà un compte ?',
   LOGIN_NOT_REGISTERED: 'Pas encore inscrit ?',
   LOGIN_FORGOT_PASSWORD: 'Mot de passe oublié ?',
-  LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez les conditions d'utilisation",
+  LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de All is Good.",
   LOGIN_ERR_CONDITIONS: "Vous devez lire et accepter nos conditoins d'utilisation",
   LOGIN_ERR_ALL_FIELDS: 'Veuillez remplir tous les champs SVP',
   LOGIN_ERR_CONFIRM_PASSWORD: "Les mots de passes ne correspondent pas",

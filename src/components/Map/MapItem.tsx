@@ -34,9 +34,9 @@ const MapItem: React.FC<Props> = (props: Props) => {
               <View style={{position: 'absolute', bottom: 8, right: 8, alignItems: 'flex-end',}}>
                 
                 <MyText style={styles.price}>
-                  {Number(pro.price).toFixed(2)}$
+                  ${Number(pro.price).toFixed(2)}
                   { pro.initial_price !== undefined &&
-                    <MyText style={[styles.oldPrice]}> ({Number(pro.initial_price).toFixed(2)}$)</MyText>
+                    <MyText style={[styles.oldPrice]}> (${Number(pro.initial_price).toFixed(2)})</MyText>
                   }
                 </MyText>
               </View>

@@ -108,9 +108,9 @@ const ProItem: React.FC<Props> = (props: Props) => {
                   </View>
                   <View style={{alignItems: 'flex-end', paddingRight: 10,}}>
                     { pro.initial_price !== undefined &&
-                      <MyText style={[styles.oldPrice]}>{Number(pro.initial_price).toFixed(2)}$</MyText>
+                      <MyText style={[styles.oldPrice]}>${Number(pro.initial_price).toFixed(2)}</MyText>
                     }
-                    <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
+                    <MyText style={styles.price}>${Number(pro.price).toFixed(2)}</MyText>
                   </View>
                 </View>
               </View>

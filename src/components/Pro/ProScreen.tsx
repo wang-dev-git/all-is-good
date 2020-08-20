@@ -86,7 +86,7 @@ const ProScreen: React.FC<Props> = (props) => {
         await dispatch(fetchOrders())
         Modal.hide('payment')
         Modal.show('payment_success', { local: true, content: () => (
-          <SuccessModal success={true} message={lang.PAYMENT_SUCCESS} subtitle={"Total " + price + "$"} />
+          <SuccessModal success={true} message={lang.PAYMENT_SUCCESS} subtitle={"Total $" + price} />
         )})
       } else {
         let error = ''
@@ -255,9 +255,9 @@ const ProScreen: React.FC<Props> = (props) => {
 
             <View style={{flex: 0.2, alignItems: 'flex-end'}}>
               { pro.initial_price !== undefined &&
-                <MyText style={[styles.oldPrice]}>{Number(pro.initial_price).toFixed(2)}$</MyText>
+                <MyText style={[styles.oldPrice]}>${Number(pro.initial_price).toFixed(2)}</MyText>
               }
-              <MyText style={styles.price}>{Number(pro.price).toFixed(2)}$</MyText>
+              <MyText style={styles.price}>${Number(pro.price).toFixed(2)}</MyText>
             </View>
 
           </View>

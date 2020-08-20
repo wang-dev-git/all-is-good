@@ -235,8 +235,8 @@ const PaymentModal: React.FC<Props> = (props) => {
           <MyText style={[styles.surprise, {marginTop: 40, ...mainStyle.montBold, fontSize: 16}]}>{lang.PAYMENT_QUANTITY_SUBTITLE}</MyText>
 
           <MyText style={[styles.subtitle, {marginTop: 10, fontSize: 17}]}>
-            Total: {Number(total).toFixed(2)}$
-            {pro.initial_price !== undefined && <MyText> (<MyText style={{textDecorationLine: 'line-through'}}>{Number(pro.initial_price).toFixed(2)}$</MyText>)</MyText>}
+            Total: ${total}
+            {pro.initial_price !== undefined && <MyText> (<MyText style={{textDecorationLine: 'line-through'}}>${Number(pro.initial_price).toFixed(2)}</MyText>)</MyText>}
           </MyText>
         </Animated.View>
 
@@ -276,7 +276,7 @@ const PaymentModal: React.FC<Props> = (props) => {
         <Animated.View style={[styles.delivery, {transform: [{translateY: translateDelivery}]}]}>
           <TouchableOpacity style={styles.line} onPress={() => {setShowDelivery(false); setShowCards(false);}}>
             <MyText style={styles.lineTitle}>{lang.PAYMENT_CHOOSE_MODE}</MyText>
-            <MyText style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +{pro.delivery_price || 0}$</MyText>
+            <MyText style={styles.lineValue}>{lang.PAYMENT_DELIVERY} / +${Number(pro.delivery_price || 0).toFixed(2)}</MyText>
           </TouchableOpacity>
           <MyText style={styles.subtitle}>{lang.PAYMENT_CHOOSE_ADDRESS}</MyText>
           <View style={{alignItems: 'center'}}>
@@ -314,7 +314,7 @@ const PaymentModal: React.FC<Props> = (props) => {
       </View>
 
       <BottomButton
-        title={!showQuantity ? lang.PAYMENT_GOT_IT : !showCards ? lang.PAYMENT_NEXT : lang.PAYMENT_CONFIRM + ' ' + total + '$'}
+        title={!showQuantity ? lang.PAYMENT_GOT_IT : !showCards ? lang.PAYMENT_NEXT : lang.PAYMENT_CONFIRM + ' $' + total}
         backgroundColor={mainStyle.themeColor}
         onPress={nextStep}
         disabled={!canProceed}

@@ -164,7 +164,7 @@ export default {
   PAYMENT_PICK_UP: 'Pick up',
   PAYMENT_PICK_UP_OPENING: 'You can pick up your order\nbetween %START% and %END%',
   PAYMENT_DELIVERY: 'Delivery',
-  PAYMENT_DELIVERY_FEE: 'Delivery fees are: %PRICE%$',
+  PAYMENT_DELIVERY_FEE: 'Delivery fees are: $%PRICE%',
   PAYMENT_DELIVERY_OPENING: 'We can deliver your order\nbetween %START% and %END%',
   PAYMENT_CHOOSE_ADDRESS: 'Delivery address',
   PAYMENT_PLEASE_CHOOSE_ADDRESS: 'Select an address',

@@ -98,7 +98,7 @@ const OrderItem: React.FC<Props> = (props: Props) => {
               <View style={styles.info}>
                 <View style={{flexDirection: 'row', flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
                   <MyText style={styles.quantity}>{lang.ORDER_QUANTITY}: {quantity}</MyText>
-                  <MyText style={[styles.quantity, { textAlign: 'right' }]}>{order.price}$</MyText>
+                  <MyText style={[styles.quantity, { textAlign: 'right' }]}>${Number(order.price).toFixed(2)}</MyText>
                 </View>
 
                 <MyText numberOfLines={1} style={styles.name}>{name}</MyText>

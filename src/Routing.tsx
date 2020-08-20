@@ -70,6 +70,7 @@ export default class Routing extends React.Component<Props, State> {
       require('./images/insta_logo.png'),
       require('./images/twitter_logo.png'),
       require('./images/corner.png'),
+      require('./images/settings.png'),
 
       // Pro Icons
       require('./images/icons/bread.png'),

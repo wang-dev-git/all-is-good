@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Text, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
-import { FadeInView } from '../Reusable'
+import { AssetImage, FadeInView } from '../Reusable'
 
 import { Actions } from 'react-native-router-flux'
 import { ifIphoneX } from 'react-native-iphone-x-helper'
@@ -35,9 +35,9 @@ const SearchBar: React.FC<Props> = (props) => {
         </View>
         
         { props.onFilters &&
-          <TouchableOpacity style={styles.filtersIcon} onPress={() => props.onFilters()}>
-            <Icon name="cog" color={'#fff'} size={16} />
-          </TouchableOpacity>
+          <View style={{width: 22, height: 22}}>
+            <AssetImage src={require('../../images/settings.png')} style={{tintColor: '#fff'}} /> 
+          </View>
         }
         { props.query.length > 0 &&
           <TouchableOpacity style={[styles.clearIcon, props.onFilters ? {right: barHeight + 2} : { right: 10 }]} onPress={() => props.onClear()}>

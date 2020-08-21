@@ -194,7 +194,7 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const recenter = () => {
     if (userLocation) {
-      animateTo(coords.latitude, coords.longitude)
+      animateTo(userLocation.coords.latitude, userLocation.coords.longitude)
     } if (position) {
       animateTo(position.geometry.location.lat, position.geometry.location.lng)
     }

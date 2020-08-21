@@ -68,11 +68,14 @@ const MapScreen: React.FC<Props> = (props) => {
   const animateTo = (lat, lng) => {
     if (!mapRef)
       return;
-    const tempCoords = {
+    const region = {
       latitude: Number(lat),
-      longitude: Number(lng)
+      longitude: Number(lng),
+      latitudeDelta: 0.3358723958820065,
+      longitudeDelta: 0.4250270688370961,
     }
-    mapRef.current.animateCamera({center: tempCoords, pitch: 0, heading: 0, altitude: 2000, zoom: 100}, 420)
+
+    mapRef.current.animateToRegion(region, 420)
   }
 
   React.useEffect(() => {
@@ -156,10 +159,6 @@ const MapScreen: React.FC<Props> = (props) => {
   }, [mapPros])
 
   React.useEffect(() => {
-    recenter()
-  }, [position])
-
-  React.useEffect(() => {
     if (center)
       refresh()
   }, [center])
@@ -195,7 +194,7 @@ const MapScreen: React.FC<Props> = (props) => {
   const recenter = () => {
     if (userLocation) {
       animateTo(userLocation.coords.latitude, userLocation.coords.longitude)
-    } if (position) {
+    } else if (position) {
       animateTo(position.geometry.location.lat, position.geometry.location.lng)
     }
   }

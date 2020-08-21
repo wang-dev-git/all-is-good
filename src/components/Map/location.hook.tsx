@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-const useLocation = (user: any) => {
+const useLocation = () => {
   const [location, setLocation] = useState(null);
   useEffect(() => {
     const fetch = async () => {
@@ -14,7 +14,7 @@ const useLocation = (user: any) => {
       }
     }
     fetch()
-  }, [user])
+  }, [])
   return location
 }
 export default useLocation

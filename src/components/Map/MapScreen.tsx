@@ -50,6 +50,7 @@ const MapScreen: React.FC<Props> = (props) => {
 
   const [selectedAddress, selectAddress] = React.useState(null)
   const [selectedPro, selectPro] = React.useState(null)
+  const userLocation = useLocation()
 
   const listRef = React.useRef<FlatList<any[]>>()
   const [center, setCenter] = React.useState(position)
@@ -192,7 +193,9 @@ const MapScreen: React.FC<Props> = (props) => {
   }
 
   const recenter = () => {
-    if (position) {
+    if (userLocation) {
+      animateTo(coords.latitude, coords.longitude)
+    } if (position) {
       animateTo(position.geometry.location.lat, position.geometry.location.lng)
     }
   }

@@ -27,7 +27,17 @@ const icons = [
   { id: 'coffee', img: require('../images/icons/coffee.png') }, 
   { id: 'harvest', img: require('../images/icons/harvest.png') }, 
   { id: 'milkshake', img: require('../images/icons/milkshake.png') }, 
-  { id: 'drink', img: require('../images/icons/drink.png') }, 
+  { id: 'drink', img: require('../images/icons/drink.png') },
+  { id: 'vegetables', img: require('../images/icons/vegetables.png') },
+  { id: 'buffet', img: require('../images/icons/buffet.png') },
+  { id: 'hot-dog', img: require('../images/icons/hot-dog.png') },
+  { id: 'doughnut', img: require('../images/icons/doughnut.png') },
+  { id: 'food-and-restaurant', img: require('../images/icons/food-and-restaurant.png') },
+  { id: 'pie', img: require('../images/icons/pie.png') },
+  { id: 'cookies', img: require('../images/icons/cookies.png') },
+  { id: 'muffin', img: require('../images/icons/muffin.png') },
+  { id: 'cheese', img: require('../images/icons/cheese.png') },
+  { id: 'chicken-leg', img: require('../images/icons/chicken-leg.png') },
 ]
 
 export const getIcon = (id) => {

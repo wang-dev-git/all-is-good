@@ -261,7 +261,7 @@ const MapScreen: React.FC<Props> = (props) => {
             <Marker
               key={index}
               onPress={() => {
-                selectPro(item)
+                redirectToPro(item)
 
                 for (let index = 0; index < prosList.length; ++index) {
                   const proIndex = prosList[index].properties.index

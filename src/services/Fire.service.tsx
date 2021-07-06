@@ -18,6 +18,8 @@ export default class Fire {
     if (!firebase.apps || !firebase.apps.length) {
 
       firebase.initializeApp(AppConfig.get().firebaseOptions);
+      const functions = firebase.functions();
+      functions.useFunctionsEmulator("http://4ebdbb2802f2.ngrok.io");
       this.geo = geofirex.init(firebase);
     }
   }
@@ -56,7 +58,7 @@ export default class Fire {
     }
     return false
   }
-  
+
   static async resendMail() {
     const user = Fire.auth().currentUser
     if (!user || this.isUserVerified())
@@ -64,7 +66,7 @@ export default class Fire {
     await user.sendEmailVerification().catch((err) => console.log(err))
     return true
   }
-  
+
   // Sign in using apple token
   static async signInApple(token: string) {
     const nonce = Math.random().toString(36).substring(2, 10);
@@ -117,7 +119,7 @@ export default class Fire {
   }
 
   // Shortcuts
-  
+
   static async get(ref: any) {
     const doc = await ref.get()
     if (doc.exists) {
@@ -133,6 +135,7 @@ export default class Fire {
     const snap = await ref.get()
     const items: any[] = []
     snap.forEach((doc: any) => {
+      let d = doc.data();
       if (doc.exists) {
         items.push({
           id: doc.id,

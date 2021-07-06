@@ -12,3 +12,5 @@ web-report/
 
 .DS_Store
 .history
+
+lib/node_modules/**/*

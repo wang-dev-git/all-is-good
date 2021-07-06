@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.595.0",
-    "expo": "^37.0.0",
+    "expo": "^39.0.0",
     "expo-blur": "~8.1.0",
     "expo-constants": "~9.0.0",
     "expo-facebook": "~8.1.0",

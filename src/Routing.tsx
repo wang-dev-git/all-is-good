@@ -24,6 +24,9 @@ import AddCardScreen from './components/AddCard/AddCardScreen'
 import ProScreen from './components/Pro/ProScreen'
 import LoaderWrapper from './components/Loader/LoaderWrapper'
 
+
+import ProNotify from './components/ProNotify/ProNotifyScreen'
+
 import { mainStyle } from './styles'
 
 import { Asset } from 'expo-asset'
@@ -133,6 +136,7 @@ export default class Routing extends React.Component<Props, State> {
         <Router>
           <Modal>
             <Stack key="root" hideNavBar>
+
               <Scene key="tabs" component={TabsScreen} />
 
               <Scene key="profile" component={ProfileScreen} />
@@ -144,6 +148,8 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="creditCards" component={CreditCardsScreen} />
               <Scene key="addCard" component={AddCardScreen} />
               <Scene key="settings" component={SettingsScreen} />
+
+              <Scene key="proNotify" component={ProNotify} />
             </Stack>
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
@@ -166,6 +172,6 @@ export default class Routing extends React.Component<Props, State> {
         { /** Global Loader **/ }
         <LoaderWrapper />
       </View>
-    )  
+    )
   }
 }

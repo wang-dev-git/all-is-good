@@ -19,7 +19,7 @@ export default class Fire {
 
       firebase.initializeApp(AppConfig.get().firebaseOptions);
       const functions = firebase.functions();
-      functions.useFunctionsEmulator("http://4ebdbb2802f2.ngrok.io");
+      functions.useFunctionsEmulator("http://8e7115abd314.ngrok.io");
       this.geo = geofirex.init(firebase);
     }
   }

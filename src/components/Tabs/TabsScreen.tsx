@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, StatusBar, ScrollView, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
 import { Notifications } from 'expo'
 
@@ -8,6 +8,7 @@ import OrdersScreen from '../Orders/OrdersScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
 import WishesScreen from '../Wishes/WishesScreen'
 import MapScreen from '../Map/MapScreen'
+import ProNotifyScreen from '../ProNotify/ProNotifyScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
@@ -124,7 +125,7 @@ interface State {
   loading: boolean;
 }
 class TabsScreen extends React.Component<Props, State>  {
- 
+
   state = {
     booted: false,
     error: false,
@@ -133,8 +134,38 @@ class TabsScreen extends React.Component<Props, State>  {
 
   notifListener: any = null
   async componentDidMount() {
-
+    var self = this
     this.props.updateLang(this.props.langId)
+
+    var docRef = Fire.store().collection("pros").doc(this.props.user.id)
+
+    docRef.get().then(function(doc) {
+      if (doc.exists) {
+        const res = {
+          id: doc.id,
+          ...doc.data()
+        }
+        if(res.id == self.props.user.id){
+
+          routes.push(  {
+            component: ProNotifyScreen,
+            renderIcon: (active: boolean) => !active ? (
+              <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+                <Icon name="bell" size={22} color={tabColor} />
+              </View>
+            ) : (
+              <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+                <Icon name="bell-o" size={22} color={tabActiveColor} />
+              </View>
+            )
+          })
+        }
+      }else {
+        console.log("No such document!");
+      }
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
 
     Fire.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
@@ -144,7 +175,7 @@ class TabsScreen extends React.Component<Props, State>  {
 
         await this.connect()
         await this.saveLanguage()
-        
+
         const logged = this.props.user
         if (!logged.first_name || logged.first_name === '' ||
           !logged.last_name || logged.last_name === '' ||
@@ -181,8 +212,6 @@ class TabsScreen extends React.Component<Props, State>  {
     } catch (err) {
       this.setState({ error: true, loading: false })
     }
-
-    
     //setTimeout(() => Actions.userBank({optionals: false}), 200)
   }
 
@@ -231,7 +260,7 @@ class TabsScreen extends React.Component<Props, State>  {
   isSelected(index: number) {
     return this.props.tab == index
   }
-  
+
   renderRoute(item: any, index: number) {
     const Route = item.component
     const isCurrent = this.props.tab == index
@@ -278,7 +307,7 @@ class TabsScreen extends React.Component<Props, State>  {
       </View>
     );
   }
-  
+
   renderTabBarItem(item: any, index: number) {
     const { wishes } = this.props
 

@@ -21,6 +21,16 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "mode": "production"
+        }
+      ]
+    ],
     "ios": {
       "usesAppleSignIn": true,
       "supportsTablet": false,
@@ -59,7 +69,8 @@
           "apiKey": "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds"
         }
       },
-      "versionCode": 121
+      "versionCode": 121,
+      "useNextNotificationsApi": true
     },
     "version": "1.2.1",
     "facebookAppId": "2609459805809503",

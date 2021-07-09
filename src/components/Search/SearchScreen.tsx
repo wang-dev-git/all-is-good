@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, Platform, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 
@@ -25,6 +25,7 @@ import { updatePosition } from '../../actions/auth.action'
 
 interface Props {}
 const SearchScreen: React.FC<Props> = (props) => {
+
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   const [animating, setAnimating] = React.useState(false)
@@ -38,6 +39,27 @@ const SearchScreen: React.FC<Props> = (props) => {
   const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    var docRef = Fire.store().collection("pros").doc(user.id)
+
+    docRef.get().then(function(doc) {
+      if (doc.exists) {
+        const res = {
+          id: doc.id,
+          ...doc.data()
+        }
+        if(res.id == user.id){
+          // Actions.proNotify();
+        }
+      }else {
+        console.log("No such document!");
+      }
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+
+  })
+
   const savePushToken = async () => {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status === 'granted') {
@@ -50,7 +72,7 @@ const SearchScreen: React.FC<Props> = (props) => {
       } catch (err) {
         //Flash.error(err)
       }
-    } 
+    }
   }
 
   const askGeoloc = async () => {
@@ -177,7 +199,7 @@ const SearchScreen: React.FC<Props> = (props) => {
               }
               return false
             })}
-            refreshControl={Platform.OS === 'android' && animating ? (null) : 
+            refreshControl={Platform.OS === 'android' && animating ? (null) :
               <RefreshControl
                 tintColor='#fff'
                 refreshing={loading}
@@ -186,7 +208,7 @@ const SearchScreen: React.FC<Props> = (props) => {
             }
             numColumns={2}
             contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
-            renderItem={(item: any) => 
+            renderItem={(item: any) =>
               <CategoryItem
                 onAnimating={setAnimating}
                 index={item.index}

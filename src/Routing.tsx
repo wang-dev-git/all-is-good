@@ -30,7 +30,7 @@ import ProNotify from './components/ProNotify/ProNotifyScreen'
 import { mainStyle } from './styles'
 
 import { Asset } from 'expo-asset'
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font'
 
 function cacheImages(images: any[]) {
@@ -138,6 +138,7 @@ export default class Routing extends React.Component<Props, State> {
             <Stack key="root" hideNavBar>
 
               <Scene key="tabs" component={TabsScreen} />
+              <Scene key="proNotify" component={ProNotify} />
 
               <Scene key="profile" component={ProfileScreen} />
               <Scene key="pro" component={ProScreen} />
@@ -149,7 +150,6 @@ export default class Routing extends React.Component<Props, State> {
               <Scene key="addCard" component={AddCardScreen} />
               <Scene key="settings" component={SettingsScreen} />
 
-              <Scene key="proNotify" component={ProNotify} />
             </Stack>
             <Stack key="landing">
               <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />

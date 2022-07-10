@@ -1,39 +1,28 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 
-import { Actions } from 'react-native-router-flux'
+import { HeaderBar, MyText } from '../Reusable'
 
-import { HeaderBar, AssetImage, BottomButton, MyText , VeilView, PageLoader } from '../Reusable'
-import { Fire, Flash } from '../../services'
-
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
-import * as ImagePicker from 'expo-image-picker';
-import * as MailComposer from 'expo-mail-composer';
 import Icon from '@expo/vector-icons/Entypo'
-import AntDesign from '@expo/vector-icons/AntDesign'
-
-import MenuLink from '../Profile/MenuLink'
 import { updateLang } from '../../actions/lang.action'
 import { updateUser } from '../../actions/auth.action'
 
 import { mainStyle } from '../../styles'
 
-type Props = {}
-const SettingsScreen: React.FC<Props> = (props) => {
-  
+const SettingsScreen = () => {
+
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
   const id = useSelector(state => state.langReducer.id)
-  const [info, setInfo] = React.useState(user)
+  const [info, setInfo] = React.useState(user)
   const dispatch = useDispatch()
 
   const opts = [
-    {key: 'fr', name: 'Français'},
-    {key: 'en', name: 'English'},
-    {key: 'es', name: 'Español'},
-    {key: 'pt', name: 'Português'},
+    { key: 'fr', name: 'Français' },
+    { key: 'en', name: 'English' },
+    { key: 'es', name: 'Español' },
+    { key: 'pt', name: 'Português' },
   ]
 
   const onChange = async (key: string, value: any) => {
@@ -52,17 +41,17 @@ const SettingsScreen: React.FC<Props> = (props) => {
       <HeaderBar
         title={lang.SETTINGS_TITLE}
         back
-        />
-      
-      <ScrollView style={styles.scroll} contentContainerStyle={{paddingBottom: 40}}>
+      />
+
+      <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 40 }}>
         <MyText style={styles.groupTitle}>{lang.SETTINGS_LANG}</MyText>
         <View style={styles.group}>
-          { opts.map((opt, index) => (
+          {opts.map((opt, index) => (
             <TouchableOpacity key={index} style={styles.option} onPress={() => dispatch(updateLang(opt.key))}>
               <View style={styles.content}>
                 <View style={styles.row}>
                   <View style={styles.icon}>
-                    { opt.key === id &&
+                    {opt.key === id &&
                       <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                     }
                   </View>
@@ -82,7 +71,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
             <View style={styles.content}>
               <View style={styles.row}>
                 <View style={styles.icon}>
-                  { info.notifOrders &&
+                  {info.notifOrders &&
                     <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                   }
                 </View>
@@ -95,7 +84,7 @@ const SettingsScreen: React.FC<Props> = (props) => {
             <View style={styles.content}>
               <View style={styles.row}>
                 <View style={styles.icon}>
-                  { info.notifAIG &&
+                  {info.notifAIG &&
                     <Icon name={'check'} size={18} color={mainStyle.themeColor} />
                   }
                 </View>

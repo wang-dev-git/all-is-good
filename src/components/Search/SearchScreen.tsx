@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, Keyboard, Platform, Text, RefreshControl, ScrollView, View, TextInput, ImageBackground, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Keyboard, Platform, RefreshControl, ScrollView, View, FlatList, Dimensions } from 'react-native';
 
-import { HeaderBar, TitledInput, MyText, ListEmpty, SmallButton, FadeInView, BottomButton, AssetImage, VeilView } from '../Reusable'
-import { Fire, Modal, Maps, Tools } from '../../services'
+import { HeaderBar, MyText, ListEmpty, FadeInView } from '../Reusable'
+import { Fire, Modal, Maps, Tools } from '../../services'
 
-import { Actions } from 'react-native-router-flux'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
-
-import Icon from '@expo/vector-icons/FontAwesome'
+import { Actions } from 'react-native-router-flux'
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import { Notifications } from 'expo'
+import * as Notifications from 'expo-notifications'
 
 import ProItem from '../Pro/ProItem'
 import CategoryItem from './CategoryItem'
@@ -22,46 +18,47 @@ import { mainStyle } from '../../styles'
 
 import { loadSearchable, loadCategories } from '../../actions/filters.action'
 import { updatePosition } from '../../actions/auth.action'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
-interface Props {}
+interface Props { }
 const SearchScreen: React.FC<Props> = (props) => {
 
   const [query, setQuery] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   const [animating, setAnimating] = React.useState(false)
 
-  const user = useSelector(state => state.authReducer.user)
-  const lang = useSelector(state => state.langReducer.lang)
-  const langId = useSelector(state => state.langReducer.id)
-  const searchable = useSelector(state => state.filtersReducer.searchable)
-  const categories = useSelector(state => state.filtersReducer.categories)
-  const position = useSelector(state => state.authReducer.position)
-  const loadingCategories = useSelector(state => state.filtersReducer.loadingCategories)
-  const dispatch = useDispatch()
+  const user = useAppSelector(state => state.authReducer.user)
+  const lang = useAppSelector(state => state.langReducer.lang)
+  const langId = useAppSelector(state => state.langReducer.id)
+  const searchable = useAppSelector(state => state.filtersReducer.searchable)
+  const categories = useAppSelector(state => state.filtersReducer.categories)
+  const position = useAppSelector(state => state.authReducer.position)
+  const loadingCategories = useAppSelector(state => state.filtersReducer.loadingCategories)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     var docRef = Fire.store().collection("pros").doc(user.id)
 
-    docRef.get().then(function(doc) {
+    docRef.get().then(function (doc) {
       if (doc.exists) {
         const res = {
           id: doc.id,
           ...doc.data()
         }
-        if(res.id == user.id){
+        if (res.id == user.id) {
           // Actions.proNotify();
         }
-      }else {
+      } else {
         console.log("No such document!");
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log("Error getting document:", error);
     });
 
   })
 
   const savePushToken = async () => {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    const { status } = await Notifications.requestPermissionsAsync();
     if (status === 'granted') {
       try {
         const token = await Notifications.getExpoPushTokenAsync();
@@ -76,7 +73,7 @@ const SearchScreen: React.FC<Props> = (props) => {
   }
 
   const askGeoloc = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+    const { status } = await Location.requestBackgroundPermissionsAsync()
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({});
       const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)
@@ -117,8 +114,8 @@ const SearchScreen: React.FC<Props> = (props) => {
   }
 
   const filtered = searchable.filter((item) => {
-    for (const cat of (item.categories || [])) {
-      for (const langId in (cat.names || {})) {
+    for (const cat of (item.categories || [])) {
+      for (const langId in (cat.names || {})) {
         const name = cat.names[langId]
         if (name.toLowerCase().includes(query.toLowerCase()))
           return true
@@ -131,25 +128,25 @@ const SearchScreen: React.FC<Props> = (props) => {
     <View style={styles.container}>
       <HeaderBar
         logo
-        />
+      />
       <BackSearchBar
         query={query}
         onChange={setQuery}
         onFilters={showFilters}
         onClear={() => setQuery('')}
-        />
+      />
       <FadeInView style={styles.content}>
-        { !position ? (
-          <ScrollView contentContainerStyle={{paddingBottom: 20}}>
+        {!position ? (
+          <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
             <ListEmpty
               text={lang.HOME_NO_POS_TITLE}
               subtext={lang.HOME_NO_POS_MESSAGE}
-              wrapperStyle={{marginTop: 40}}
+              wrapperStyle={{ marginTop: 40 }}
               imageSize={120}
               image={require('../../images/nocategories.png')}
               btnTxt={lang.HOME_NO_POS_BTN}
               onPressBtn={showAddresses}
-              />
+            />
           </ScrollView>
         ) : query !== '' ? (
           <FlatList
@@ -166,12 +163,12 @@ const SearchScreen: React.FC<Props> = (props) => {
                 onRefresh={refresh}
               />
             }
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 50,}}
+            contentContainerStyle={{ paddingBottom: 20, paddingTop: 50, }}
             renderItem={({ item }) =>
               <ProItem
                 pro={item}
                 onPress={() => Actions.pro({ pro: item })}
-                />
+              />
             }
             ListEmptyComponent={() => (
               <ListEmpty
@@ -179,12 +176,12 @@ const SearchScreen: React.FC<Props> = (props) => {
                 image={require('../../images/noresult.png')}
                 btnTxt={lang.HOME_SEARCH_AGAIN}
                 onPressBtn={() => setQuery('')}
-                />
+              />
             )}
             keyExtractor={(item, index) => index.toString()}
-            />
+          />
         ) : loadingCategories ? (
-          <MyText style={{marginTop: 60, textAlign: 'center', color: '#fff'}}>{lang.GLOBAL_LOADING}</MyText>
+          <MyText style={{ marginTop: 60, textAlign: 'center', color: '#fff' }}>{lang.GLOBAL_LOADING}</MyText>
         ) : (
           <FlatList
             key="B"
@@ -207,28 +204,28 @@ const SearchScreen: React.FC<Props> = (props) => {
               />
             }
             numColumns={2}
-            contentContainerStyle={{paddingBottom: 20, paddingTop: 50 }}
+            contentContainerStyle={{ paddingBottom: 20, paddingTop: 50 }}
             renderItem={(item: any) =>
               <CategoryItem
                 onAnimating={setAnimating}
                 index={item.index}
                 category={item.item}
                 onPress={() => setQuery(Tools.getLang(item.item.names, langId))}
-                />
+              />
             }
             ListEmptyComponent={() => (
               <ListEmpty
                 text={lang.HOME_EMPTY_TITLE}
                 subtext={lang.HOME_EMPTY_MESSAGE}
-                wrapperStyle={{marginTop: 0}}
+                wrapperStyle={{ marginTop: 0 }}
                 imageSize={120}
                 image={require('../../images/nocategories.png')}
                 btnTxt={lang.HOME_EMPTY_BTN}
                 onPressBtn={showFilters}
-                />
+              />
             )}
             keyExtractor={(item, index) => index.toString()}
-            />
+          />
         )}
       </FadeInView>
     </View>

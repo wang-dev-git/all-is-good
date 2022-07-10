@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { StyleSheet, Text, StatusBar, ScrollView, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
-import { Notifications } from 'expo'
-
+import { connect } from 'react-redux';
+import { StyleSheet, StatusBar, ScrollView, View, TouchableWithoutFeedback, Dimensions } from 'react-native';
+import * as Notifications from 'expo-notifications';
 import SearchScreen from '../Search/SearchScreen'
 import OrdersScreen from '../Orders/OrdersScreen'
 import ProfileScreen from '../Profile/ProfileScreen'
@@ -12,13 +11,9 @@ import ProNotifyScreen from '../ProNotify/ProNotifyScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 import { Actions } from 'react-native-router-flux'
-import { Fire, Stripe, Modal, Maps, Flash } from '../../services'
-
-import * as Permissions from 'expo-permissions'
-import * as Location from 'expo-location';
+import { Fire } from '../../services'
 
 import Icon from '@expo/vector-icons/FontAwesome'
-import AntIcon from '@expo/vector-icons/AntDesign'
 import Entypo from '@expo/vector-icons/Entypo'
 import Material from '@expo/vector-icons/MaterialCommunityIcons'
 
@@ -193,7 +188,7 @@ class TabsScreen extends React.Component<Props, State>  {
         this.setState({ booted: true })
     });
 
-    this.notifListener = Notifications.addListener(this.receivedNotif);
+    this.notifListener = Notifications.addNotificationReceivedListener(this.receivedNotif);
   }
 
   connect = async () => {

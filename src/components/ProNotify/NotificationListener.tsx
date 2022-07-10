@@ -5,7 +5,6 @@ import {
   NotificationAction,
 } from '../notification'
 import * as Notifications from 'expo-notifications'
-import * as Permissions from 'expo-permissions'
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -41,12 +40,12 @@ export const NotificationListener = () => {
 }
 
 async function getNotificationPermission(): Promise<boolean> {
-  const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+  const { status } = await Notifications.requestPermissionsAsync()
 
-  if (existingStatus !== Permissions.PermissionStatus.GRANTED) {
-    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  if (status !== 'granted') {
+    const { status } = await Notifications.requestPermissionsAsync()
 
-    if (status !== Permissions.PermissionStatus.GRANTED) {
+    if (status !== 'granted') {
       return false
     }
   }

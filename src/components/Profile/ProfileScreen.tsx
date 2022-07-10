@@ -4,13 +4,10 @@ import { StyleSheet, Text, View, Alert, ScrollView, Linking, TouchableOpacity } 
 
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, MyText , AssetImage, BottomButton, VeilView, PageLoader, SmallButton } from '../Reusable'
-import { Fire, Flash } from '../../services'
+import { HeaderBar, MyText, AssetImage, BottomButton, VeilView, PageLoader, SmallButton } from '../Reusable'
+import { Fire, Flash } from '../../services'
 
-import Constants from 'expo-constants';
-import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import * as MailComposer from 'expo-mail-composer';
 import Icon from '@expo/vector-icons/Entypo'
 
 import MenuLink from './MenuLink'
@@ -30,7 +27,7 @@ type State = {
 }
 
 class ProfileScreen extends React.Component<Props, State>  {
-  
+
   state = {
     uploading: false,
   }
@@ -50,19 +47,21 @@ class ProfileScreen extends React.Component<Props, State>  {
           onPress: () => void 0,
           style: 'cancel',
         },
-        {text: lang.GLOBAL_OK, onPress: () => {
-          this.props.logout()
-          Actions.pop()
-        }},
+        {
+          text: lang.GLOBAL_OK, onPress: () => {
+            this.props.logout()
+            Actions.pop()
+          }
+        },
       ],
     );
   }
 
   async editPicture() {
     const { lang } = this.props
-    const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== 'granted')
-      await Permissions.askAsync(Permissions.CAMERA_ROLL)
+      await ImagePicker.requestCameraPermissionsAsync();
 
     try {
       const result: any = await ImagePicker.launchImageLibraryAsync({
@@ -72,16 +71,16 @@ class ProfileScreen extends React.Component<Props, State>  {
       });
 
       if (!result.cancelled) {
-        const { user, updateUser } = this.props
+        const { user, updateUser } = this.props
 
         const uri = result.uri
         const location = 'images/users/' + user.id + '/profile_picture.png'
-        
+
         this.setState({ uploading: true })
         const uploadedURL = await Fire.uploadFile(location, uri)
 
         try {
-          await updateUser({pictures: [uploadedURL]})
+          await updateUser({ pictures: [uploadedURL] })
           Flash.show(lang.PROFILE_PICTURE_SAVED)
         } catch (err) {
           Flash.error(lang.GLOBAL_INTERNET)
@@ -103,11 +102,11 @@ class ProfileScreen extends React.Component<Props, State>  {
     Linking.openURL('https://www.instagram.com/allisgood.app/')
   }
 
-  showFacebook() {
+  showFacebook() {
     Linking.openURL('https://www.facebook.com/AllisGoodApp')
   }
 
-  showTwitter() {
+  showTwitter() {
     Linking.openURL('https://twitter.com/AllisGo03643362')
   }
 
@@ -122,11 +121,13 @@ class ProfileScreen extends React.Component<Props, State>  {
           onPress: () => void 0,
           style: 'cancel',
         },
-        {text: lang.PROFILE_HELP_BTN, onPress: () => {
-          Linking.openURL('https://allisgood-app.com/contact-us/')
-        }},
+        {
+          text: lang.PROFILE_HELP_BTN, onPress: () => {
+            Linking.openURL('https://allisgood-app.com/contact-us/')
+          }
+        },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
   }
 
@@ -140,16 +141,16 @@ class ProfileScreen extends React.Component<Props, State>  {
 
     if (!user) { return (null) }
 
-    const userPicture = user.pictures && user.pictures.length ? {uri: user.pictures[0]} : require('../../images/noimage.png')
+    const userPicture = user.pictures && user.pictures.length ? { uri: user.pictures[0] } : require('../../images/noimage.png')
 
     return (
       <View style={styles.container}>
         <HeaderBar
           logo
-          />
-        
-        <ScrollView style={styles.content} contentContainerStyle={{paddingBottom: 40}}>
-          
+        />
+
+        <ScrollView style={styles.content} contentContainerStyle={{ paddingBottom: 40 }}>
+
           <View style={styles.userInfo}>
             <View style={styles.pictureWrapper}>
               <TouchableOpacity onPress={() => this.editPicture()} style={styles.picture}>
@@ -157,7 +158,7 @@ class ProfileScreen extends React.Component<Props, State>  {
                   src={userPicture}
                   resizeMode='cover'
                   style={[mainStyle.abs, { transform: [{ scale: 1.7 }] }]}
-                  />
+                />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.editPicture()} style={styles.editPicture}>
                 <Icon name="edit" size={16} color='#fff' />
@@ -165,7 +166,7 @@ class ProfileScreen extends React.Component<Props, State>  {
             </View>
             <MyText style={styles.userName}>{user.first_name + ' ' + user.last_name}</MyText>
             <TouchableOpacity onPress={Actions.userInfo}>
-              <MyText style={styles.userEdit}>{this.props.lang.PROFILE_EDIT_BTN}</MyText>            
+              <MyText style={styles.userEdit}>{this.props.lang.PROFILE_EDIT_BTN}</MyText>
             </TouchableOpacity>
           </View>
 
@@ -174,9 +175,9 @@ class ProfileScreen extends React.Component<Props, State>  {
               icon='id-card'
               title={lang.PROFILE_INFO}
               right
-              
+
               onPress={Actions.userInfo}
-              />
+            />
             <MenuLink
               icon='credit-card-alt'
               iconSize={16}
@@ -184,15 +185,15 @@ class ProfileScreen extends React.Component<Props, State>  {
               right
 
               onPress={Actions.creditCards}
-              />
+            />
 
             <MenuLink
               icon='headphones'
               title={lang.PROFILE_HELP}
               right
-              
+
               onPress={() => this.help()}
-              />
+            />
             {/*
             <MenuLink
               icon='star'
@@ -207,49 +208,49 @@ class ProfileScreen extends React.Component<Props, State>  {
               icon='cog'
               title={lang.PROFILE_SETTINGS}
               right
-              
-              onPress={Actions.settings}
-              />
-           </View>
 
-           <View style={[styles.group, { marginTop: 40 }]}>
+              onPress={Actions.settings}
+            />
+          </View>
+
+          <View style={[styles.group, { marginTop: 40 }]}>
             <MenuLink
               icon='sign-out'
               title={lang.PROFILE_LOGOUT}
 
               onPress={() => this.logout()}
+            />
+          </View>
+
+          <View style={styles.join}>
+            <MyText style={styles.joinTxt}>{lang.PROFILE_JOIN_AIG}</MyText>
+            <View style={{ alignItems: 'center', marginTop: 18, }}>
+              <SmallButton
+                title={lang.PROFILE_JOIN_AIG_BTN}
+                onPress={() => this.becomePro()}
               />
-           </View>
+            </View>
+          </View>
 
-           <View style={styles.join}>
-             <MyText style={styles.joinTxt}>{lang.PROFILE_JOIN_AIG}</MyText>
-             <View style={{alignItems: 'center', marginTop: 18,}}>
-               <SmallButton
-                 title={lang.PROFILE_JOIN_AIG_BTN}
-                 onPress={() => this.becomePro()}
-                 />
-             </View>
-           </View>
+          <View style={[styles.nets]}>
+            <TouchableOpacity style={styles.net} onPress={() => this.showInsta()}>
+              <AssetImage src={require('../../images/insta_logo.png')} />
+            </TouchableOpacity>
 
-           <View style={[styles.nets]}>
-             <TouchableOpacity style={styles.net} onPress={() => this.showInsta()}>
-               <AssetImage src={require('../../images/insta_logo.png')} />
-             </TouchableOpacity>
+            <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
+              <AssetImage src={require('../../images/fb_logo.png')} />
+            </TouchableOpacity>
 
-             <TouchableOpacity style={styles.net} onPress={() => this.showFacebook()}>
-               <AssetImage src={require('../../images/fb_logo.png')} />
-             </TouchableOpacity>
-
-             <TouchableOpacity style={styles.net} onPress={() => this.showTwitter()}>
-               <AssetImage src={require('../../images/twitter_logo.png')} />
-             </TouchableOpacity>
-           </View>
+            <TouchableOpacity style={styles.net} onPress={() => this.showTwitter()}>
+              <AssetImage src={require('../../images/twitter_logo.png')} />
+            </TouchableOpacity>
+          </View>
         </ScrollView>
 
         <PageLoader
           title='Validation...'
           loading={uploading}
-          />
+        />
       </View>
     );
   }

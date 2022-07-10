@@ -6,10 +6,9 @@ import { Tools, Maps, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
-import { HeaderBar, FadeInView, MyText } from '../Reusable'
+import { HeaderBar, MyText } from '../Reusable'
 
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
 
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AntIcon from '@expo/vector-icons/AntDesign'
@@ -58,7 +57,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
   }, []);
 
   const _handleAppStateChange = async nextAppState => {
-    let { status } = await Permissions.getAsync(Permissions.LOCATION);
+    let { status } = await Location.requestBackgroundPermissionsAsync();
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({});
       const addr = await Maps.getAddress(location.coords.latitude, location.coords.longitude)

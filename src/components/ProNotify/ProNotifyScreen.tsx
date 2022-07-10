@@ -1,17 +1,16 @@
-import React, {useEffect, useState, useRef, useCallback} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, View, Text, Alert, Pressable, Modal, Linking, Button} from 'react-native';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { StyleSheet, View, Text, Alert, Pressable, Modal, Linking, Button } from 'react-native';
 
 import * as Notifications from 'expo-notifications';
-import * as Permissions from "expo-permissions"
-import { Actions } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 
 import Constants from 'expo-constants';
 
 import { mainStyle } from '../../styles'
 import { Fire } from '../../services'
 
-interface Props {}
+interface Props { }
 let dingListener = null
 
 Notifications.setNotificationHandler({
@@ -35,11 +34,10 @@ const ProNotifyScreen: React.FC<Props> = (props) => {
   const responseListener = useRef();
 
   useEffect(() => {
-    let self = this;
 
     listenForOrders();
     registerForPushNotificationsAsync().then(token => {
-      Fire.update('pros', user.id, {"expoPushToken": token})
+      Fire.update('pros', user.id, { "expoPushToken": token })
       setExpoPushToken(token)
     });
     // This listener is fired whenever a notification is received while the app is foregrounded
@@ -60,7 +58,7 @@ const ProNotifyScreen: React.FC<Props> = (props) => {
   }, [])
 
   const listenForOrders = () => {
-    if(dingListener != null) {
+    if (dingListener != null) {
       return;
     }
     const dingRef = Fire.store().collection('pros').doc(user.id).collection('last_orders').doc('last_order')
@@ -75,7 +73,7 @@ const ProNotifyScreen: React.FC<Props> = (props) => {
         // Disable modal
         //setShowNotify(true);
         // sendPushNotification(expoPushToken);
-      }else{
+      } else {
         setLastOrder(null)
 
       }
@@ -135,45 +133,45 @@ const ProNotifyScreen: React.FC<Props> = (props) => {
   }
 
   const NotifyNewOrderAlert = () => {
-    return(
-    Alert.alert(
-      "New order recieved",
-      "Order nr. - " + lastOrder.id,
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    )
+    return (
+      Alert.alert(
+        "New order recieved",
+        "Order nr. - " + lastOrder.id,
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      )
     )
   }
 
 
-const OpenURLButton = ({ url, children }) => {
-  const handlePress = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
+  const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+      // Checking if the link is supported for links with custom URL scheme.
+      const supported = await Linking.canOpenURL(url);
 
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
-  }, [url]);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+    }, [url]);
 
-  return (
-    <Button title="View Orders" onPress={handlePress} color="#fff"/>
-    // <Pressable
-    //   style={[styles.button, styles.buttonOrders]}
-    //   onPress={() => handlePress}
-    // >
-    //   <Text style={styles.buttonOrdersText}>View Orders</Text>
-    // </Pressable>
-  );
-};
+    return (
+      <Button title="View Orders" onPress={handlePress} color="#fff" />
+      // <Pressable
+      //   style={[styles.button, styles.buttonOrders]}
+      //   onPress={() => handlePress}
+      // >
+      //   <Text style={styles.buttonOrdersText}>View Orders</Text>
+      // </Pressable>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -220,14 +218,14 @@ const styles = StyleSheet.create({
   heading: {
     marginTop: 60,
     textAlign: "center",
-    fontSize:22,
+    fontSize: 22,
     color: "#fff",
     fontWeight: "bold"
   },
-  subText:{
+  subText: {
     marginTop: 10,
     textAlign: "center",
-    fontSize:22,
+    fontSize: 22,
     color: "#fff",
   },
   centeredView: {
@@ -262,14 +260,14 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2
   },
-  buttonOrders:{
+  buttonOrders: {
     backgroundColor: "#fff",
     padding: 20,
     width: 150,
     color: "#000",
     margin: "auto",
   },
-  buttonOrdersText:{
+  buttonOrdersText: {
     color: "#000",
     textAlign: "center",
     fontWeight: "bold",

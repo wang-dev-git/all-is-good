@@ -35,7 +35,7 @@ const reducers = persistCombineReducers(config, {
   cardsReducer,
   ordersReducer,
   langReducer,
-  
+
   modalReducer,
   loaderReducer,
 })
@@ -43,4 +43,10 @@ const reducers = persistCombineReducers(config, {
 
 const store = createStore(reducers, applyMiddleware(thunk))
 const persistor = persistStore(store)
+
+
+export type AppDispatch = typeof store.dispatch;
+
+export type RootState = ReturnType<typeof store.getState>
+
 export { store, persistor }

@@ -1,9 +1,7 @@
 import { createActionThunk } from 'redux-thunk-actions';
 import { handleActions } from 'redux-actions';
 
-import { AsyncStorage } from 'react-native'
 import Fire from '../services/Fire.service'
-import Cache from '../services/Cache.service'
 
 export const isInWishes = createActionThunk('IS_IN_WISHES', (pro: any, { getState }) => {
   const wishes = getState().wishesReducer.list

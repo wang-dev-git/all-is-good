@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import { StyleSheet, Text, StatusBar, ScrollView, View, TouchableOpacity, TouchableWithoutFeedback, Dimensions } from 'react-native';
-import { Notifications } from 'expo'
+import { Notifications } from 'expo'
 
 import SearchScreen from '../Search/SearchScreen'
 import OrdersScreen from '../Orders/OrdersScreen'
@@ -11,8 +11,8 @@ import MapScreen from '../Map/MapScreen'
 import ProNotifyScreen from '../ProNotify/ProNotifyScreen'
 
 import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { Actions } from 'react-native-router-flux'
-import { Fire, Stripe, Modal, Maps, Flash } from '../../services'
+import { Actions } from 'react-native-router-flux'
+import { Fire, Stripe, Modal, Maps, Flash } from '../../services'
 
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location';
@@ -31,7 +31,7 @@ import { refreshWishes } from '../../actions/wishes.action'
 import { loadCategories, loadSearchable, loadMap } from '../../actions/filters.action'
 import Cache from '../../services/Cache.service'
 
-import { NotifBubble, ListEmpty, AssetImage } from '../Reusable'
+import { NotifBubble, ListEmpty, AssetImage } from '../Reusable'
 import { mainStyle } from '../../styles'
 
 const tabColor = '#fff'
@@ -40,11 +40,11 @@ const routes = [
   {
     component: SearchScreen,
     renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="home" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="home" size={22} color={tabActiveColor} />
       </View>
     )
@@ -52,11 +52,11 @@ const routes = [
   {
     component: OrdersScreen,
     renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Entypo name="shopping-bag" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
         <Entypo name="shopping-bag" size={22} color={tabActiveColor} />
       </View>
     )
@@ -64,11 +64,11 @@ const routes = [
   {
     component: MapScreen,
     renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Material name="map-search" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
         <Material name="map-search" size={22} color={tabActiveColor} />
       </View>
     )
@@ -76,11 +76,11 @@ const routes = [
   {
     component: WishesScreen,
     renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="heart" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="heart-o" size={22} color={tabActiveColor} />
       </View>
     )
@@ -88,11 +88,11 @@ const routes = [
   {
     component: ProfileScreen,
     renderIcon: (active: boolean) => !active ? (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="user" size={22} color={tabColor} />
       </View>
     ) : (
-      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+      <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
         <Icon name="user-o" size={22} color={tabActiveColor} />
       </View>
     )
@@ -137,36 +137,6 @@ class TabsScreen extends React.Component<Props, State>  {
     var self = this
     this.props.updateLang(this.props.langId)
 
-    var docRef = Fire.store().collection("pros").doc(this.props.user.id)
-
-    docRef.get().then(function(doc) {
-      if (doc.exists) {
-        const res = {
-          id: doc.id,
-          ...doc.data()
-        }
-        if(res.id == self.props.user.id){
-
-          routes.push(  {
-            component: ProNotifyScreen,
-            renderIcon: (active: boolean) => !active ? (
-              <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
-                <Icon name="bell" size={22} color={tabColor} />
-              </View>
-            ) : (
-              <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
-                <Icon name="bell-o" size={22} color={tabActiveColor} />
-              </View>
-            )
-          })
-        }
-      }else {
-        console.log("No such document!");
-      }
-    }).catch(function(error) {
-      console.log("Error getting document:", error);
-    });
-
     Fire.auth().onAuthStateChanged(async (user: any) => {
       if (user) {
         if (this.state.booted)
@@ -183,20 +153,47 @@ class TabsScreen extends React.Component<Props, State>  {
           Actions.userInfo({ forced: true })
         }
 
-        /*setTimeout(() => {
-          this.savePushToken(user.uid)
-        }, 1000)*/
+        if (this.props.user) {
+          var docRef = Fire.store().collection("pros").doc(this.props.user.id)
+          docRef.get().then(function (doc) {
+            if (doc.exists) {
+              const res = {
+                id: doc.id,
+                ...doc.data()
+              }
+              if (res.id == self.props.user.id) {
+
+                routes.push({
+                  component: ProNotifyScreen,
+                  renderIcon: (active: boolean) => !active ? (
+                    <View style={{ ...mainStyle.circle(52), backgroundColor: 'transparent', ...mainStyle.row, justifyContent: 'center' }}>
+                      <Icon name="bell" size={22} color={tabColor} />
+                    </View>
+                  ) : (
+                    <View style={{ ...mainStyle.circle(52), backgroundColor: tabColor, ...mainStyle.row, justifyContent: 'center' }}>
+                      <Icon name="bell-o" size={22} color={tabActiveColor} />
+                    </View>
+                  )
+                })
+              }
+            } else {
+              console.log("No such document!");
+            }
+          }).catch(function (error) {
+            console.log("Error getting document:", error);
+          });
+        }
       }
       else {
         this.props.autologin(null)
-        Actions.landing()
+        Actions.push('landing')
       }
 
       if (!this.state.booted)
         this.setState({ booted: true })
     });
 
-     this.notifListener = Notifications.addListener(this.receivedNotif);
+    this.notifListener = Notifications.addListener(this.receivedNotif);
   }
 
   connect = async () => {
@@ -265,7 +262,7 @@ class TabsScreen extends React.Component<Props, State>  {
     const Route = item.component
     const isCurrent = this.props.tab == index
     return (
-      <View key={index} style={{flex: 1, ...mainStyle.abs, opacity: isCurrent ? 1 : 0}} pointerEvents={isCurrent ? 'auto': 'none'}>
+      <View key={index} style={{ flex: 1, ...mainStyle.abs, opacity: isCurrent ? 1 : 0 }} pointerEvents={isCurrent ? 'auto' : 'none'}>
         <Route />
       </View>
     )
@@ -278,31 +275,31 @@ class TabsScreen extends React.Component<Props, State>  {
       <View style={styles.container}>
         <StatusBar barStyle='light-content' />
         {/* Content */}
-        { (user && booted) ? (
+        {(user && booted) ? (
           <View style={styles.content}>
             {routes.map((item, index) => this.renderRoute(item, index))}
           </View>
         ) : loading ? (
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <AssetImage style={{width: 40, height: 40}} src={require('../../images/loader.gif')} />
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <AssetImage style={{ width: 40, height: 40 }} src={require('../../images/loader.gif')} />
           </View>
         ) : error === true ? (
           <ScrollView scrollEnabled={false} contentContainerStyle={{ paddingTop: 80 }}>
             <ListEmpty
               text={lang.NO_INTERNET_TITLE}
               subtext={lang.NO_INTERNET_MSG}
-              wrapperStyle={{marginTop: 40}}
+              wrapperStyle={{ marginTop: 40 }}
               imageSize={120}
               image={require('../../images/noconnection.png')}
               btnTxt={lang.NO_INTERNET_BTN}
               onPressBtn={connect}
-              />
+            />
           </ScrollView>
         ) : (null)}
 
         {/* TabBar */}
         <View style={styles.tabs}>
-          { routes.map((item, index) => this.renderTabBarItem(item, index))}
+          {routes.map((item, index) => this.renderTabBarItem(item, index))}
         </View>
       </View>
     );
@@ -314,7 +311,7 @@ class TabsScreen extends React.Component<Props, State>  {
     const isSelected = this.isSelected(index)
     let count = 0
     //if (index == 3)
-      //count = wishes ? wishes.length : 0
+    //count = wishes ? wishes.length : 0
     return (
       <TouchableWithoutFeedback key={index} onPress={() => this.selectTab(index)}>
         <View style={[styles.tab, isSelected ? {} : {}]}>

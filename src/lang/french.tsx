@@ -27,7 +27,7 @@ export default {
   LANDING_CONNECT_EMAIL: "Se connecter",
   LANDING_CONNECT_FB: "Connexion Facebook",
   LANDING_CONNECT_GOOGLE: "Connexion Google",
-  LANDING_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de All is Good",
+  LANDING_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de Always Good",
 
   // Home
   HOME_SEARCH_AGAIN: 'Nouvelle recherche',
@@ -64,7 +64,7 @@ export default {
   LOGIN_ALREADY_REGISTERED: 'Vous avez déjà un compte ?',
   LOGIN_NOT_REGISTERED: 'Pas encore inscrit ?',
   LOGIN_FORGOT_PASSWORD: 'Mot de passe oublié ?',
-  LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de All is Good.",
+  LOGIN_CONDITIONS: "En vous inscrivant, vous acceptez nos conditions générales d'utilisation et de vente de Always Good.",
   LOGIN_ERR_CONDITIONS: "Vous devez lire et accepter nos conditoins d'utilisation",
   LOGIN_ERR_ALL_FIELDS: 'Veuillez remplir tous les champs SVP',
   LOGIN_ERR_CONFIRM_PASSWORD: "Les mots de passes ne correspondent pas",
@@ -96,7 +96,7 @@ export default {
   PROFILE_LOGOUT_CONFIRM: 'Êtes-vous sûr de vouloir vous déconnecter ?',
   PROFILE_JOIN_AIG: 'Vous possédez un magasin ?\nRejoignez-nous pour réduire le gaspillage',
   PROFILE_JOIN_AIG_BTN: 'Devenir partenaire',
-  
+
   USER_INFO_TITLE: 'Mes coordonnées',
   USER_INFO_EMAIL: 'Email',
   USER_INFO_FIRST_NAME: 'Prénom',
@@ -136,7 +136,7 @@ export default {
   SETTINGS_LANG: "Langues",
   SETTINGS_NOTIFS: "Notifications",
   SETTINGS_NOTIFS_ORDERS: "Status des commandes",
-  SETTINGS_NOTIFS_AIG: "News de All is Good",
+  SETTINGS_NOTIFS_AIG: "News de Always Good",
 
   // Pro
   PRO_TO_SAVE: '%COUNT% à sauver',
@@ -179,7 +179,7 @@ export default {
   PAYMENT_METHOD_REQUIRED: 'Vous devez sélectionner un moyen de paiement',
   PAYMENT_CONDITIONS_REQUIRED: 'Vous devez accepter les conditions de commande en cochant la case',
   PAYMENT_GOT_IT: "J'ai compris !",
-  PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de All is Good',
+  PAYMENT_LEGAL: 'En réservant ce panier, tu confirmes avoir pris connaissance des différents allergènes ainsi qu\'avoir lu les Conditions Générales d’utilisation de Always Good',
   PAYMENT_NEXT: 'Continuer',
   PAYMENT_CONFIRM: 'Payer',
   PAYMENT_VIEW_ORDER: 'Voir ma commande',
@@ -206,7 +206,7 @@ export default {
 
   // Add Card
   ADD_CARD_TITLE: 'Ajouter une carte',
-  ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par All is Good',
+  ADD_CARD_LEGAL: 'Vos informations bancaires ne sont pas enregistrées ou conservées par Always Good',
   ADD_CARD_CONFIRM: 'Valider',
   ADD_CARD_LOADING: 'Vérification...',
   ADD_CARD_ADDED: 'Carte ajoutée!',

@@ -6,7 +6,7 @@ export default class FacebookService {
 
   // Login to facebook
   static async login() {
-    await Facebook.initializeAsync(AppConfig.facebookId, "All is Good")
+    await Facebook.initializeAsync(AppConfig.facebookId, "Always Good")
     const loginRes = await Facebook.logInWithReadPermissionsAsync({
       permissions: ['public_profile', 'email'],
     });

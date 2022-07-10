@@ -5,11 +5,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './src/store'
 import { Provider } from 'react-redux'
 
-import Routing from './src/Routing'
-import { Fire } from './src/services'
+import Routing from './src/Routing' 
 import { mainStyle } from './src/styles'
-
-Fire.init()
+ 
 
 LogBox.ignoreLogs(['Warning: `flexWrap: `wrap`` ']);
 LogBox.ignoreLogs(['Setting a timer'])

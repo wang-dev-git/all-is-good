@@ -27,7 +27,7 @@ export default {
   LANDING_CONNECT_EMAIL: "Email login",
   LANDING_CONNECT_FB: "Connect with Facebook",
   LANDING_CONNECT_GOOGLE: "Connect with Google",
-  LANDING_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of All is Good.",
+  LANDING_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of Always Good.",
 
   // Home
   HOME_SEARCH_AGAIN: 'New search',
@@ -63,7 +63,7 @@ export default {
   LOGIN_ALREADY_REGISTERED: 'Already registered?',
   LOGIN_NOT_REGISTERED: 'Create an account',
   LOGIN_FORGOT_PASSWORD: 'Forgotten password?',
-  LOGIN_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of All is Good.",
+  LOGIN_CONDITIONS: "By registering, you are accepting the conditions of term and use & privacy policy of Always Good.",
   LOGIN_ERR_CONDITIONS: "You must first accept our conditons of use",
   LOGIN_ERR_ALL_FIELDS: 'Please fill-in all the fields',
   LOGIN_ERR_CONFIRM_PASSWORD: "Passwords do not match",
@@ -93,7 +93,7 @@ export default {
   PROFILE_HELP_BTN: "View website",
   PROFILE_LOGOUT: "Logout",
   PROFILE_LOGOUT_CONFIRM: 'Are you sure you want to log out?',
-  PROFILE_JOIN_AIG: 'Shop owner?\nJoin All is Good to reduce food waste',
+  PROFILE_JOIN_AIG: 'Shop owner?\nJoin Always Good to reduce food waste',
   PROFILE_JOIN_AIG_BTN: 'Become partner',
 
   USER_INFO_TITLE: 'My information',
@@ -135,7 +135,7 @@ export default {
   SETTINGS_LANG: "Languages",
   SETTINGS_NOTIFS: "Notifications",
   SETTINGS_NOTIFS_ORDERS: "Orders status changes",
-  SETTINGS_NOTIFS_AIG: "News from All is Good",
+  SETTINGS_NOTIFS_AIG: "News from Always Good",
 
   // Pro
   PRO_TO_SAVE: '%COUNT% to save',
@@ -177,7 +177,7 @@ export default {
   PAYMENT_METHOD_REQUIRED: 'You must choose a payment method',
   PAYMENT_CONDITIONS_REQUIRED: 'You must accept our conditions by checking the box',
   PAYMENT_GOT_IT: "I got it!",
-  PAYMENT_LEGAL: 'By ordering this bucket you confirm you have checked the allergens and accepted the conditions of use of All is Good',
+  PAYMENT_LEGAL: 'By ordering this bucket you confirm you have checked the allergens and accepted the conditions of use of Always Good',
   PAYMENT_NEXT: 'Next',
   PAYMENT_CONFIRM: 'Pay',
   PAYMENT_VIEW_ORDER: 'View my order',
@@ -204,7 +204,7 @@ export default {
 
   // Add Card
   ADD_CARD_TITLE: 'Add a credit card',
-  ADD_CARD_LEGAL: 'Your financial information are never stored or used by All is Good',
+  ADD_CARD_LEGAL: 'Your financial information are never stored or used by Always Good',
   ADD_CARD_CONFIRM: 'Confirm',
   ADD_CARD_LOADING: 'Verification...',
   ADD_CARD_ADDED: 'Card successfully added!',

@@ -2,21 +2,15 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, Keyboard, AppState, Text, Image, FlatList, View, Platform, TouchableOpacity, ScrollView, TouchableWithoutFeedback, StatusBar, Dimensions, TextInput } from 'react-native';
 
-import { Fire, Modal, Tools, Maps, AppConfig } from '../../services'
+import { Tools, Maps, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
-
-import SearchBar from '../Search/SearchBar'
-import MapItem from './MapItem'
-import MapBubble from './MapBubble'
-import FiltersModal from '../Search/FiltersModal'
 
 import { HeaderBar, FadeInView, MyText } from '../Reusable'
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
-import Icon from '@expo/vector-icons/FontAwesome'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AntIcon from '@expo/vector-icons/AntDesign'
 
@@ -31,12 +25,12 @@ interface Props {
   onSelect: (address: any) => void;
 }
 const AddressesScreen: React.FC<Props> = (props) => {
-  
+
   const [appState, setAppState] = React.useState(AppState.currentState);
   const [search, setSearch] = React.useState('')
   const [selectedAddress, selectAddress] = React.useState(null)
   const [currentAddress, setCurrentAddress] = React.useState(null)
-  const { addresses, clearAddresses } = useAddresses(search)
+  const { addresses, clearAddresses } = useAddresses(search)
 
   const user = useSelector(state => state.authReducer.user)
   const lang = useSelector(state => state.langReducer.lang)
@@ -75,7 +69,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
     setAppState(nextAppState);
   };
 
-  const renderCurrent = () => {
+  const renderCurrent = () => {
     const testAddr = {
       geometry: {
         location: {
@@ -88,47 +82,47 @@ const AddressesScreen: React.FC<Props> = (props) => {
 
     return (
       <React.Fragment>
-      <TouchableOpacity
-        style={styles.address}
-        onPress={() => {
-          if (currentAddress) {
-            props.onSelect(currentAddress);
-            Actions.pop()
-          } else {
-            Tools.showSettings()
-          }
-        }}
-        >
-        <MaterialIcons name="place" size={19} />
-        <View style={{flex: 1}}>
-          <MyText style={[styles.addressTxt, {marginBottom: 4}]}>{lang.ADDRESSES_CURRENT_LOCATION}</MyText>
-          <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{currentAddress ? currentAddress.formatted_address : lang.ADDRESSES_CLICK_FOR_SETTINGS}</MyText>
-        </View>
-      </TouchableOpacity>
-      { !AppConfig.isProd() &&
         <TouchableOpacity
           style={styles.address}
           onPress={() => {
-            props.onSelect(testAddr);
-            Actions.pop()
+            if (currentAddress) {
+              props.onSelect(currentAddress);
+              Actions.pop()
+            } else {
+              Tools.showSettings()
+            }
           }}
-          >
+        >
           <MaterialIcons name="place" size={19} />
-          <View style={{flex: 1}}>
-            <MyText style={[styles.addressTxt, {marginBottom: 4}]}>TEST ADDRESS</MyText>
-            <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{testAddr.formatted_address}</MyText>
+          <View style={{ flex: 1 }}>
+            <MyText style={[styles.addressTxt, { marginBottom: 4 }]}>{lang.ADDRESSES_CURRENT_LOCATION}</MyText>
+            <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{currentAddress ? currentAddress.formatted_address : lang.ADDRESSES_CLICK_FOR_SETTINGS}</MyText>
           </View>
         </TouchableOpacity>
-      }
+        {!AppConfig.isProd() &&
+          <TouchableOpacity
+            style={styles.address}
+            onPress={() => {
+              props.onSelect(testAddr);
+              Actions.pop()
+            }}
+          >
+            <MaterialIcons name="place" size={19} />
+            <View style={{ flex: 1 }}>
+              <MyText style={[styles.addressTxt, { marginBottom: 4 }]}>TEST ADDRESS</MyText>
+              <MyText style={[styles.addressTxt, { color: mainStyle.lightColor }]}>{testAddr.formatted_address}</MyText>
+            </View>
+          </TouchableOpacity>
+        }
       </React.Fragment>
     )
   }
 
   const renderAddress = (address: any) => {
     return (
-      <TouchableOpacity style={styles.address} onPress={() => {props.onSelect(address); Actions.pop()}}>
+      <TouchableOpacity style={styles.address} onPress={() => { props.onSelect(address); Actions.pop() }}>
         <MaterialIcons name="place" size={19} />
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <MyText style={[styles.addressTxt]}>{address.formatted_address}</MyText>
         </View>
       </TouchableOpacity>
@@ -141,24 +135,24 @@ const AddressesScreen: React.FC<Props> = (props) => {
       <HeaderBar
         title={props.title}
         back
-        />
+      />
       <View>
         <TextInput
           value={search}
           style={styles.search}
           placeholder={lang.ADDRESSES_PLACEHOLDER}
           onChange={(evt) => setSearch(evt.nativeEvent.text)}
-          />
-        { search.length > 0 &&
+        />
+        {search.length > 0 &&
           <TouchableOpacity style={styles.clearIcon} onPress={() => setSearch('')}>
             <AntIcon name="close" color='#000' size={16} />
           </TouchableOpacity>
         }
       </View>
       <FlatList
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         data={addresses}
-        contentContainerStyle={{paddingBottom: 20, paddingTop: 0,}}
+        contentContainerStyle={{ paddingBottom: 20, paddingTop: 0, }}
         renderItem={({ item }) => renderAddress(item)}
         ListHeaderComponent={() => renderCurrent()}
         ListEmptyComponent={() => (
@@ -167,7 +161,7 @@ const AddressesScreen: React.FC<Props> = (props) => {
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
-        />
+      />
     </View>
   );
 }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "234727941894",
+    "firebase_url": "https://all-is-good-cd01a.firebaseio.com",
+    "project_id": "all-is-good-cd01a",
+    "storage_bucket": "all-is-good-cd01a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234727941894:android:0e4c64b15bc13970646087",
+        "android_client_info": {
+          "package_name": "com.alwaysgood.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234727941894-i7327th1kvk1ia40alerp7dvbs2f4jr6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alwaysgood.app",
+            "certificate_hash": "eee9d9cfb62fa38af6684c8954aa9763eb0e4a17"
+          }
+        },
+        {
+          "client_id": "234727941894-493op105i767f2na32hff677ld80fjuq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP8OgU_OtJ_Kwfq4S6klq14TYqAQow4LM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234727941894-493op105i767f2na32hff677ld80fjuq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "234727941894-ggnsp9t0lt3vg3uglse0fa1idk377sjf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alwaysgood.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

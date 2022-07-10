@@ -8,7 +8,7 @@ import Stripe from 'react-native-stripe-api';
 
 import { HeaderBar, MyText, TitledInput, SmallButton, PageLoader, KeyboardScrollView } from '../Reusable'
 import { Actions } from 'react-native-router-flux'
-import { Fire, Flash, AppConfig } from '../../services'
+import { Fire, Flash, AppConfig } from '../../services'
 
 import { addCard } from '../../actions/cards.action'
 
@@ -29,7 +29,7 @@ type State = {
 }
 
 class AddCardScreen extends React.Component<Props, State>  {
-  
+
   state = {
     card: {},
     loading: false,
@@ -45,7 +45,7 @@ class AddCardScreen extends React.Component<Props, State>  {
   }
 
   async proceed() {
-    const { lang } = this.props
+    const { lang } = this.props
     this.setState({ loading: true })
     try {
       const newCard = await this.createNewCard()
@@ -67,7 +67,7 @@ class AddCardScreen extends React.Component<Props, State>  {
     const { card } = this.state
 
     const values = card.values
-    
+
     const token = await this.requestStripeToken(values)
     const cardId = await Fire.cloud('addCard', { token: token.id })
     const newCards = await addCard({
@@ -93,37 +93,38 @@ class AddCardScreen extends React.Component<Props, State>  {
 
     return await client.createToken({
       number: card.number,
-      exp_month: month, 
-      exp_year: year, 
+      exp_month: month,
+      exp_year: year,
       cvc: card.cvc,
     });
   }
 
   render() {
-    const { card, loading } = this.state
+    const { card, loading } = this.state
     const { lang } = this.props
+
     return (
       <View style={styles.container}>
         <HeaderBar
           title={lang.ADD_CARD_TITLE}
           back
-          />
-        <KeyboardScrollView contentContainerStyle={{paddingTop: 30, paddingBottom: 20}}>
+        />
+        <KeyboardScrollView contentContainerStyle={{ paddingTop: 30, paddingBottom: 20 }}>
           <CreditCardInput
             color={"blue"}
             ref="CCInput"
             onChange={(form: any) => this.onChange(form)}
             cardImageFront={require('../../images/cards/front.jpeg')}
             cardImageBack={require('../../images/cards/back.jpeg')}
-            />
+          />
 
 
-          <View style={{marginTop: 40, alignItems: 'center'}}>
-          <SmallButton
-            title={lang.ADD_CARD_CONFIRM}
-            disabled={!card.valid}
+          <View style={{ marginTop: 40, alignItems: 'center' }}>
+            <SmallButton
+              title={lang.ADD_CARD_CONFIRM}
+              disabled={!card.valid}
 
-            onPress={() => this.proceed()}
+              onPress={() => this.proceed()}
             />
           </View>
 
@@ -133,7 +134,7 @@ class AddCardScreen extends React.Component<Props, State>  {
         <PageLoader
           title={lang.ADD_CARD_LOADING}
           loading={loading}
-          />
+        />
       </View>
     );
   }

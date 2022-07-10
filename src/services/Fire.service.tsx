@@ -1,13 +1,19 @@
 
-import * as firebase from 'firebase';
-import '@firebase/firestore';
-import '@firebase/functions'
-import '@firebase/storage'
+import firebaseApp from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/functions'
+import 'firebase/storage'
 
 import AppConfig from './AppConfig.service'
+import * as Crypto from 'expo-crypto';
 import * as geofirex from 'geofirex';
 
-import * as Crypto from 'expo-crypto';
+if (!firebaseApp.apps || !firebaseApp.apps.length) {
+  firebaseApp.initializeApp(AppConfig.get().firebaseOptions);
+}
+
+export const firebase = firebaseApp
 
 export default class Fire {
 
@@ -16,10 +22,7 @@ export default class Fire {
   // Initialize Firebase
   static init() {
     if (!firebase.apps || !firebase.apps.length) {
-
-      firebase.initializeApp(AppConfig.get().firebaseOptions);
-      const functions = firebase.functions();
-      functions.useFunctionsEmulator("http://8e7115abd314.ngrok.io");
+      // @ts-ignore
       this.geo = geofirex.init(firebase);
     }
   }
@@ -161,7 +164,7 @@ export default class Fire {
   }
 
   // Retrieve date from timestamp
-  static getDateFor(timestamp: firebase.firestore.Timestamp){
+  static getDateFor(timestamp: firebase.firestore.Timestamp) {
     if (timestamp.toDate)
       return timestamp.toDate()
     return new Date()

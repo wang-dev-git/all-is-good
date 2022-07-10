@@ -7,7 +7,7 @@ export default class Stripe {
 
   static async getToken(data: any = {}) {
     const apiKey = AppConfig.get().stripeAPIKey
-    let formBody: any[] = [];
+    let formBody: any[] | string = [];
     for (var property in data) {
       var encodedKey = encodeURIComponent(property);
       var encodedValue = encodeURIComponent(data[property]);
@@ -31,7 +31,7 @@ export default class Stripe {
     const phone = this.extractPhone(data.phone)
     const payload = {
       "account[business_type]": "individual",
-      "account[individual][first_name]": data.first_name, 
+      "account[individual][first_name]": data.first_name,
       "account[individual][last_name]": data.last_name,
       "account[individual][email]": data.email,
       "account[individual][phone]": phone,

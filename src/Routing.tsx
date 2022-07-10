@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Libs
 import { Router, Stack, Scene, Modal } from 'react-native-router-flux'
-import { View, Dimensions, Image } from 'react-native';
+import { View, Image } from 'react-native';
 
 import FlashMessage from 'react-native-flash-message'
 import ModalContainer from './components/Modal/ModalContainer'
@@ -24,14 +24,12 @@ import AddCardScreen from './components/AddCard/AddCardScreen'
 import ProScreen from './components/Pro/ProScreen'
 import LoaderWrapper from './components/Loader/LoaderWrapper'
 
-
 import ProNotify from './components/ProNotify/ProNotifyScreen'
 
-import { mainStyle } from './styles'
-
 import { Asset } from 'expo-asset'
-import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font'
+
+import * as Splash from 'expo-splash-screen';
 
 function cacheImages(images: any[]) {
   return images.map(image => {
@@ -46,15 +44,9 @@ function cacheFonts(fonts) {
   return fonts.map(font => Font.loadAsync(font));
 }
 
-interface Props {}
-interface State {}
-export default class Routing extends React.Component<Props, State> {
+const Routing = () => {
 
-  state = {
-    loaded: false
-  }
-
-  async loadPictures() {
+  const loadPictures = async () => {
     const imageAssets = cacheImages([
       require('./images/noimage.png'),
       require('./images/noconnection.png'),
@@ -119,59 +111,55 @@ export default class Routing extends React.Component<Props, State> {
     await Promise.all([...imageAssets, ...fontAssets]);
   }
 
-  render() {
-    if (!this.state.loaded) {
-      return (
-        <AppLoading
-          startAsync={this.loadPictures}
-          onFinish={() => this.setState({loaded: true})}
-          onError={() => alert('Erreur de lancement')}
-          />
-      )
-    }
+  useEffect(() => {
+    Splash.preventAutoHideAsync()
+    loadPictures().then(() => {
+      Splash.hideAsync()
+    })
+  }, [])
 
-    return (
-      <View style={{flex: 1}}>
-        { /** Routes **/ }
-        <Router>
-          <Modal>
-            <Stack key="root" hideNavBar>
+  return (
+    <View style={{ flex: 1 }}>
+      { /** Routes **/}
+      <Router>
+        <Modal>
+          <Stack key="root" hideNavBar>
+            <Scene key="tabs" component={TabsScreen} />
+            <Scene key="proNotify" component={ProNotify} />
 
-              <Scene key="tabs" component={TabsScreen} />
-              <Scene key="proNotify" component={ProNotify} />
+            <Scene key="profile" component={ProfileScreen} />
+            <Scene key="pro" component={ProScreen} />
 
-              <Scene key="profile" component={ProfileScreen} />
-              <Scene key="pro" component={ProScreen} />
+            <Scene key="addresses" component={AddressesScreen} />
+            <Scene key="userInfo" component={UserInfoScreen} />
+            <Scene key="wishes" component={WishesScreen} />
+            <Scene key="creditCards" component={CreditCardsScreen} />
+            <Scene key="addCard" component={AddCardScreen} />
+            <Scene key="settings" component={SettingsScreen} />
+          </Stack>
 
-              <Scene key="addresses" component={AddressesScreen} />
-              <Scene key="userInfo" component={UserInfoScreen} />
-              <Scene key="wishes" component={WishesScreen} />
-              <Scene key="creditCards" component={CreditCardsScreen} />
-              <Scene key="addCard" component={AddCardScreen} />
-              <Scene key="settings" component={SettingsScreen} />
+          <Stack key="landing" hideNavBar>
+            <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
+            <Scene key="login" component={LoginScreen} hideNavBar />
+            <Scene key="forgot" component={ForgotScreen} hideNavBar />
+          </Stack>
+        </Modal>
+      </Router>
 
-            </Stack>
-            <Stack key="landing">
-              <Scene key="landing" panHandlers={null} component={LandingScreen} hideNavBar modal />
-              <Scene key="login" component={LoginScreen} hideNavBar />
-              <Scene key="forgot" component={ForgotScreen} hideNavBar />
-            </Stack>
-          </Modal>
-        </Router>
+      { /** Flash Messages **/}
+      <FlashMessage
+        position="top"
+        floating={true}
+        hideStatusBar
+      />
+      { /** Global Loader **/}
+      <ModalContainer id='filters' />
+      <ModalContainer id='rating' />
 
-        { /** Flash Messages **/ }
-        <FlashMessage
-          position="top"
-          floating={true}
-          hideStatusBar
-          />
-        { /** Global Loader **/ }
-        <ModalContainer id='filters' />
-        <ModalContainer id='rating' />
-
-        { /** Global Loader **/ }
-        <LoaderWrapper />
-      </View>
-    )
-  }
+      { /** Global Loader **/}
+      <LoaderWrapper />
+    </View>
+  )
 }
+
+export default Routing

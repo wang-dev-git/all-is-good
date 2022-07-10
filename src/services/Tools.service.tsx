@@ -6,7 +6,7 @@ import { Platform, Linking } from 'react-native'
 import Fire from './Fire.service'
 
 export default class Tools {
-  
+
   static shouldOrderBePaid(order: any) {
     const referenceDate = Fire.getDateFor(order.createdAt)
     const start = order.delivery ? order.pro.delivery_start : order.pro.pick_up_start
@@ -15,7 +15,7 @@ export default class Tools {
     referenceDate.setMinutes(Number(info[1]))
     referenceDate.setSeconds(0)
     const now = new Date()
-    return referenceDate.getTime() < now.getTime() 
+    return referenceDate.getTime() < now.getTime()
   }
 
   // Get geohash for given position-level pair
@@ -30,7 +30,7 @@ export default class Tools {
       level = 4
     return ngeohash.encode(pos.lat, pos.lng, level)
   }
-  
+
   static getRoundedDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     return Number(this.getDistance(lat1, lon1, lat2, lon2, unit)).toFixed(1)
   }
@@ -49,7 +49,7 @@ export default class Tools {
       case "fr":
         return precision(distance, prec) + " km"
         break;
-      
+
       default:
         return precision(distance, prec) + " mi"
         break;
@@ -57,30 +57,30 @@ export default class Tools {
   }
 
   static kmToMiles(km: number) {
-     return 0.62137 * km
+    return 0.62137 * km
   }
 
   static milesToKm(miles: number) {
-     return miles / 0.62137
+    return miles / 0.62137
   }
 
   // Get distance between two points
   static getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: 'K' | 'M' | 'N' = 'K') {
     if ((lat1 == lat2) && (lon1 == lon2))
       return 0;
-    
-    const radlat1 = Math.PI * lat1/180;
-    const radlat2 = Math.PI * lat2/180;
-    const theta = lon1-lon2;
-    const radtheta = Math.PI * theta/180;
+
+    const radlat1 = Math.PI * lat1 / 180;
+    const radlat2 = Math.PI * lat2 / 180;
+    const theta = lon1 - lon2;
+    const radtheta = Math.PI * theta / 180;
     let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
     if (dist > 1)
       dist = 1;
     dist = Math.acos(dist);
-    dist = dist * 180/Math.PI;
+    dist = dist * 180 / Math.PI;
     dist = dist * 60 * 1.1515;
-    if (unit=="K") { dist = dist * 1.609344 }
-    if (unit=="N") { dist = dist * 0.8684 }
+    if (unit == "K") { dist = dist * 1.609344 }
+    if (unit == "N") { dist = dist * 0.8684 }
     return dist; // Rounding because we don't care about meters
   }
 
@@ -101,7 +101,7 @@ export default class Tools {
     if (Platform.OS === 'android') {
       try {
         const pkg = Constants.manifest.releaseChannel ? Constants.manifest.android.package : "host.exp.exponent";
-        await IntentLauncher.startActivityAsync(IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS, { data: "package:" + pkg });
+        await IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.APPLICATION_DETAILS_SETTINGS, { data: "package:" + pkg });
       } catch (err) {
         console.warn(err)
         alert("Rendez-vous dans les réglages de votre téléphone pour activer les notifications")
@@ -137,7 +137,7 @@ export default class Tools {
     const now = new Date()
     const day = now.getDay()
     const shifted = day === 0 ? 6 : day - 1
-    const days = pro.open_days || []
+    const days = pro.open_days || []
     const closed = !days.includes(shifted)
     return closed
   }

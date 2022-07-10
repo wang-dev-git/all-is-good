@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4.apps.googleusercontent.com</string>
+	<string>234727941894-ggnsp9t0lt3vg3uglse0fa1idk377sjf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.467075255307-eh5vm2tf5397ruc7lgc8qpo9uvp9qrg4</string>
+	<string>com.googleusercontent.apps.234727941894-ggnsp9t0lt3vg3uglse0fa1idk377sjf</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>234727941894-663caeuqp3s6h7643f49803tj62lm91k.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD4GqaUBB2iZ3h4rsnHvcFkg0vq_QAt_uo</string>
+	<string>AIzaSyDTADGY_VJMKs76T-ZKw8uJgTVxG3zaWPk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>467075255307</string>
+	<string>234727941894</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.allisgood.com</string>
+	<string>com.alwaysgood.app</string>
 	<key>PROJECT_ID</key>
-	<string>all-is-good-dev</string>
+	<string>all-is-good-cd01a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>all-is-good-dev.appspot.com</string>
+	<string>all-is-good-cd01a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:467075255307:ios:4c42462d75e575c2460b0e</string>
+	<string>1:234727941894:ios:9799180945ec902b646087</string>
 	<key>DATABASE_URL</key>
-	<string>https://all-is-good-dev.firebaseio.com</string>
+	<string>https://all-is-good-cd01a.firebaseio.com</string>
 </dict>
 </plist>

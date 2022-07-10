@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, ScrollView, Dimensions } from 'react-native';
 
 import { HeaderBar, TitledInput, MyText, BottomButton, SmallButton, PageLoader, CheckBox } from '../Reusable'
-import { Fire, Flash, AppConfig } from '../../services'
+import { Fire, Flash, AppConfig } from '../../services'
 
 import { Actions } from 'react-native-router-flux'
 
-import Icon from '@expo/vector-icons/FontAwesome'
-
-import { saveName } from '../../actions/auth.action'
+import { saveName } from '../../actions/auth.action'
 import { mainStyle } from '../../styles'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 
 interface Props {
   lang: any;
@@ -27,7 +25,7 @@ interface State {
 }
 
 class LoginScreen extends React.Component<Props, State>  {
-  
+
   state = {
     user: {
       email: AppConfig.isProd() ? '' : 'julien.brunet.92@gmail.com',
@@ -51,7 +49,7 @@ class LoginScreen extends React.Component<Props, State>  {
 
   async proceed() {
     const { lang } = this.props
-    const { user, registering, checked } = this.state
+    const { user, registering, checked } = this.state
 
     const email = user.email.trim()
 
@@ -83,10 +81,12 @@ class LoginScreen extends React.Component<Props, State>  {
         this.props.saveName({ email: email, first_name: user.first_name, last_name: user.last_name, phone: user.phone || '' })
         await Fire.auth().createUserWithEmailAndPassword(email, password)
       }
-      else
+      else {
         await Fire.auth().signInWithEmailAndPassword(email, password)
-
+        Actions.push('root')
+      }
     } catch (err) {
+      console.log(err)
       switch (err.code) {
         case "auth/invalid-email":
           Flash.error(lang.LOGIN_ERR_INVALID_EMAIL)
@@ -95,7 +95,7 @@ class LoginScreen extends React.Component<Props, State>  {
         case "auth/user-not-found":
           Flash.error(lang.LOGIN_ERR_USER_NOT_FOUND)
           break;
-        
+
         case "auth/wrong-password":
           Flash.error(lang.LOGIN_ERR_WRONG_PASSWORD)
           break;
@@ -118,13 +118,14 @@ class LoginScreen extends React.Component<Props, State>  {
 
   render() {
     const { lang } = this.props
-    const { user, registering, loading } = this.state
+    const { user, registering, loading } = this.state
+
     return (
       <View style={styles.container}>
         <HeaderBar
           title={registering ? lang.LOGIN_REGISTER_TITLE : lang.LOGIN_TITLE}
           back
-          />
+        />
         <KeyboardAwareScrollView>
 
           <MyText type='bold' style={styles.welcome}>{registering ? lang.LOGIN_REGISTER_MESSAGE : lang.LOGIN_MESSAGE}</MyText>
@@ -136,7 +137,7 @@ class LoginScreen extends React.Component<Props, State>  {
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('email', nativeEvent.text)}
-            />
+          />
 
           <TitledInput
             secure
@@ -146,9 +147,9 @@ class LoginScreen extends React.Component<Props, State>  {
             autocorrect={false}
 
             onChange={({ nativeEvent }) => this.onChange('password', nativeEvent.text)}
-            />
+          />
 
-          { registering &&
+          {registering &&
             <View>
               <TitledInput
                 secure
@@ -158,7 +159,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('confirm', nativeEvent.text)}
-                />
+              />
               <TitledInput
                 title={lang.LOGIN_FIRST_NAME}
                 value={user.first_name}
@@ -166,7 +167,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('first_name', nativeEvent.text)}
-                />
+              />
               <TitledInput
                 title={lang.LOGIN_LAST_NAME}
                 value={user.last_name}
@@ -174,7 +175,7 @@ class LoginScreen extends React.Component<Props, State>  {
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('last_name', nativeEvent.text)}
-                />
+              />
               <TitledInput
                 title={lang.LOGIN_PHONE + ' (' + lang.GLOBAL_OPTIONAL + ')'}
                 value={user.phone}
@@ -182,31 +183,31 @@ class LoginScreen extends React.Component<Props, State>  {
                 autocorrect={false}
 
                 onChange={({ nativeEvent }) => this.onChange('phone', nativeEvent.text)}
-                />
+              />
 
               <CheckBox
                 active={this.state.checked}
                 title={lang.LOGIN_CONDITIONS}
-                onPress={() => this.setState({checked: !this.state.checked})}
+                onPress={() => this.setState({ checked: !this.state.checked })}
                 onTapText={() => Linking.openURL('https://allisgood-app.com/terms')}
-                />
-             </View>
-           }
+              />
+            </View>
+          }
 
-          <View style={{paddingTop: 20, paddingBottom: 12, alignItems: 'center'}}>
+          <View style={{ paddingTop: 20, paddingBottom: 12, alignItems: 'center' }}>
             <SmallButton
               title={lang.LOGIN_BTN_TXT}
               onPress={() => this.proceed()}
-              />
+            />
           </View>
 
           <View style={styles.switcher}>
-            { !registering &&
+            {!registering &&
               <TouchableOpacity onPress={Actions.forgot}>
                 <MyText style={styles.switcherTxt}>{lang.LOGIN_FORGOT_PASSWORD}</MyText>
               </TouchableOpacity>
             }
-            <TouchableOpacity onPress={() => this.setState({registering: !registering})}>
+            <TouchableOpacity onPress={() => this.setState({ registering: !registering })}>
               <MyText style={styles.switcherTxt}>{registering ? lang.LOGIN_ALREADY_REGISTERED : lang.LOGIN_NOT_REGISTERED}</MyText>
             </TouchableOpacity>
           </View>
@@ -215,7 +216,7 @@ class LoginScreen extends React.Component<Props, State>  {
         <PageLoader
           title={lang.GLOBAL_LOADING}
           loading={loading || this.state.sending}
-          />
+        />
       </View>
     );
   }

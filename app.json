@@ -1,13 +1,10 @@
 {
   "expo": {
-    "name": "All is Good",
-    "slug": "All-Is-Good",
+    "name": "Always Good",
+    "slug": "Always-Good",
+    "scheme": "alwaysgood",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,9 +15,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "plugins": [
       [
         "expo-notifications",
@@ -34,47 +29,41 @@
     "ios": {
       "usesAppleSignIn": true,
       "supportsTablet": false,
-      "bundleIdentifier": "com.allisgood.app",
-      "googleServicesFile": "./keys/GoogleService-prod.plist",
+      "bundleIdentifier": "com.alwaysgood.app",
+      "googleServicesFile": "./keys/GoogleService-info.plist",
+      "buildNumber": "3",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
         "NSLocationWhenInUseUsageDescription": "Find restaurants around you",
         "NSPhotoLibraryUsageDescription": "Add a profile picture to your account",
         "NSCameraUsageDescription": "Take a picture to add to your profile",
         "CFBundleURLTypes": {
-          "CFBundleURLSchemes": [
-            "fb2609459805809503"
-          ]
+          "CFBundleURLSchemes": ["fb2609459805809503"]
         },
         "FacebookAppId": "2609459805809503",
-        "FacebookDisplayName": "AllIsGood",
-        "LSApplicationQueriesSchemes": [
-          "fbapi",
-          "fb-messenger-share-api",
-          "fbauth2",
-          "fbshareextension"
-        ]
+        "FacebookDisplayName": "AlwaysGood",
+        "LSApplicationQueriesSchemes": ["fbapi", "fb-messenger-share-api", "fbauth2", "fbshareextension"]
       },
       "config": {
         "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.1039569656278-jhc5iqcvlisu3k5i0jodogq0pb8juft1"
+          "reservedClientId": "com.googleusercontent.apps.234727941894-k7qnch3q495hp46kve92jhiggocfjo09"
         }
       }
     },
     "android": {
-      "package": "com.allisgood.app",
-      "googleServicesFile": "./keys/google-prod.json",
+      "package": "com.alwaysgood.app",
+      "googleServicesFile": "./keys/google-services.json",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds"
         }
       },
-      "versionCode": 121,
+      "versionCode": 1,
       "useNextNotificationsApi": true
     },
-    "version": "1.2.1",
+    "version": "1.0.0",
     "facebookAppId": "2609459805809503",
     "facebookScheme": "fb2609459805809503",
-    "facebookDisplayName": "All is Good"
+    "facebookDisplayName": "Always Good"
   }
 }

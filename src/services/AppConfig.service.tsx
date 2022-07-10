@@ -1,4 +1,4 @@
-import Constants from 'expo-constants'
+import Constants from 'expo-constants'
 
 type Environment = {
   searchId: string;
@@ -35,14 +35,13 @@ export default class AppConfig {
       searchSecret: 'gLQa+KeDqk1W1L3SiAg8w5/r20kLp4Lw2gBYNBsd',
       stripeAPIKey: 'pk_test_yh5IzAEMtyw6mdm2Bzzh5VRV00zvoP4wsq',
       firebaseOptions: {
-        apiKey: "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds",
-        authDomain: "all-is-good-prod.firebaseapp.com",
-        databaseURL: "https://all-is-good-prod.firebaseio.com",
-        projectId: "all-is-good-prod",
-        storageBucket: "all-is-good-prod.appspot.com",
-        messagingSenderId: "1039569656278",
-        appId: "1:1039569656278:web:f034aaef5395c99242ac77",
-        measurementId: "G-9WC0Q75J2R"
+        apiKey: 'AIzaSyD_X9jW8-os50OfOPxa_l2I-HrLDfh8mm4',
+        authDomain: 'all-is-good-cd01a.firebaseapp.com',
+        databaseURL: 'https://all-is-good-cd01a.firebaseio.com',
+        projectId: 'all-is-good-cd01a',
+        storageBucket: 'all-is-good-cd01a.appspot.com',
+        messagingSenderId: '234727941894',
+        appId: '1:234727941894:web:16a53a15fbca6c6b646087',
       },
     },
     // Production configuration
@@ -51,14 +50,13 @@ export default class AppConfig {
       searchSecret: '',
       stripeAPIKey: 'pk_live_47m8CICYtroXZAGB3M2nZHYj00BVpO9G9r',
       firebaseOptions: {
-        apiKey: "AIzaSyB7zLRgccH8E9oNBmtME_lan7zAkI2P3ds",
-        authDomain: "all-is-good-prod.firebaseapp.com",
-        databaseURL: "https://all-is-good-prod.firebaseio.com",
-        projectId: "all-is-good-prod",
-        storageBucket: "all-is-good-prod.appspot.com",
-        messagingSenderId: "1039569656278",
-        appId: "1:1039569656278:web:f034aaef5395c99242ac77",
-        measurementId: "G-9WC0Q75J2R"
+        apiKey: 'AIzaSyD_X9jW8-os50OfOPxa_l2I-HrLDfh8mm4',
+        authDomain: 'all-is-good-cd01a.firebaseapp.com',
+        databaseURL: 'https://all-is-good-cd01a.firebaseio.com',
+        projectId: 'all-is-good-cd01a',
+        storageBucket: 'all-is-good-cd01a.appspot.com',
+        messagingSenderId: '234727941894',
+        appId: '1:234727941894:web:16a53a15fbca6c6b646087',
       }
     }
   }

@@ -1,12 +1,16 @@
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { StyleProp, ViewStyle } from 'react-native';
+interface MainStyles {
+  [key: string]: StyleProp<ViewStyle> | any;
+}
 
-export const mainStyle = {
+export const mainStyle: MainStyles = {
   // Colors
   themeGradient: { start: '#628e6b', end: '#628e6b' },
   themeColor: 'rgb(98, 142, 107)', // old: 'rgb(64, 192, 164)'
   themeColorAlpha: (alpha: string) => {
     return 'rgba(98, 142, 107, ' + alpha + ')'
-  }, 
+  },
   lightColor: '#6E6E6E',
   darkColor: '#263238',
   redColor: '#E25464',
@@ -51,7 +55,7 @@ export const mainStyle = {
 
   phonePaddingBottom: ifIphoneX({
     paddingBottom: 40,
-  },{
+  }, {
     paddingBottom: 20,
   }).paddingBottom,
 

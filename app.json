@@ -31,7 +31,7 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.alwaysgood.app",
       "googleServicesFile": "./keys/GoogleService-info.plist",
-      "buildNumber": "4",
+      "buildNumber": "5",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
         "NSLocationWhenInUseUsageDescription": "Find restaurants around you",
